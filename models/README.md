@@ -1,6 +1,8 @@
 # The AI Surface Model and its fragments
 
-There is one model: the **AI Surface Model**. **Lab**, **Bench**, **Experiment**
+There is one model: the **AI Surface Model**.
+
+**Lab**, **Bench**, **Experiment**
 and related descriptions are **fragments** within it. A fragment describes a
 focused part of the system or its context and connects to other fragments
 through identities and references.
