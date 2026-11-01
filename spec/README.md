@@ -1,4 +1,4 @@
-# Draft model concepts
+# Draft AI Surface Model concepts
 
 This is a conceptual starting point, not a released normative specification.
 The JSON examples illustrate possible shapes; field names and serialization
