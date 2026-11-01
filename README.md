@@ -73,6 +73,7 @@ They are not dependencies of this initial repository. See the
 
 ## Start here
 
+- [How Lab, Bench, Experiment and AI Surface Model fit together](models/README.md)
 - [Draft concepts and open decisions](spec/README.md)
 - [Examples at different depths](examples/README.md)
 - [Interoperability research](docs/interoperability.md)
