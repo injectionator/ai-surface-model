@@ -1,0 +1,154 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: Apache-2.0
+# Adapted from the n8r-june flow done helper for AI Surface Model.
+# See CONTRIBUTING.md for the issue / branch / draft PR workflow.
+
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage: ./scripts/flow <command>
+
+Commands:
+  done    Verify merged PR, update main, delete the current local branch
+  help    Show this help
+
+Run done from a clean, completed feature branch after its PR is merged.
+Requires Git, Bash and authenticated GitHub CLI (gh), with network access.
+Only the current local branch is deleted. No PR merge or remote deletion.
+EOF
+}
+
+done_failure() {
+  local branch="$1"
+  local message="$2"
+  local checkout
+  checkout=$(git symbolic-ref --short HEAD 2>/dev/null || echo "detached HEAD")
+  echo "Error: $message" >&2
+  echo "Cleanup incomplete. Current checkout: $checkout" >&2
+  if git show-ref --verify --quiet "refs/heads/$branch"; then
+    echo "Local branch retained: $branch" >&2
+  else
+    echo "Local branch missing: $branch" >&2
+  fi
+  exit 1
+}
+
+require_clean_tree() {
+  local status
+  if ! status=$(git status --porcelain --untracked-files=all --ignore-submodules=none); then
+    done_failure "$1" "could not inspect the working tree."
+  fi
+  if [ -n "$status" ]; then
+    done_failure "$1" "you have uncommitted or untracked work; preserve it before cleanup."
+  fi
+}
+
+cmd_done() {
+  local branch
+  if ! branch=$(git symbolic-ref --short HEAD 2>/dev/null); then
+    echo "Error: run from a Git checkout on a feature branch, not detached HEAD." >&2
+    exit 1
+  fi
+  case "$branch" in
+    main|master) done_failure "$branch" "run done from the completed feature branch." ;;
+  esac
+  require_clean_tree "$branch"
+  if ! command -v gh >/dev/null 2>&1; then
+    done_failure "$branch" "GitHub CLI (gh) is required; see https://cli.github.com."
+  fi
+
+  local origin_url
+  if ! origin_url=$(git remote get-url origin); then
+    done_failure "$branch" "no origin remote is configured."
+  fi
+
+  # Bind the query to origin, even when GH_REPO or a gh default points elsewhere.
+  local pr_data pr_number pr_state pr_draft pr_head pr_head_oid pr_base pr_fork merge_oid pr_url
+  if ! pr_data=$(gh pr view "$branch" --repo "$origin_url" \
+    --json number,state,isDraft,headRefName,headRefOid,baseRefName,isCrossRepository,mergeCommit,url \
+    --jq '[.number,.state,.isDraft,.headRefName,.headRefOid,.baseRefName,.isCrossRepository,(.mergeCommit.oid // ""),.url] | join("|")'); then
+    done_failure "$branch" "could not read the pull request; check gh authentication, network and branch."
+  fi
+  IFS='|' read -r pr_number pr_state pr_draft pr_head pr_head_oid pr_base pr_fork merge_oid pr_url <<< "$pr_data"
+
+  if [[ ! "$pr_number" =~ ^[0-9]+$ ]]; then
+    done_failure "$branch" "pull request metadata is incomplete."
+  fi
+  if [ "$pr_head" != "$branch" ]; then
+    done_failure "$branch" "PR #$pr_number head branch does not match $branch."
+  fi
+  if [ "$pr_draft" != "false" ]; then
+    done_failure "$branch" "PR #$pr_number is a draft or its draft status is unknown."
+  fi
+  if [ "$pr_state" != "MERGED" ]; then
+    done_failure "$branch" "PR #$pr_number is not merged (state: $pr_state)."
+  fi
+  if [ "$pr_base" != "main" ]; then
+    done_failure "$branch" "PR #$pr_number base is not main."
+  fi
+  if [ "$pr_fork" != "false" ]; then
+    done_failure "$branch" "PR #$pr_number is from a fork or its repository is unknown."
+  fi
+  if [ "$pr_head_oid" != "$(git rev-parse HEAD)" ]; then
+    done_failure "$branch" "local tip does not match PR #$pr_number head commit; local work may differ."
+  fi
+  if [[ ! "$merge_oid" =~ ^([0-9a-f]{40}|[0-9a-f]{64})$ ]]; then
+    done_failure "$branch" "PR #$pr_number did not report a valid merge commit."
+  fi
+
+  echo "Fetching origin/main to verify PR #$pr_number..."
+  if ! git fetch --no-tags origin refs/heads/main:refs/remotes/origin/main; then
+    done_failure "$branch" "failed to fetch origin/main; merge status could not be verified."
+  fi
+  local main_oid
+  main_oid=$(git rev-parse refs/remotes/origin/main)
+  if ! git merge-base --is-ancestor "$merge_oid" "$main_oid"; then
+    done_failure "$branch" "PR #$pr_number merge commit is not present on origin/main."
+  fi
+  if ! git show-ref --verify --quiet refs/heads/main; then
+    done_failure "$branch" "local main does not exist."
+  fi
+  if ! git merge-base --is-ancestor refs/heads/main "$main_oid"; then
+    done_failure "$branch" "local main cannot fast-forward to origin/main."
+  fi
+
+  # Recheck after network calls, before changing the checkout.
+  require_clean_tree "$branch"
+  if [ "$(git symbolic-ref --short HEAD)" != "$branch" ] || \
+     [ "$(git rev-parse HEAD)" != "$pr_head_oid" ]; then
+    done_failure "$branch" "the checkout changed during verification; retry after other Git work finishes."
+  fi
+  echo "Switching to main and fast-forwarding..."
+  if ! git checkout --no-overwrite-ignore main; then
+    done_failure "$branch" "failed to check out main."
+  fi
+  if ! git merge --ff-only --no-squash --no-overwrite-ignore --no-autostash "$main_oid"; then
+    done_failure "$branch" "failed to fast-forward main; the completed branch is retained."
+  fi
+  if [ "$(git symbolic-ref --short HEAD)" != "main" ] || \
+     [ "$(git rev-parse HEAD)" != "$main_oid" ]; then
+    done_failure "$branch" "main did not reach the verified origin/main commit."
+  fi
+  require_clean_tree "$branch"
+  if [ "$(git rev-parse "refs/heads/$branch")" != "$pr_head_oid" ]; then
+    done_failure "$branch" "branch tip changed during cleanup; it will not be deleted."
+  fi
+
+  # Squash/rebase merges do not retain feature ancestry. The exact PR head and
+  # its merge's presence on main were verified above before permitting -D.
+  if ! git branch -D "$branch"; then
+    done_failure "$branch" "failed to delete local branch $branch."
+  fi
+  echo "Done. PR #$pr_number is merged on main; $branch was deleted locally."
+}
+
+if [ "$#" -ne 1 ]; then
+  usage >&2
+  exit 2
+fi
+case "$1" in
+  done) cmd_done ;;
+  help|-h|--help) usage ;;
+  *) usage >&2; exit 2 ;;
+esac

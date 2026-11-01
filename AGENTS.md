@@ -12,8 +12,9 @@ independently of Injection8r or any particular lab product.
 
 The repository currently contains conceptual documentation and synthetic JSON
 examples. There is no released schema, validator, exporter or deployment engine,
-and no configured build, lint or test suite. Tooling will be added as the model
-develops; do not assume a language, package manager or framework has been chosen.
+and no model build, lint or conformance suite. The repository's Git workflow
+helper has its own offline tests; this does not choose a language, package
+manager or framework for future model tooling.
 
 Read [README.md](README.md), [CONTRIBUTING.md](CONTRIBUTING.md) and the files relevant
 to the task before editing:
@@ -69,6 +70,12 @@ Workspace and publication rules:
 - When handing work back, link the issue and PR, identify the branch and commit,
   report checks and remaining work, and distinguish pushed work from merged work.
 
+After a confirmed merge, use `./scripts/flow done` from the completed branch when
+the user has authorized cleanup. It verifies the PR and exact local tip, updates
+`main` by fast-forward, and deletes only that local branch. Do not bypass a
+refusal with a reset, stash or forced deletion. Follow the
+[cleanup prerequisites and failure handling](CONTRIBUTING.md#cleanup-after-a-merge).
+
 ## Preserve the model's meaning
 
 - Keep partial descriptions useful. Distinguish known, unknown, omitted, redacted,
@@ -117,6 +124,17 @@ Workspace and publication rules:
   Add directory-specific guidance only when a tool needs different conventions.
 
 ## Checks before handing work back
+
+For changes to the Git workflow helper, run its shell syntax check and offline
+integration suite from the repository root (Bash, Git and Python 3.9+ required):
+
+```sh
+bash -n scripts/flow
+python3 -m unittest discover -s tests -v
+```
+
+The tests use temporary Git repositories and a stub for GitHub; they do not
+require credentials or network access. See [tests/test_flow.py](tests/test_flow.py).
 
 For documentation and examples, run `git diff --check`, check changed Markdown
 links and anchors, and review consistency with the draft semantics. Check new
