@@ -31,11 +31,6 @@ or a defined revision-history mechanism. Revision and digest rules remain open.
 
 ## Questions to try against the descriptions
 
-For a composition covering application, database and inference, see the
-[basic LibreChat reference Surface](librechat/basic/README.md). It uses a
-[provisional exchange shape](../spec/native-draft.md) for experimental consumers;
-the authentication examples above remain independent illustrative descriptions.
-
 - Which component provides authentication to LibreChat?
 - Is its version known, unknown or deliberately withheld?
 - Which settings describe the integration, and which are still missing?
@@ -54,5 +49,16 @@ Neither example contains executable deployment instructions, data snapshots or
 evidence of a running integration. A recipient would need versioned artifacts,
 correct product-specific settings, credentials and local deployment bindings.
 
+The n8r-labs [Ken and Jacqui scenario](../docs/n8r-labs-use-case.md#ken-and-jacqui-a-synthetic-example)
+illustrates sharing a desired description and what a recipient still needs to
+recreate it and collect their own Run evidence.
+
 The JSON files use [Apache-2.0](../LICENSE); this explanation uses
 [CC-BY-4.0](../LICENSE-DOCS). See the [licence boundaries](../LICENSING.md).
+
+## Labs, Experiments and independent models
+
+The [illustrative relationship example](relationships/README.md) distinguishes
+Lab-owned Benches and their Experiments from independently reusable Surface
+Models. It shows selection during preparation and the Lab-managed bindings that
+connect a Surface to deployment resources, without describing application internals.

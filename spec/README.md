@@ -80,6 +80,11 @@ flowchart LR
 
 ## Experiments and recreation
 
+Surface definitions exist independently of Experiments. Preparing an Experiment
+can select an existing definition revision without taking ownership of it.
+Separate deployment bindings connect described components to concrete resources;
+the model itself neither binds resources nor applies configuration.
+
 A Run should refer to an immutable definition revision and digest, plus the
 deployment and effective setup used. Definition revision identity and digest
 canonicalization are open design work. A definition digest alone does not prove
@@ -93,6 +98,10 @@ Recreation can need software artifacts, deployment recipes, data fixtures,
 environment requirements and credential requirements. Reference sensitive values
 through requirements or placeholders. A recipient supplies local bindings.
 The model does not itself execute a recipe or guarantee artifact availability.
+
+For one consumer's approach, see how n8r-labs keeps
+[definitions, bindings and evidence separate](../docs/n8r-labs-use-case.md#definitions-bindings-and-evidence-stay-separate).
+Its ownership and execution rules are specific to n8r-labs.
 
 ## Interoperability
 

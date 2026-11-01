@@ -1,6 +1,8 @@
 # Draft roadmap
 
 The first milestone is an explainable model with examples of a real n8r-labs project.
+The [n8r-labs use case](n8r-labs-use-case.md) describes that consumer's approach,
+with a synthetic sharing scenario and explicit limits on its current capabilities.
 
 This list is a research and design sequence, not a release commitment.
 

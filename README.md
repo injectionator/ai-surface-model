@@ -14,6 +14,22 @@ relationships of an AI surface at varying levels of detail.
 draft concepts, synthetic examples and interoperability research questions.
 There is no released schema, validator, exporter or deployment engine yet.
 
+## Latest changes
+
+<!-- Keep up to three recent additions, newest first. Retain permanent links in
+Start here or the relevant documentation when entries rotate out. -->
+
+- [Illustrative Lab and model relationships](examples/relationships/README.md):
+  independent Surface Models selected for Experiments, with deployment resources
+  connected through Lab-managed bindings.
+- [n8r-labs structure and control flow](docs/n8r-labs-structure.md):
+  the Lab, Bench and Experiment hierarchy, with setup requests flowing back
+  through their assistants and the AI Surface Model supplying configuration data.
+- [How n8r-labs uses AI Surface Models](docs/n8r-labs-use-case.md):
+  a worked use case showing Experiment-owned setups, Lab-local bindings
+  and Run evidence, with a synthetic sharing scenario and explicit
+  implementation limits.
+
 ## What the AI Surface Model is for
 
 The AI Surface Model evolved from the private [Injection8r](https://injection8r.com) project.
@@ -48,6 +64,12 @@ in the Injection8r Labs.
 The model is usable independently of Injection8r or any particular Lab product.
 Security investigation is one use; reproducibility, configuration understanding
 and general experimentation are equally relevant.
+
+## Is this only for development?
+
+Today, yes. The n8r-labs workflow and examples here are for development. We are
+designing the AI Surface Model for use with production systems too; that is a
+future direction, not current production support or verified readiness.
 
 ## Progressive detail
 
@@ -97,8 +119,9 @@ They are not dependencies of this initial repository. See the
 ## Start here
 
 - [Draft concepts and open decisions](spec/README.md)
+- [n8r-labs structure and control flow](docs/n8r-labs-structure.md)
+- [How n8r-labs uses AI Surface Models](docs/n8r-labs-use-case.md)
 - [Examples at different depths](examples/README.md)
-- [Basic LibreChat reference setup](examples/librechat/basic/README.md)
 - [Interoperability research](docs/interoperability.md)
 - [Roadmap](docs/roadmap.md)
 - [Contributing](CONTRIBUTING.md)

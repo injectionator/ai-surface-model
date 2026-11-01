@@ -1,0 +1,98 @@
+{
+  "exampleOnly": true,
+  "schemaStatus": "Illustrative relationships only; not an application storage, API or deployment format.",
+  "labs": [
+    {
+      "id": "lab-a",
+      "name": "Example Lab A",
+      "benches": [
+        {
+          "id": "bench-a",
+          "experiments": [
+            {"id": "experiment-a", "name": "Explore a chat Surface"}
+          ]
+        }
+      ],
+      "deploymentResources": [
+        {"id": "resource-a", "description": "Illustrative chat deployment A"}
+      ],
+      "bindings": [
+        {
+          "id": "binding-a",
+          "preparationRef": "preparation-a",
+          "componentRef": "component-chat",
+          "resourceRef": "resource-a"
+        }
+      ]
+    },
+    {
+      "id": "lab-b",
+      "name": "Example Lab B",
+      "benches": [
+        {
+          "id": "bench-b",
+          "experiments": [
+            {"id": "experiment-b", "name": "Explore the same Surface description elsewhere"}
+          ]
+        }
+      ],
+      "deploymentResources": [
+        {"id": "resource-b", "description": "Illustrative chat deployment B"}
+      ],
+      "bindings": [
+        {
+          "id": "binding-b",
+          "preparationRef": "preparation-b",
+          "componentRef": "component-chat",
+          "resourceRef": "resource-b"
+        }
+      ]
+    }
+  ],
+  "surfaceModels": [
+    {
+      "id": "model-chat",
+      "name": "Independent chat Surface description",
+      "revisions": [
+        {
+          "id": "model-chat-r1",
+          "components": [
+            {"id": "component-chat", "kind": "application"}
+          ],
+          "coverage": {
+            "scope": "one application role",
+            "omitted": ["supporting components", "connections", "configuration"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "model-unselected",
+      "name": "Independent description not selected by an Experiment",
+      "revisions": [
+        {
+          "id": "model-unselected-r1",
+          "components": [
+            {"id": "component-other", "kind": "application"}
+          ],
+          "coverage": {
+            "scope": "one application role",
+            "omitted": ["supporting components", "connections", "configuration"]
+          }
+        }
+      ]
+    }
+  ],
+  "preparations": [
+    {
+      "id": "preparation-a",
+      "experimentRef": "experiment-a",
+      "surfaceModelRevisionRef": "model-chat-r1"
+    },
+    {
+      "id": "preparation-b",
+      "experimentRef": "experiment-b",
+      "surfaceModelRevisionRef": "model-chat-r1"
+    }
+  ]
+}
