@@ -8,6 +8,17 @@ Open an issue for a use case, modeling question, interoperability finding or
 proposal. Pull requests should explain the problem, the proposed semantics and
 what information remains unknown.
 
+## Issue, branch and pull request workflow
+
+Use one primary issue, a dedicated branch such as `docs/123-model-links`, and one
+matching draft PR for each delivery task. Work in the existing checkout and
+preserve unrelated changes. Link the PR with `Closes #123`, record the relevant
+checks, and keep it draft until review readiness is approved. Merge, release and
+deployment are separate decisions.
+
+The [Git workflow in AGENTS.md](AGENTS.md#git-workflow) gives the full branch,
+workspace and publication rules, including the prohibition on Git worktrees.
+
 ## Contribution principles
 
 - Keep partial descriptions useful. Do not require unrelated detail for a task.
