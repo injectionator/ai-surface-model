@@ -81,7 +81,12 @@ refusal with a reset, stash or forced deletion. Follow the
 - There is one model: the AI Surface Model. Lab, Bench, Experiment and related
   descriptions are fragments within it; never present them as separate models.
   Fragment is working terminology; its boundaries and serialization remain open.
+  Use plain names such as Lab and Bench in prose and diagrams rather than
+  repeating fragment in each label.
   AI models such as language models are components described by the model.
+- A Lab contains Benches. A Bench specifies what it needs and asks its Lab to
+  configure resources; the Lab is responsible for that configuration. Keep
+  requests distinct from evidence of the effective setup actually provided.
 - Keep partial descriptions useful. Distinguish known, unknown, omitted, redacted,
   absent and out-of-scope information; missing detail does not establish absence.
 - Preserve component identity as detail grows. Allow shared components, cycles and

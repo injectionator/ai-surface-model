@@ -13,10 +13,16 @@ and references. It can describe the system, its working context or evidence
 about its use.
 
 Fragment is working terminology, not a defined file format or packaging unit.
-Fragment boundaries and serialization remain open. Definitions, deployments,
+Boundaries and serialization remain open. Definitions, deployments,
 observations and Runs retain their separate meanings and histories within the
-same model. Describing one fragment does not require describing every other
-fragment. See the [fragments guide](../models/README.md).
+same model. A useful description need not include every part. See the
+[introductory guide](../models/README.md).
+
+A Lab contains Benches. Each Bench specifies the resources and configuration
+it needs and asks its Lab to configure them. The Lab is responsible for resource
+configuration; the request mechanism remains open. Requested settings are
+declarations, distinct from deployment bindings and dated evidence of the
+effective setup. These responsibilities do not imply an implemented executor.
 
 ## Purpose and scope
 
