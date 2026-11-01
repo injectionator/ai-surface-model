@@ -98,6 +98,7 @@ They are not dependencies of this initial repository. See the
 
 - [Draft concepts and open decisions](spec/README.md)
 - [Examples at different depths](examples/README.md)
+- [Basic LibreChat reference setup](examples/librechat/basic/README.md)
 - [Interoperability research](docs/interoperability.md)
 - [Roadmap](docs/roadmap.md)
 - [Contributing](CONTRIBUTING.md)

@@ -1,11 +1,12 @@
 # Draft roadmap
 
-The first milestone is an explainable model demonstrated on concrete questions.
+The first milestone is an explainable model with examples of a real n8r-labs project.
+
 This list is a research and design sequence, not a release commitment.
 
-1. Develop representative cases: inference, external authentication, tools and
+1. Explore common, representative cases: inference, external authentication, tools and
    downstream data, with both minimal and expanded descriptions.
-2. Settle entity identity, relationships, partial knowledge and configuration
+2. Develop entity identity, relationships, partial knowledge and configuration
    semantics before freezing field names.
 3. Define a small native serialization and validation rules that accept useful
    partial descriptions.

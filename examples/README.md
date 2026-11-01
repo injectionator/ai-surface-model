@@ -31,6 +31,11 @@ or a defined revision-history mechanism. Revision and digest rules remain open.
 
 ## Questions to try against the descriptions
 
+For a composition covering application, database and inference, see the
+[basic LibreChat reference Surface](librechat/basic/README.md). It uses a
+[provisional exchange shape](../spec/native-draft.md) for experimental consumers;
+the authentication examples above remain independent illustrative descriptions.
+
 - Which component provides authentication to LibreChat?
 - Is its version known, unknown or deliberately withheld?
 - Which settings describe the integration, and which are still missing?

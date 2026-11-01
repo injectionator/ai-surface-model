@@ -1,0 +1,12 @@
+{
+  "exampleOnly": true,
+  "surfaceId": "surface:librechat-basic",
+  "definitionRevision": "basic-1",
+  "bindings": [
+    {"componentId": "component:librechat", "resourceId": "recipient-chat"},
+    {"componentId": "component:database", "resourceId": "recipient-database"},
+    {"componentId": "component:provider", "resourceId": "recipient-bridge"},
+    {"componentId": "component:inference", "resourceId": "recipient-inference"}
+  ],
+  "note": "Resource IDs are synthetic recipient-local references. A mapping does not prove compatibility, configuration, reachability or exercised behavior. Credential values are excluded."
+}
