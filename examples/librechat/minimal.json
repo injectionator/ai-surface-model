@@ -1,0 +1,52 @@
+{
+  "exampleOnly": true,
+  "schemaStatus": "illustrative; field names and serialization are not standardized",
+  "surface": {
+    "id": "surface:librechat-example",
+    "name": "LibreChat authentication example"
+  },
+  "coverage": {
+    "scope": "authentication path within a larger AI Surface",
+    "completeness": "partial",
+    "unexplored": [
+      "inference",
+      "other application dependencies"
+    ]
+  },
+  "components": [
+    {
+      "id": "component:librechat",
+      "kind": "application",
+      "name": "LibreChat",
+      "version": {
+        "status": "unknown"
+      }
+    },
+    {
+      "id": "component:authentication",
+      "kind": "service",
+      "role": "authentication",
+      "product": {
+        "status": "unknown"
+      },
+      "version": {
+        "status": "unknown"
+      },
+      "configuration": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "relationship:authentication",
+      "from": "component:librechat",
+      "to": "component:authentication",
+      "kind": "uses-identity",
+      "basis": "synthetic declaration",
+      "integration": {
+        "status": "unknown"
+      }
+    }
+  ]
+}

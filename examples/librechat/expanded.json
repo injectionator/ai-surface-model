@@ -1,0 +1,122 @@
+{
+  "exampleOnly": true,
+  "schemaStatus": "illustrative; field names and serialization are not standardized",
+  "surface": {
+    "id": "surface:librechat-example",
+    "name": "LibreChat authentication example"
+  },
+  "coverage": {
+    "scope": "authentication path within a larger AI Surface",
+    "completeness": "partial",
+    "unexplored": [
+      "inference",
+      "other application dependencies"
+    ]
+  },
+  "components": [
+    {
+      "id": "component:librechat",
+      "kind": "application",
+      "name": "LibreChat",
+      "version": {
+        "status": "unknown"
+      }
+    },
+    {
+      "id": "component:authentication",
+      "kind": "service",
+      "role": "authentication",
+      "product": {
+        "status": "known",
+        "name": "Keycloak",
+        "basis": "synthetic example"
+      },
+      "version": {
+        "status": "known",
+        "value": "example-1",
+        "basis": "fictional version label"
+      },
+      "configuration": {
+        "status": "partial",
+        "settings": {
+          "realm": "example-lab"
+        },
+        "unknown": [
+          "full realm settings",
+          "role and claim mappings"
+        ]
+      }
+    },
+    {
+      "id": "component:identity-database",
+      "kind": "service",
+      "role": "database",
+      "product": {
+        "status": "known",
+        "name": "PostgreSQL",
+        "basis": "synthetic example"
+      },
+      "version": {
+        "status": "unknown"
+      },
+      "configuration": {
+        "status": "omitted",
+        "reason": "not expanded in this example"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "relationship:authentication",
+      "from": "component:librechat",
+      "to": "component:authentication",
+      "kind": "uses-identity",
+      "basis": "synthetic declaration",
+      "integration": {
+        "status": "partial",
+        "protocol": "openid-connect",
+        "settings": {
+          "issuer": "https://identity.example.test/realms/example-lab",
+          "clientId": "librechat-example",
+          "redirectUris": [
+            "https://chat.example.test/example-callback"
+          ],
+          "clientSecretRequirement": "secret:oidc-client"
+        },
+        "unknown": [
+          "product-specific configuration keys",
+          "role and claim mappings",
+          "session and token policy"
+        ],
+        "note": "Conceptual settings only; not executable product configuration."
+      }
+    },
+    {
+      "id": "relationship:identity-storage",
+      "from": "component:authentication",
+      "to": "component:identity-database",
+      "kind": "uses-storage",
+      "basis": "synthetic declaration",
+      "integration": {
+        "status": "unknown"
+      }
+    }
+  ],
+  "requirements": [
+    {
+      "id": "secret:oidc-client",
+      "kind": "secret",
+      "description": "Recipient supplies a client credential through a local binding; no value is included."
+    }
+  ],
+  "recreation": {
+    "status": "incomplete",
+    "missing": [
+      "versioned software artifacts",
+      "product-specific deployment and integration configuration",
+      "data fixtures or initial-state instructions",
+      "local resource bindings",
+      "credentials"
+    ]
+  }
+}
