@@ -80,6 +80,20 @@ They are not dependencies of this initial repository. See the
 - [Contributing](CONTRIBUTING.md)
 - [Licence boundaries](LICENSING.md)
 
+## Contributor workflow
+
+Start with an issue, work on a dedicated branch, and open a linked draft PR.
+After review and merge, return your local checkout to an updated `main` before
+starting the next issue. Merging on GitHub leaves your local checkout on its
+existing branch.
+
+The `./scripts/flow done` helper handles that final step: run it from the
+completed branch after its PR has merged. It checks the merge, switches to
+`main`, fast-forwards it, and removes the completed local branch, with guards
+against deleting unfinished work. See the
+[contributor workflow](CONTRIBUTING.md#issue-branch-and-pull-request-workflow)
+and [helper prerequisites and usage](CONTRIBUTING.md#cleanup-after-a-merge).
+
 ## Licence
 
 Machine-readable model assets, schemas, examples, code snippets and tooling are
