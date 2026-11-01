@@ -1,6 +1,6 @@
 # AI Surface Model
 
-An open model for describing the connected components, configuration and
+An open model which surfaces the connected components, configuration and
 relationships of an AI system, at the level of detail available or useful.
 
 **Status: early conceptual draft.** This repository contains the project scope,
