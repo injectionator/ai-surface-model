@@ -10,23 +10,42 @@ what information remains unknown.
 
 ## Issue, branch and pull request workflow
 
-Use one primary issue, a dedicated branch such as `docs/123-model-links`, and one
-matching draft PR for each delivery task. Work in the existing checkout and
-preserve unrelated changes. Link the PR with `Closes #123`, record the relevant
-checks, and keep it draft until review readiness is approved. Merge, release and
-deployment are separate decisions.
+Follow this sequence for each contribution, including documentation changes:
+
+1. **Start with an issue.** Find or open the issue that describes the problem,
+   intended change and how it will be checked. Agree the scope before editing.
+2. **Create a branch from updated `main`.** Use a dedicated branch such as
+   `docs/123-model-links`, with the issue number in its name. Work in the existing
+   checkout and preserve unrelated changes.
+3. **Do the work and open a draft PR.** Commit and push the branch, open one
+   matching draft PR, and link it with `Closes #123`. Explain the change and record
+   the relevant checks. Keep the same branch and PR updated as the work develops.
+4. **Review, then merge.** Keep the PR draft until review readiness is approved.
+   Merge, release and deployment are separate decisions.
+5. **Return to `main` after the merge.** While still on the completed branch, use
+   `./scripts/flow done` as described below. Once cleanup succeeds, start the next
+   issue on a new branch from the updated `main`.
 
 The [Git workflow in AGENTS.md](AGENTS.md#git-workflow) gives the full branch,
 workspace and publication rules, including the prohibition on Git worktrees.
 
 ## Cleanup after a merge
 
+Merging a PR on GitHub updates the remote repository; it does not switch your
+local checkout back to `main`. The `flow` script is a helper for completing this
+step safely, so the next contribution starts from the updated base.
+
 After the PR is merged, run this from the repository root while still on its
-completed branch:
+completed branch. Let the helper switch branches for you:
 
 ```sh
 ./scripts/flow done
 ```
+
+On success, you are on updated `main` and the completed local branch is removed.
+If the helper refuses, read the reason and preserve or resolve the outstanding
+work before retrying. Do not bypass its checks with a reset or forced deletion.
+Use `./scripts/flow help` for a reminder of the command's purpose.
 
 The [flow helper](scripts/flow) requires Bash 3.2 or later, Git and an authenticated
 [GitHub CLI](https://cli.github.com/) (`gh auth login`). It reads PR metadata from
