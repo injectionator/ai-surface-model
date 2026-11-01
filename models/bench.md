@@ -5,6 +5,11 @@ it needs**. Those resources include the system being investigated and what is
 needed to interact with it, control relevant conditions and collect evidence.
 The same Bench can support more than one Experiment.
 
+A Bench contains Experiments. Each Experiment sets up the Bench by specifying
+the working setup it needs; the Bench then asks its Lab to configure resources.
+Bench and Bench Assistant name the same entity in the diagram, with the
+assistant name identifying its role in making setup requests.
+
 Start with the [overview](README.md) for the wider picture. Bench is described
 within the single AI Surface Model; its exact boundary and representation remain
 open.

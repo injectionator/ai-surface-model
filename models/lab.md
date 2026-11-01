@@ -5,6 +5,9 @@ request**. It also organizes ongoing investigations, shared resources and
 results. A Lab can support an individual's work or a shared effort; it need not
 correspond to a physical room.
 
+Lab and Lab Assistant name the same entity in the diagram. The assistant name
+identifies the Lab acting on configuration requests from its Benches.
+
 Start with the [overview](README.md) for the wider picture. Lab is described
 within the single AI Surface Model. These are intended responsibilities; no
 resource configuration engine or workspace product is implemented here.

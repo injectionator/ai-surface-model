@@ -6,6 +6,11 @@ inputs, actions and observations needed to investigate that question. A **Run**
 is one execution of that Experiment, with its own setup, outcomes and evidence,
 recorded separately within the same model.
 
+An Experiment **sets up its Bench** by specifying the working setup needed for
+the investigation. The Bench contains the Experiment and requests resource
+configuration from its Lab. These describe setup and containment; each actual
+execution is still recorded as a Run.
+
 Start with the [overview](README.md) for the wider picture. Record formats and
 references remain open design work; the repository provides no
 execution engine.

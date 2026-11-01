@@ -9,8 +9,9 @@ through identities and references.
 
 A **Lab contains Benches and configures resources at their request**. Each
 **Bench asks the Lab to configure the resources it needs** for a working setup.
-An Experiment describes a question and method; a Run records one execution
-using that setup.
+A Bench contains Experiments. Each Experiment describes a question and method
+and sets up its Bench by specifying the working setup it needs. A Run records
+one execution using that setup.
 
 These pages are a conceptual guide. Fragment is our working term, with no fixed
 file format or packaging unit. Boundaries and representation remain open.
@@ -36,25 +37,33 @@ model. Read the [model overview](ai-surface-model.md) for the broader scope.
 ## Connections at a glance
 
 ```mermaid
-flowchart TD
-  subgraph Model[AI Surface Model]
-    Lab -->|contains| Benches
-    Benches -->|ask to configure resources| Lab
-    Lab -->|configures for Benches| Resources
-    Benches -->|provide a working setup for| Run
-    Experiment -->|is carried out as| Run
-    Run -->|references| Definition[Surface definition]
-    Run -->|links to| Deployment
-    Run -->|links to| Observation
-  end
+flowchart TB
+    subgraph ASM["AI Surface Model defines:"]
+        Experiment["Experiment"]
+        Bench["Bench / Bench Assistant"]
+        Lab["Lab / Lab Assistant"]
+
+        Experiment -->|sets up| Bench
+        Bench -->|requests resource configuration from| Lab
+        Lab -->|configures| Resources
+
+        Bench -->|contains| Experiment
+        Lab -->|contains| Bench
+    end
 ```
 
-The box represents the single model. Lab containment and resource requests are
-different relationships: a Bench belongs to a Lab and specifies the setup it
-needs; the Lab is responsible for configuring the requested resources. The
-request describes the intended setup. Deployment bindings and dated observations
-record what was actually configured and available. The model describes these
-responsibilities; this repository does not implement request execution.
+The box represents the single model. Read the setup path from top to bottom:
+the Experiment sets up the Bench, the Bench requests resource configuration
+from the Lab, and the Lab configures the resources. The return arrows describe
+containment: a Lab contains Benches, and a Bench contains Experiments.
+
+Lab and Lab Assistant share one node, as do Bench and Bench Assistant. Each
+assistant name identifies the same Lab or Bench acting on setup requests.
+
+The request describes the intended setup. Deployment bindings and dated
+observations record what was actually configured and available. The model
+describes these responsibilities; this repository does not implement request
+execution.
 
 A Surface description is useful on its own, including for offline investigation.
 A Lab product is optional. A Bench can be reused for different Experiments; one
@@ -72,14 +81,16 @@ Each record retains its own role, history and references.
 Imagine a Lab investigating sign-in behavior in an AI application. This is a
 synthetic scenario, not a report of a deployed or tested system.
 
-1. The **Lab** contains a sign-in Bench and manages the resources for it.
-2. The **Bench asks the Lab to configure** the application, authentication
-   service, synthetic test accounts and tools for observing sign-in attempts.
-   The Lab carries out that configuration; any unmet requirements remain visible.
-3. An **AI Surface description** identifies the application and authentication
+1. The **Experiment** asks whether changing an authentication setting changes
+   which test accounts can sign in. It specifies the procedure, what to record
+   and the working setup needed, setting up the Bench for that investigation.
+2. The **Bench contains the Experiment** and asks its Lab to configure the
+   application, authentication service, synthetic test accounts and tools for
+   observing sign-in attempts.
+3. The **Lab contains the Bench** and carries out the requested resource
+   configuration; any unmet requirements remain visible.
+4. An **AI Surface description** identifies the application and authentication
    service, their connection, known settings and gaps in the description.
-4. An **Experiment** asks whether changing an authentication setting changes
-   which test accounts can sign in. It specifies the procedure and what to record.
 5. Each **Run** records the setup actually used and the outcomes. Comparing Runs
    requires checking which settings, data and other conditions differed.
 

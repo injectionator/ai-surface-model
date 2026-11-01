@@ -84,9 +84,12 @@ refusal with a reset, stash or forced deletion. Follow the
   Use plain names such as Lab and Bench in prose and diagrams rather than
   repeating fragment in each label.
   AI models such as language models are components described by the model.
-- A Lab contains Benches. A Bench specifies what it needs and asks its Lab to
-  configure resources; the Lab is responsible for that configuration. Keep
-  requests distinct from evidence of the effective setup actually provided.
+- A Lab contains Benches, and a Bench contains Experiments. An Experiment sets
+  up its Bench by specifying the setup it needs; the Bench requests resource
+  configuration from the Lab. The Lab is responsible for that configuration.
+  Lab / Lab Assistant and Bench / Bench Assistant each share one entity and
+  diagram node. Keep requests distinct from evidence of the effective setup
+  actually provided.
 - Keep partial descriptions useful. Distinguish known, unknown, omitted, redacted,
   absent and out-of-scope information; missing detail does not establish absence.
 - Preserve component identity as detail grows. Allow shared components, cycles and
