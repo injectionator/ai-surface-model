@@ -3,18 +3,19 @@
 This project defines one open model: the **AI Surface Model**. It describes
 connected AI systems and their working context at the level of detail available
 or useful.
+
 Lab, Bench, Experiment and related descriptions are **fragments** within this
-model. Each fragment describes a focused part and can connect to other fragments
+model. Each describes a focused part and can connect to other parts
 through identities and references.
 
 An **AI Surface** is the system being described: applications, agents, AI models,
 services, tools, data and their connections. A **Surface description** records
 what is known about that system within a chosen scope. The same model also
-describes the context and evidence of its use through fragments such as Labs,
+describes the context and evidence of its use through Labs,
 Benches, Experiments and Runs.
 
-Start with the [fragments overview](README.md) to see how these fit together.
-Fragment is working terminology; boundaries and representation remain open.
+Start with the [overview](README.md) to see how these fit together.
+Boundaries and representation remain open.
 The model is an early conceptual draft; the
 [specification](../spec/README.md) sets out intended semantics and open decisions.
 

@@ -1,21 +1,36 @@
-# Bench fragment
+# Bench
 
-A **Bench fragment** describes a working setup for conducting investigations
-within the AI Surface Model. That setup brings together the system being
-investigated and the resources needed to interact with it, control relevant
-conditions and collect evidence. The same Bench can support more than one
-Experiment.
+A **Bench specifies a working setup and asks its Lab to configure the resources
+it needs**. Those resources include the system being investigated and what is
+needed to interact with it, control relevant conditions and collect evidence.
+The same Bench can support more than one Experiment.
 
-Start with the [fragments overview](README.md) for the wider picture. Bench is a
-fragment of the single AI Surface Model; its exact boundary and representation
-remain open.
+A Bench contains Experiments. Each Experiment sets up the Bench by specifying
+the working setup it needs; the Bench then asks its Lab to configure resources.
+Bench and Bench Assistant name the same entity in the diagram, with the
+assistant name identifying its role in making setup requests.
+
+Start with the [overview](README.md) for the wider picture. Bench is described
+within the single AI Surface Model; its exact boundary and representation remain
+open.
 
 ## A Bench in practice
 
-For the synthetic sign-in investigation, a Bench could bring together an AI
-application, its authentication service, synthetic test accounts and a way to
-record sign-in outcomes. The application and service form part of the Surface
-being investigated. The test accounts and observation tools support the method.
+For the synthetic sign-in investigation, the Bench asks its Lab to configure an
+AI application, its authentication service, synthetic test accounts and a way to
+record sign-in outcomes. The Lab handles that configuration. The application and
+service form part of the Surface being investigated; the test accounts and
+observation tools support the method.
+
+## Requesting a setup
+
+The Bench states what resources and settings it needs. The Lab, which contains
+the Bench, is responsible for configuring those resources. Keep the requested
+setup distinct from what the Lab was able to provide: unavailable resources,
+unapplied settings and other gaps should remain visible.
+
+This is a responsibility described by the model. The mechanism for making and
+fulfilling a request remains open; no request executor is provided here.
 
 Preparing that Bench does not establish that every connection works. A planned
 connection, a successful reachability check and a connection exercised during
@@ -49,7 +64,7 @@ constraints. Further detail may include:
 - Credential requirements, with sensitive values supplied through local bindings.
 - How the setup is prepared, checked and restored between Runs.
 
-These are descriptive concerns for a Bench fragment; the AI Surface Model has
+These are descriptive concerns for a Bench; the AI Surface Model has
 no released schema. A saved description may be useful for understanding a setup
 before it is complete enough to recreate.
 
