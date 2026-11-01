@@ -3,6 +3,10 @@
 An open model which surfaces the connected components, configuration and
 relationships of an AI system, at the level of detail available or useful.
 
+There is one model: the **AI Surface Model**. Lab, Bench, Experiment and related
+descriptions are **fragments** within it. Each fragment describes a focused part
+of the system or its context using the same model.
+
 **Status: early conceptual draft.** This repository contains the project scope,
 draft concepts, synthetic examples and interoperability research questions.
 There is no released schema, validator, exporter or deployment engine yet.
@@ -73,7 +77,7 @@ They are not dependencies of this initial repository. See the
 
 ## Start here
 
-- [How Lab, Bench, Experiment and AI Surface Model fit together](models/README.md)
+- [The AI Surface Model and its fragments](models/README.md)
 - [Draft concepts and open decisions](spec/README.md)
 - [Examples at different depths](examples/README.md)
 - [Interoperability research](docs/interoperability.md)

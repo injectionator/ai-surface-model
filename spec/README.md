@@ -4,6 +4,20 @@ This is a conceptual starting point, not a released normative specification.
 The JSON examples illustrate possible shapes; field names and serialization
 remain open. Requirements below describe intended behavior, not implemented tools.
 
+## One model and its fragments
+
+There is one model: the **AI Surface Model**. Lab, Bench, Experiment and related
+descriptions are **fragments** within it. A fragment is a focused part of a
+description expressed in the model, connected to other parts through identities
+and references. It can describe the system, its working context or evidence
+about its use.
+
+Fragment is working terminology, not a defined file format or packaging unit.
+Fragment boundaries and serialization remain open. Definitions, deployments,
+observations and Runs retain their separate meanings and histories within the
+same model. Describing one fragment does not require describing every other
+fragment. See the [fragments guide](../models/README.md).
+
 ## Purpose and scope
 
 An AI Surface is a connected system through which AI models, applications,

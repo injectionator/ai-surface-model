@@ -1,13 +1,21 @@
 # AI Surface Model
 
-The **AI Surface Model** is an open model for describing connected AI systems
-at the level of detail available or useful. An **AI Surface** is the system
-being described: applications, agents, AI models, services, tools, data and their
-connections. A **Surface description** records what is known about that system
-within a chosen scope.
+This project defines one open model: the **AI Surface Model**. It describes
+connected AI systems and their working context at the level of detail available
+or useful.
+Lab, Bench, Experiment and related descriptions are **fragments** within this
+model. Each fragment describes a focused part and can connect to other fragments
+through identities and references.
 
-Start with the [connections overview](README.md) for its relationship to Labs,
-Benches and Experiments. The model is an early conceptual draft; the
+An **AI Surface** is the system being described: applications, agents, AI models,
+services, tools, data and their connections. A **Surface description** records
+what is known about that system within a chosen scope. The same model also
+describes the context and evidence of its use through fragments such as Labs,
+Benches, Experiments and Runs.
+
+Start with the [fragments overview](README.md) to see how these fit together.
+Fragment is working terminology; boundaries and representation remain open.
+The model is an early conceptual draft; the
 [specification](../spec/README.md) sets out intended semantics and open decisions.
 
 ## A Surface description in practice
@@ -63,6 +71,13 @@ valid document establishes all three.
 No. A language model or another AI model may be a component in a Surface. The
 AI Surface Model describes the wider system and its relationships, including
 configuration and supporting services where they fall within scope.
+
+### Is a fragment a separate model or a file?
+
+A fragment is a focused part of a description expressed in the one AI Surface
+Model. It may refer to other fragments and does not need to describe the whole
+system. The term does not prescribe one file per fragment, a particular package
+layout or an executable module. Those representation choices remain open.
 
 ### Do I need a Lab or an Experiment?
 

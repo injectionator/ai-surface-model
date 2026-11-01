@@ -1,12 +1,14 @@
-# Bench
+# Bench fragment
 
-A **Bench** is a proposed working setup for conducting investigations. It brings
-together the system being investigated and the resources needed to interact
-with it, control relevant conditions and collect evidence. The same Bench can
-support more than one Experiment.
+A **Bench fragment** describes a working setup for conducting investigations
+within the AI Surface Model. That setup brings together the system being
+investigated and the resources needed to interact with it, control relevant
+conditions and collect evidence. The same Bench can support more than one
+Experiment.
 
-Start with the [connections overview](README.md) for the wider picture. Bench is
-working vocabulary here; its exact boundary and representation remain open.
+Start with the [fragments overview](README.md) for the wider picture. Bench is a
+fragment of the single AI Surface Model; its exact boundary and representation
+remain open.
 
 ## A Bench in practice
 
@@ -47,8 +49,9 @@ constraints. Further detail may include:
 - Credential requirements, with sensitive values supplied through local bindings.
 - How the setup is prepared, checked and restored between Runs.
 
-These are descriptive concerns, not a released Bench schema. A saved description
-may be useful for understanding a setup before it is complete enough to recreate.
+These are descriptive concerns for a Bench fragment; the AI Surface Model has
+no released schema. A saved description may be useful for understanding a setup
+before it is complete enough to recreate.
 
 ## Common questions
 

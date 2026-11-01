@@ -1,13 +1,14 @@
-# Experiment
+# Experiment fragment
 
-An **Experiment** describes a question and a method for investigating it. It
-connects what someone wants to learn with the inputs, actions and observations
-needed to investigate that question. A **Run** is one execution of that
-Experiment, with its own setup, outcomes and evidence.
+An **Experiment fragment** describes a question and a method for investigating
+it within the AI Surface Model. It connects what someone wants to learn with the
+inputs, actions and observations needed to investigate that question. A **Run**
+is one execution of that Experiment, with its own setup, outcomes and evidence,
+recorded in a separate Run fragment of the same model.
 
-Start with the [connections overview](README.md) for the wider picture. This is
-a conceptual guide; an Experiment record format and execution engine are not
-provided by this repository.
+Start with the [fragments overview](README.md) for the wider picture. Fragment
+formats and references remain open design work; the repository provides no
+execution engine.
 
 ## An Experiment in practice
 

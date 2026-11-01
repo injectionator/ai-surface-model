@@ -1,13 +1,14 @@
-# Lab
+# Lab fragment
 
-A **Lab** is the proposed organizational context for ongoing investigation. It
-helps people keep related Benches, Experiments, resources and results
-discoverable as their work grows. It can describe an individual's work or a
-shared effort; it need not correspond to a physical room.
+A **Lab fragment** describes the organizational context for ongoing
+investigation within the AI Surface Model. It helps people keep related Benches,
+Experiments, resources and results discoverable as their work grows. A Lab can
+describe an individual's work or a shared effort; it need not correspond to a
+physical room.
 
-Start with the [connections overview](README.md) for the wider picture. Lab is
-working vocabulary in this guide, not a specified data format or implemented
-workspace product.
+Start with the [fragments overview](README.md) for the wider picture. Lab is a
+fragment of the single AI Surface Model. Its boundary and representation remain
+open; no workspace product is implemented here.
 
 ## A Lab in practice
 
@@ -56,9 +57,8 @@ participate; their actual locations and bindings need separate descriptions.
 
 ### Must every Surface belong to a Lab?
 
-No. The AI Surface Model is usable independently. A person can describe or
-investigate a saved Surface without organizing it into a Lab or running an
-Experiment.
+No. A person can use the AI Surface Model to describe or investigate a saved
+Surface without including a Lab fragment or running an Experiment.
 
 ### Does a Lab make its Benches isolated or their results comparable?
 
