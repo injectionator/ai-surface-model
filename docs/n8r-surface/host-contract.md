@@ -11,7 +11,7 @@ independent of the destination for results.
 
 A host must identify its adapter version, the exact Researcher instruction
 revision, supported artefact contract versions and understood vocabulary/extension
-versions. The current #17 skill candidate is version `0.1.4`, with
+versions. The current #17 skill candidate is version `0.1.5`, with
 [bounded package and behavioral evidence](researcher-skill-verification.md).
 It produces working notes, not validated contract artefacts. Broader host support
 requires the applicable trial; applications consume that revision
@@ -110,7 +110,7 @@ not reproduced. No application implementation or compatibility trial was run.
 | Requirement | Contract decision | Later consumer work or gap |
 | --- | --- | --- |
 | Offline saved work independent of equipment | Research and selected definitions need no Lab or running target. | Adapt application storage and selection without applying setup. |
-| Explicit context/ownership | Artefact IDs carry no authority to create/configure Lab resources. | Map application ownership explicitly; do not infer it from graph containment or rewrite this model's Lab/Bench semantics. |
+| Explicit context/ownership | Artefact IDs carry no authority to create/configure Lab resources. | Map application ownership explicitly; do not infer it from graph containment or rewrite this model's Lab/Experiment semantics. |
 | Sources and attachments | Opaque scopes plus versioned evidence; portable locators grant no access. | Supply attachment/source adapters and permission checks. |
 | Human-guided research | Decisions/questions are durable; unsupported interaction remains visible. | Implement session questions and compare behavior on shared cases. |
 | Stable identity and immutable evidence | Exact revisions/digests, stable finding/node/edge IDs, separate runtime evidence. | Map local snapshot and deliberate version labels; retain prior Run references. |
@@ -118,10 +118,12 @@ not reproduced. No application implementation or compatibility trial was run.
 | Reuse of one Researcher core | Version negotiation includes instruction and artefact versions. | Consume #17's identified instruction revision and run both discovery and import cases. |
 
 The application may use different persistence and ownership conventions. This
-profile describes component graphs and does not introduce a new Lab hierarchy or
-change the draft rule that a Lab contains Benches and a Bench contains Experiments.
-Lifecycle/ownership mapping remains an explicit integration gap, not something
-passing JSON/YAML tests resolves.
+profile describes component graphs. The current model has Lab → Experiment →
+Setup ownership: the Experiment requests setup directly from its Lab, which owns
+resource configuration and local bindings. Historical ownership records remain
+historical. Consumer lifecycle/authority mapping remains an explicit integration
+obligation, not something passing JSON/YAML tests resolves. See the proposed
+[recreation handoff](recreation-handoff.md).
 
 ## Acceptance for later adapters
 

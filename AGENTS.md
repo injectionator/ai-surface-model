@@ -134,18 +134,18 @@ required checks and accurate evidence; procedure length is not a measure of rigo
 
 ## Preserve the model's meaning
 
-- There is one model: the AI Surface Model. Lab, Bench, Experiment and related
+- There is one model: the AI Surface Model. Lab, Experiment and related
   descriptions are fragments within it; never present them as separate models.
   Fragment is working terminology; its boundaries and serialization remain open.
-  Use plain names such as Lab and Bench in prose and diagrams rather than
+  Use plain names such as Lab and Experiment in prose and diagrams rather than
   repeating fragment in each label.
   AI models such as language models are components described by the model.
-- A Lab contains Benches, and a Bench contains Experiments. An Experiment sets
-  up its Bench by specifying the setup it needs; the Bench requests resource
-  configuration from the Lab. The Lab is responsible for that configuration.
-  Lab / Lab Assistant and Bench / Bench Assistant each share one entity and
-  diagram node. Keep requests distinct from evidence of the effective setup
-  actually provided.
+- A Lab contains Experiments. Each Experiment owns its desired setup and asks
+  its Lab directly to configure the resources it needs. The Lab owns resource
+  configuration and local bindings. Lab / Lab Assistant share one entity and
+  diagram node. Bench is retired; preserve historical references as historical,
+  never as current ownership or authority. Keep requests distinct from evidence
+  of the effective setup actually provided.
 - Keep partial descriptions useful. Distinguish known, unknown, omitted, redacted,
   absent and out-of-scope information; missing detail does not establish absence.
 - Preserve component identity as detail grows. Allow shared components, cycles and

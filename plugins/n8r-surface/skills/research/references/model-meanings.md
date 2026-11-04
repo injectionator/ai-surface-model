@@ -2,11 +2,14 @@
 
 The AI Surface Model describes connected components, configuration and relationships
 at the detail available or useful. A language model is a component described by
-it. There is one AI Surface Model; Lab, Bench and Experiment are descriptions
-within it. A Lab contains Benches; a Bench contains Experiments. An Experiment
-requests the setup it needs through its Bench; the Lab configures resources.
-Lab / Lab Assistant and Bench / Bench Assistant each describe one entity.
-Do not invent that hierarchy when it is outside the supplied investigation.
+it. There is one AI Surface Model; Lab and Experiment are descriptions within it.
+A Lab contains Experiments. Each Experiment owns its desired setup and selected
+Surface revision and requests resource configuration directly from its Lab.
+The Lab owns resource configuration and local bindings. Lab / Lab Assistant
+share one entity. The ownership chain is Lab → Experiment → Setup.
+Bench is retired; preserve historical references as historical evidence, never
+as current ownership or authority. Do not invent a hierarchy when it is outside
+the supplied investigation.
 
 Partial knowledge is useful. Preserve these distinct meanings:
 
@@ -36,8 +39,10 @@ Interoperability is a bounded, versioned mapping with explicit losses. Matching
 names, parsing JSON or reading a schema does not establish compatibility or
 successful recreation. Distinguish a product possibility from a selected setup.
 
-This condensed reference follows the repository's
-[draft concepts at eabe20a](https://github.com/injectionator/n8r-surface/blob/eabe20aa642e64b6595795aed4d185f53f95cc93/spec/README.md).
-The fields and serialization remain provisional. Maintainers must update this
+This bundled reference records the draft meanings for skill 0.1.5, including the
+4 November 2026 direct-Lab ownership correction. The repository's
+[draft concepts](https://github.com/injectionator/n8r-surface/blob/feat/17-researcher-skill/spec/README.md)
+are a moving source link; use the installed package version and digest to identify
+the instructions actually used. Fields and serialization remain provisional. Maintainers must update this
 reference with semantic changes; consumers do not need the source checkout to
 read it.

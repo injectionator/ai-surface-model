@@ -1,13 +1,83 @@
 # Researcher skill verification
 
-**Candidate:** `n8r-surface:research` (**n8r-surface Researcher**) **0.1.4**, 4 November 2026.
+**Candidate:** `n8r-surface:research` (**n8r-surface Researcher**) **0.1.5**, 4 November 2026.
 This is a partial #17 increment. ChatGPT desktop / Work lifecycle acceptance is
 **pending**, not passed. No Lab or standalone CLI research claim follows.
 
 The implementation/evidence commits are identified by the associated draft PR;
 use the exact candidate commit when repeating the procedure.
 
-## Review corrections and current checks: 0.1.4
+## Direct Lab ownership correction: 0.1.5
+
+The user confirmed that Bench is retired. Canonical concepts, diagrams and the
+bundled model reference now use **Lab → Experiment → Setup**. Experiments request
+configuration directly from their Lab; the Lab owns resources and local bindings.
+Historical records retain their original meaning. The old Bench guide URL is a
+retirement notice. Serialized examples contain no Bench entities, so none needed
+rewriting; no artefact-contract shape changed.
+
+Before the correction, a fresh evaluator reading only installed 0.1.4's reference
+returned Lab → Bench → Experiment and said setup ownership was not explicit.
+That is direct evidence of the stale guidance. Version 0.1.5 changes the bundled
+meaning and version metadata; the discovery and note-storage method is unchanged.
+The controlled trial below deliberately used 0.1.4 for both passes, with the user's
+ownership correction supplied separately. It is not retroactively labeled 0.1.5.
+
+The implementation checks passed: 17 changed/new Markdown files with
+markdownlint-cli2 0.24.0 (MD013/MD041 disabled), 135 local links/anchors, three JSON
+example parses plus identifier/endpoint/local-requirement checks, skill metadata,
+manifest version/interface alignment and whitespace. Both shell blocks in the
+human trial guide were executed from the source root, exited 0 and produced the
+expected fixture hashes. Independent review found no actionable issue or public
+material leak. The eight paused #16 files and existing private notes were unchanged.
+No npm/library/CLI behavior changed or is claimed tested by this increment.
+
+## Controlled declaration trial: 0.1.4
+
+State X: installed 0.1.4 matched all eleven committed package files at
+`ce394b1e8ddafe206e57e014285b6ef576339c4e`. Source was LibreChat
+`e1dfc10449ff713faffacd60273fddcfe2c0a698`, with the existing dirty client manifest
+excluded. Environment: macOS ARM64, Codex CLI 0.139.0, Python 3.13.1; actual local
+host agents and filesystem tools. No hidden model or desktop version is asserted.
+
+A fresh Researcher agent read the installed instructions, prior notes and actual
+sources, then saved/read back a baseline for a task-owned partial configuration.
+Only after independent baseline readback did the coordinator change
+`RAG_API_URL=` to `RAG_API_URL=https://rag.example.test`. A second fresh agent
+received the saved baseline and current inputs without expected findings, followed
+source evidence and saved/read back a numbered successor. The coordinator kept
+expected findings separately and did not write either research output.
+
+The comparison identified the declared target change on the retained RAG role,
+kept product capability unchanged and left deployed state unknown. It preserved
+all twelve component labels, earlier scoped human context, authentication
+uncertainties and unrelated graph claims. New focused reads described extraction
+routing gates and fallback behavior; those were additional source findings, not
+extra configuration changes or exercised operations.
+
+Independent verification reopened both outputs, matched all 17 baseline and 19
+successor manifest rows, checked decisive URL guards/configuration expressions
+and extraction-routing source ranges, and confirmed earlier notes and source
+changes were preserved. The saved-note digests are:
+
+| Record | SHA-256 |
+| --- | --- |
+| Baseline research | `06a58ba6601ff1c982a4006274adf01b5aaf04fb3a6a7eeac28b2cbd74815a23` |
+| Reconciliation successor | `f9a9da4dce335fd960e3c6c8f8b98d5d5b425a07a32407e440ff455267e9fd16` |
+
+The [repeatable procedure](researcher-reconciliation-trial.md) gives commands,
+prompts, exact fixture hashes, failure criteria and cleanup. Private research,
+human setup details and local paths remain outside this public repository.
+The retained input snapshots identify a declared fixture, not a loaded environment.
+No application request, service, inference, persistence or RAG interaction ran.
+This is one installed-skill agent reconciliation rehearsal, not human acceptance,
+live enablement detection, full graph coverage or structured Surface validation.
+
+The [recreation handoff](recreation-handoff.md) records proposed portable roles,
+recipient binding responsibilities and a required consumer proof. The separate
+application assessment remains private. No Lab adapter or recreation was executed.
+
+## Review corrections and checks: 0.1.4
 
 Independent review identified two corrections: check the installed version before
 reuse and refresh a Git marketplace snapshot before reinstalling; and label an

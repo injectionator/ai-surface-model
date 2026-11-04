@@ -7,9 +7,14 @@ not to inventory every setting in an application. The shared
 contains the navigation rules and product-knowledge approach.
 
 Use the [short installation and first-trial route](researcher-skill.md#research-01-investigate-and-continue).
-These instructions describe candidate 0.1.4; see the
+These instructions describe candidate 0.1.5; see the
 [verification record](researcher-skill-verification.md) for exercised paths and
 unverified live inspection. No Lab or new runner is required.
+
+The [controlled LibreChat trial](researcher-reconciliation-trial.md) supplies a
+repeatable baseline/change/readback check. The [recreation handoff](recreation-handoff.md)
+explains how a selected description can guide recipient-owned Lab setup and what
+still needs consumer verification.
 
 ## Three related views
 

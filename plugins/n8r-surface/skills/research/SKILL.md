@@ -4,7 +4,7 @@ description: Use when discovering, continuing or reconciling an AI Surface graph
 license: CC-BY-4.0
 metadata:
   author: AI Surface Model contributors
-  version: "0.1.4"
+  version: "0.1.5"
 ---
 
 # n8r-surface Researcher
@@ -20,7 +20,7 @@ Read the relevant sections of the [discovery guide](references/discovery-map.md)
 for source intake, product knowledge, graph exploration, reconciliation or live
 inspection. It supplies clues and follow-up paths, not a required architecture.
 Use [working notes](references/working-notes.md) when saving or continuing work.
-Identify this skill as `n8r-surface:research 0.1.4` at the start of an investigation
+Identify this skill as `n8r-surface:research 0.1.5` at the start of an investigation
 and in saved notes, so an installed candidate can be checked.
 
 ## Establish the question and source

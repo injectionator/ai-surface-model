@@ -3,7 +3,7 @@
 An open model which surfaces the connected components, configuration and
 relationships of an AI system, at the level of detail available or useful.
 
-There is one model: the **AI Surface Model**. Lab, Bench, Experiment and related
+There is one model: the **AI Surface Model**. Lab, Experiment and related
 descriptions are **fragments** within it. Each fragment describes a focused part
 of the system or its context using the same model.
 
@@ -41,7 +41,7 @@ representation of a complete setup. Different parts can have different depths.
 
 - Investigate saved Surfaces offline, including which contain a particular
   component and version, with explicit coverage limits.
-- Remember equipment and integration configuration for lab and bench setups.
+- Remember equipment and integration configuration for Lab and Experiment setups.
 - Bind Experiment results to the Surface revision and effective setup tested.
 - Connect provenance and history across lab, development and production services.
 - Share setups that other people can recreate, with prerequisites and gaps visible.
