@@ -1,7 +1,9 @@
-# AI Surface Model
+# n8r-surface
 
-An open model which surfaces the connected components, configuration and
-relationships of an AI system, at the level of detail available or useful.
+The home of the **AI Surface Model**, an open model for describing the connected
+components, configuration and relationships of an AI system, at the level of
+detail available or useful. This repository also owns the planned `n8r-surface`
+command.
 
 There is one model: the **AI Surface Model**. Lab, Bench, Experiment and related
 descriptions are **fragments** within it. Each fragment describes a focused part

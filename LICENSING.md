@@ -25,7 +25,7 @@ material they contribute. Any exception must be identified explicitly.
 Commercial use, proprietary integration, modification and redistribution are
 welcome, subject to the applicable licence terms, notices and attribution.
 Credit this project as **AI Surface Model contributors** and link to
-<https://github.com/injectionator/ai-surface-model> where attribution is required.
+<https://github.com/injectionator/n8r-surface> where attribution is required.
 Individual contributors retain copyright in their contributions.
 
 Using the format or tooling does not by itself require users to publish or
