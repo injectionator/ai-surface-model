@@ -5,6 +5,10 @@ works with a human, saves an HTML research record and produces a partial AI
 Surface Model description in JSON or YAML. The user can find the files, edit them
 and resume safely. No running target or Lab is required.
 
+Implement n8r-surface first, then integrate its Researcher core into n8r-labs.
+Review the application requirements during contract design, without making
+application implementation or prompt extraction a dependency of this path.
+
 **Current work:** [#14](https://github.com/injectionator/ai-surface-model/issues/14)
 establishes this map and delivery structure. **Next implementation issue:**
 [#15](https://github.com/injectionator/ai-surface-model/issues/15). Later issues
@@ -16,9 +20,10 @@ flowchart LR
     Map[14: Map and delivery structure] --> Contract[15: Artefact contracts and examples]
     Contract --> Local[16: Setup, sources and safe storage]
     Local --> Research[17: Researcher, one runner and portable skill]
-    Shared[Shared discovery instructions from application work] -.-> Research
+    Requirements[Lab compatibility requirements] -.-> Contract
     Research --> Result[First standalone workflow demonstrated]
-    Result -.-> Integration[Later: verified Lab exchange and more adapters]
+    Result -.-> Lab[Application project: host the same Researcher core]
+    Lab -.-> Verified[Verify shared behaviour, import and continuation]
 ```
 
 ## 1. Define artefacts with concrete examples
@@ -35,9 +40,15 @@ relationships, shared components, cycles, multiple connections, unknowns and
 conflicting evidence. Select the smallest suitable runtime and first AI runner;
 the map does not choose them implicitly.
 
+Review the [compatibility contract](design.md#compatibility-contract) against
+n8r-labs requirements: source access, human questions, artefact persistence,
+version handling and continuation. Record gaps and supported boundaries using
+public, synthetic examples. This review does not implement the application.
+
 **Advance when:** the examples and checks give #16 and #17 concrete contracts,
-including a clear shared-skill handoff requirement. Do not relabel existing
-illustrative fixtures as schema-conforming without specifying and checking them.
+including a documented route for n8r-labs to consume the shared core later.
+Do not relabel existing illustrative fixtures as schema-conforming without
+specifying and checking them.
 
 ## 2. Build the local foundation
 
@@ -62,9 +73,10 @@ unconnected discovery command as working research.
 ## 3. Demonstrate the Researcher workflow
 
 **Issue:** [#17](https://github.com/injectionator/ai-surface-model/issues/17).
-**Depends on:** #15, #16 and an identified shared-instruction revision.
+**Depends on:** #15 and #16.
 
-Connect one supported AI runner to the shared Researcher skill and local tools.
+Implement and version the shared Researcher skill in this repository, connecting
+one supported AI runner and the local tools. No application extraction is required.
 Support a human question, source inspection, saved findings, consequential
 follow-up questions, corrections, continuation and JSON/YAML model output.
 Package the same core skill for ChatGPT with supplied documents, the first
@@ -82,9 +94,16 @@ importer accepts the output; that needs a separate named-consumer trial.
 
 ## Work after the first milestone
 
-The [capability map](README.md) retains optional Lab exchange, remote Researcher
-execution, additional AI runners and MessagePack. Create their delivery issues
-when their consumer contracts and acceptance cases are concrete.
+The next application stage belongs in the n8r-labs project: use an identified
+Researcher revision with the Lab's own source access, AI, conversation and
+storage adapters. Use the shared examples to verify research behaviour and
+import an incomplete standalone record/definition, then continue it in the Lab.
+Preserve identities, evidence, gaps and user decisions; report unsupported data.
+Record the tested application and contract versions before claiming compatibility.
+
+The [capability map](README.md) also retains remote Researcher execution,
+additional AI runners and MessagePack. Create their delivery issues when their
+consumer contracts and acceptance cases are concrete.
 
 Keep browser editing, a general database, automatic two-way synchronisation,
 advanced indexing and deployment automation outside this first path. Users can

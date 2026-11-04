@@ -23,10 +23,12 @@ or running target. ChatGPT with supplied documents is the first external skill
 experience. Other harnesses need their own demonstrated support.
 
 Maintain one versioned core discovery skill, including its reference material
-and output rules. Each host supplies source access, inference, conversation and
-persistence. Extracting discovery from the n8r-labs assistant is application
-work; identify the shared asset and its revision when incorporating it here.
-Do not hand-maintain divergent copies or copy private application content.
+and output rules, in this repository. Build the standalone Researcher first;
+n8r-labs later consumes an identified revision of that core. Each host supplies
+source access, inference, conversation and persistence. Existing application
+needs inform the contract, but extracting or rebuilding its assistant is not a
+prerequisite for standalone delivery. Do not hand-maintain divergent copies or
+copy private application content.
 
 ## Sources and scope
 
@@ -190,11 +192,43 @@ Claim compatibility only after testing an identified consumer version and subset
 including an intentionally incomplete description. Automatic synchronisation,
 deployment and operational Lab management remain outside the first path.
 
+### Compatibility contract
+
+Define the boundary in #15 and keep it with the shared core as it develops:
+
+- Version the Researcher instructions, research-record contract, Surface contract
+  and vocabulary references. A host identifies the versions it supports and
+  reports unsupported versions or losses explicitly.
+- Describe the capabilities a host supplies: scoped source inspection, inference,
+  human questions, artefact read/write and continuation. Keep the core independent
+  of CLI paths, a specific provider, application sessions and MCP transport.
+- Preserve record/component identity, revisions, evidence references, coverage,
+  selected possibilities, human decisions and unresolved questions across hosts.
+  A Lab can store artefacts differently while preserving these meanings.
+- Keep portable continuation context in the record: what was inspected, decided
+  and left unresolved. A new host must establish source access and permissions;
+  a saved local path or an old chat transcript is not sufficient.
+- Maintain shared synthetic acceptance examples for two unrelated products,
+  incomplete/conflicting evidence, manual edits and continuation with a second
+  source. CLI, external skill and later application tests use these cases.
+
+Before completing #15, review this boundary against n8r-labs requirements and
+record any gaps and decisions. The review needs no parallel application build.
+Changes to the boundary update the contract and examples in the same PR; identify
+any later application adaptation or migration they require.
+
+After the standalone milestone, the application project implements its adapters
+and uses the shared instruction revision. Verify both shared discovery behaviour
+and import/continuation of standalone artefacts against a named application
+version. Compare supported facts, choices and gaps, not generated wording.
+The standalone milestone and the verified application integration are separate
+completion points.
+
 ## Open choices and verification
 
 [#15](https://github.com/injectionator/ai-surface-model/issues/15) settles the
 minimal HTML/data ownership and revision contract, experimental graph fields,
-portable codec values, shared-instruction provenance, runtime and first runner.
+portable codec values, host capabilities, version policy, runtime and first runner.
 Exact tool names, corpus layout and source-reader limits follow those decisions.
 
 Use synthetic unrelated products, incomplete/conflicting evidence, human edits
