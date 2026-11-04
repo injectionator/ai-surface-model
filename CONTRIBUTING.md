@@ -52,8 +52,8 @@ Agent execution of the procedure does not replace human acceptance.
 Write these steps for a teammate who has not followed the implementation: what
 to open, what to do or ask, and what they should see. Keep technical preparation
 and evidence checks with the maintainer; give the tester a short task list and a
-Pass / Fail / Blocked report. The [Researcher teammate checklist](docs/n8r-surface/researcher-reconciliation-trial.md#teammate-checklist)
-shows this split.
+Pass / Fail / Blocked report. The [Researcher test vault](vault/README.md)
+provides prepared files and walkthroughs that assume the skill is installed.
 
 Keep the human proof proportional to the change. With an established installation
 and working runner, a small command addition may need just an invocation and its

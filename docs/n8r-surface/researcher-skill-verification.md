@@ -7,6 +7,57 @@ This is a partial #17 increment. ChatGPT desktop / Work lifecycle acceptance is
 The implementation/evidence commits are identified by the associated draft PR;
 use the exact candidate commit when repeating the procedure.
 
+## Repository vault rehearsal: 0.1.5
+
+The [test vault](../../vault/README.md) adds prepared fictional documents and a
+teammate walkthrough to this repository. The initial state is an already installed
+0.1.5 skill and a fresh copy of source pack version 1 under `vault/runs/`. The
+expected outcome is two saved notes: a baseline, then a comparison after changing
+only the document-search address. Before this increment, the teammate procedure
+required a maintainer to prepare a separate source checkout and input folder.
+No installed-skill behavior or package bytes changed.
+
+On 4 November 2026, two fresh Researcher agents rehearsed the prompts through the
+installed 0.1.5 instructions. Neither received the parent transcript or expected
+findings. The first read the three input files and saved `ai-surface-001.md`.
+After independent readback, the coordinator copied the note for preservation and
+changed only `DOCUMENT_SEARCH_URL=` to
+`DOCUMENT_SEARCH_URL=https://search.example.test` in the disposable working copy.
+The second agent received the first note and the current three input files,
+then saved `ai-surface-002.md`. Neither output was prewritten by the coordinator.
+
+Independent readback checked all three baseline and four comparison evidence
+hashes, source links and the six stable component labels. The comparison retained
+the gateway address, product capabilities and unknowns, identified the declared
+search target change and made no claim that search worked. The first note matched
+its backup byte for byte; all shared example files remained unchanged. All six
+run files were ignored by Git. A separate question to the second agent recovered
+direct Experiment-to-Lab setup ownership from the installed reference.
+
+| Evidence | SHA-256 |
+| --- | --- |
+| Initial `current.env` | `619e4831c8f0a0b119bb80553aad0e9f65f9127ef0534b3e22c59944a7b3c334` |
+| Changed working `current.env` | `72bae3ebbe82b790936dbdd207d9bad89cd811be833a5b95ee5e90165e3ad6c3` |
+| Baseline note | `d902179b481e83f6805a1830302b329291e31e2227b2d94944458d456822486b` |
+| Comparison note | `387151d6645fdf5ccac4ed3575a1be1e76ca51bf7d18d275ae80d7188ff1a554` |
+
+Environment: macOS ARM64, Codex CLI 0.139.0 and local host agents with filesystem
+tools. The installed list showed one enabled 0.1.5, and all eleven installed files
+matched the committed package at `2a755b79fe5bc0c379a29ec7af8fddc815bf756e`.
+The vault was a working addition based on that revision; the associated PR
+identifies its committed revision. This is an agent rehearsal with restricted
+task instructions, not an enforced-isolation evaluation. App memory toggles,
+exclusive file access and tool restrictions were not independently verified.
+Human acceptance, an investigation of the user's next chosen repository, runtime
+behavior and generated structured Surfaces remain unproved by this check.
+
+The ten changed/new Markdown files passed markdownlint-cli2 0.24.0 with
+MD013/MD041 disabled; 74 local links/anchors passed. The three existing JSON
+examples parsed (syntax only). Walkthrough review, ignore-rule checks and
+whitespace checks passed. The eight paused #16 files and the historical
+LibreChat technical procedure remained unchanged. No library or CLI tests were
+run for these documentation and source-pack additions.
+
 ## Direct Lab ownership correction: 0.1.5
 
 The user confirmed that Bench is retired. Canonical concepts, diagrams and the

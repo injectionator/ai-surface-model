@@ -27,6 +27,8 @@ source access and conversation to produce evidence-backed working notes. The
 graphs, reusable product knowledge and comparing descriptions with evidence. See
 [verification and pending Work-mode checks](docs/n8r-surface/researcher-skill-verification.md).
 The delivery order is skill first, n8r-labs adaptation second, standalone CLI third.
+With the skill installed, use the [test vault](vault/README.md) for a prepared
+example or a walkthrough for investigating another chat-system repository.
 
 The [command intent and verification spec](docs/n8r-surface/command-outcomes.md)
 defines the proposed commands, user outcomes and evidence required before claiming
