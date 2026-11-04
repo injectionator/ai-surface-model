@@ -1,13 +1,13 @@
 ---
-name: research-ai-surface
+name: research
 description: Research the components, connections and configuration choices of an AI application from a supplied repository or documents using the AI Surface Model. Use for evidence-backed system descriptions and continued research, including LibreChat; not for general coding, running deployments or claiming security certification.
 license: CC-BY-4.0
 metadata:
   author: AI Surface Model contributors
-  version: "0.1.0"
+  version: "0.1.1"
 ---
 
-# Research AI systems from evidence
+# n8r-surface Researcher
 
 Help the user understand one useful part of a software system, choose a setup,
 and retain what is known and still unresolved. Use the current harness's tools
@@ -16,7 +16,7 @@ method and vocabulary; it does not grant filesystem access or connect an AI.
 
 Read [model meanings](references/model-meanings.md) before interpreting findings.
 Use [working notes](references/working-notes.md) when saving or continuing work.
-Identify this skill as `research-ai-surface 0.1.0` at the start of an investigation
+Identify this skill as `n8r-surface:research 0.1.1` at the start of an investigation
 and in saved notes, so an installed candidate can be checked.
 
 ## Establish the question and source

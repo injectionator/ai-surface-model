@@ -1,15 +1,36 @@
 # Researcher skill verification
 
-**Candidate:** `n8r-researcher` / `research-ai-surface` **0.1.0**, 4 November 2026.
+**Candidate:** `n8r-surface:research` (**n8r-surface Researcher**) **0.1.1**, 4 November 2026.
 This is a partial #17 increment. ChatGPT desktop / Work lifecycle acceptance is
 **pending**, not passed. No Lab or standalone CLI research claim follows.
 
 Skill entrypoint SHA-256:
-`8310917d4854f6ff35c1f9fe520b7d70355c868ea6972ebe48975498f16ba1f9`.
+`720afff0822a020b441f08e917304d36f6728f5e9228ec4ba505a147cd679402`.
 The implementation/evidence commits are identified by the associated draft PR;
 use the exact candidate commit when repeating the procedure.
 
-## Observed local package behavior
+## Branding update: 0.1.1
+
+The plugin and skill now display **n8r-surface Researcher**, with the qualified
+invocation `n8r-surface:research`. The renamed package installed successfully
+through `codex plugin add n8r-surface@n8r-surface --json` (exit 0).
+Removing the superseded `n8r-researcher@n8r-surface` package also exited 0; the
+marketplace's installed list then contained exactly one enabled 0.1.1 candidate.
+All ten installed files matched the source package, and the skill frontmatter
+validator passed. The saved research note's digest was unchanged after removal.
+Changed Markdown passed markdownlint-cli2 0.24.0 with the existing MD013/MD041
+exemptions; Lychee 0.24.2 reported 37 local links OK, 0 errors and 11 excluded.
+The staged whitespace check passed.
+
+The skill differs only in name, heading, version and its identification in notes;
+the investigation instructions and both references are unchanged. The original
+behavioral trial below applies to 0.1.0 and was not repeated for this rename.
+The old skill digest was
+`8310917d4854f6ff35c1f9fe520b7d70355c868ea6972ebe48975498f16ba1f9`.
+Work UI availability of the new name still needs a fresh-chat check using
+[LOAD-01](researcher-skill.md#load-01-install-invoke-remove-reinstall).
+
+## Initial local package behavior: 0.1.0
 
 Environment: macOS ARM64, Codex CLI **0.139.0**, Python **3.13.1**.
 The local CLI's supported `plugin marketplace`, `plugin add`, `plugin list` and
@@ -32,7 +53,7 @@ rejects it even though the open specification permits it; host requirements are
 stated in the instructions instead. These checks establish bounded package and
 local CLI behavior, not universal host compatibility.
 
-## Behavioral trial
+## Initial behavioral trial: 0.1.0
 
 A fresh evaluator received only the two synthetic Lumen source documents and a
 request to research components/configuration, preserve evidence/gaps, ask a useful
@@ -69,7 +90,7 @@ human-answered conversation, fresh-chat continuation or LibreChat investigation.
 The developer did not supply the findings or populate the evaluator's output.
 No synthetic research output is represented as real LibreChat evidence.
 
-## Repository checks
+## Initial repository checks: 0.1.0
 
 The skill frontmatter validator passed. The two manifests agree on package
 identity/version and presentation, and installed files and bundled licence texts

@@ -1,4 +1,4 @@
-# Researcher skill: share and test
+# n8r-surface Researcher: share and test
 
 **First increment:** an experimental instruction-only Researcher, packaged for
 ChatGPT desktop / Work and Codex. It researches supplied sources with the existing
@@ -12,8 +12,8 @@ There will be no separate status subcommand.
 
 ## Package and standards
 
-The canonical source is [the plugin folder](../../plugins/n8r-researcher/).
-It contains one `skills/research-ai-surface/SKILL.md`, bundled references, optional
+The canonical source is [the plugin folder](../../plugins/n8r-surface/).
+It contains one `skills/research/SKILL.md`, bundled references, optional
 OpenAI skill metadata, licence files and an icon. It has no MCP server, hooks,
 installer scripts, embedded credentials or separate model connection.
 
@@ -25,14 +25,14 @@ local skill folders from distributable plugins. Follow
 repository marketplaces and host-specific metadata. Reviewed 4 November 2026.
 These are packaging contracts; host behavior still needs its own rehearsal.
 
-- [plugin.json](../../plugins/n8r-researcher/plugin.json) uses Agent Plugins 1.0.0.
-- [.codex-plugin/plugin.json](../../plugins/n8r-researcher/.codex-plugin/plugin.json)
+- [plugin.json](../../plugins/n8r-surface/plugin.json) uses Agent Plugins 1.0.0.
+- [.codex-plugin/plugin.json](../../plugins/n8r-surface/.codex-plugin/plugin.json)
   is the compatibility manifest needed by the tested Codex CLI 0.139.0. Keep
   identity, version and presentation metadata aligned with the portable manifest.
   Both use the same skill files; no second instruction copy is maintained.
 - [The repository marketplace](../../.agents/plugins/marketplace.json) exposes
-  `n8r-researcher@n8r-surface` as available, without forcing installation.
-- Plugin and skill version `0.1.0` identify this experimental candidate. Increment
+  `n8r-surface@n8r-surface` as available, without forcing installation.
+- Plugin and skill version `0.1.1` identify this experimental candidate. Increment
   them when changing distributed instructions; record the Git revision and
   installed file digest with test results. This is separate from the npm version.
 
@@ -54,17 +54,25 @@ From this repository root:
 
 ```sh
 codex plugin marketplace add . --json
-codex plugin add n8r-researcher@n8r-surface --json
+codex plugin add n8r-surface@n8r-surface --json
 codex plugin list --marketplace n8r-surface --json
 ```
 
 Expected: each command exits 0. The installed list contains exactly one
-`n8r-researcher@n8r-surface`, version `0.1.0`, installed and enabled. The installation
+`n8r-surface@n8r-surface`, version `0.1.1`, installed and enabled. The installation
 path varies by computer. `alreadyAdded: true` is fine on a repeated marketplace
 registration. Do not register a second copy of the skill in `.agents/skills`.
 
-In ChatGPT desktop, open Plugins and select the **n8r Surface** source. Verify
-**n8r Researcher** is installed. Refresh/restart the app if the new marketplace
+If the earlier 0.1.0 candidate is installed, remove its old package ID once:
+
+```sh
+codex plugin remove n8r-researcher@n8r-surface --json
+```
+
+The renamed package replaces that candidate; saved research stays in place.
+
+In ChatGPT desktop, open Plugins and select the **n8r-surface** source. Verify
+**n8r-surface Researcher** is installed. Refresh/restart the app if the new marketplace
 or version is absent, as the packaging guide requires. Then start a fresh Work
 chat. Loading instructions in this development chat is not this acceptance test.
 
@@ -85,14 +93,14 @@ attachments or explicitly selected local source access. A local path by itself
 is not access in a cloud chat.
 
 1. In a **fresh Work chat**, type `@` and select the plugin's
-   `research-ai-surface` skill (display name **AI Surface Researcher**). Ask:
+   `n8r-surface:research` skill (display name **n8r-surface Researcher**). Ask:
 
    > Research Lumen Desk from these two documents for an AI Surface Model
    > description. Identify the components and configuration choices, show evidence
    > and gaps, and ask the next question that would help me choose a setup.
    > Save working research notes that I can reopen.
 
-   Expected: the skill identifies version `0.1.0`, reads the two actual documents,
+   Expected: the skill identifies version `0.1.1`, reads the two actual documents,
    cites evidence and saves a readable note outside the plugin cache. Independently
    open that note. Both conflicting batch maxima (10 and 25) and the unknown model
    version must survive; optional features must not become user selections. The
@@ -103,7 +111,7 @@ is not access in a cloud chat.
    plugin browser select **Uninstall plugin**, or run:
 
    ```sh
-   codex plugin remove n8r-researcher@n8r-surface --json
+   codex plugin remove n8r-surface@n8r-surface --json
    codex plugin list --marketplace n8r-surface --json
    ```
 
@@ -148,8 +156,8 @@ From a committed, reviewed candidate in the repository root:
 
 ```sh
 n8r_skill_zip=$(mktemp -d)
-git archive --format=zip --output="$n8r_skill_zip/n8r-researcher.zip" HEAD:plugins/n8r-researcher
-python3 -m zipfile -l "$n8r_skill_zip/n8r-researcher.zip"
+git archive --format=zip --output="$n8r_skill_zip/n8r-surface.zip" HEAD:plugins/n8r-surface
+python3 -m zipfile -l "$n8r_skill_zip/n8r-surface.zip"
 ```
 
 Expected: exit 0; the archive has both manifests, one skill with its two references

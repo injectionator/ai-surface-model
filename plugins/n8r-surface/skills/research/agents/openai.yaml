@@ -1,0 +1,4 @@
+interface:
+  display_name: "n8r-surface Researcher"
+  short_description: "Research AI components from source evidence"
+  default_prompt: "Use $research to investigate the supplied repository and retain evidence, choices and gaps."
