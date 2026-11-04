@@ -38,46 +38,26 @@ HTML renderer need no framework, browser runtime or general ontology dependency.
 
 ## First CLI AI runner
 
-Select a direct **OpenAI Responses API** adapter for #17, with explicitly supplied
-function tools for scoped reading, human questions and guarded artefact operations.
-This is a deliberate provider choice; TypeScript alone did not select it.
-The [official function-calling guide](https://developers.openai.com/api/docs/guides/function-calling)
-describes the model proposing calls and application code executing them and
-returning results (reviewed 4 November 2026).
+The user revised the order on 4 November 2026: use the Researcher as a
+[shareable skill](researcher-skill.md) in Codex/ChatGPT first, adapt it in n8r-labs
+second, then complete the standalone command. The current host supplies inference,
+file access, search and conversation. The skill does not configure a provider,
+extract credentials, or connect a second AI account.
 
-The reason is control over source and filesystem effects: the host can expose
-only the small operations in the [host contract](host-contract.md), validate every
-call, and return actual save results. An installed coding-agent runner could
-reuse that agent's setup, but would add subprocess/session and tool-permission
-mapping to this first path. Additional runners remain possible behind the same
-host boundary. This choice is not a comparative quality or cost benchmark.
+For the later CLI, select installed Codex with ChatGPT sign-in. This supersedes
+the earlier direct OpenAI Responses API adapter decision from #15. The
+[official authentication guide](https://learn.chatgpt.com/docs/auth) distinguishes
+ChatGPT subscription access from separately billed API-key access. The
+[SDK guide](https://learn.chatgpt.com/docs/codex-sdk) documents local-agent control
+and directs interactive clients to app-server. Reviewed 4 November 2026.
 
-The future adapter must:
-
-- Use an explicitly configured model supporting function calls. Record its exact
-  identifier with verification; do not hard-code a moving "latest" model or infer
-  model availability from this contract milestone.
-- Read an explicitly configured API credential reference, initially
-  `OPENAI_API_KEY` in the process environment. Keep values outside settings,
-  artefacts and logs; do not borrow another application's credentials or silently
-  select an account. API billing/authentication is separate from this Codex chat.
-- Show that selected source extracts and conversation/tool outputs will be sent
-  to OpenAI; obtain discovery-session authorization before transmission. Bare
-  startup and status make no inference request.
-- Keep source reads and corpus writes local to the host. No shell/source-script
-  execution, hosted file uploads, web search or provider-managed file store is
-  needed for the initial document/repository workflow.
-- Request `store: false` and maintain continuation locally through accepted
-  records and necessary conversation items. This is not a zero-retention promise:
-  provider abuse-monitoring and account controls still apply, as described by the
-  [official data controls](https://developers.openai.com/api/docs/guides/your-data)
-  (reviewed 4 November 2026).
-- Report unavailable credentials, model access, network errors and unsupported
-  tools without fallback or a false completed-research result.
-
-No API key was read and no inference request was made to verify #15. A live runner
-trial, provider SDK/version choice and its exact model test are #17 acceptance
-work. The artefacts and portable instructions remain independent of this adapter.
+Before implementing the CLI integration, verify a supported interface against its
+actual installed version, preserve user permissions and source scope, and record
+real tool events, human continuation and saved-output readback. Do not borrow
+application tokens, silently switch accounts/providers or fall back to API billing.
+Source transmission and a result destination remain separate decisions. A Lab is
+optional. No standalone runner or Lab compatibility is established by installing
+the skill. No API key was read or model API invoked by #15's contract tests.
 
 ## HTML ownership and numeric scope
 

@@ -5,7 +5,7 @@ components, configuration and relationships of an AI system, at the level of
 detail available or useful. This repository also develops the experimental
 `n8r-surface` command and Researcher library.
 
-There is one model: the **AI Surface Model**. Lab, Bench, Experiment and related
+There is one model: the **AI Surface Model**. Lab, Experiment and related
 descriptions are **fragments** within it. Each fragment describes a focused part
 of the system or its context using the same model.
 
@@ -22,6 +22,17 @@ artefacts without changing files. Setup, other commands, source-repository
 analysis and the AI Researcher workflow remain subsequent work; see the
 [critical path](docs/n8r-surface/critical-path.md).
 
+The [n8r-surface Researcher skill package](docs/n8r-surface/researcher-skill.md) is now
+available for testing in the existing Codex/ChatGPT harness. It uses the host's
+source access and conversation to produce evidence-backed working notes. The
+[discovery guide](docs/n8r-surface/researcher-discovery.md) focuses on AI-relevant
+graphs, reusable product knowledge and comparing descriptions with evidence. See
+[verification and pending Work-mode checks](docs/n8r-surface/researcher-skill-verification.md).
+The delivery order is skill first, n8r-labs adaptation second, standalone CLI third.
+The [local vault](docs/n8r-surface/researcher-vault.md) holds research notes, intermediate artifacts
+and Surface descriptions at a user-selected local path. It also includes prepared test material
+and a walkthrough for investigating another chat-system repository.
+
 The [command intent and verification spec](docs/n8r-surface/command-outcomes.md)
 defines the proposed commands, user outcomes and evidence required before claiming
 that those workflows work.
@@ -35,7 +46,7 @@ representation of a complete setup. Different parts can have different depths.
 
 - Investigate saved Surfaces offline, including which contain a particular
   component and version, with explicit coverage limits.
-- Remember equipment and integration configuration for lab and bench setups.
+- Remember equipment and integration configuration for Lab and Experiment setups.
 - Bind Experiment results to the Surface revision and effective setup tested.
 - Connect provenance and history across lab, development and production services.
 - Share setups that other people can recreate, with prerequisites and gaps visible.

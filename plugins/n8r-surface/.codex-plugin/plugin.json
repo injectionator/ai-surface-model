@@ -1,0 +1,31 @@
+{
+  "name": "n8r-surface",
+  "version": "0.1.7",
+  "description": "Discover and reconcile AI-relevant components and connections using source evidence and permitted live settings. Experimental working notes; no deployment or compatibility claims.",
+  "author": {
+    "name": "AI Surface Model contributors",
+    "url": "https://github.com/injectionator/n8r-surface"
+  },
+  "homepage": "https://github.com/injectionator/n8r-surface",
+  "repository": "https://github.com/injectionator/n8r-surface",
+  "license": "Apache-2.0 AND CC-BY-4.0",
+  "keywords": [
+    "research",
+    "ai-surface-model",
+    "repository",
+    "configuration"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "n8r-surface Researcher",
+    "shortDescription": "Research AI system components",
+    "longDescription": "Build partial AI Surface graphs from supplied sources, prior descriptions and permitted live observations using the current host. Retain evidence, decisions and gaps in working notes. This experimental skill does not change deployments or produce validated n8r research/Surface artefacts. Access and saving depend on the host tools.",
+    "developerName": "AI Surface Model contributors",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "websiteURL": "https://github.com/injectionator/n8r-surface",
+    "defaultPrompt": "Map AI-relevant components and connections in the supplied sources, with evidence and open questions.",
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/icon.svg"
+  }
+}

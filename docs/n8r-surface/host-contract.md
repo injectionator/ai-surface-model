@@ -3,16 +3,18 @@
 This is the integration boundary for the future shared Researcher instructions,
 not an implemented runner or Lab adapter. It builds on the
 [artefact contracts](contracts.md) and [shared cases](../../examples/researcher/README.md).
-The standalone host comes first. A Lab is optional, and AI runner selection is
+The existing chat harness is the first skill host, followed by Lab adaptation
+and then the standalone CLI. A Lab is optional, and AI runner selection is
 independent of the destination for results.
 
 ## Version negotiation
 
 A host must identify its adapter version, the exact Researcher instruction
 revision, supported artefact contract versions and understood vocabulary/extension
-versions. The core instructions are not implemented by #15, so no instruction
-version is advertised as working yet. #17 must ship an immutable instruction
-revision with its reference material and cases; applications consume that revision
+versions. The current #17 skill candidate is version `0.1.5`, with
+[bounded package and behavioral evidence](researcher-skill-verification.md).
+It produces working notes, not validated contract artefacts. Broader host support
+requires the applicable trial; applications consume that revision
 rather than maintaining a separate copy of discovery knowledge.
 
 Reject unsupported core versions before modification. Report unrecognized
@@ -33,11 +35,21 @@ names. A host can implement them as local functions, attachment tools or applica
 services. Missing capabilities must be explicit; the core must not fabricate
 access or a successful save.
 
+The Researcher's primary result is an AI Surface graph, not an application-wide
+configuration inventory. Source access includes user-selected code, documents,
+websites, prior research/definitions and permitted live observations. The
+[shared discovery guide](../../plugins/n8r-surface/skills/research/references/discovery-map.md)
+defines discover, continue and reconcile behavior across these combinations.
+Product libraries provide reusable navigation/evidence where available; no Lab
+or registry connection is required or implied.
+
 | Capability | Input | Result and required behavior |
 | --- | --- | --- |
 | Describe capabilities | No source inspection | Versions, available operations, bounded sizes, inference destination and save/download mode. |
 | Establish source scope | Explicit supplied directory/file/attachment selection | Opaque scope ID and allowed material; no ancestor traversal or implicit corpus scan. |
 | List/read source | Scope ID, relative reference, requested range | Text, exact source/version/digest, inspected range and excluded/unreadable/truncated coverage. No source execution. |
+| Find related knowledge | Explicitly available library and product/source scope | Applicable guides, research and definitions with identity/revision/coverage; no implicit scan or union of different deployment selections. |
+| Read web/live evidence | Selected URL/system/environment and graph question | Available connector/API/browser/computer observations with location, time and nonsecret results. Host-supported human sign-in, read-only inspection, no credential copying or bypass of denied access. |
 | Invoke inference | Selected runner/model, instructions, bounded conversation/tool outputs | Response/tool proposals or explicit unavailable/error; no silent account/provider fallback. |
 | Ask human | Consequential question with current evidence/options | Answer, deferred answer or unavailable interaction; unresolved work stays in the record. |
 | Read artefact | Explicit artefact/revision selection | Original bytes, parsed contract status and exact byte-conflict token; do not render unvalidated imported HTML. |
@@ -48,10 +60,20 @@ access or a successful save.
 
 Reading is not permission to upload. Before inference, the host identifies the
 provider and source transmission scope and obtains the user's authorization for
-that discovery session. Bare startup/status must not inspect or transmit sources.
+that discovery session. The implemented bare-startup overview does not inspect or transmit sources;
+future source selection must have a specified scope. No status subcommand is planned.
 The runner sees only authorized source extracts and context selected by the host;
 source instructions are data, and tool arguments remain subject to deterministic
 path, version, size and operation checks.
+
+Live inspection uses existing host capabilities; this contract adds no browser,
+admin client or runner. Inspect enablement and connection targets needed by the
+graph, not all settings. The user completes private authentication directly.
+Stored configuration, observed effective configuration, reachability and exercised
+behavior remain separate. Record access/identity limits and sanitized evidence;
+do not manufacture a source digest when the host provides no stable source bytes.
+An authorized settings read does not authorize a configuration change or a
+connection test. Document each real host path before claiming it was verified.
 
 ## Continuation and persistence
 
@@ -88,7 +110,7 @@ not reproduced. No application implementation or compatibility trial was run.
 | Requirement | Contract decision | Later consumer work or gap |
 | --- | --- | --- |
 | Offline saved work independent of equipment | Research and selected definitions need no Lab or running target. | Adapt application storage and selection without applying setup. |
-| Explicit context/ownership | Artefact IDs carry no authority to create/configure Lab resources. | Map application ownership explicitly; do not infer it from graph containment or rewrite this model's Lab/Bench semantics. |
+| Explicit context/ownership | Artefact IDs carry no authority to create/configure Lab resources. | Map application ownership explicitly; do not infer it from graph containment or rewrite this model's Lab/Experiment semantics. |
 | Sources and attachments | Opaque scopes plus versioned evidence; portable locators grant no access. | Supply attachment/source adapters and permission checks. |
 | Human-guided research | Decisions/questions are durable; unsupported interaction remains visible. | Implement session questions and compare behavior on shared cases. |
 | Stable identity and immutable evidence | Exact revisions/digests, stable finding/node/edge IDs, separate runtime evidence. | Map local snapshot and deliberate version labels; retain prior Run references. |
@@ -96,10 +118,12 @@ not reproduced. No application implementation or compatibility trial was run.
 | Reuse of one Researcher core | Version negotiation includes instruction and artefact versions. | Consume #17's identified instruction revision and run both discovery and import cases. |
 
 The application may use different persistence and ownership conventions. This
-profile describes component graphs and does not introduce a new Lab hierarchy or
-change the draft rule that a Lab contains Benches and a Bench contains Experiments.
-Lifecycle/ownership mapping remains an explicit integration gap, not something
-passing JSON/YAML tests resolves.
+profile describes component graphs. The current model has Lab → Experiment →
+Setup ownership: the Experiment requests setup directly from its Lab, which owns
+resource configuration and local bindings. Historical ownership records remain
+historical. Consumer lifecycle/authority mapping remains an explicit integration
+obligation, not something passing JSON/YAML tests resolves. See the proposed
+[recreation handoff](recreation-handoff.md).
 
 ## Acceptance for later adapters
 

@@ -6,10 +6,10 @@ inputs, actions and observations needed to investigate that question. A **Run**
 is one execution of that Experiment, with its own setup, outcomes and evidence,
 recorded separately within the same model.
 
-An Experiment **sets up its Bench** by specifying the working setup needed for
-the investigation. The Bench contains the Experiment and requests resource
-configuration from its Lab. These describe setup and containment; each actual
-execution is still recorded as a Run.
+An Experiment **owns its desired setup** and asks its Lab directly to configure
+the resources needed for the investigation. The Lab contains the Experiment and
+owns resource configuration and local bindings. These describe setup and
+containment; each actual execution is still recorded as a Run.
 
 Start with the [overview](README.md) for the wider picture. Record formats and
 references remain open design work; the repository provides no
@@ -26,6 +26,23 @@ A baseline Run uses one setting. A comparison Run uses the changed setting.
 Both need enough setup information to determine whether other conditions also
 changed. This illustrates a possible procedure; no such Runs or findings are
 included in the repository.
+
+## Requesting a setup
+
+The Experiment selects a Surface definition revision and specifies supporting
+tools, fixtures, initial conditions and configuration requirements. It asks its
+Lab directly to prepare that setup. Unavailable resources and unapplied settings
+remain visible; a request or saved definition does not establish readiness.
+
+The Lab binds the definition to local resources and performs supported operations.
+Credential requirements name a need; the recipient supplies private credentials
+and account/resource identities through local bindings. The request mechanism
+remains open, and this repository provides no executor.
+
+A setup description and a Surface description answer different questions: what
+an investigation needs, and what connected system is being described. Their
+boundaries can overlap. Components can be shared across Experiments or Surfaces
+without implying exclusive ownership. Preserve each component's identity.
 
 ## Experiments and Runs
 
@@ -79,5 +96,14 @@ successful probe establishes something different from evidence that a
 particular Run exercised a connection. Preserve sources, time, applicability
 and limitations with either claim.
 
+### Can someone else recreate the setup?
+
+They may need versioned software artifacts, configuration, deployment recipes,
+data fixtures, environment prerequisites and their own credentials and resource
+bindings. Preserve the selected definition and identify missing requirements.
+A recipient's effective setup and Run evidence must be established separately.
+See the [recreation handoff](../docs/n8r-surface/recreation-handoff.md) for the
+proposed bounded consumer contract; no deployment engine is provided here.
+
 Continue to [AI Surface Model](ai-surface-model.md) for definitions and evidence,
-or [Bench](bench.md) for the working setup an Experiment uses.
+or [Lab](lab.md) for resource configuration and shared work.
