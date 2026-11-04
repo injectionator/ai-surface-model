@@ -16,6 +16,7 @@ This is unreleased work; the remaining map describes intended capabilities.
 
 - [Experimental contracts and checks](contracts.md)
 - [Command intent, outcomes and verification](command-outcomes.md)
+- [Verification evidence and remaining limits](verification.md)
 - [Synthetic acceptance cases](../../examples/researcher/README.md)
 - [Host boundary and Lab review](host-contract.md)
 - [Implementation decisions](implementation-decisions.md)

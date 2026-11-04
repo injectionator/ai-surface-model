@@ -15,12 +15,13 @@ contracts without inference, storage adapters or a Lab.
 **Spec:** [approved design](../../n8r-surface/design.md),
 [issue #15](https://github.com/injectionator/n8r-surface/issues/15).
 
-**Execution checkpoint:** the user paused further code changes to review the
-[command intent and verification spec](../../n8r-surface/command-outcomes.md).
-It governs subsequent command/Researcher acceptance. The contract work below is
-supporting implementation, not proof of a complete research path. One code-review
-correction (custom array prototypes escaping the plain-data guard) remains pending;
-resume that correction only after the specification checkpoint is resolved.
+**Acceptance basis:** the user approved the
+[command intent and verification spec](../../n8r-surface/command-outcomes.md)
+on 4 November 2026. It governs subsequent command/Researcher acceptance. The
+contract work below is supporting implementation, not proof of a complete research
+path. The independent review's array-prototype correction has a failing-then-passing
+public API regression and installed-package check; see the
+[evidence record](../../n8r-surface/verification.md).
 
 ## Global constraints
 
@@ -97,5 +98,5 @@ exports the library plus contracts/examples; no command entry point yet.
   Keep settings/source/storage implementation in #16 and discovery in #17.
 - [x] Run npm tests, shell syntax, existing Python tests, JSON/reference checks,
   changed Markdown links and `git diff --check`; inspect the publication diff.
-- [ ] Obtain one independent whole-branch review, fix substantive findings with
+- [x] Obtain one independent whole-branch review, fix substantive findings with
   reproducing tests, then push/update the draft PR and hand back issue/PR/commit.

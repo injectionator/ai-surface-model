@@ -5,11 +5,11 @@ person should be able to accomplish, what changes, what they can observe, and ho
 to verify those outcomes. Implementation plans and lower-level tests must serve
 these tasks. A passing codec test does not establish a working research command.
 
-**Status:** proposed command behavior for review. At the current draft
-implementation revision `a2dae4d`, the package contains an experimental artefact
+**Status:** product specification approved on 4 November 2026; command
+implementation remains pending. The #15 package contains an experimental artefact
 library and fixtures but no command entry point, Researcher instructions or AI
 runner. None of the command scenarios below has been exercised successfully.
-The existing library checks are supporting evidence only.
+The [recorded library checks](verification.md) are supporting evidence only.
 
 This specification applies the task-driven development approach requested by the
 user: define a real task, attempt it through the product, observe the gap, develop
@@ -42,9 +42,9 @@ do not redefine success around whatever the code currently produces.
 
 ## Initial public command inventory
 
-This is the complete proposed terminal surface for the first standalone milestone.
-It consolidates the already planned startup, status and discover commands and adds
-explicit help/version behavior for review. Corpus operations below are conversation
+This is the approved initial terminal surface for the first standalone milestone.
+It includes startup, status, discover and explicit help/version behavior.
+Corpus operations below are conversation
 intents, not additional undocumented subcommands. Any later command or option must
 be added to this inventory with its own outcome and verification case first.
 

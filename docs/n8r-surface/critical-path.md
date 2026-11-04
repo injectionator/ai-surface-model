@@ -19,12 +19,12 @@ It is stacked on planning PR #18 and is not merged. After review of this gate,
 #16 is the next implementation milestone; #17 follows it. Source-repository
 analysis is #17's work. No CLI or live Researcher workflow is claimed here.
 
-**Specification checkpoint:** further code changes are paused while the human
-reviews the [command intent and verification specification](command-outcomes.md).
-It defines the complete initial command inventory and observable outcomes.
-The #15 draft also has one open review correction: reject custom array prototypes
-before serialization so inherited hooks cannot replace validated data. This remains
-pending during the specification checkpoint; #15 is not complete.
+The [command intent and verification specification](command-outcomes.md) was
+approved on 4 November 2026 and governs subsequent delivery. The independent
+review's array-prototype correction is implemented and verified through the public
+API and installed package. See the [evidence and limits](verification.md).
+The #15 implementation is available in its draft PR for human acceptance; this
+does not authorize review readiness, merging or starting the next issue.
 
 ```mermaid
 flowchart LR

@@ -140,8 +140,9 @@ data. The profile supports null, booleans, well-formed Unicode strings, signed s
 integers from `-9007199254740991` through `9007199254740991`, arrays and string-keyed
 objects. JavaScript arrays must have the ordinary `Array.prototype`; subclasses
 and arrays with custom prototypes are rejected before inherited methods or
-serialization hooks can run. Numeric tokens use decimal integer notation; no negative zero, fraction,
-exponent, leading zero, hexadecimal, infinity or NaN. Use an explicit string plus
+serialization hooks can run. Numeric tokens use decimal integer notation; no
+negative zero, fraction, exponent, leading zero, hexadecimal, infinity or NaN.
+Use an explicit string plus
 unit for decimal quantities or larger identifiers. This deliberately small subset
 prevents number precision loss between runtimes.
 
