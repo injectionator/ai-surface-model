@@ -1,0 +1,37 @@
+name: Ask an interoperability question
+description: Propose or report a bounded mapping to a named format or tool.
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Search existing issues first. Distinguish proposed mappings from tested
+        results. Parsing or schema validity alone does not prove compatibility.
+        Use public sources and synthetic fixtures.
+  - type: textarea
+    id: question
+    attributes:
+      label: Question and intended use
+      description: Who would consume the mapping, and what do they need to learn or preserve?
+    validations:
+      required: true
+  - type: textarea
+    id: versions
+    attributes:
+      label: Source, target and versions
+      description: Give exact standard/profile versions and tool versions or commits. Mark anything not selected yet.
+    validations:
+      required: true
+  - type: textarea
+    id: mapping
+    attributes:
+      label: Scope, mapping and losses
+      description: Identify supported meanings, transformations, omissions and unknowns. Include a small synthetic example.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and acceptance checks
+      description: Link primary sources, describe tests already performed and state what still needs verification.
+    validations:
+      required: true

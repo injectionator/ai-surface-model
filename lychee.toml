@@ -1,0 +1,13 @@
+# Keep requests bounded; failures remain visible rather than accepted as success.
+max_concurrency = 4
+max_retries = 2
+retry_wait_time = 2
+timeout = 20
+exclude_all_private = true
+
+# Include GitHub templates, but never scan local dependency or scratch directories.
+hidden = true
+exclude_path = ['(^|/)(\.git|\.superpowers|node_modules|\.venv)/']
+
+# Reserved fixture addresses are not deployed services.
+exclude = ['^https?://[^/]+\.test(?:[/:]|$)']

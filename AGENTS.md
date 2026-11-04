@@ -11,6 +11,11 @@ when working in their directories.
 their components, configuration and relationships at varying levels of detail. It is usable
 independently of Injection8r or any particular lab product.
 
+Keep `n8r-labs` application design and implementation in its separate repository.
+References here should describe model use or the consumer integration boundary;
+do not introduce Lab application architecture or change that repository as part
+of work here.
+
 The repository contains conceptual documentation, illustrative JSON examples and
 an experimental TypeScript Researcher artefact library. There is no released
 universal schema, CLI, AI runner or deployment engine. The bounded contract tests
@@ -221,15 +226,35 @@ required checks and accurate evidence; procedure length is not a measure of rigo
 
 ## Checks before handing work back
 
+Follow [the repository checks](CONTRIBUTING.md#checks-before-a-pull-request) for
+the full commands, prerequisites, network use and limits. In addition to the
+Python checks below, run Markdown lint, local links/anchors and citation checks
+when relevant:
+
+```sh
+npx --yes markdownlint-cli2@0.24.0
+lychee --offline --include-fragments --no-progress '**/*.md'
+cffconvert --validate
+```
+
+Use lychee 0.24.2 and cffconvert 2.0.0. Lint installation and citation-checker
+installation need network access; local link and fixture checks run offline.
+External links are checked separately by a weekly/manual workflow. Do not report
+unrun checks as passing or fixture integrity as model conformance.
+
 For the experimental Researcher library, use Node.js 22, 24 or 26 and npm:
 
 ```sh
 npm ci
+npm cache add yaml@2.9.1
 npm test
 npm run check:package
 ```
 
-`npm ci` downloads dependencies. Tests are offline and cover contracts, codecs,
+`npm ci` downloads dependencies. `npm cache add yaml@2.9.1` also downloads the
+runtime dependency's metadata needed by the offline consumer install; keep that
+command and its CI step aligned with runtime dependency changes.
+Tests are offline and cover contracts, codecs,
 references, revision checks, HTML/data conflicts and synthetic fixtures. The
 package check builds, packs and installs in a temporary directory using the local
 npm cache with scripts disabled, then exercises built exports and bundled assets.
