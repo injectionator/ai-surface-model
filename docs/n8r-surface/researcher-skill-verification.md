@@ -26,9 +26,50 @@ run folder; no live service is needed. Surface-note precedence is a separate
 instruction check; this source-pack rehearsal uses research notes.
 
 Candidate 0.1.6 adds the rule and detailed note guidance, updates both manifests
-and the installation/walkthrough version. Installed save/continue and cache-byte
-verification are pending the candidate push and refresh. This remains a partial
-#17 increment; no structured-output or runtime behavior is claimed.
+and the installation/walkthrough version. Implementation
+`c682615e124ca8aded3b771080c7a5e3a2da63e5` was pushed before the requested
+`codex plugin marketplace upgrade n8r-surface`,
+`codex plugin add n8r-surface@n8r-surface --json` and
+`codex plugin list --marketplace n8r-surface --json`. All exited 0. The fetched
+marketplace matched that commit; exactly one enabled 0.1.6 was listed, and all
+eleven installed files matched the maintained source byte for byte.
+
+Two fresh Researcher agents then rehearsed the prepared save/continue interactions
+through installed 0.1.6. The first received only the three prepared sources and
+saved `ai-components-001.md`. After independent readback and a preservation copy,
+the coordinator changed only the disposable `DOCUMENT_SEARCH_URL` value to
+`https://search.example.test`. The second agent read the predecessor and current
+sources and saved `ai-components-002.md`. Neither received prewritten findings,
+the parent's transcript or the walkthrough's expected results.
+
+Independent readback verified all three current source hashes, six stable
+component IDs, working relative note links and unchanged predecessor bytes. Both
+notes contain **Recommended next steps** with investigation, reason and resumption
+point. The successor explicitly resolves the missing target declaration and
+changes the first recommendation to investigating effective use, while retaining
+the remaining unknowns and evidence blockers. It does not claim the service works.
+Shared source examples and the eight unrelated working files stayed unchanged.
+
+| Saved evidence | SHA-256 |
+| --- | --- |
+| Installed-0.1.5 baseline | `f46380ea3e07f9461911a6d92adcaf77008bcba29250c2786ef21a1abeda717c` |
+| Installed-0.1.6 first note | `44898be0a3ec75388111022d1a5f5606595b339e0635e05360211a2a65ea2e6e` |
+| Installed-0.1.6 successor | `aef6ac573f5566214acc4119493e7703e1c99e6c254317332449f4ceaf0800f8` |
+| Installed-0.1.6 skill | `fa10fe3f93a5f52f114f5a97507e1f22cdb13b4e9c888111f8a4d12a198cefeb` |
+
+Environment: 4 November 2026, macOS ARM64, Codex CLI 0.139.0 and fresh local
+host agents with filesystem tools. Outputs remain in the selected vault's
+`runs/` directory. This is an agent rehearsal, not human acceptance or enforced
+source/memory isolation. A separate fresh instruction check recovered Surface-note
+precedence, preservation of older notes without recommendations and respect for
+narrowed user scope; it did not exercise a saved Surface successor.
+
+Seven changed Markdown files passed markdownlint-cli2 0.24.0 with MD013/MD041
+disabled; 55 local links/anchors, manifest versions and whitespace passed. Three
+JSON examples parsed (syntax only). Focused review found no actionable issue.
+No npm/library/CLI behavior changed or is claimed tested. This remains a partial
+increment of issue #17; structured-output, runtime and Work UI acceptance remain
+unproved.
 
 ## Repository vault rehearsal: 0.1.5
 
