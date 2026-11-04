@@ -32,7 +32,7 @@ destination, the installed skill still defaults to
 `~/Documents/n8r-surface/research/<source-slug>/`. Installation does not create
 or populate a vault.
 
-The folder layout does not validate its contents. Current Researcher 0.1.6
+The folder layout does not validate its contents. Current Researcher 0.1.7
 produces Markdown working notes; `surfaces/` holds Surface descriptions when
 available, without claiming the skill generates validated definitions. Local
 files are not automatically published, backed up or encrypted. If you place a
@@ -40,7 +40,7 @@ vault in a Git repository, ignore its working areas before saving private work.
 
 ## Try the installed skill
 
-The shared material below assumes **n8r-surface Researcher 0.1.6 is already
+The shared material below assumes **n8r-surface Researcher 0.1.7 is already
 installed**. Anyone with this checkout has the same
 [prepared source pack](../../examples/researcher-vault/README.md).
 

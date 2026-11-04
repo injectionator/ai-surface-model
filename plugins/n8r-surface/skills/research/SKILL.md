@@ -4,7 +4,7 @@ description: Use when discovering, continuing or reconciling an AI Surface graph
 license: CC-BY-4.0
 metadata:
   author: AI Surface Model contributors
-  version: "0.1.6"
+  version: "0.1.7"
 ---
 
 # n8r-surface Researcher
@@ -20,7 +20,7 @@ Read the relevant sections of the [discovery guide](references/discovery-map.md)
 for source intake, product knowledge, graph exploration, reconciliation or live
 inspection. It supplies clues and follow-up paths, not a required architecture.
 Use [working notes](references/working-notes.md) when saving or continuing work.
-Identify this skill as `n8r-surface:research 0.1.6` at the start of an investigation
+Identify this skill as `n8r-surface:research 0.1.7` at the start of an investigation
 and in saved notes, so an installed candidate can be checked.
 
 ## Establish the question and source
@@ -84,6 +84,16 @@ When the user corrects or selects something, retain it as a dated human decision
 with its scope. A decision does not rewrite contradictory source evidence. When
 continuing, read the saved notes and re-establish source access and identity;
 retain component IDs, accepted choices and unresolved questions.
+
+After presenting the first useful partial graph, if saving has not already been
+requested or declined, offer once to save it as a numbered Surface working draft.
+Resolve the destination using the convention below and name the proposed file in
+the offer, for example: “Would you like me to save this as a Surface working draft
+in your vault?” A configured vault alone is not permission to write. Wait for
+acceptance before saving; if declined, continue in chat without repeating the
+offer. When saving is already authorized, proceed without asking again. The
+working draft is an intermediate Markdown description; any later structured
+conversion is a separate requested step subject to the output boundary below.
 
 Save only when requested or already part of the task. Resolve the destination
 using the [working-note storage convention](references/working-notes.md#where-notes-live)

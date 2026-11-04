@@ -7,7 +7,11 @@ retain the same evidence and limitations. Do not impose a large empty template.
 
 ## Where notes live
 
-Use a user-selected destination first. When continuing a saved note, use its
+Use a user-selected destination first. When an applicable vault convention places
+Surface descriptions under `surfaces/<source-slug>/`, propose a numbered file
+such as `surface-draft-001.md` there. A save offer does not create directories or
+files; wait for acceptance. Without that convention, use the default below for
+the same Markdown working draft. When continuing a saved note, use its
 folder unless the user requests a move. Otherwise, on a host with a persistent
 user-owned local filesystem, use:
 

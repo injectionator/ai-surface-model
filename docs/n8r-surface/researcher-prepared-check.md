@@ -7,7 +7,7 @@ pretend configuration; no application needs to be installed or started.
 ## Before you start
 
 Open your local vault in your file browser. You need a local chat app
-with **n8r-surface Researcher 0.1.6 already installed**, access to the prepared example in this repository,
+with **n8r-surface Researcher 0.1.7 already installed**, access to the prepared example in this repository,
 and permission to save files in your vault. If access or the skill is missing, record
 **Blocked** and what is missing. You do not need to diagnose the installation.
 Follow the [fresh-context guidance](researcher-vault.md#start-with-fresh-context) before

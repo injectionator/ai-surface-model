@@ -1,11 +1,53 @@
 # Researcher skill verification
 
-**Candidate:** `n8r-surface:research` (**n8r-surface Researcher**) **0.1.6**, 4 November 2026.
+**Candidate:** `n8r-surface:research` (**n8r-surface Researcher**) **0.1.7**, 4 November 2026.
 This is a partial #17 increment. ChatGPT desktop / Work lifecycle acceptance is
 **pending**, not passed. No Lab or standalone CLI research claim follows.
 
 The implementation/evidence commits are identified by the associated draft PR;
 use the exact candidate commit when repeating the procedure.
+
+## Optional save offer: 0.1.7
+
+State X: a real source investigation through installed 0.1.6 returned a partial
+map without offering persistence. The user clarified that save-on-request is
+intentional and requested an optional offer. Input Y: investigate supplied
+sources without a save instruction. Outcome Z: show the graph, offer once to
+save a numbered Markdown Surface working draft at the resolved destination,
+and write only after acceptance. Existing save authorization needs no new question;
+a declined offer is not repeated. Structured conversion remains a separate step.
+
+### Human verification
+
+Prerequisites: installed Researcher 0.1.7, a local host with file access, and the
+[prepared source pack](../../examples/researcher-vault/chat-service). Open a fresh
+chat with that folder selected. Choose an unused folder under your vault's `runs/`
+for this trial; tell the chat to use it as the test vault, with Surface drafts in
+`surfaces/<source-slug>/`. No service, credentials or installation is needed beyond
+the existing skill. These are conversational interactions, with no exit code.
+
+- [ ] Select Researcher and ask: “Map the AI connections in this source folder.”
+  Expect a partial graph with evidence and runtime unknowns, followed by one
+  optional save offer naming a numbered file. Check the test vault: no file or
+  directory has been created by the offer.
+- [ ] Reply: “No, keep it in chat. Explain the unresolved search connection.”
+  Expect continued analysis without a write or another save offer.
+- [ ] Reply: “Now save the Surface working draft in the test vault.” Expect a
+  save without another permission question, followed by readback and an openable
+  file link. Open it: graph, evidence, limits and Recommended next steps remain.
+  It is Markdown working research, not a validated JSON definition.
+
+Report **Pass / Fail / Blocked**, skill/app version, the offered path, saved link
+and any failed step. Wording and unused numbers may vary. A premature write,
+repeated offer after refusal, or unnecessary confirmation of the explicit save
+is a failure. Keep the test output for review; optional cleanup removes only the
+new test folder after review.
+
+### Maintainer evidence
+
+The baseline is the observed installed-0.1.6 conversation, not a synthetic failed
+run. Candidate checks and the fresh-agent rehearsal are recorded below after
+execution. Human acceptance and Work UI lifecycle remain separate and pending.
 
 ## Saved recommendations: 0.1.6
 
