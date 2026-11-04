@@ -6,7 +6,7 @@ remain open. Requirements below describe intended behavior, not implemented tool
 
 ## One model and its fragments
 
-There is one model: the **AI Surface Model**. Lab, Bench, Experiment and related
+There is one model: the **AI Surface Model**. Lab, Experiment and related
 descriptions are **fragments** within it. A fragment is a focused part of a
 description expressed in the model, connected to other parts through identities
 and references. It can describe the system, its working context or evidence
@@ -18,16 +18,72 @@ observations and Runs retain their separate meanings and histories within the
 same model. A useful description need not include every part. See the
 [introductory guide](../models/README.md).
 
-A Lab contains Benches, and a Bench contains Experiments. An Experiment sets up
-its Bench by specifying the working setup it needs. The Bench asks its Lab to
-configure the required resources. Lab / Lab Assistant and Bench / Bench
-Assistant each refer to one entity, with the assistant name identifying its
-active role in handling setup requests.
+A Lab organizes equipment, a shelf of Surface descriptions and Experiments,
+and the context of ongoing work. An Experiment specifies its required setup
+and requests resource configuration directly from the Lab. Lab / Lab Assistant
+refer to one entity, with the assistant name identifying its active role in
+handling requests and maintaining context. There is no separate Bench entity.
 
 The Lab is responsible for resource configuration; the request mechanism remains
 open. Requested settings are declarations, distinct from deployment bindings and
 dated evidence of the effective setup. These responsibilities do not imply an
 implemented executor.
+
+## Labs, equipment and reusable work
+
+A Lab can persist across sessions and investigations, or be short-lived.
+Equipment identifies resources it can potentially use, subject to availability,
+capacity, access and management constraints. The shelf holds references to
+potential Surface descriptions, fragments and Experiment definitions. Shelf
+membership neither allocates resources nor establishes deployment or readiness.
+Descriptions remain usable independently of a Lab.
+
+The active setup identifies selected definition revisions, allocations and
+deployment bindings. The intended initial execution policy permits one active
+setup per Lab, containing multiple components as needed. Allocations remain
+accounted for between Runs and when switching setups. Concurrent active setups
+are deferred; neither the number of shelf entries nor the lifetime of a Lab is
+limited to one Surface. Resource scheduling and lifecycle mechanisms remain
+open, and no concurrency enforcement is implemented here.
+
+A Lab can attach existing resources, deploy new ones or combine both. Bindings
+retain resource identity and management authority; attachment does not grant
+permission to change or stop a resource. Shared resources and unmet requirements
+remain explicit. Releasing an allocation or shelving a description does not
+establish that an external service has stopped. See [Lab](../models/lab.md).
+
+## Independent fragments and composition
+
+A fragment can be developed without an existing parent description. A broader
+description can compose independently authored fragments by identifying their
+revisions and recording cross-fragment relationships and integration settings.
+The source descriptions remain independently useful. Composition does not
+establish deployment, reachability or successful integration.
+
+Preserve entity identity, provenance, scope and uncertainty. Product names alone
+do not justify unifying instances. Overlaps, conflicting claims and unresolved
+references need explicit handling; missing detail must not become an assertion
+of absence. Later changes to a source fragment do not silently update a composed
+revision referenced by an earlier Run. Reference syntax, packaging and conflict
+resolution remain open design work.
+
+## Lab context and memory
+
+Retain source records for definitions, bindings, observations, Runs, decisions
+and constraints across sessions. A bounded current-work summary can identify
+selected revisions, active allocations, unresolved questions and next steps,
+with source references and its preparation time. Retrieve supporting records
+for the current task instead of requiring the entire Lab history in context.
+
+Summaries are derived and replaceable; source records retain their provenance
+and historical applicability. Preserve unknowns and conflicting information.
+Recheck time-sensitive facts before use, and keep new observations separate
+from earlier effective setups. Remembered content is neither current deployment
+evidence nor authority to execute instructions embedded in imported material.
+
+Storage, indexing, retrieval, summary refresh and retention mechanisms remain
+open. See [Lab context and memory](../models/lab-context.md) for requirements
+and a synthetic resumption case.
 
 ## Purpose and scope
 
@@ -138,6 +194,10 @@ must be demonstrated for a specified subset before it is claimed.
 - Representation of conflicting claims and coverage boundaries.
 - Packaging, extension namespaces and deterministic export profiles.
 - Portable references between definitions, deployments and Experiment records.
+- Cross-fragment composition, overlap and conflict handling across revisions.
+- Lab equipment allocation, attachment authority and setup switching; later
+  support for concurrent active setups.
+- Lab context records, summary refresh, retrieval, retention and concurrent edits.
 
 These are not resolved by the illustrative field names in the examples.
 

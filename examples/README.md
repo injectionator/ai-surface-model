@@ -34,6 +34,11 @@ configuration keys. Secret references are requirements, not credential values.
 
 ## Limits
 
+The proposed [Lab shelf and composition workflow](../models/ai-surface-model.md#develop-independently-and-compose-later)
+also uses a synthetic LibreChat/Promptfoo scenario. It has no JSON fixture or
+verified integration here. These existing fixtures remain focused on the
+authentication path and do not describe that broader setup.
+
 Neither example contains executable deployment instructions, data snapshots or
 evidence of a running integration. A recipient would need versioned artifacts,
 correct product-specific settings, credentials and local deployment bindings.

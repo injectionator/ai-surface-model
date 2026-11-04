@@ -4,7 +4,7 @@ This project defines one open model: the **AI Surface Model**. It describes
 connected AI systems and their working context at the level of detail available
 or useful.
 
-Lab, Bench, Experiment and related descriptions are **fragments** within this
+Lab, Experiment and related descriptions are **fragments** within this
 model. Each describes a focused part and can connect to other parts
 through identities and references.
 
@@ -12,7 +12,7 @@ An **AI Surface** is the system being described: applications, agents, AI models
 services, tools, data and their connections. A **Surface description** records
 what is known about that system within a chosen scope. The same model also
 describes the context and evidence of its use through Labs,
-Benches, Experiments and Runs.
+Experiments and Runs.
 
 Start with the [overview](README.md) to see how these fit together.
 Boundaries and representation remain open.
@@ -65,6 +65,29 @@ For a connection, distinguish what is **declared**, what has been shown to be
 time, applicability and limitations with those claims. Neither a diagram nor a
 valid document establishes all three.
 
+## Develop independently and compose later
+
+A focused description can be authored without an existing parent Surface or
+Lab. It can be useful independently and later serve as a fragment in a broader
+description. Composition identifies the selected revisions and adds explicit
+relationships and integration configuration between their components.
+
+For example, a synthetic Lab could keep a LibreChat description with a MongoDB
+Atlas dependency and a separate Promptfoo description on its shelf. A later
+description could compose those parts for an integration investigation,
+recording the intended target connection and any authentication or adapter
+requirements. The original descriptions remain reusable. This is a modeling
+scenario, not evidence of a working product integration.
+
+Preserve identities and provenance when combining descriptions. Matching product
+names do not establish that two records describe the same instance; disagreements
+and unresolved references remain explicit. The selected revisions stay fixed
+for earlier Runs when either source description changes.
+
+Composition describes the intended system. Deployment bindings separately
+identify the existing or newly deployed resources used to realize it. Packaging,
+reference resolution and integration execution remain open design work.
+
 ## Common questions
 
 ### Is this the AI model itself?
@@ -83,7 +106,7 @@ layout or an executable module. Those representation choices remain open.
 ### Do I need a Lab or an Experiment?
 
 No. A saved Surface can support inventory, configuration understanding or
-offline investigation on its own. When used with a Bench or Experiment, its
+offline investigation on its own. When used with a Lab or Experiment, its
 definition and linked evidence help describe what was prepared or tested.
 
 ### How much detail is enough?
@@ -100,7 +123,7 @@ work will examine versioned, bounded mappings and report information lost or
 transformed. Successful parsing would not establish consumer compatibility,
 round-trip fidelity or recreation. See the
 [interoperability research](../docs/interoperability.md) and
-[recreation requirements](bench.md#can-someone-else-recreate-a-bench).
+[recreation requirements](lab.md#can-someone-else-recreate-a-setup).
 
 For more precise meanings, read the [draft concepts](../spec/README.md).
 For the intended development sequence, see the [roadmap](../docs/roadmap.md).

@@ -78,18 +78,29 @@ refusal with a reset, stash or forced deletion. Follow the
 
 ## Preserve the model's meaning
 
-- There is one model: the AI Surface Model. Lab, Bench, Experiment and related
+- There is one model: the AI Surface Model. Lab, Experiment and related
   descriptions are fragments within it; never present them as separate models.
   Fragment is working terminology; its boundaries and serialization remain open.
-  Use plain names such as Lab and Bench in prose and diagrams rather than
-  repeating fragment in each label.
-  AI models such as language models are components described by the model.
-- A Lab contains Benches, and a Bench contains Experiments. An Experiment sets
-  up its Bench by specifying the setup it needs; the Bench requests resource
-  configuration from the Lab. The Lab is responsible for that configuration.
-  Lab / Lab Assistant and Bench / Bench Assistant each share one entity and
-  diagram node. Keep requests distinct from evidence of the effective setup
-  actually provided.
+  Use plain names such as Lab and Experiment in prose and diagrams. AI models
+  such as language models are components described by the model.
+- A Lab has equipment, a shelf of reusable Surface descriptions and Experiments,
+  and context that can persist across sessions. An Experiment requests resource
+  configuration directly from the Lab. Lab / Lab Assistant share one entity and
+  diagram node. There is no separate Bench entity.
+- Keep shelved definitions distinct from active allocations. The initial
+  execution policy is one active setup per Lab, with multiple components allowed;
+  concurrent active setups are deferred. This does not limit a Lab's shelf or
+  lifetime to one Surface, and no scheduler is implemented here.
+- Allow attachment of existing resources, new deployments and mixed setups.
+  Record management authority and keep requests distinct from evidence of the
+  effective setup. Attachment does not authorize changing or stopping a service.
+- Independently authored fragments can be composed through revision references
+  and explicit relationships. Preserve identities, provenance, gaps and conflicts;
+  composition is not deployment or evidence of a working integration.
+- Keep durable Lab records separate from derived current-work summaries and
+  retrieved context. Retain sources, time and applicability, recheck stale facts,
+  and never let memory summaries rewrite historical Run references. Storage and
+  retrieval mechanisms remain open design work.
 - Keep partial descriptions useful. Distinguish known, unknown, omitted, redacted,
   absent and out-of-scope information; missing detail does not establish absence.
 - Preserve component identity as detail grows. Allow shared components, cycles and
