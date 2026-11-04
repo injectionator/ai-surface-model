@@ -15,6 +15,7 @@ AI Researcher skill, live source analysis or Lab integration is implemented yet.
 This is unreleased work; the remaining map describes intended capabilities.
 
 - [Experimental contracts and checks](contracts.md)
+- [Command intent, outcomes and verification](command-outcomes.md)
 - [Synthetic acceptance cases](../../examples/researcher/README.md)
 - [Host boundary and Lab review](host-contract.md)
 - [Implementation decisions](implementation-decisions.md)
@@ -114,6 +115,11 @@ Update these documents in the PR that changes a capability or delivery decision.
 Record implemented behaviour only with its verification evidence. Keep later
 ideas on this map until they are ready to become bounded issues. A draft PR,
 passing fixture checks and a working live integration are distinct states.
+
+Use [State X → Input Y → verified Outcome Z](command-outcomes.md) as the acceptance
+structure for each command increment. Attempt and repeat the actual product path,
+and verify changed state independently. The current fixture/library checks do not
+establish a successful repository-research command.
 
 Related: [model overview](../../README.md), [draft concepts](../../spec/README.md),
 [model roadmap](../roadmap.md), [interoperability](../interoperability.md).

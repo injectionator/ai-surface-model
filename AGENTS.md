@@ -77,6 +77,28 @@ the user has authorized cleanup. It verifies the PR and exact local tip, updates
 refusal with a reset, stash or forced deletion. Follow the
 [cleanup prerequisites and failure handling](CONTRIBUTING.md#cleanup-after-a-merge).
 
+## Develop from user intent and observable outcomes
+
+For command or Researcher behavior, follow
+[the command intent and verification spec](docs/n8r-surface/command-outcomes.md).
+Before coding, define the useful user task, initial State X, actual Input Y and
+independently verifiable Outcome Z. List expected state changes, visible results
+and the evidence needed to verify them. Keep the complete public command inventory
+and conversational intents current before adding a command, option or behavior.
+
+Attempt the task through the current installed product and record actual behavior
+before implementation. If the product or prerequisites are unavailable, record
+the blocker rather than inventing a failed attempt. Implement against the observed
+gap (or an explicitly authorized known missing capability), then repeat the same
+task through the installed product and independently read back its outputs.
+
+Unit, codec and fixture tests support this evidence; they do not replace a real
+command/runner/human/persistence rehearsal. The developing agent must not perform
+the investigation itself or populate an artefact with prewritten findings and
+claim the Researcher produced them. Keep expected, observed, verified and unproved
+outcomes separate. Final handoffs and PRs must include the exercised interaction,
+state changes, evidence/readback, exact revision/environment and remaining limits.
+
 ## Preserve the model's meaning
 
 - There is one model: the AI Surface Model. Lab, Bench, Experiment and related

@@ -33,7 +33,13 @@ copy private application content.
 
 ## Sources and scope
 
-Proposed commands:
+The [command outcome specification](command-outcomes.md) owns the complete initial
+command inventory, conversational intents and State/Input/Outcome acceptance cases.
+It is the product contract for implementation; the detailed artefact contracts
+support it. Development starts with a real user task and returns to that same
+interaction for verification. No command scenario is currently verified.
+
+Core proposed research entry points:
 
 ```sh
 n8r-surface
@@ -262,3 +268,9 @@ and a second source. Check local integrity, safe persistence and actual AI
 behaviour separately. Compare supported facts, selections and gaps across hosts,
 rather than requiring identical generated wording. A live consumer trial is
 separate from file parsing, fixture checks and a successful standalone run.
+
+Before implementing command behavior, define and attempt the corresponding
+[user-outcome case](command-outcomes.md#governing-development-loop), or record why
+the current product cannot run it. After implementation, repeat the actual command
+and human interaction, then inspect the persisted output. Do not use the developing
+agent's own research or a prewritten artefact as proof of Researcher behavior.

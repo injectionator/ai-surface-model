@@ -12,14 +12,20 @@ what information remains unknown.
 
 Follow this sequence for each contribution, including documentation changes:
 
-1. **Start with an issue.** Find or open the issue that describes the problem,
-   intended change and how it will be checked. Agree the scope before editing.
+1. **Start with an issue.** Find or open the issue that describes the user task,
+   initial state, actual interaction, intended state change and observable
+   verification evidence. Use the [command outcome spec](docs/n8r-surface/command-outcomes.md)
+   for command/Researcher work. Agree the scope before editing; attempt the current
+   product path or record why it is unavailable before implementing the gap.
 2. **Create a branch from updated `main`.** Use a dedicated branch such as
    `docs/123-model-links`, with the issue number in its name. Work in the existing
    checkout and preserve unrelated changes.
 3. **Do the work and open a draft PR.** Commit and push the branch, open one
    matching draft PR, and link it with `Closes #123`. Explain the change and record
-   the relevant checks. Keep the same branch and PR updated as the work develops.
+   the relevant checks. Repeat the original user interaction and independently
+   read back the changed state; report blocked or unproved outcomes explicitly.
+   Internal tests do not establish end-to-end product acceptance. Keep the same
+   branch and PR updated as the work develops.
 4. **Review, then merge.** Keep the PR draft until review readiness is approved.
    Merge, release and deployment are separate decisions.
 5. **Return to `main` after the merge.** While still on the completed branch, use

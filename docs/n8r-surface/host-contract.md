@@ -103,6 +103,12 @@ passing JSON/YAML tests resolves.
 
 ## Acceptance for later adapters
 
+Use the [command outcome specification](command-outcomes.md) to define initial
+state, actual human interaction, state changes and independent readback. The
+cases below must be exercised through the relevant host, not fulfilled by the
+developing agent outside it. The installed CLI's complete path is E2E-01;
+LibreChat requires its own E2E-02 rehearsal before a product-support claim.
+
 1. Research Lumen and Harbor separately from the supplied sources, keeping the
    10/25 conflict and unknown authentication/model facts.
 2. Ask the human about selection; do not turn every supported option into an edge.

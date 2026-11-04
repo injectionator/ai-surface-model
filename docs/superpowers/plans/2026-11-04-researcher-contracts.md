@@ -15,6 +15,13 @@ contracts without inference, storage adapters or a Lab.
 **Spec:** [approved design](../../n8r-surface/design.md),
 [issue #15](https://github.com/injectionator/n8r-surface/issues/15).
 
+**Execution checkpoint:** the user paused further code changes to review the
+[command intent and verification spec](../../n8r-surface/command-outcomes.md).
+It governs subsequent command/Researcher acceptance. The contract work below is
+supporting implementation, not proof of a complete research path. One code-review
+correction (custom array prototypes escaping the plain-data guard) remains pending;
+resume that correction only after the specification checkpoint is resolved.
+
 ## Global constraints
 
 - Use the existing checkout; no worktrees. Preserve unrelated work.

@@ -19,6 +19,13 @@ It is stacked on planning PR #18 and is not merged. After review of this gate,
 #16 is the next implementation milestone; #17 follows it. Source-repository
 analysis is #17's work. No CLI or live Researcher workflow is claimed here.
 
+**Specification checkpoint:** further code changes are paused while the human
+reviews the [command intent and verification specification](command-outcomes.md).
+It defines the complete initial command inventory and observable outcomes.
+The #15 draft also has one open review correction: reject custom array prototypes
+before serialization so inherited hooks cannot replace validated data. This remains
+pending during the specification checkpoint; #15 is not complete.
+
 ```mermaid
 flowchart LR
     Map[14: Map and delivery structure] --> Contract[15: Artefact contracts and examples]
@@ -56,6 +63,10 @@ including a documented route for n8r-labs to consume the shared core later.
 Do not relabel existing illustrative fixtures as schema-conforming without
 specifying and checking them.
 
+The [command outcome spec](command-outcomes.md) must also give each subsequent
+increment a user task, initial state, actual input and independently verifiable
+result. Contract fixtures alone do not pass a command's acceptance case.
+
 ## 2. Build the local foundation
 
 **Issue:** [#16](https://github.com/injectionator/n8r-surface/issues/16).
@@ -81,6 +92,11 @@ unavailable runners, interrupted saves and human edits between read and write.
 The executable is a local foundation at this point; it must not present an
 unconnected discovery command as working research.
 
+Exercise those behaviors through the installed command as well as internal
+handlers. Record the applicable SETUP, STATUS, INPUT, SCOPE, SAVE, HELP and
+NONINTERACTIVE cases from [the outcome spec](command-outcomes.md#other-required-paths-and-failure-outcomes),
+including actual before/after state and independent readback.
+
 ## 3. Demonstrate the Researcher workflow
 
 **Issue:** [#17](https://github.com/injectionator/n8r-surface/issues/17).
@@ -102,6 +118,13 @@ limitation and do not claim untested compatibility.
 
 This completes the first standalone milestone. It does not establish that a Lab
 importer accepts the output; that needs a separate named-consumer trial.
+
+Use [E2E-01](command-outcomes.md#e2e-01-research-a-repository-and-produce-a-durable-record)
+as the minimum complete path: locate the repo, load and follow the identified
+Researcher instructions, interact with the human, save and reopen the actual
+artefact. Exercise [E2E-02](command-outcomes.md#e2e-02-apply-the-same-path-to-librechat)
+before claiming LibreChat research. Record actual tool/runner evidence and saved
+state; do not substitute developer-authored findings or a fake runner.
 
 ## Work after the first milestone
 
