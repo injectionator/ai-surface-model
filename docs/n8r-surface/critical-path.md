@@ -37,8 +37,10 @@ the HTML, how manual edits are retained, and what a revision identifies.
 
 Specify JSON/YAML preservation rules and examples with attributed nodes and
 relationships, shared components, cycles, multiple connections, unknowns and
-conflicting evidence. Select the smallest suitable runtime and first AI runner;
-the map does not choose them implicitly.
+conflicting evidence. TypeScript, a Node.js-compatible package and npm/npx
+distribution are agreed. Select supported Node.js versions, package name,
+contributor tooling and the first AI runner; document credential and source-access
+implications for that runner.
 
 Review the [compatibility contract](design.md#compatibility-contract) against
 n8r-labs requirements: source access, human questions, artefact persistence,
@@ -59,6 +61,11 @@ Implement startup/status, missing-setup guidance, current-directory and explicit
 source selection, and the configured artefact folder. Provide bounded tools to
 list, read, create and revise records. Updates check the version read earlier,
 retain a recoverable previous revision and complete atomically.
+
+Implement in TypeScript and package the built CLI and required assets for npm.
+Verify the installed tarball on supported Node.js versions independently of the
+source checkout. Bun may support development/builds but is not an end-user
+requirement. Package tests do not require publishing a release.
 
 Proposed defaults are `~/.n8r/n8r-surface.json` for settings and
 `~/n8r/artefacts` for the corpus. Show effective settings and allow overrides.
@@ -102,8 +109,8 @@ Preserve identities, evidence, gaps and user decisions; report unsupported data.
 Record the tested application and contract versions before claiming compatibility.
 
 The [capability map](README.md) also retains remote Researcher execution,
-additional AI runners and MessagePack. Create their delivery issues when their
-consumer contracts and acceptance cases are concrete.
+additional AI runners, MessagePack and standalone executables. Create their
+delivery issues when their consumer contracts and acceptance cases are concrete.
 
 Keep browser editing, a general database, automatic two-way synchronisation,
 advanced indexing and deployment automation outside this first path. Users can

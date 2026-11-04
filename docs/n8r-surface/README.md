@@ -69,10 +69,12 @@ selected work to a Lab. A Lab connection is optional for standalone authoring.
 | --- | --- | --- |
 | HTML research record and partial graph contract | Next: [#15](https://github.com/injectionator/ai-surface-model/issues/15) | Synthetic examples have explicit sources, decisions, gaps and stable references. |
 | JSON and YAML representations | Contract in #15; usable output in #17 | Supported meanings survive conversion, including relationship attributes and unknowns. |
+| TypeScript CLI with npm/npx distribution | Agreed; implement in #16 | Installed package and bundled assets work on supported Node.js versions without the source checkout or Bun. |
 | Startup, source access and safe artefact tools | Then: [#16](https://github.com/injectionator/ai-surface-model/issues/16) | Setup, path handling, conflict detection and recovery work in temporary folders. |
 | Researcher conversation, shared skill and one CLI runner | Then: [#17](https://github.com/injectionator/ai-surface-model/issues/17) | Real discovery, human correction, save/resume and model output work without a Lab. |
 | ChatGPT with supplied documents | First external skill host, in #17 | The same core skill produces usable records and descriptions in the actual host. |
 | More AI runners and external harnesses | Later | Each adapter has demonstrated authentication, tool use and continuation. |
+| Standalone executables | Later distribution option | Each supported platform runs the packaged tool and required assets without a separate Node.js installation. |
 | MessagePack and additional encodings | Later, when a consumer needs them | A bounded mapping preserves meanings or reports unsupported information. |
 | Researcher in n8r-labs and artefact exchange | Application stage after the standalone milestone | The application uses the versioned core and passes shared import/continuation cases. |
 | Optional remote Researcher execution | Later integration | Source access, authentication and session scope are demonstrated against a named endpoint version. |

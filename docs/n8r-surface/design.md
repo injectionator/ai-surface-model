@@ -158,12 +158,33 @@ Human changes and unknown metadata must survive revision. Archiving and explicit
 deletion can be added when their reference/retention behaviour is defined;
 automatic destructive cleanup is unnecessary for the first workflow.
 
+## Implementation and distribution
+
+The agreed first implementation uses TypeScript and ships a Node.js-compatible
+npm package exposing the `n8r-surface` command. Support installation for regular
+use and versioned invocation through npm/npx. Ship built JavaScript and required
+skill/template assets; users should not need the source checkout, a TypeScript
+compiler or Bun to run the published CLI.
+
+Bun may be used for development and building, but verification must exercise
+the packaged CLI on supported Node.js versions. Test an installed package tarball
+in a temporary directory, including its bundled assets and command entry point.
+These checks need no registry publication. The exact package name, supported
+Node.js versions and contributor tooling are implementation choices in #15.
+
+The Researcher instructions, artefact contracts and shared examples remain
+independent of the implementation language. Chat-harness use does not require
+Node.js, and a Lab may consume the shared core without launching the CLI.
+Standalone executables are a later distribution option, with separate platform
+and packaging checks; they are outside the first milestone.
+
 ## AI execution and continuation
 
 Inside a chat harness, its AI follows the Researcher skill. The CLI needs a
 supported installed agent or configured model connection. One verified runner
-is enough for the first milestone; runtime, backend and packaging are still to
-be selected. A CLI that only prints a prompt is not completed authoring.
+is enough for the first milestone; the AI backend remains to be selected.
+The TypeScript/Node.js decision does not select an AI provider. A CLI that only
+prints a prompt is not completed authoring.
 
 Document authentication, network/model use, source transmission and filesystem
 effects. Do not silently change runner, billing account or source destination.
@@ -228,7 +249,9 @@ completion points.
 
 [#15](https://github.com/injectionator/ai-surface-model/issues/15) settles the
 minimal HTML/data ownership and revision contract, experimental graph fields,
-portable codec values, host capabilities, version policy, runtime and first runner.
+portable codec values, host capabilities, version policy and first AI runner.
+It also specifies the supported Node.js versions, package name and contributor
+tooling within the agreed TypeScript and npm distribution approach.
 Exact tool names, corpus layout and source-reader limits follow those decisions.
 
 Use synthetic unrelated products, incomplete/conflicting evidence, human edits
