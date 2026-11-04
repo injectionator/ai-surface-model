@@ -6,6 +6,20 @@ conversation. [Settings, parser decisions and limits](startup.md) define the
 implemented boundary. [Draft PR #25](https://github.com/injectionator/n8r-surface/pull/25)
 is stacked on #15's draft PR #24; nothing is merged or released.
 
+## Human verification
+
+Follow the [copy-and-paste human check](startup-human-check.md) for prerequisites,
+PR checkout, a disposable installation and synthetic home, exact expected output,
+interactive `y`/EOF steps, private-value checks and cleanup. Its expected exit 1
+is explained explicitly. The automated commands later in this record support
+that hands-on check.
+
+On 4 November 2026, Codex rehearsed the guide's disposable installation, closed
+input, terminal `y` and Ctrl-D, private-value/stderr checks and unchanged-file
+comparison on Node 22.23.2, npm 11.5.2 and macOS ARM64. The expected output and
+exit codes matched; all 43 tests and 20 installed startup checks also passed.
+This is an agent rehearsal, not recorded human acceptance.
+
 ## Revision and environment
 
 - Date: 4 November 2026. Implementer/verifier: Codex; separate read-only agent

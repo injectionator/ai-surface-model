@@ -41,6 +41,13 @@ process/output/file checks. Representative terminal output is useful; a technica
 DSL or a large per-check form is unnecessary. See the
 [bare startup example](docs/n8r-surface/command-outcomes.md#startup-01-run-the-command-and-see-what-is-here).
 
+Every PR includes human verification steps with an exact starting state, commands
+or interactions, expected output/exit codes, readback and cleanup. Explain any
+variable output and failure conditions; rehearse the steps before requesting
+review. Include a runnable example in the PR, even when it also links to a longer
+guide. See the [bare-startup human check](docs/n8r-surface/startup-human-check.md).
+Agent execution of the procedure does not replace human acceptance.
+
 Grow the spec and working verification one useful behavior at a time. Existing
 behavior can gain a documented intent and repeatable verification without a code
 change. Keep [progress and evidence](docs/n8r-surface/command-outcomes.md#grow-the-specification-with-working-verification)

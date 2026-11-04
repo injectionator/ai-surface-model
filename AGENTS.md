@@ -110,6 +110,16 @@ claim the Researcher produced them. Keep expected, observed, verified and unprov
 outcomes separate. Final handoffs and PRs must include the exercised interaction,
 state changes, evidence/readback, exact revision/environment and remaining limits.
 
+Every PR must include unambiguous human verification steps: prerequisites and
+starting directory/state, exact copy-and-paste commands or interactions, expected
+output and exit codes, state changes or readback, and cleanup where applicable.
+State which values may vary and what counts as a failure. Include a runnable
+example in the PR, with a link to longer instructions when needed; a test command
+or a claim that automation passed is not enough. Exercise the documented steps
+before handing them back, and distinguish an agent rehearsal from human acceptance.
+For documentation-only changes, identify the exact material to inspect and the
+expected correction.
+
 ## Preserve the model's meaning
 
 - There is one model: the AI Surface Model. Lab, Bench, Experiment and related
