@@ -16,8 +16,10 @@ has an experimental [contract](contracts.md),
 [implementation decisions](implementation-decisions.md) in draft
 [PR #24](https://github.com/injectionator/n8r-surface/pull/24).
 It is stacked on planning PR #18 and is not merged. The user has authorized
-#16's first [bare-startup increment](startup.md), stacked on #15. It implements
-only a read-only local overview; the rest of #16 remains open. Source-repository
+#16's first [bare-startup increment](startup.md), stacked on #15 in draft
+[PR #25](https://github.com/injectionator/n8r-surface/pull/25). Its read-only
+overview is [verified through the installed command](startup-verification.md);
+the rest of #16 remains open. Source-repository
 analysis and the live Researcher workflow remain #17's work.
 
 The [command intent and verification specification](command-outcomes.md) was

@@ -4,6 +4,8 @@ Implements only [STARTUP-01](command-outcomes.md#startup-01-run-the-command-and-
 The branch is stacked on #15's `feat/15-researcher-contracts` at `5f67dbe`;
 PR #24 and its base PR #18 were still draft and unmerged on 4 November 2026.
 The user authorized this dependent increment. It does not complete #16.
+[PR #25](https://github.com/injectionator/n8r-surface/pull/25) retains the work;
+[installed-command evidence](startup-verification.md) records STARTUP-01 as verified.
 
 ## Settings and parser decisions
 

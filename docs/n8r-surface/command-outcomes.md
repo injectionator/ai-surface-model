@@ -41,7 +41,7 @@ Current progress, with evidence defining the verified scope and revision:
 | User or consumer intent | Current progress | Verification / next increment |
 | --- | --- | --- |
 | Read saved research and selected definitions through the library, retaining identities, findings and references. | Implemented and verified for the experimental library profile; no command claim. | [CONTRACT-01 and repeatable fixture/package checks](verification.md#contract-01-retain-useful-attributable-research-and-selected-definitions). |
-| Run `n8r-surface` alone and see settings, saved artefacts and known process status. | Specified and implemented; installed verification record follows this implementation commit. | [STARTUP-01](#startup-01-run-the-command-and-see-what-is-here) and [bounded implementation](startup.md). |
+| Run `n8r-surface` alone and see settings, saved artefacts and known process status. | Specified, implemented and verified for the read-only overview and guidance question; setup/conversation unavailable. | [STARTUP-01 installed evidence at `b90358a`](startup-verification.md). Next: separately verify STATUS-01. |
 | Run `n8r-surface status` to inspect the same state and exit. | Specified; command not implemented or exercised. | Reuse the overview and verify STATUS-01 in #16. |
 | Research a supplied repository with a human, then save and reopen the result. | Specified; real Researcher path not implemented or exercised. | Verify E2E-01 in #17; E2E-02 before claiming LibreChat research. |
 
@@ -202,10 +202,11 @@ files, a private-value marker, and known versus unknown process status. Compare
 each output to its prepared state. `n8r-surface status` uses the same overview and
 exits without offering interactive setup.
 
-**Current implementation:** the zero-argument overview and read-only guidance
-question are implemented. Setup writes and conversation remain unavailable. The
-installed verification record follows the implementation commit; see
-[startup boundaries and repeatable checks](startup.md).
+**Current result:** verified through the installed command at `b90358a` on
+Node 22/24/26, including closed input and a real terminal. See the
+[observed output, independent readback and limits](startup-verification.md).
+Setup writes and conversation remain unavailable; `status` has not been
+implemented or verified. [Startup decisions](startup.md) define the bounded path.
 
 ## Conversation intents are part of the product surface
 
