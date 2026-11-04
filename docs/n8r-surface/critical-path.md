@@ -13,10 +13,10 @@ application implementation or prompt extraction a dependency of this path.
 has an experimental [contract](contracts.md),
 [synthetic cases](../../examples/researcher/README.md),
 [host boundary and Lab review](host-contract.md), and
-[implementation decisions](implementation-decisions.md) in draft
-[PR #24](https://github.com/injectionator/n8r-surface/pull/24).
-It is stacked on planning PR #18 and is not merged. The user has authorized
-#16's first [bare-startup increment](startup.md), stacked on #15 in
+[implementation decisions](implementation-decisions.md) in
+[PR #24](https://github.com/injectionator/n8r-surface/pull/24), with default-branch
+integration tracked by [PR #26](https://github.com/injectionator/n8r-surface/pull/26).
+#16's first [bare-startup increment](startup.md) is supplied by
 [PR #25](https://github.com/injectionator/n8r-surface/pull/25). Its read-only
 overview is [verified through the installed command](startup-verification.md);
 the rest of #16 remains open. Source-repository
@@ -26,9 +26,9 @@ The [command intent and verification specification](command-outcomes.md) was
 approved on 4 November 2026 and governs subsequent delivery. The independent
 review's array-prototype correction is implemented and verified through the public
 API and installed package. See the [evidence and limits](verification.md).
-The #15 implementation is available in its draft PR for human acceptance; this
-does not authorize review readiness or merging. The separate authorization for
-#16 covers STARTUP-01 only.
+The user authorized integration of the planning, contract and startup increments
+on 4 November 2026. The implemented #16 scope remains STARTUP-01 only; subsequent
+capabilities and release remain separate decisions.
 
 ```mermaid
 flowchart LR

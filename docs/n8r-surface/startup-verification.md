@@ -4,7 +4,8 @@
 increment. This does not complete #16 or verify setup, status, discovery or an AI
 conversation. [Settings, parser decisions and limits](startup.md) define the
 implemented boundary. [PR #25](https://github.com/injectionator/n8r-surface/pull/25)
-is stacked on #15's draft PR #24; nothing is merged or released.
+carries the increment originally developed on #15. This record preserves the
+pre-integration verification revision and does not claim a release.
 
 ## Human verification
 
