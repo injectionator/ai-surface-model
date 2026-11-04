@@ -26,12 +26,16 @@ understand a result or assess what they would need to recreate a setup.
 | --- | --- |
 | Build or operate AI applications | Describe services, integration settings and dependencies across a setup. |
 | Investigate security or component changes | Find affected components while keeping unknown versions and coverage gaps visible. |
-| Run experiments or maintain a Lab | Connect results to the definition revision and effective setup actually used. |
+| Run experiments | Connect results to the definition revision and effective setup actually used. |
 | Build inventory, provenance or analysis tools | Explore exchange of a defined subset with explicit mapping losses. |
 
-It is usable independently of Injectionator or any particular Lab product.
+It is usable independently of Injectionator or any particular application.
 Security investigation, reproducibility and configuration understanding are all
 part of its scope.
+
+This repository contains the open model and is the home of the planned
+`n8r-surface` command. Application design and implementation for `n8r-labs`
+are maintained in its separate repository.
 
 ## What it describes
 
@@ -39,14 +43,9 @@ An **AI Surface** is the connected system being described: applications, agents,
 AI models, inference services, authentication, tools, data stores and supporting
 infrastructure, together with their configuration and relationships.
 
-There is one model: the **AI Surface Model**. Lab, Experiment and related
-descriptions are **fragments** within it. Fragment is a working term for a focused
-part of a description; its boundaries and serialization remain open.
-
-A Lab has equipment and a shelf of reusable Surface descriptions and Experiments.
-It can persist across investigations, preparing a requested setup by attaching
-existing resources or deploying new ones. Source records and a bounded
-[Lab context summary](models/lab-context.md) support work across sessions.
+There is one model: the **AI Surface Model**. A **fragment** is a working term
+for a focused part of a description within it; fragment boundaries and
+serialization remain open.
 
 Definitions stay separate from deployments, dated observations and Experiment
 Runs. A Run refers to the definition revision and effective setup used, so later
@@ -59,7 +58,7 @@ or jump to the examples, design questions or contribution guidance.
 
 | Level | Start here | What you will find |
 | --- | --- | --- |
-| **100 · Understand** | [Model overview](models/ai-surface-model.md), then [Labs and Experiments](models/README.md) | The purpose, vocabulary and a walkthrough of one investigation. |
+| **100 · Understand** | [Model overview](models/ai-surface-model.md), then [Conceptual guide](models/README.md) | The purpose, vocabulary and a walkthrough of one investigation. |
 | **200 · Explore** | [Synthetic examples](examples/README.md) | Compare descriptions at two depths; identify known facts, gaps and recreation requirements. |
 | **300 · Examine** | [Draft concepts](spec/README.md) and [interoperability research](docs/interoperability.md) | Identity, evidence, partial knowledge, open decisions and proposed mappings to other formats. |
 | **400 · Contribute and extend** | [Propose a change or extension](CONTRIBUTING.md#propose-a-change-or-extension) | Turn a use case into a proposal, example or bounded mapping, then follow the contribution workflow. |

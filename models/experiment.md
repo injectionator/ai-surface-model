@@ -6,11 +6,10 @@ inputs, actions and observations needed to investigate that question. A **Run**
 is one execution of that Experiment, with its own setup, outcomes and evidence,
 recorded separately within the same model.
 
-An Experiment specifies the working setup needed for the investigation and
-**requests resource configuration directly from its Lab**. The Lab keeps
-Experiment definitions on its shelf and prepares resources when work is
-activated. A saved Experiment need not be running or ready to run; each actual
-execution is recorded separately as a Run.
+An Experiment **sets up its Bench** by specifying the working setup needed for
+the investigation. The Bench contains the Experiment and requests resource
+configuration from its Lab. These describe setup and containment; each actual
+execution is still recorded as a Run.
 
 Start with the [overview](README.md) for the wider picture. Record formats and
 references remain open design work; the repository provides no
@@ -36,12 +35,6 @@ included in the repository.
 | Inputs, actions and conditions to control or vary. | The inputs and effective settings used on that occasion. |
 | What observations or measurements to collect. | Results, evidence, failures and collection gaps. |
 | How outcomes will be interpreted or compared. | The context and limitations of the resulting conclusions. |
-
-Setup requirements can reference Surface definition revisions, supporting
-tools, fixtures, initial conditions and credential requirements. The Lab can
-attach existing resources, deploy new ones or combine both. Missing artifacts,
-access or configuration remain explicit. A stored procedure does not establish
-that its requested setup has been prepared.
 
 A Run should reference the immutable Surface definition revision and digest,
 the deployment binding and the effective setup used. The exact revision and
@@ -87,4 +80,4 @@ particular Run exercised a connection. Preserve sources, time, applicability
 and limitations with either claim.
 
 Continue to [AI Surface Model](ai-surface-model.md) for definitions and evidence,
-or [Lab](lab.md#requesting-and-preparing-a-setup) for preparing its working setup.
+or [Bench](bench.md) for the working setup an Experiment uses.

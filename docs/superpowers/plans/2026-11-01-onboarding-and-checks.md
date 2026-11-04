@@ -18,7 +18,11 @@ records the approved scope and acceptance checks.
 
 ## Global constraints
 
-- Work in the existing checkout on `docs/11-onboarding-and-checks`.
+- Work in the existing checkout on `docs/11-onboarding-and-checks`, targeting
+  `main` directly.
+- Keep the change focused on model onboarding and repository checks. Preserve
+  existing model pages; exclude the proposed Lab redesign and keep `n8r-labs`
+  application work in its separate repository.
 - Keep one AI Surface Model, provisional fields and useful partial descriptions.
 - Preserve component identity and the distinction between definitions and evidence.
 - Do not claim released schemas, compatibility, conformance or recreation.
@@ -68,12 +72,18 @@ local identifier, endpoint and secret-requirement checks. No generic validator.
   repository secrets. Document prerequisites, network use and limitations.
 - [x] Run local commands and inspect the complete diff, including new files.
 - [x] Obtain a fresh whole-branch review.
-- [ ] After local review, commit, push and open the matching draft PR with
+- [x] After local review, commit, push and open the matching draft PR with
   `Closes #11`, then inspect GitHub-hosted checks.
 
-## Local review status
+## Publication status
 
-The approved content and checks are implemented locally. A rendered preview was
-requested before publication. Local checks pass; an independent review found no
-issues. Publishing the branch and verifying GitHub-hosted behavior remain pending
-local review. The temporary preview is not part of the repository.
+The onboarding and checks work is published in
+[draft PR #21](https://github.com/injectionator/ai-surface-model/pull/21).
+Its initial hosted run passed all three jobs: fixtures and tooling, Markdown,
+and local links. Independent review and synthetic fixture mutation checks found
+no actionable issues.
+
+The onboarding change targets `main` directly and excludes the separate Lab
+redesign. The README and agent guidance record the boundary between this
+repository and `n8r-labs`. The PR records verification of the current revision;
+review readiness, merge and release remain separate decisions.
