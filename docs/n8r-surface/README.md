@@ -5,16 +5,19 @@ authoring partial AI Surface Model descriptions with a human. Researcher is its
 shared discovery skill. The tool can run independently and later exchange work
 with n8r-labs.
 
-Build and demonstrate the standalone Researcher here first, then integrate that
-same core into n8r-labs. Consider Lab requirements while defining the shared
-contracts; application implementation is not a prerequisite for standalone work.
+Build and demonstrate the [shareable skill](researcher-skill.md) in the existing
+Codex/ChatGPT harness first, then adapt the same core in the n8r-labs repository,
+then complete the standalone CLI. The user selected this sequence on 4 November
+2026; the CLI foundation is paused while the skill is proved.
 
 **Status, 4 November 2026:** #15 supplies experimental artefact contracts,
 JSON/YAML codecs, HTML ownership checks and synthetic cases. See the
 [critical path](critical-path.md) for implementation and integration links.
 The first #16 increment implements a [read-only bare-startup overview](startup.md).
-Other commands, setup writes, the AI Researcher skill, live source analysis and
-Lab integration remain unimplemented.
+The first Researcher skill package is a candidate for working-notes research;
+[verification](researcher-skill-verification.md) distinguishes local package tests
+from the pending Work-mode lifecycle trial. Other commands, setup writes, a
+standalone AI runner and Lab integration remain unimplemented.
 This is unreleased work; the remaining map describes intended capabilities.
 
 - [Experimental contracts and checks](contracts.md)
@@ -31,8 +34,8 @@ This is unreleased work; the remaining map describes intended capabilities.
 
 ## Capability map
 
-Solid arrows show the first standalone workflow. Dashed arrows show later
-capabilities or integration with the application project.
+The diagram shows the intended capabilities across hosts, not the delivery order.
+The current skill produces working notes; structured artefacts remain later work.
 
 ```mermaid
 flowchart TD
@@ -48,7 +51,7 @@ flowchart TD
     Chat --> Researcher
     AI[One supported AI runner per host] --> Researcher
     MoreAI[Additional AI runners] -.-> AI
-    Setup[Local setup, status and preferences] --> CLI
+    Setup[Local setup and preferences] --> CLI
 
     Researcher --> Record[HTML research record]
     Record --> Compose[Select and refine a composition]
@@ -81,13 +84,14 @@ selected work to a Lab. A Lab connection is optional for standalone authoring.
 | HTML research record and partial graph contract | Experimental implementation: [#15](https://github.com/injectionator/n8r-surface/issues/15) | Synthetic examples have explicit sources, decisions, gaps and stable references. |
 | JSON and YAML representations | Codec and contract in #15; AI-authored output in #17 | Supported meanings survive conversion, including relationship attributes and unknowns. |
 | TypeScript CLI with npm/npx distribution | Agreed; implement in #16 | Installed package and bundled assets work on supported Node.js versions without the source checkout or Bun. |
-| Startup, source access and safe artefact tools | Then: [#16](https://github.com/injectionator/n8r-surface/issues/16) | Setup, path handling, conflict detection and recovery work in temporary folders. |
-| Researcher conversation, shared skill and one CLI runner | Then: [#17](https://github.com/injectionator/n8r-surface/issues/17) | Real discovery, human correction, save/resume and model output work without a Lab. |
-| ChatGPT with supplied documents | First external skill host, in #17 | The same core skill produces usable records and descriptions in the actual host. |
+| Startup, source access and safe artefact tools | Paused remaining work: [#16](https://github.com/injectionator/n8r-surface/issues/16) | Setup, path handling, conflict detection and recovery work in temporary folders. |
+| Researcher shared skill | First: [#17](https://github.com/injectionator/n8r-surface/issues/17) | Installed skill invocation, evidence-backed notes, human correction and save/reopen. |
+| Standalone CLI runner | After skill and Lab adaptation | Real discovery, human correction, guarded save/resume and model output work without a Lab. |
+| ChatGPT desktop / Work with supplied sources | First lifecycle-test host, in #17 | The same core skill produces usable records and descriptions in the actual host. |
 | More AI runners and external harnesses | Later | Each adapter has demonstrated authentication, tool use and continuation. |
 | Standalone executables | Later distribution option | Each supported platform runs the packaged tool and required assets without a separate Node.js installation. |
 | MessagePack and additional encodings | Later, when a consumer needs them | A bounded mapping preserves meanings or reports unsupported information. |
-| Researcher in n8r-labs and artefact exchange | Application stage after the standalone milestone | The application uses the versioned core and passes shared import/continuation cases. |
+| Researcher in n8r-labs and artefact exchange | Application stage after the skill trial, before standalone CLI | The application uses the versioned core and passes shared import/continuation cases. |
 | Optional remote Researcher execution | Later integration | Source access, authentication and session scope are demonstrated against a named endpoint version. |
 | Rich editing, automatic synchronisation and advanced corpus search | Outside the first path | A concrete use case justifies extending the simple folder workflow. |
 

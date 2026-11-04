@@ -1,74 +1,68 @@
 # Lab
 
-A **Lab contains Benches and is responsible for configuring the resources they
-request**. It also organizes ongoing investigations, shared resources and
-results. A Lab can support an individual's work or a shared effort; it need not
-correspond to a physical room.
+A **Lab contains Experiments and owns resource configuration and local bindings**.
+Each Experiment owns its desired setup and asks the Lab directly to prepare it.
+The Lab also organizes shared resources, reusable definitions and ongoing work.
+It can support an individual or a shared effort and need not be a physical room.
 
-Lab and Lab Assistant name the same entity in the diagram. The assistant name
-identifies the Lab acting on configuration requests from its Benches.
-
-Start with the [overview](README.md) for the wider picture. Lab is described
-within the single AI Surface Model. These are intended responsibilities; no
-resource configuration engine or workspace product is implemented here.
+Lab and Lab Assistant name the same entity; the assistant name identifies its
+active role in handling requests. These are responsibilities within the single
+AI Surface Model, not a resource executor implemented by this repository.
 
 ## A Lab in practice
 
-In the guide's synthetic sign-in investigation, the Lab contains a sign-in Bench.
-That Bench asks the Lab to configure an application, an authentication service,
-synthetic test accounts and observation tools. The Lab is responsible for making
-that setup available and keeping unmet requirements visible. A later
-investigation of inference behavior could use another Bench in the same Lab.
+In the guide's synthetic sign-in investigation, an Experiment asks its Lab to
+configure an application, an identity service, synthetic accounts and observation
+tools. The Lab performs supported operations and records unmet requirements.
+Another Experiment may request a different setup using some of the same resources.
 
-Each Bench specifies its needs; the Lab handles resource configuration across
-its Benches. A request alone does not establish that the setup is ready. Each
-Run retains the details of the effective setup used to interpret its results.
+A request does not establish readiness. The effective configuration and relevant
+connections need fresh evidence, and each Run retains the setup it actually used.
 
 ## Add detail when it helps
 
-A useful Lab description might begin with its purpose, its Benches and the
-resources it can configure. As needed, it could also describe:
+Begin with the Lab's purpose, Experiments and available resources. Useful detail
+may include:
 
-- Shared resources and the constraints on using them.
-- Configuration requested by each Bench and any requirements that cannot be met.
-- Who maintains a setup or can explain its limitations.
-- Where definitions, procedures, results and supporting evidence can be found.
+- Resource ownership, local bindings and constraints on shared use.
+- Configuration requested by each Experiment and requirements that cannot be met.
+- Reusable definitions, procedures and source material kept for later work.
+- Where results and supporting evidence can be found.
 - Which work is active, historical or no longer reproducible.
 
-These are questions for organizing work, not required fields. Membership,
-permissions, scheduling and resource allocation have no defined implementation
-in this repository.
+Saved definitions remain independent of equipment allocation. Membership,
+permissions, concurrency and scheduling require explicit consumer behavior;
+this model does not supply an implementation or infer authority from a graph.
 
 ## Shared resources and history
 
-Several Benches may refer to the same service or equipment. Representing that
-reuse should preserve the resource's identity and make the dependency visible;
-membership in one Bench should not imply exclusive ownership.
+Several Experiments can refer to the same service. Preserve its identity and
+shared-dependency relationships; selecting it does not imply exclusive ownership
+or authority to stop it. A recipient binds a reusable definition to resources
+under their own Lab's authority.
 
-A Lab's current resource list cannot establish what an earlier Run used. That
-belongs with the Run's Surface revision, deployment and dated effective setup.
-Changing a shared service may affect several Benches, but it must not rewrite
-the meaning of their past results.
+The current resource list cannot establish what an earlier Run used. That belongs
+with the Run's definition revision, deployment binding and dated effective setup.
+Changing a service must not rewrite the meaning of earlier results.
 
 ## Common questions
 
 ### Is a Lab a physical location or a cloud account?
 
-Either might be part of its context. Here, a Lab contains Benches, handles their
-resource configuration requests and organizes the work. Physical equipment,
-hosted services and local applications can all participate; their actual
-locations and bindings need separate descriptions.
+Either can be part of its context. A Lab organizes Experiments and resources and
+handles setup requests. Physical equipment, hosted services and local applications
+can all participate; concrete locations and account identities are local bindings.
 
 ### Must every Surface belong to a Lab?
 
-No. A person can use the AI Surface Model to describe or investigate a saved
-Surface without describing a Lab or running an Experiment.
+No. A saved Surface description can support investigation without describing a
+Lab or running an Experiment.
 
-### Does a Lab make its Benches isolated or their results comparable?
+### Does a Lab establish isolation or comparable results?
 
-The label establishes neither property. Isolation depends on the actual
-resources and connections. Comparison depends on the Experiment method and
-the effective setup recorded for each Run, including shared dependencies.
+Neither follows from the label. Isolation depends on actual resources and
+connections. Comparison depends on the method and effective setup recorded for
+each Run, including shared dependencies.
 
-Continue to [Bench](bench.md) for working setups or
-[Experiment](experiment.md) for investigations and results.
+Continue to [Experiment](experiment.md) for desired setups and execution evidence,
+or the [overview](README.md) for their relationship to Surface descriptions.

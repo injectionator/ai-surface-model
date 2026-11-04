@@ -8,8 +8,9 @@ detail available or useful. This repository also develops the experimental
 > [!NOTE]
 > **Early draft; experimental tooling.** The model concepts and illustrative
 > fields remain provisional. The library and bare-startup command are unreleased;
-> there is no universal schema, AI Researcher workflow, exporter or deployment
-> engine yet.
+> there is no universal schema, exporter or deployment engine yet. The Researcher
+> skill supports working research through the host; standalone AI research remains
+> future work.
 
 ## Why this is needed
 
@@ -46,8 +47,9 @@ AI models, inference services, authentication, tools, data stores and supporting
 infrastructure, together with their configuration and relationships.
 
 There is one model: the **AI Surface Model**. A **fragment** is a working term
-for a focused part of a description within it; fragment boundaries and
-serialization remain open.
+for a focused part of a description within it, such as Lab or Experiment; fragment
+boundaries and serialization remain open. A Lab contains Experiments, and each
+Experiment requests its setup directly from the Lab.
 
 Definitions stay separate from deployments, dated observations and Experiment
 Runs. A Run refers to the definition revision and effective setup used, so later
@@ -62,10 +64,21 @@ establish universal model conformance or consumer compatibility.
 
 The [bare-startup command](docs/n8r-surface/startup.md) displays local settings and
 saved artefacts without changing files. Setup, other commands, source-repository
-analysis and the AI Researcher workflow remain unimplemented. See the
+analysis and AI research through the standalone CLI remain unimplemented. See the
 [critical path](docs/n8r-surface/critical-path.md) for the next work and the
 [command outcome specification](docs/n8r-surface/command-outcomes.md) for the
 intended interactions and required evidence.
+
+The [n8r-surface Researcher skill package](docs/n8r-surface/researcher-skill.md) is now
+available for testing in the existing Codex/ChatGPT harness. It uses the host's
+source access and conversation to produce evidence-backed working notes. The
+[discovery guide](docs/n8r-surface/researcher-discovery.md) focuses on AI-relevant
+graphs, reusable product knowledge and comparing descriptions with evidence. See
+[verification and pending Work-mode checks](docs/n8r-surface/researcher-skill-verification.md).
+The delivery order is skill first, n8r-labs adaptation second, standalone CLI third.
+The [local vault](docs/n8r-surface/researcher-vault.md) holds research notes, intermediate artifacts
+and Surface descriptions at a user-selected local path. It also includes prepared test material
+and a walkthrough for investigating another chat-system repository.
 
 ## Start at the depth you need
 

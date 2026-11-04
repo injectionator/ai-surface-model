@@ -1,0 +1,4 @@
+interface:
+  display_name: "n8r-surface Researcher"
+  short_description: "Map AI connections from source evidence"
+  default_prompt: "Use $research to map AI-relevant connections from supplied sources and retain evidence, choices and gaps."

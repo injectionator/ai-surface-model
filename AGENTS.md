@@ -87,6 +87,26 @@ refusal with a reset, stash or forced deletion. Follow the
 
 ## Develop from user intent and observable outcomes
 
+### Local research workspace
+
+For AI Surface research performed in this checkout, read `.local/vault-path`
+when present. It contains the absolute path to the user-selected local vault and
+is ignored by Git. Use `research/<source-slug>/` within that vault for numbered
+notes, `artifacts/<source-slug>/` for intermediate outputs, and
+`surfaces/<source-slug>/` for saved Surface descriptions. Follow the
+[vault guide](docs/n8r-surface/researcher-vault.md). Do not publish the local path
+or working research in this repository.
+
+This is an agent storage convention, not a CLI/plugin setting or a new
+structured-output capability. Explicit user destinations take precedence;
+continue existing notes in their current folder unless the user asks to move
+them. Without a configured vault or another destination, use the installed
+skill's default and announce it. Verification walkthroughs explicitly use `runs/`
+inside the selected vault. Never move or delete earlier research merely to adopt
+this convention.
+
+### Intent and evidence
+
 For command or Researcher behavior, follow
 [the command intent and verification spec](docs/n8r-surface/command-outcomes.md).
 Before coding, define the useful user task, initial State X, actual Input Y and
@@ -128,6 +148,13 @@ before handing them back, and distinguish an agent rehearsal from human acceptan
 For documentation-only changes, identify the exact material to inspect and the
 expected correction.
 
+Write human verification as a task list a teammate unfamiliar with the change
+can follow. State what to open, provide copyable interactions, and put the expected
+visible result beside each task. Separate maintainer preparation and technical
+evidence checks from the tester's steps. Explain necessary terms and finish with
+a simple Pass / Fail / Blocked report, including what evidence to return. Keep
+commands in the tester's path only when using the command is itself under test.
+
 Choose the shortest unambiguous human proof that establishes the increment. Reuse
 an established installation, working runner and known fixtures when they are still
 applicable; state those prerequisites and link to setup instead of repeating it.
@@ -140,18 +167,18 @@ required checks and accurate evidence; procedure length is not a measure of rigo
 
 ## Preserve the model's meaning
 
-- There is one model: the AI Surface Model. Lab, Bench, Experiment and related
+- There is one model: the AI Surface Model. Lab, Experiment and related
   descriptions are fragments within it; never present them as separate models.
   Fragment is working terminology; its boundaries and serialization remain open.
-  Use plain names such as Lab and Bench in prose and diagrams rather than
+  Use plain names such as Lab and Experiment in prose and diagrams rather than
   repeating fragment in each label.
   AI models such as language models are components described by the model.
-- A Lab contains Benches, and a Bench contains Experiments. An Experiment sets
-  up its Bench by specifying the setup it needs; the Bench requests resource
-  configuration from the Lab. The Lab is responsible for that configuration.
-  Lab / Lab Assistant and Bench / Bench Assistant each share one entity and
-  diagram node. Keep requests distinct from evidence of the effective setup
-  actually provided.
+- A Lab contains Experiments. Each Experiment owns its desired setup and asks
+  its Lab directly to configure the resources it needs. The Lab owns resource
+  configuration and local bindings. Lab / Lab Assistant share one entity and
+  diagram node. Bench is retired; preserve historical references as historical,
+  never as current ownership or authority. Keep requests distinct from evidence
+  of the effective setup actually provided.
 - Keep partial descriptions useful. Distinguish known, unknown, omitted, redacted,
   absent and out-of-scope information; missing detail does not establish absence.
 - Preserve component identity as detail grows. Allow shared components, cycles and

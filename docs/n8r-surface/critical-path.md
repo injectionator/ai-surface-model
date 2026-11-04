@@ -1,13 +1,16 @@
 # n8r-surface critical path
 
-The first usable outcome is a standalone Researcher that reads supplied repo/docs,
-works with a human, saves an HTML research record and produces a partial AI
-Surface Model description in JSON or YAML. The user can find the files, edit them
-and resume safely. No running target or Lab is required.
+The first usable outcome is the [Researcher skill](researcher-skill.md) working
+inside the existing Codex/ChatGPT harness. Prove installation, invocation, removal
+and reinstallation in ChatGPT desktop / Work, then useful evidence-backed research
+and continuation. Next adapt the same core in the separate n8r-labs repository;
+return to the standalone CLI afterwards. The user changed this order on
+4 November 2026 to reach a working example with less runner infrastructure.
 
-Implement n8r-surface first, then integrate its Researcher core into n8r-labs.
-Review the application requirements during contract design, without making
-application implementation or prompt extraction a dependency of this path.
+Working notes in the first skill increment are not validated HTML/Surface
+artefacts. The later structured-output and installed-command criteria below remain
+required for their respective claims. The unfinished #16 source-overview work is
+paused; no status subcommand will be added.
 
 **Current work:** [#15](https://github.com/injectionator/n8r-surface/issues/15)
 has an experimental [contract](contracts.md),
@@ -32,13 +35,11 @@ capabilities and release remain separate decisions.
 
 ```mermaid
 flowchart LR
-    Map[14: Map and delivery structure] --> Contract[15: Artefact contracts and examples]
-    Contract --> Local[16: Setup, sources and safe storage]
-    Local --> Research[17: Researcher, one runner and portable skill]
-    Requirements[Lab compatibility requirements] -.-> Contract
-    Research --> Result[First standalone workflow demonstrated]
-    Result -.-> Lab[Application project: host the same Researcher core]
-    Lab -.-> Verified[Verify shared behaviour, import and continuation]
+    Contract[15: Artefact contracts and examples] --> Skill[17: Shared skill in existing harness]
+    Skill --> Trial[Install, invoke, remove, reinstall and research]
+    Trial --> Lab[Application project: adapt the same skill]
+    Lab --> CLI[16 and 17: standalone command and runner]
+    CLI --> Verified[Installed CLI research and structured-output proof]
 ```
 
 ## 1. Define artefacts with concrete examples
@@ -53,8 +54,8 @@ the HTML, how manual edits are retained, and what a revision identifies.
 Specify JSON/YAML preservation rules and examples with attributed nodes and
 relationships, shared components, cycles, multiple connections, unknowns and
 conflicting evidence. The [implementation decisions](implementation-decisions.md) select TypeScript,
-Node.js 22/24/26, the `n8r-surface` npm package, npm/Node testing and an OpenAI
-Responses API adapter for #17. Runner implementation and credentials are not
+Node.js 22/24/26, the `n8r-surface` npm package and npm/Node testing. The original
+Responses API runner choice has been superseded by installed Codex for later CLI work. Runner implementation and credentials are not
 needed by these offline contract checks.
 
 Review the [compatibility contract](design.md#compatibility-contract) against
@@ -71,12 +72,25 @@ The [command outcome spec](command-outcomes.md) must also give each subsequent
 increment a user task, initial state, actual input and independently verifiable
 result. Contract fixtures alone do not pass a command's acceptance case.
 
-## 2. Build the local foundation
+## 2. Prove the shared skill in the current harness
+
+**Issue:** [#17](https://github.com/injectionator/n8r-surface/issues/17).
+
+Use the [share/install and lifecycle procedure](researcher-skill.md) and record
+the actual host/version, installed instruction identity, source access, output
+and readback. The first package has no new runner or Lab dependency. A passing
+manifest check or CLI installation does not establish a Work-mode invocation.
+
+After this trial, adapt the skill in n8r-labs and verify its own source/tool/storage
+boundaries. Keep application changes in that repository. Then resume the following
+CLI foundation and complete-research criteria.
+
+## 3. Resume the local CLI foundation
 
 **Issue:** [#16](https://github.com/injectionator/n8r-surface/issues/16).
 **Depends on:** #15.
 
-Implement startup/status, missing-setup guidance, current-directory and explicit
+Implement informational startup, missing-setup guidance, current-directory and explicit
 source selection, and the configured artefact folder. Provide bounded tools to
 list, read, create and revise records. Updates check the version read earlier,
 retain a recoverable previous revision and complete atomically.
@@ -104,11 +118,11 @@ and known process status or an honest unknown. Verify this simple terminal examp
 before the more involved research paths; it requires no AI or Lab connection.
 
 Exercise those behaviors through the installed command as well as internal
-handlers. Record the applicable SETUP, STATUS, INPUT, SCOPE, SAVE, HELP and
+handlers. Record the applicable SETUP, INPUT, SCOPE, SAVE, HELP and
 NONINTERACTIVE cases from [the outcome spec](command-outcomes.md#other-required-paths-and-failure-outcomes),
 including actual before/after state and independent readback.
 
-## 3. Demonstrate the Researcher workflow
+## 4. Demonstrate the standalone Researcher workflow
 
 **Issue:** [#17](https://github.com/injectionator/n8r-surface/issues/17).
 **Depends on:** #15 and #16.
@@ -117,8 +131,7 @@ Implement and version the shared Researcher skill in this repository, connecting
 one supported AI runner and the local tools. No application extraction is required.
 Support a human question, source inspection, saved findings, consequential
 follow-up questions, corrections, continuation and JSON/YAML model output.
-Package the same core skill for ChatGPT with supplied documents, the first
-external host. Host adapters provide access; they do not maintain separate
+Reuse the skill already tried in ChatGPT with supplied documents. Host adapters provide access; they do not maintain separate
 versions of discovery knowledge.
 
 **Advance when:** a real supported-runner session completes the workflow on
@@ -139,7 +152,7 @@ state; do not substitute developer-authored findings or a fake runner.
 
 ## Work after the first milestone
 
-The next application stage belongs in the n8r-labs project: use an identified
+The application adaptation preceding CLI completion belongs in the n8r-labs project: use an identified
 Researcher revision with the Lab's own source access, AI, conversation and
 storage adapters. Use the shared examples to verify research behaviour and
 import an incomplete standalone record/definition, then continue it in the Lab.
