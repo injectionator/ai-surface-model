@@ -21,9 +21,10 @@ Follow this sequence for each contribution, including documentation changes:
    `docs/123-model-links`, with the issue number in its name. Work in the existing
    checkout and preserve unrelated changes.
 3. **Do the work and open a draft PR.** Commit and push the branch, open one
-   matching draft PR, and link it with `Closes #123`. Explain the change and record
-   the relevant checks. Repeat the original user interaction and independently
-   read back the changed state; report blocked or unproved outcomes explicitly.
+   matching draft PR. Use `Closes #123` when it completes the issue; use
+   `Related to #123` for a partial increment and list the work still outstanding.
+   Explain the change and record the relevant checks. Repeat the original user
+   interaction and independently read back the changed state; report blocked or unproved outcomes explicitly.
    Internal tests do not establish end-to-end product acceptance. Keep the same
    branch and PR updated as the work develops.
 4. **Review, then merge.** Keep the PR draft until review readiness is approved.
@@ -47,6 +48,13 @@ variable output and failure conditions; rehearse the steps before requesting
 review. Include a runnable example in the PR, even when it also links to a longer
 guide. See the [bare-startup human check](docs/n8r-surface/startup-human-check.md).
 Agent execution of the procedure does not replace human acceptance.
+
+Keep the human proof proportional to the change. With an established installation
+and working runner, a small command addition may need just an invocation and its
+expected result/readback. State and reuse those prerequisites, link to setup, and
+leave broad regression coverage to automation. Repeat or expand setup checks when
+the change affects them; the comprehensive startup guide is a foundation example,
+not the required length for every later increment.
 
 Grow the spec and working verification one useful behavior at a time. Existing
 behavior can gain a documented intent and repeatable verification without a code

@@ -3,7 +3,7 @@
 **Result:** specified, implemented and verified for the read-only bare-startup
 increment. This does not complete #16 or verify setup, status, discovery or an AI
 conversation. [Settings, parser decisions and limits](startup.md) define the
-implemented boundary. [Draft PR #25](https://github.com/injectionator/n8r-surface/pull/25)
+implemented boundary. [PR #25](https://github.com/injectionator/n8r-surface/pull/25)
 is stacked on #15's draft PR #24; nothing is merged or released.
 
 ## Human verification

@@ -45,10 +45,12 @@ and code changes. Apply it in the existing checkout.
 3. Commit only the task's changes. After the first reviewable commit and relevant
    checks, push the branch and open one matching draft PR against the correct
    base. Keep that PR updated as the task develops.
-4. Include `Closes #<primary-issue>` in the PR and use `Related to #<issue>` for
-   other work it does not complete. Explain the final change, verification and
-   remaining limitations. Do not close an issue merely because code or docs
-   were written or automated checks passed.
+4. Include `Closes #<primary-issue>` only when the PR completes that issue. For
+   a deliberately partial increment, use `Related to #<primary-issue>`, name the
+   completed increment and keep the remaining scope visible and the issue open.
+   Use `Related to #<issue>` for other work it does not complete. Explain the final
+   change, verification and remaining limitations. Do not close an issue merely
+   because code or docs were written or automated checks passed.
 5. Keep the PR draft until the user authorizes review readiness. Merge, release
    and deployment remain separate user decisions. A request to push a branch
    does not authorize merging it into the default branch.
@@ -119,6 +121,16 @@ or a claim that automation passed is not enough. Exercise the documented steps
 before handing them back, and distinguish an agent rehearsal from human acceptance.
 For documentation-only changes, identify the exact material to inspect and the
 expected correction.
+
+Choose the shortest unambiguous human proof that establishes the increment. Reuse
+an established installation, working runner and known fixtures when they are still
+applicable; state those prerequisites and link to setup instead of repeating it.
+A new subcommand may need only its exact invocation, expected visible result and
+a saved-output readback where relevant. Keep broad regression and edge-case
+coverage automated, and include extra human cases only when the changed behavior
+or its consequences need them. Expand the procedure when setup, authentication,
+storage, runtime or other assumptions change, or evidence exposes a gap. Preserve
+required checks and accurate evidence; procedure length is not a measure of rigor.
 
 ## Preserve the model's meaning
 

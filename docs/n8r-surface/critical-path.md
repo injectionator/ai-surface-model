@@ -16,7 +16,7 @@ has an experimental [contract](contracts.md),
 [implementation decisions](implementation-decisions.md) in draft
 [PR #24](https://github.com/injectionator/n8r-surface/pull/24).
 It is stacked on planning PR #18 and is not merged. The user has authorized
-#16's first [bare-startup increment](startup.md), stacked on #15 in draft
+#16's first [bare-startup increment](startup.md), stacked on #15 in
 [PR #25](https://github.com/injectionator/n8r-surface/pull/25). Its read-only
 overview is [verified through the installed command](startup-verification.md);
 the rest of #16 remains open. Source-repository
@@ -157,7 +157,9 @@ choose their own editor; safe Researcher-assisted updates are sufficient here.
 ## Review and evidence
 
 Each issue uses its own branch and draft PR in this repository. Link the primary
-issue with `Closes #N` and the overview with `Related to #13`. Keep draft status
+issue with `Closes #N` only when complete; use `Related to #N` for a partial
+increment and retain its remaining scope. Link the overview with `Related to #13`.
+Keep draft status
 until review readiness is authorised; merging and releasing are separate steps.
 
 Run the relevant [repository checks](../../CONTRIBUTING.md)

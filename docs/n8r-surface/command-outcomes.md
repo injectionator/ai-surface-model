@@ -30,6 +30,13 @@ a prerequisite for verifying the next useful behavior. Keep earlier checks and
 rerun those affected by a change. Extend the spec when a new user need or observed
 gap justifies it, while keeping expectations independent of implementation output.
 
+Keep each human check as short as its proof allows. Reuse established installation,
+runner and fixture prerequisites, with a setup link for anyone who lacks them. A
+small addition can be verified by its exact command, expected result and relevant
+readback; automated checks retain broader regression and edge-case coverage.
+Expand human steps when changed assumptions or observed gaps require it. A short
+proof must still exercise the intended outcome and identify what remains unproved.
+
 Keep progress visible beside the intent: what is specified, what is implemented,
 what was actually verified, and what remains blocked or unattempted. Update the
 example, relevant repeatable checks and evidence together in the same increment.
