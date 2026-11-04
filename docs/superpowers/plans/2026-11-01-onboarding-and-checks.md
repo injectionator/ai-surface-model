@@ -89,8 +89,13 @@ shared README and attribution corrections without a force push or duplicate PR.
 - [x] Add the existing library and installed-package checks to CI on Node.js
   22/24/26 with Python available for the terminal rehearsal.
 - [x] Carry the proportional human-verification requirement into the PR template.
-- [ ] Rehearse the documented checks and human inspection, inspect hosted checks
-  on the refreshed head, and obtain a fresh review of both PRs.
+- [x] Rehearse the documented checks and human inspection and obtain a fresh
+  review of both PRs. Current hosted results and exact heads are recorded in #21.
+
+The first refreshed hosted run exposed missing registry metadata in npm's cold
+cache. Setup now runs `npm cache add yaml@2.9.1` before the offline consumer
+install; the same check failed before and passed after this step using an empty
+temporary cache. The shared setup instructions document the network prerequisite.
 
 No new production behavior is introduced. Existing fixture tests are retained;
 verification uses those tests and the real package checks rather than new tests

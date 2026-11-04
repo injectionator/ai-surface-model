@@ -1,4 +1,4 @@
-// Build first. npm's local dependency cache must be populated by npm ci.
+// Build first; prepare the offline dependency cache as documented in CONTRIBUTING.md.
 import {mkdtempSync, copyFileSync, writeFileSync, rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join, resolve} from 'node:path';

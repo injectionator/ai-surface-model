@@ -2,7 +2,8 @@
 
 Use a macOS or Linux terminal with Bash or zsh, Node.js **22, 24 or 26**, npm,
 Python **3.9+**, Git and an authenticated GitHub CLI (`gh`). The recorded run used
-macOS; Linux has not been verified. No AI or Lab credentials are needed.
+macOS; this human procedure has not been rehearsed on Linux. No AI or Lab
+credentials are needed.
 
 Run the blocks below **in order, in the same terminal**, starting anywhere inside
 an existing `injectionator/n8r-surface` checkout. Stop if a preparation command
@@ -22,7 +23,7 @@ gh pr checkout 25
 git branch --show-current
 git rev-parse HEAD
 node --version
-npm ci && npm test && npm run check:package
+npm ci && npm cache add yaml@2.9.1 && npm test && npm run check:package
 ```
 
 **Expected:** branch `feat/16-bare-startup`; record the printed commit for your

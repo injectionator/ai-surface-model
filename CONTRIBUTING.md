@@ -164,7 +164,8 @@ commands here when changing those pins.
 
 The Researcher job runs `npm ci`, `npm test` and `npm run check:package` on
 Node.js 22, 24 and 26 on Linux, with Python for the installed-command terminal
-rehearsal. See [Researcher contract library](#researcher-contract-library) for
+rehearsal. It also caches the runtime dependency's registry metadata before the
+offline consumer install. See [Researcher contract library](#researcher-contract-library) for
 the same local commands, prerequisites, side effects and verification limits.
 CI uses synthetic inputs and does not invoke an AI runner or publish packages.
 
@@ -269,12 +270,17 @@ Contributor commands:
 
 ```sh
 npm ci
+npm cache add yaml@2.9.1
 npm test
 npm run check:package
 git diff --check
 ```
 
-`npm ci` uses the registry and creates `node_modules/`. `npm test` compiles strict
+`npm ci` uses the registry and creates `node_modules/`. `npm cache add yaml@2.9.1`
+uses the registry to cache the runtime dependency's metadata and tarball; a fresh
+`npm ci` cache alone is insufficient for the later offline consumer install. Keep
+this cache command and the CI step aligned with runtime dependency changes.
+`npm test` compiles strict
 TypeScript into ignored `dist/` and runs Node tests offline. `npm run build` can
 compile independently. The installed-package check uses `npm pack`, installs in
 a temporary directory with `--offline --ignore-scripts`, imports the built library
@@ -283,7 +289,8 @@ closed input and in a real terminal under temporary homes, compares output to
 prepared settings/files, and checks that startup leaves them unchanged. It then
 removes the temporary directory. No API credentials,
 Lab, source checkout at runtime or registry publication is required. Populate the
-dependency cache with `npm ci` before the offline package check.
+dependency cache with both preparation commands above before the offline package
+check. The package check itself makes no registry requests.
 
 To repeat the package smoke check using already installed Node executables:
 
