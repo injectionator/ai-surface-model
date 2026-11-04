@@ -1,13 +1,14 @@
 # Researcher and n8r-surface design reference
 
 This records the agreed direction and remaining choices for the standalone tool.
-It consolidates [issue #13](https://github.com/injectionator/ai-surface-model/issues/13).
+It consolidates [issue #13](https://github.com/injectionator/n8r-surface/issues/13).
 The [capability map](README.md) shows the intended scope;
 the [critical path](critical-path.md) determines what comes next.
 
-**Status:** proposed tooling. No CLI, Researcher package, artefact contract or
-tool-specific codec is implemented by these documents. Existing JSON examples
-remain illustrative, and the native model serialization is still an open design.
+**Status:** the [experimental #15 contract](contracts.md), codecs, HTML checks and
+synthetic cases now provide concrete inputs to the next milestones. The CLI,
+Researcher instructions and runner remain unimplemented. Existing LibreChat JSON
+examples remain illustrative; this bounded profile is not a universal schema.
 
 ## Purpose and roles
 
@@ -32,7 +33,13 @@ copy private application content.
 
 ## Sources and scope
 
-Proposed commands:
+The [command outcome specification](command-outcomes.md) owns the complete initial
+command inventory, conversational intents and State/Input/Outcome acceptance cases.
+It is the product contract for implementation; the detailed artefact contracts
+support it. Development starts with a real user task and returns to that same
+interaction for verification. No command scenario is currently verified.
+
+Core proposed research entry points:
 
 ```sh
 n8r-surface
@@ -42,9 +49,13 @@ n8r-surface discover ./product
 n8r-surface discover ./documents/architecture.md
 ```
 
-Bare startup checks setup and opens the conversation when ready. It does not
-start scanning, upload sources or resume a previous task implicitly. `status`
-reports local configuration without invoking inference.
+Bare startup first shows readable non-private configuration and its file locations,
+local artefacts one per line, and process status where known. This local overview
+works without an AI or Lab connection; see the concrete
+[startup example](command-outcomes.md#startup-01-run-the-command-and-see-what-is-here).
+Startup then guides missing setup or opens the conversation when ready. It does
+not scan source repositories, upload sources or resume a previous task implicitly.
+`status` shows the same overview and exits without setup prompts or inference.
 
 `discover` without a source argument uses the process's current directory.
 Explicit relative paths resolve from that directory; absolute paths are accepted
@@ -169,8 +180,9 @@ compiler or Bun to run the published CLI.
 Bun may be used for development and building, but verification must exercise
 the packaged CLI on supported Node.js versions. Test an installed package tarball
 in a temporary directory, including its bundled assets and command entry point.
-These checks need no registry publication. The exact package name, supported
-Node.js versions and contributor tooling are implementation choices in #15.
+These checks need no registry publication. The [#15 decisions](implementation-decisions.md) choose package `n8r-surface`,
+Node.js 22/24/26, npm and the Node test runner. The experimental library tarball
+ships built code and fixtures; the CLI entry point remains #16 work.
 
 The Researcher instructions, artefact contracts and shared examples remain
 independent of the implementation language. Chat-harness use does not require
@@ -182,7 +194,8 @@ and packaging checks; they are outside the first milestone.
 
 Inside a chat harness, its AI follows the Researcher skill. The CLI needs a
 supported installed agent or configured model connection. One verified runner
-is enough for the first milestone; the AI backend remains to be selected.
+is enough for the first milestone. The [selected first adapter](implementation-decisions.md#first-cli-ai-runner)
+uses OpenAI Responses API function tools; it will be implemented and verified in #17.
 The TypeScript/Node.js decision does not select an AI provider. A CLI that only
 prints a prompt is not completed authoring.
 
@@ -247,15 +260,21 @@ completion points.
 
 ## Open choices and verification
 
-[#15](https://github.com/injectionator/ai-surface-model/issues/15) settles the
-minimal HTML/data ownership and revision contract, experimental graph fields,
-portable codec values, host capabilities, version policy and first AI runner.
-It also specifies the supported Node.js versions, package name and contributor
-tooling within the agreed TypeScript and npm distribution approach.
-Exact tool names, corpus layout and source-reader limits follow those decisions.
+[#15](https://github.com/injectionator/n8r-surface/issues/15) now specifies the
+[HTML/data ownership, revision, graph and codec contracts](contracts.md),
+[host capabilities and compatibility gaps](host-contract.md), and
+[runtime, tooling and first-runner decisions](implementation-decisions.md).
+Exact tool names, corpus layout and source-reader limits follow in #16; real AI
+behavior, instruction packaging and model verification follow in #17.
 
 Use synthetic unrelated products, incomplete/conflicting evidence, human edits
 and a second source. Check local integrity, safe persistence and actual AI
 behaviour separately. Compare supported facts, selections and gaps across hosts,
 rather than requiring identical generated wording. A live consumer trial is
 separate from file parsing, fixture checks and a successful standalone run.
+
+Before implementing command behavior, define and attempt the corresponding
+[user-outcome case](command-outcomes.md#governing-development-loop), or record why
+the current product cannot run it. After implementation, repeat the actual command
+and human interaction, then inspect the persisted output. Do not use the developing
+agent's own research or a prewritten artefact as proof of Researcher behavior.
