@@ -32,6 +32,24 @@ expected fixture hashes. Independent review found no actionable issue or public
 material leak. The eight paused #16 files and existing private notes were unchanged.
 No npm/library/CLI behavior changed or is claimed tested by this increment.
 
+Implementation `fe64ab51e47f493251724a06e62259dea1feee06` was pushed, then
+`codex plugin marketplace upgrade n8r-surface --json` and
+`codex plugin add n8r-surface@n8r-surface --json` both exited 0. Installed-list
+readback showed exactly one enabled 0.1.5 from the Git marketplace. All eleven
+installed files matched that committed package; private notes and paused work
+retained their hashes.
+
+A fresh evaluator then read only the installed skill and meanings reference.
+It recovered Lab → Experiment → Setup, direct Experiment-to-Lab requests and
+Lab-owned configuration/bindings. It treated an old Bench reference as historical,
+without current authority or rewriting an earlier Run, and correctly kept Labs
+optional for source-only research. This is an instruction interpretation check,
+not runtime enforcement, Work UI acceptance or a Lab consumer trial.
+Installed skill SHA-256:
+`577378ed327dddb4afb75d645299ce55f6784bb7be8f69d78415cfbaf342981f`.
+Installed meanings-reference SHA-256:
+`791fa5436fb7fe1707b3dba6f2b3b9c75f5d62c8778e9ab436142b9e5a88489f`.
+
 ## Controlled declaration trial: 0.1.4
 
 State X: installed 0.1.4 matched all eleven committed package files at
@@ -83,9 +101,9 @@ Independent review identified two corrections: check the installed version befor
 reuse and refresh a Git marketplace snapshot before reinstalling; and label an
 edge declared only when an applicable declaration supports it. Candidate 0.1.4
 narrows that instruction. It does not change the discovery method or note storage.
-Current skill SHA-256:
+0.1.4 skill SHA-256:
 `ed490cf27c127896ea7db0a630bfe24e784508fde2c50c34e2e2dbee8d0bc55a`.
-Current discovery-reference SHA-256:
+0.1.4 discovery-reference SHA-256:
 `c3fc8065e573c74791b9da04154fe9e0f6c609e3cfd98ee9b72bcccec1a1d340`.
 
 After installing 0.1.4, a targeted instruction regression correctly kept an MCP
