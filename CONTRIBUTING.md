@@ -41,6 +41,11 @@ process/output/file checks. Representative terminal output is useful; a technica
 DSL or a large per-check form is unnecessary. See the
 [bare startup example](docs/n8r-surface/command-outcomes.md#startup-01-run-the-command-and-see-what-is-here).
 
+Grow the spec and working verification one useful behavior at a time. Existing
+behavior can gain a documented intent and repeatable verification without a code
+change. Keep [progress and evidence](docs/n8r-surface/command-outcomes.md#grow-the-specification-with-working-verification)
+current so readers can distinguish plans, implementation and verified outcomes.
+
 ## Cleanup after a merge
 
 Merging a PR on GitHub updates the remote repository; it does not switch your

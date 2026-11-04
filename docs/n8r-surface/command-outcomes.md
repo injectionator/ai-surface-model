@@ -16,20 +16,57 @@ user: define a real task, attempt it through the product, observe the gap, devel
 what is missing, then repeat the same task. It does not publish private Lab
 implementation material or require that application to be running.
 
+## Grow the specification with working verification
+
+Work one useful behavior at a time, including behavior that already exists. Add a
+small intent/example, try it, and retain a repeatable check with its observed
+result. If existing behavior meets the intent, adding that evidence is a completed
+increment; no implementation rewrite is required. If it does not, make the bounded
+change and repeat the same check.
+
+The command inventory gives direction. Detailed acceptance examples and evidence
+grow alongside each increment; completing the entire future specification is not
+a prerequisite for verifying the next useful behavior. Keep earlier checks and
+rerun those affected by a change. Extend the spec when a new user need or observed
+gap justifies it, while keeping expectations independent of implementation output.
+
+Keep progress visible beside the intent: what is specified, what is implemented,
+what was actually verified, and what remains blocked or unattempted. Update the
+example, relevant repeatable checks and evidence together in the same increment.
+A verified claim names its revision and limits; old evidence is not proof of a
+changed path. New scenarios are not verified merely because nearby checks pass.
+
+Current progress, with evidence defining the verified scope and revision:
+
+| User or consumer intent | Current progress | Verification / next increment |
+| --- | --- | --- |
+| Read saved research and selected definitions through the library, retaining identities, findings and references. | Implemented and verified for the experimental library profile; no command claim. | [CONTRACT-01 and repeatable fixture/package checks](verification.md#contract-01-retain-useful-attributable-research-and-selected-definitions). |
+| Run `n8r-surface` alone and see settings, saved artefacts and known process status. | Specified; command not implemented or exercised. | Implement and verify [STARTUP-01](#startup-01-run-the-command-and-see-what-is-here) first in #16. |
+| Run `n8r-surface status` to inspect the same state and exit. | Specified; command not implemented or exercised. | Reuse the overview and verify STATUS-01 in #16. |
+| Research a supplied repository with a human, then save and reopen the result. | Specified; real Researcher path not implemented or exercised. | Verify E2E-01 in #17; E2E-02 before claiming LibreChat research. |
+
 ## Governing development loop
 
-Before implementing a capability:
+For each increment, whether verifying existing behavior or adding a capability:
 
-1. Name the missing user task and why it matters.
+1. Name the useful user task and why it matters.
 2. Define **State X**, the actual **Input Y**, and independently assessable
    **Outcome Z**. Include the expected changes, observations and evidence source.
 3. Attempt Y through the current installed product in X. Record what it actually
    does. If the entry point, credentials or environment are unavailable, record
    the blocker; do not invent a baseline failure or bypass the product.
-4. Compare actual behavior with Z and bound the next implementation increment.
-5. Add supporting automated checks for that gap and implement the increment.
-6. Repeat the original interaction through the installed product. Reopen/read back
-   its outputs independently, compare them with Z, and record the result and limits.
+4. Compare actual behavior with Z. If it already meets the intent, retain a
+   repeatable check and record the verified result; no code change is necessary.
+   Otherwise bound the next implementation increment to the observed gap.
+5. Add supporting automated checks for that gap and implement the increment when
+   a change is needed.
+6. After a change, repeat the original interaction through the installed product.
+   Reopen/read back its outputs independently, compare them with Z, and record the
+   result and limits.
+
+Update the progress snapshot and linked evidence before choosing the next intent.
+Each completed increment should make another useful behavior demonstrably verified,
+or expose a specific blocker that remains visible.
 
 The developing agent builds the Researcher's capabilities. It must not perform
 the research itself and place prewritten answers in the output as proof that the

@@ -91,6 +91,12 @@ with representative terminal output is enough. Use ordinary process, output and
 file assertions to automate it; do not introduce a technical DSL or require a large
 acceptance form for every small behavior. Record shared run metadata once.
 
+Grow intent and verification incrementally around existing and new behavior. If
+an existing behavior satisfies the intent, retain its repeatable check and evidence
+without requiring a rewrite. Keep specified, implemented and verified progress
+visible beside the intent; update the example, affected checks and evidence in the
+same increment. Do not require a complete future spec before verifying one task.
+
 Attempt the task through the current installed product and record actual behavior
 before implementation. If the product or prerequisites are unavailable, record
 the blocker rather than inventing a failed attempt. Implement against the observed
