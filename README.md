@@ -11,6 +11,13 @@ of the system or its context using the same model.
 draft concepts, synthetic examples and interoperability research questions.
 There is no released schema, validator, exporter or deployment engine yet.
 
+The [experimental Researcher contracts](docs/n8r-surface/contracts.md) now have
+a TypeScript library and [synthetic acceptance cases](examples/researcher/README.md)
+for HTML research records and selected partial definitions in JSON/YAML. These
+bounded checks are not universal model conformance. The CLI, source-repository
+analysis and AI Researcher workflow remain subsequent work; see the
+[critical path](docs/n8r-surface/critical-path.md).
+
 An AI Surface can include applications, agents, models, inference services,
 authentication, tools, data stores, supporting infrastructure and the connections
 between them. Descriptions can grow from a few known components into a detailed

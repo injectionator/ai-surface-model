@@ -83,6 +83,9 @@ use GitHub credentials, access the network or change this repository's branches.
 
 ## Contribution principles
 
+See the [Researcher library checks](#researcher-contract-library) when changing
+the experimental TypeScript contracts or fixtures.
+
 - Keep partial descriptions useful. Do not require unrelated detail for a task.
 - Preserve the distinction between declared configuration and observed behavior.
 - Retain identities, sources, time and uncertainty where relevant.
@@ -103,3 +106,49 @@ material and its licence explicitly.
 There is no released conformance suite yet. For the current draft, check that
 JSON examples parse, their local references resolve, Markdown links work and
 the documentation does not claim unimplemented capabilities.
+
+## Researcher contract library
+
+Prerequisites: Node.js 22, 24 or 26 and npm. Python 3.9+ and Git remain prerequisites
+for the separate workflow-helper tests above. Contributor commands:
+
+```sh
+npm ci
+npm test
+npm run check:package
+git diff --check
+```
+
+`npm ci` uses the registry and creates `node_modules/`. `npm test` compiles strict
+TypeScript into ignored `dist/` and runs Node tests offline. `npm run build` can
+compile independently. The installed-package check uses `npm pack`, installs in
+a temporary directory with `--offline --ignore-scripts`, imports the built library
+and reads bundled assets, then removes the temporary directory. No API credentials,
+Lab, source checkout at runtime or registry publication is required. Populate the
+dependency cache with `npm ci` before the offline package check.
+
+To repeat the package smoke check using already installed Node executables:
+
+```sh
+npm run build
+node scripts/check-package.mjs /path/to/node22 /path/to/node24 /path/to/node26
+```
+
+Those paths are local command placeholders, not portable artefact fields. Passing
+no paths uses the current Node executable. Before distribution changes, run the
+full contract tests on each supported Node major too. The current package exposes
+an ESM library and assets, with no CLI entry point; executable npm/npx verification
+belongs to #16.
+
+The library accepts strings/data and returns strings/data, with no network or
+filesystem effects. It checks a bounded experimental profile, not all AI Surface
+Model semantics or consumer compatibility. Read the
+[contract and API boundaries](docs/n8r-surface/contracts.md),
+[host requirements](docs/n8r-surface/host-contract.md) and
+[synthetic cases](examples/researcher/README.md) before changing them.
+
+Preserve all fixture revisions and their references when extending a case. The
+pending manual-edit HTML is intentionally invalid; its rejection is an acceptance
+case. Ordinary `git diff` excludes untracked files, so inspect and check new files
+before committing. Check changed Markdown links/anchors and parse all JSON
+examples; syntax success is not semantic validity.

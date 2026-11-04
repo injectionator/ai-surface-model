@@ -96,7 +96,7 @@ test('YAML traps inside an otherwise valid record are rejected by codec rules', 
     '  urn:ext:x: one\n  urn:ext:x: two', '  1: value',
     '  urn:ext:x: {<<: {a: 1}}', '  urn:ext:x: .nan', '  urn:ext:x: .inf',
     '  urn:ext:x: 0x10', '  urn:ext:x: 1.0', '  urn:ext:x: 01']) {
-    assert.throws(() => decode(yaml.replace('extensions: {}', `extensions:\n${fragment}`), 'yaml'));
+    assert.throws(() => decode(yaml.replace('"extensions": {}', `"extensions":\n${fragment}`), 'yaml'));
   }
 });
 test('opaque keys and scalar-looking strings retain their exact values', () => {
@@ -120,4 +120,9 @@ test('limits and missing values fail before output is returned', () => {
   input.extensions['urn:ext:x'] = nested;
   assert.throws(() => encode(input, 'json'), /depth/);
   assert.throws(() => decode('x'.repeat(2 * 1024 * 1024 + 1), 'yaml'), /limit/);
+});
+test('literal merge-like extension keys preserve as ordinary quoted data', () => {
+  const input = record();
+  input.extensions['urn:ext:x'] = {'<<': {literal: true}};
+  for (const format of ['json', 'yaml']) assert.deepEqual(decode(encode(input, format), format), input);
 });

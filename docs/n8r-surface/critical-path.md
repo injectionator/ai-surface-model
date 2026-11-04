@@ -9,11 +9,15 @@ Implement n8r-surface first, then integrate its Researcher core into n8r-labs.
 Review the application requirements during contract design, without making
 application implementation or prompt extraction a dependency of this path.
 
-**Current work:** [#14](https://github.com/injectionator/ai-surface-model/issues/14)
-establishes this map and delivery structure. **Next implementation issue:**
-[#15](https://github.com/injectionator/ai-surface-model/issues/15). Later issues
-remain queued until their inputs are available. This is an ordered delivery path,
-not a release schedule or a declaration that implementation has started.
+**Current work:** [#15](https://github.com/injectionator/n8r-surface/issues/15)
+has an experimental [contract](contracts.md),
+[synthetic cases](../../examples/researcher/README.md),
+[host boundary and Lab review](host-contract.md), and
+[implementation decisions](implementation-decisions.md) in draft
+[PR #24](https://github.com/injectionator/n8r-surface/pull/24).
+It is stacked on planning PR #18 and is not merged. After review of this gate,
+#16 is the next implementation milestone; #17 follows it. Source-repository
+analysis is #17's work. No CLI or live Researcher workflow is claimed here.
 
 ```mermaid
 flowchart LR
@@ -28,7 +32,7 @@ flowchart LR
 
 ## 1. Define artefacts with concrete examples
 
-**Issue:** [#15](https://github.com/injectionator/ai-surface-model/issues/15).
+**Issue:** [#15](https://github.com/injectionator/n8r-surface/issues/15).
 
 Define a versioned experimental HTML research record and partial Surface graph.
 Use synthetic sources for two unrelated products and show how selected findings
@@ -37,10 +41,10 @@ the HTML, how manual edits are retained, and what a revision identifies.
 
 Specify JSON/YAML preservation rules and examples with attributed nodes and
 relationships, shared components, cycles, multiple connections, unknowns and
-conflicting evidence. TypeScript, a Node.js-compatible package and npm/npx
-distribution are agreed. Select supported Node.js versions, package name,
-contributor tooling and the first AI runner; document credential and source-access
-implications for that runner.
+conflicting evidence. The [implementation decisions](implementation-decisions.md) select TypeScript,
+Node.js 22/24/26, the `n8r-surface` npm package, npm/Node testing and an OpenAI
+Responses API adapter for #17. Runner implementation and credentials are not
+needed by these offline contract checks.
 
 Review the [compatibility contract](design.md#compatibility-contract) against
 n8r-labs requirements: source access, human questions, artefact persistence,
@@ -54,7 +58,7 @@ specifying and checking them.
 
 ## 2. Build the local foundation
 
-**Issue:** [#16](https://github.com/injectionator/ai-surface-model/issues/16).
+**Issue:** [#16](https://github.com/injectionator/n8r-surface/issues/16).
 **Depends on:** #15.
 
 Implement startup/status, missing-setup guidance, current-directory and explicit
@@ -79,7 +83,7 @@ unconnected discovery command as working research.
 
 ## 3. Demonstrate the Researcher workflow
 
-**Issue:** [#17](https://github.com/injectionator/ai-surface-model/issues/17).
+**Issue:** [#17](https://github.com/injectionator/n8r-surface/issues/17).
 **Depends on:** #15 and #16.
 
 Implement and version the shared Researcher skill in this repository, connecting

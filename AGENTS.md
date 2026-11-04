@@ -10,11 +10,12 @@ AI Surface Model is an open model for describing AI systems, their components,
 configuration and relationships at varying levels of detail. It is usable
 independently of Injection8r or any particular lab product.
 
-The repository currently contains conceptual documentation and synthetic JSON
-examples. There is no released schema, validator, exporter or deployment engine,
-and no model build, lint or conformance suite. The repository's Git workflow
-helper has its own offline tests; this does not choose a language, package
-manager or framework for future model tooling.
+The repository contains conceptual documentation, illustrative JSON examples and
+an experimental TypeScript Researcher artefact library. There is no released
+universal schema, CLI, AI runner or deployment engine. The bounded contract tests
+are not model conformance or consumer compatibility. See the
+[contract](docs/n8r-surface/contracts.md) and
+[implementation choices](docs/n8r-surface/implementation-decisions.md).
 
 Read [README.md](README.md), [CONTRIBUTING.md](CONTRIBUTING.md) and the files relevant
 to the task before editing:
@@ -136,6 +137,23 @@ refusal with a reset, stash or forced deletion. Follow the
   Add directory-specific guidance only when a tool needs different conventions.
 
 ## Checks before handing work back
+
+For the experimental Researcher library, use Node.js 22, 24 or 26 and npm:
+
+```sh
+npm ci
+npm test
+npm run check:package
+```
+
+`npm ci` downloads dependencies. Tests are offline and cover contracts, codecs,
+references, revision checks, HTML/data conflicts and synthetic fixtures. The
+package check builds, packs and installs in a temporary directory using the local
+npm cache with scripts disabled, then exercises built exports and bundled assets.
+It removes its temporary directory. Repeat against each supported Node major for
+distribution changes; see [contributor commands](CONTRIBUTING.md#researcher-contract-library).
+There is no working `n8r-surface` command yet. Keep the package private until a
+separate release decision.
 
 For changes to the Git workflow helper, run its shell syntax check and offline
 integration suite from the repository root (Bash, Git and Python 3.9+ required):

@@ -45,13 +45,13 @@ contracts without inference, storage adapters or a Lab.
 `decode(string, 'json' | 'yaml'): Artefact`,
 `digest(unknown): string`, `verifyReferences(Artefact, Artefact[]): void`.
 
-- [ ] Write tests for partial records, graph cycles/shared/parallel edges,
+- [x] Write tests for partial records, graph cycles/shared/parallel edges,
   invalid local references, closed fields and unknown extension preservation.
-- [ ] Run `npm test`; expect assertions to fail against unimplemented exports.
-- [ ] Implement the bounded types, validation, codecs and canonical digest.
-- [ ] Run `npm test`; expect all contract/codec cases to pass. Include duplicate
+- [x] Run `npm test`; expect assertions to fail against unimplemented exports.
+- [x] Implement the bounded types, validation, codecs and canonical digest.
+- [x] Run `npm test`; expect all contract/codec cases to pass. Include duplicate
   keys, non-string YAML keys, aliases, tags, unsafe numbers and cyclic JS values.
-- [ ] Document exact fields and bounds; commit the reviewable contract slice.
+- [x] Document exact fields and bounds; commit the reviewable contract slice.
 
 ### Task 2: HTML ownership, revision checks and synthetic cases
 
@@ -62,15 +62,15 @@ contracts without inference, storage adapters or a Lab.
 `readResearchHtml(string): ResearchRecord`,
 `verifySuccessor(Artefact, Artefact): void` and frozen acceptance fixtures.
 
-- [ ] Write failing tests for HTML/data divergence, inert source markup,
+- [x] Write failing tests for HTML/data divergence, inert source markup,
   parent digest mismatch, reused revisions and external evidence resolution.
-- [ ] Run `npm test`; expect the new cases to fail.
-- [ ] Implement deterministic HTML and revision checks; add two fictional
+- [x] Run `npm test`; expect the new cases to fail.
+- [x] Implement deterministic HTML and revision checks; add two fictional
   products, their records, a reviewed manual revision, rejected raw edit and
   a selected partial Surface in JSON/YAML.
-- [ ] Run `npm test`; expect all cases to pass, including source digests,
+- [x] Run `npm test`; expect all cases to pass, including source digests,
   selected findings/decisions, conflicts and independent old revision retention.
-- [ ] Commit and update the draft PR.
+- [x] Commit and update the draft PR.
 
 ### Task 3: Host boundary, distribution checks and delivery documentation
 
@@ -82,13 +82,13 @@ contracts without inference, storage adapters or a Lab.
 **Interfaces:** Consumes built exports and fixtures from tasks 1/2. Package
 exports the library plus contracts/examples; no command entry point yet.
 
-- [ ] Write/run an installed-package smoke case outside the checkout; expect
+- [x] Write/run an installed-package smoke case outside the checkout; expect
   missing exports/assets to fail before packaging is configured.
-- [ ] Package only built code, public contracts/examples and licence material.
-- [ ] Verify installed tarball on Node 22, 24 and 26; document tested versions.
-- [ ] Record host capabilities, Lab alignment/gaps and first-runner decision.
+- [x] Package only built code, public contracts/examples and licence material.
+- [x] Verify installed tarball on Node 22, 24 and 26; document tested versions.
+- [x] Record host capabilities, Lab alignment/gaps and first-runner decision.
   Keep settings/source/storage implementation in #16 and discovery in #17.
-- [ ] Run npm tests, shell syntax, existing Python tests, JSON/reference checks,
+- [x] Run npm tests, shell syntax, existing Python tests, JSON/reference checks,
   changed Markdown links and `git diff --check`; inspect the publication diff.
 - [ ] Obtain one independent whole-branch review, fix substantive findings with
   reproducing tests, then push/update the draft PR and hand back issue/PR/commit.

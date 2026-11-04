@@ -15,7 +15,7 @@ export function decode(text: string, format: Encoding): Artefact {
     if (isAlias(node) || (isNode(node) && (node.tag || ('anchor' in node && node.anchor)))) fail('$', 'YAML tags/anchors/aliases unsupported');
     if (isMap(node)) for (const pair of node.items) {
       if (!isScalar(pair.key) || typeof pair.key.value !== 'string') fail('$', 'mapping keys must be strings');
-      if (pair.key.value === '<<') fail('$', 'YAML merge keys unsupported');
+      if (format === 'yaml' && pair.key.value === '<<' && pair.key.type !== 'QUOTE_DOUBLE' && pair.key.type !== 'QUOTE_SINGLE') fail('$', 'unquoted YAML merge keys unsupported');
     }
     if (isScalar(node) && typeof node.value === 'number' && !/^-?(0|[1-9][0-9]*)$/.test(node.source ?? '')) fail('$', 'numbers require decimal integer notation');
   });
@@ -25,6 +25,6 @@ export function decode(text: string, format: Encoding): Artefact {
 }
 export function encode(value: unknown, format: Encoding): string {
   formatCheck(format); const a = validateArtefact(value);
-  const text = format === 'json' ? JSON.stringify(a, null, 2) + '\n' : stringify(a, {version: '1.2', aliasDuplicateObjects: false, lineWidth: 0});
+  const text = format === 'json' ? JSON.stringify(a, null, 2) + '\n' : stringify(a, {version: '1.2', aliasDuplicateObjects: false, lineWidth: 0, defaultKeyType: 'QUOTE_DOUBLE'});
   checkSize(text); return text;
 }
