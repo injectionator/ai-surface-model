@@ -20,6 +20,12 @@ artefacts without changing files. Setup, other commands, source-repository
 analysis and the AI Researcher workflow remain subsequent work; see the
 [critical path](docs/n8r-surface/critical-path.md).
 
+The [first Researcher skill package](docs/n8r-surface/researcher-skill.md) is now
+available for testing in the existing Codex/ChatGPT harness. It uses the host's
+source access and conversation to produce evidence-backed working notes. See
+[verification and pending Work-mode checks](docs/n8r-surface/researcher-skill-verification.md).
+The delivery order is skill first, n8r-labs adaptation second, standalone CLI third.
+
 The [command intent and verification spec](docs/n8r-surface/command-outcomes.md)
 defines the proposed commands, user outcomes and evidence required before claiming
 that those workflows work.

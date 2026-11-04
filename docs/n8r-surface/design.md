@@ -9,7 +9,8 @@ the [critical path](critical-path.md) determines what comes next.
 synthetic cases now provide concrete inputs to the next milestones.
 The bare-startup overview is implemented; its [bounded behavior](startup.md)
 does not include setup writes, conversation or other commands.
-Researcher instructions and runner remain unimplemented. Existing LibreChat JSON
+A [first skill package](researcher-skill.md) supplies Researcher instructions for
+working notes; the standalone runner and structured-output workflow remain unimplemented. Existing LibreChat JSON
 examples remain illustrative; this bounded profile is not a universal schema.
 
 ## Purpose and roles
@@ -26,8 +27,8 @@ or running target. ChatGPT with supplied documents is the first external skill
 experience. Other harnesses need their own demonstrated support.
 
 Maintain one versioned core discovery skill, including its reference material
-and output rules, in this repository. Build the standalone Researcher first;
-n8r-labs later consumes an identified revision of that core. Each host supplies
+and output rules, in this repository. Prove the skill in the existing Codex/ChatGPT harness first; adapt the same core
+in n8r-labs next, then complete the standalone CLI. Each host supplies
 source access, inference, conversation and persistence. Existing application
 needs inform the contract, but extracting or rebuilding its assistant is not a
 prerequisite for standalone delivery. Do not hand-maintain divergent copies or
@@ -45,7 +46,6 @@ Core proposed research entry points:
 
 ```sh
 n8r-surface
-n8r-surface status
 n8r-surface discover
 n8r-surface discover ./product
 n8r-surface discover ./documents/architecture.md
@@ -55,9 +55,11 @@ Bare startup first shows readable non-private configuration and its file locatio
 local artefacts one per line, and process status where known. This local overview
 works without an AI or Lab connection; see the concrete
 [startup example](command-outcomes.md#startup-01-run-the-command-and-see-what-is-here).
-Startup then guides missing setup or opens the conversation when ready. It does
-not scan source repositories, upload sources or resume a previous task implicitly.
-`status` shows the same overview and exits without setup prompts or inference.
+The next CLI revision will make bare startup informational and exit without a
+prompt; there will be no status subcommand. That work is paused while the skill
+is developed. The existing STARTUP-01 guidance prompt remains the implemented
+baseline. Research requires an explicit interaction; no implicit source upload
+or task resumption is introduced.
 
 `discover` without a source argument uses the process's current directory.
 Explicit relative paths resolve from that directory; absolute paths are accepted
@@ -201,7 +203,8 @@ and packaging checks; they are outside the first milestone.
 Inside a chat harness, its AI follows the Researcher skill. The CLI needs a
 supported installed agent or configured model connection. One verified runner
 is enough for the first milestone. The [selected first adapter](implementation-decisions.md#first-cli-ai-runner)
-uses OpenAI Responses API function tools; it will be implemented and verified in #17.
+uses installed Codex with ChatGPT sign-in; its integration follows the host-native
+skill and Lab trials.
 The TypeScript/Node.js decision does not select an AI provider. A CLI that only
 prints a prompt is not completed authoring.
 
@@ -252,12 +255,12 @@ Define the boundary in #15 and keep it with the shared core as it develops:
   incomplete/conflicting evidence, manual edits and continuation with a second
   source. CLI, external skill and later application tests use these cases.
 
-Before completing #15, review this boundary against n8r-labs requirements and
-record any gaps and decisions. The review needs no parallel application build.
+The #15 review considered this boundary against n8r-labs requirements and
+recorded gaps and decisions without a parallel application build.
 Changes to the boundary update the contract and examples in the same PR; identify
 any later application adaptation or migration they require.
 
-After the standalone milestone, the application project implements its adapters
+After the first skill trial, the application project implements its adapters
 and uses the shared instruction revision. Verify both shared discovery behaviour
 and import/continuation of standalone artefacts against a named application
 version. Compare supported facts, choices and gaps, not generated wording.

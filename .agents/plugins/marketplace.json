@@ -1,0 +1,12 @@
+{
+  "name": "n8r-surface",
+  "interface": {"displayName": "n8r Surface"},
+  "plugins": [
+    {
+      "name": "n8r-researcher",
+      "source": {"source": "local", "path": "./plugins/n8r-researcher"},
+      "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
+      "category": "Developer Tools"
+    }
+  ]
+}

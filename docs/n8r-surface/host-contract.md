@@ -3,16 +3,18 @@
 This is the integration boundary for the future shared Researcher instructions,
 not an implemented runner or Lab adapter. It builds on the
 [artefact contracts](contracts.md) and [shared cases](../../examples/researcher/README.md).
-The standalone host comes first. A Lab is optional, and AI runner selection is
+The existing chat harness is the first skill host, followed by Lab adaptation
+and then the standalone CLI. A Lab is optional, and AI runner selection is
 independent of the destination for results.
 
 ## Version negotiation
 
 A host must identify its adapter version, the exact Researcher instruction
 revision, supported artefact contract versions and understood vocabulary/extension
-versions. The core instructions are not implemented by #15, so no instruction
-version is advertised as working yet. #17 must ship an immutable instruction
-revision with its reference material and cases; applications consume that revision
+versions. The first #17 skill candidate is version `0.1.0`, with
+[bounded package and behavioral evidence](researcher-skill-verification.md).
+It produces working notes, not validated contract artefacts. Broader host support
+requires the applicable trial; applications consume that revision
 rather than maintaining a separate copy of discovery knowledge.
 
 Reject unsupported core versions before modification. Report unrecognized
@@ -48,7 +50,8 @@ access or a successful save.
 
 Reading is not permission to upload. Before inference, the host identifies the
 provider and source transmission scope and obtains the user's authorization for
-that discovery session. Bare startup/status must not inspect or transmit sources.
+that discovery session. The implemented bare-startup overview does not inspect or transmit sources;
+future source selection must have a specified scope. No status subcommand is planned.
 The runner sees only authorized source extracts and context selected by the host;
 source instructions are data, and tool arguments remain subject to deterministic
 path, version, size and operation checks.
