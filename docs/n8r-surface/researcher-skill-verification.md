@@ -39,6 +39,17 @@ existing MD018 issue at `startup-human-check.md:171`. That unrelated file was le
 unchanged; the final lint above targets this increment's files. Independent review
 found no remaining blocking issue after the two corrections.
 
+The implementation was pushed at
+`de65eeb477c0780fffb2f700ff93d6f04ea201af`. A Git marketplace snapshot still at
+`3eff6fdd710f7670d4511f83233a01444d658408` was then refreshed with
+`codex plugin marketplace upgrade n8r-surface --json`, followed by
+`codex plugin add n8r-surface@n8r-surface --json` and the installed-list readback.
+All exited 0; upgrade reported no errors, the fetched snapshot matched `de65eeb`,
+and exactly one enabled 0.1.4 was listed from the Git source. All eleven installed
+files matched the committed package. The four numbered private research notes
+and all eight paused #16 files retained their hashes. This rehearses the update
+path without a manual clone/build; it does not establish Work UI refresh behavior.
+
 ## Graph-first discovery guidance: 0.1.3
 
 The user expanded the scope to an AI Surface discovery map, reuse of applicable
