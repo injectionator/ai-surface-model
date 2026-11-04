@@ -6,8 +6,8 @@ message: >-
 title: AI Surface Model
 authors:
   - name: AI Surface Model contributors
-url: https://github.com/injectionator/ai-surface-model
-repository-code: https://github.com/injectionator/ai-surface-model
+url: https://github.com/injectionator/n8r-surface
+repository-code: https://github.com/injectionator/n8r-surface
 abstract: >-
   An early conceptual model for describing connected AI system components,
   configuration and relationships at varying levels of detail, with explicit
@@ -17,4 +17,4 @@ preferred-citation:
   title: AI Surface Model (conceptual draft)
   authors:
     - name: AI Surface Model contributors
-  url: https://github.com/injectionator/ai-surface-model
+  url: https://github.com/injectionator/n8r-surface

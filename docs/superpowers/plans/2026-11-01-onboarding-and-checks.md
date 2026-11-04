@@ -7,13 +7,14 @@
 reading paths, and make contributions easier to prepare and check.
 
 **Architecture:** Keep Markdown and the existing synthetic JSON as the primary
-content. Add GitHub contribution templates, CFF metadata and repository checks;
-these do not define a model schema or select a future implementation stack.
+content. Add GitHub contribution templates, CFF metadata and repository checks.
+The refresh also covers the existing TypeScript Researcher library and bare
+startup; it adds no model schema or product behavior.
 
-**Tech stack:** Markdown, JSON, YAML, Python's standard-library unittest, GitHub
-Actions, markdownlint-cli2, lychee and cffconvert.
+**Tech stack:** Markdown, JSON, YAML, Python's standard-library unittest, the
+existing npm/Node.js tests, GitHub Actions, markdownlint-cli2, lychee and cffconvert.
 
-**Spec:** [Issue #11](https://github.com/injectionator/ai-surface-model/issues/11)
+**Spec:** [Issue #11](https://github.com/injectionator/n8r-surface/issues/11)
 records the approved scope and acceptance checks.
 
 ## Global constraints
@@ -75,13 +76,33 @@ local identifier, endpoint and secret-requirement checks. No generic validator.
 - [x] After local review, commit, push and open the matching draft PR with
   `Closes #11`, then inspect GitHub-hosted checks.
 
+## Task 3: Refresh against the merged tooling and rename
+
+The 4 November follow-up keeps the existing PR and targets `main`. It integrates
+the naming branch from #23 at `4f9b045`; merge #23 before #21. This preserves the
+shared README and attribution corrections without a force push or duplicate PR.
+
+- [x] Retain the merged contracts/startup implementation and newer contributor
+  rules while resolving README and agent-guidance conflicts.
+- [x] Describe the current experimental tools and their remaining limits; update
+  repository URLs in citation metadata, templates and this plan.
+- [x] Add the existing library and installed-package checks to CI on Node.js
+  22/24/26 with Python available for the terminal rehearsal.
+- [x] Carry the proportional human-verification requirement into the PR template.
+- [ ] Rehearse the documented checks and human inspection, inspect hosted checks
+  on the refreshed head, and obtain a fresh review of both PRs.
+
+No new production behavior is introduced. Existing fixture tests are retained;
+verification uses those tests and the real package checks rather than new tests
+that mirror documentation or workflow configuration.
+
 ## Publication status
 
 The onboarding and checks work is published in
-[draft PR #21](https://github.com/injectionator/ai-surface-model/pull/21).
-Its initial hosted run passed all three jobs: fixtures and tooling, Markdown,
-and local links. Independent review and synthetic fixture mutation checks found
-no actionable issues.
+[draft PR #21](https://github.com/injectionator/n8r-surface/pull/21).
+Its initial hosted run at `583c3d2` passed all three original jobs: fixtures and
+tooling, Markdown, and local links. The refreshed PR must record its own checks,
+including the added Researcher matrix; the old result is historical evidence.
 
 The onboarding change targets `main` directly and excludes the separate Lab
 redesign. The README and agent guidance record the boundary between this

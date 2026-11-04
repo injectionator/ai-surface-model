@@ -1,12 +1,15 @@
-# AI Surface Model
+# n8r-surface
 
-An open model for describing the connected components, configuration and
-relationships of an AI system, at the level of detail available or useful.
+The home of the **AI Surface Model**, an open model for describing the connected
+components, configuration and relationships of an AI system, at the level of
+detail available or useful. This repository also develops the experimental
+`n8r-surface` command and Researcher library.
 
 > [!NOTE]
-> **Early conceptual draft.** This repository contains concepts, synthetic
-> examples and research questions. There is no released schema, validator,
-> exporter or deployment engine yet.
+> **Early draft; experimental tooling.** The model concepts and illustrative
+> fields remain provisional. The library and bare-startup command are unreleased;
+> there is no universal schema, AI Researcher workflow, exporter or deployment
+> engine yet.
 
 ## Why this is needed
 
@@ -33,9 +36,8 @@ It is usable independently of Injectionator or any particular application.
 Security investigation, reproducibility and configuration understanding are all
 part of its scope.
 
-This repository contains the open model and is the home of the planned
-`n8r-surface` command. Application design and implementation for `n8r-labs`
-are maintained in its separate repository.
+This repository maintains the model and standalone tooling. Application design
+and implementation for `n8r-labs` are maintained in its separate repository.
 
 ## What it describes
 
@@ -50,6 +52,20 @@ serialization remain open.
 Definitions stay separate from deployments, dated observations and Experiment
 Runs. A Run refers to the definition revision and effective setup used, so later
 discovery does not silently change what an earlier result refers to.
+
+## Experimental tooling
+
+The [Researcher library](docs/n8r-surface/contracts.md) reads and writes bounded
+HTML research records and partial definitions in JSON/YAML, with
+[synthetic acceptance cases](examples/researcher/README.md). These checks do not
+establish universal model conformance or consumer compatibility.
+
+The [bare-startup command](docs/n8r-surface/startup.md) displays local settings and
+saved artefacts without changing files. Setup, other commands, source-repository
+analysis and the AI Researcher workflow remain unimplemented. See the
+[critical path](docs/n8r-surface/critical-path.md) for the next work and the
+[command outcome specification](docs/n8r-surface/command-outcomes.md) for the
+intended interactions and required evidence.
 
 ## Start at the depth you need
 

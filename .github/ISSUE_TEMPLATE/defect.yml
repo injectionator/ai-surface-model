@@ -18,7 +18,7 @@ body:
     id: reproduction
     attributes:
       label: Reproduction or conflicting statements
-      description: Give a minimal synthetic reproduction or quote the inconsistent text. Include relevant tool versions for tooling defects.
+      description: Give a minimal synthetic reproduction or quote the inconsistent text. For command behavior, include the initial setup/source state, exact invocation, observed output or saved-state readback, and tool versions. Do not include credentials or private paths.
     validations:
       required: true
   - type: textarea

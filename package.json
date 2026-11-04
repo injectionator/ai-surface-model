@@ -1,0 +1,24 @@
+{
+  "name": "n8r-surface",
+  "version": "0.0.0-experimental.1",
+  "private": true,
+  "description": "Experimental AI Surface Model library and local startup overview",
+  "bin": {"n8r-surface": "./dist/cli.js"},
+  "type": "module",
+  "license": "Apache-2.0 AND CC-BY-4.0",
+  "engines": {"node": "^22.0.0 || ^24.0.0 || ^26.0.0"},
+  "exports": {
+    ".": {"types": "./dist/index.d.ts", "import": "./dist/index.js"},
+    "./examples/*": "./examples/researcher/*",
+    "./contracts/*": "./docs/n8r-surface/*"
+  },
+  "files": ["dist", "docs/n8r-surface", "examples/researcher", "LICENSE", "LICENSE-DOCS", "LICENSING.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "check:package": "npm run build && node scripts/check-package.mjs",
+    "prepack": "npm run build"
+  },
+  "dependencies": {"yaml": "2.9.1"},
+  "devDependencies": {"@types/node": "22.20.5", "typescript": "6.0.3"}
+}

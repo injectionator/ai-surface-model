@@ -6,22 +6,22 @@ when working in their directories.
 
 ## Project and starting points
 
-AI Surface Model is an open model for describing AI systems, their components,
-configuration and relationships at varying levels of detail. It is usable
+`n8r-surface` is the home of the open AI Surface Model, experimental
+`n8r-surface` command and Researcher library. The model describes AI systems,
+their components, configuration and relationships at varying levels of detail. It is usable
 independently of Injection8r or any particular lab product.
 
-This repository owns the open AI Surface Model and the planned `n8r-surface`
-command. Keep `n8r-labs` application design and implementation in its separate
-repository. References here should describe model use or the consumer integration
-boundary; do not introduce Lab application architecture or change that repository
-as part of work here.
+Keep `n8r-labs` application design and implementation in its separate repository.
+References here should describe model use or the consumer integration boundary;
+do not introduce Lab application architecture or change that repository as part
+of work here.
 
-The repository currently contains conceptual documentation and synthetic JSON
-examples. There is no released schema, validator, exporter or deployment engine,
-and no model build or conformance suite. Repository checks cover Markdown,
-links, citation metadata, synthetic fixture integrity and the Git workflow
-helper. These do not choose a language, package manager or framework for future
-model tooling.
+The repository contains conceptual documentation, illustrative JSON examples and
+an experimental TypeScript Researcher artefact library. There is no released
+universal schema, CLI, AI runner or deployment engine. The bounded contract tests
+are not model conformance or consumer compatibility. See the
+[contract](docs/n8r-surface/contracts.md) and
+[implementation choices](docs/n8r-surface/implementation-decisions.md).
 
 Read [README.md](README.md), [CONTRIBUTING.md](CONTRIBUTING.md) and the files relevant
 to the task before editing:
@@ -51,10 +51,12 @@ and code changes. Apply it in the existing checkout.
 3. Commit only the task's changes. After the first reviewable commit and relevant
    checks, push the branch and open one matching draft PR against the correct
    base. Keep that PR updated as the task develops.
-4. Include `Closes #<primary-issue>` in the PR and use `Related to #<issue>` for
-   other work it does not complete. Explain the final change, verification and
-   remaining limitations. Do not close an issue merely because code or docs
-   were written or automated checks passed.
+4. Include `Closes #<primary-issue>` only when the PR completes that issue. For
+   a deliberately partial increment, use `Related to #<primary-issue>`, name the
+   completed increment and keep the remaining scope visible and the issue open.
+   Use `Related to #<issue>` for other work it does not complete. Explain the final
+   change, verification and remaining limitations. Do not close an issue merely
+   because code or docs were written or automated checks passed.
 5. Keep the PR draft until the user authorizes review readiness. Merge, release
    and deployment remain separate user decisions. A request to push a branch
    does not authorize merging it into the default branch.
@@ -82,6 +84,59 @@ the user has authorized cleanup. It verifies the PR and exact local tip, updates
 `main` by fast-forward, and deletes only that local branch. Do not bypass a
 refusal with a reset, stash or forced deletion. Follow the
 [cleanup prerequisites and failure handling](CONTRIBUTING.md#cleanup-after-a-merge).
+
+## Develop from user intent and observable outcomes
+
+For command or Researcher behavior, follow
+[the command intent and verification spec](docs/n8r-surface/command-outcomes.md).
+Before coding, define the useful user task, initial State X, actual Input Y and
+independently verifiable Outcome Z. List expected state changes, visible results
+and the evidence needed to verify them. Keep the complete public command inventory
+and conversational intents current before adding a command, option or behavior.
+
+Keep simple checks simple: a plain-language Given / When / Then / Verify example
+with representative terminal output is enough. Use ordinary process, output and
+file assertions to automate it; do not introduce a technical DSL or require a large
+acceptance form for every small behavior. Record shared run metadata once.
+
+Grow intent and verification incrementally around existing and new behavior. If
+an existing behavior satisfies the intent, retain its repeatable check and evidence
+without requiring a rewrite. Keep specified, implemented and verified progress
+visible beside the intent; update the example, affected checks and evidence in the
+same increment. Do not require a complete future spec before verifying one task.
+
+Attempt the task through the current installed product and record actual behavior
+before implementation. If the product or prerequisites are unavailable, record
+the blocker rather than inventing a failed attempt. Implement against the observed
+gap (or an explicitly authorized known missing capability), then repeat the same
+task through the installed product and independently read back its outputs.
+
+Unit, codec and fixture tests support this evidence; they do not replace a real
+command/runner/human/persistence rehearsal. The developing agent must not perform
+the investigation itself or populate an artefact with prewritten findings and
+claim the Researcher produced them. Keep expected, observed, verified and unproved
+outcomes separate. Final handoffs and PRs must include the exercised interaction,
+state changes, evidence/readback, exact revision/environment and remaining limits.
+
+Every PR must include unambiguous human verification steps: prerequisites and
+starting directory/state, exact copy-and-paste commands or interactions, expected
+output and exit codes, state changes or readback, and cleanup where applicable.
+State which values may vary and what counts as a failure. Include a runnable
+example in the PR, with a link to longer instructions when needed; a test command
+or a claim that automation passed is not enough. Exercise the documented steps
+before handing them back, and distinguish an agent rehearsal from human acceptance.
+For documentation-only changes, identify the exact material to inspect and the
+expected correction.
+
+Choose the shortest unambiguous human proof that establishes the increment. Reuse
+an established installation, working runner and known fixtures when they are still
+applicable; state those prerequisites and link to setup instead of repeating it.
+A new subcommand may need only its exact invocation, expected visible result and
+a saved-output readback where relevant. Keep broad regression and edge-case
+coverage automated, and include extra human cases only when the changed behavior
+or its consequences need them. Expand the procedure when setup, authentication,
+storage, runtime or other assumptions change, or evidence exposes a gap. Preserve
+required checks and accurate evidence; procedure length is not a measure of rigor.
 
 ## Preserve the model's meaning
 
@@ -159,6 +214,26 @@ Use lychee 0.24.2 and cffconvert 2.0.0. Lint installation and citation-checker
 installation need network access; local link and fixture checks run offline.
 External links are checked separately by a weekly/manual workflow. Do not report
 unrun checks as passing or fixture integrity as model conformance.
+
+For the experimental Researcher library, use Node.js 22, 24 or 26 and npm:
+
+```sh
+npm ci
+npm test
+npm run check:package
+```
+
+`npm ci` downloads dependencies. Tests are offline and cover contracts, codecs,
+references, revision checks, HTML/data conflicts and synthetic fixtures. The
+package check builds, packs and installs in a temporary directory using the local
+npm cache with scripts disabled, then exercises built exports and bundled assets.
+It removes its temporary directory. Repeat against each supported Node major for
+distribution changes; see [contributor commands](CONTRIBUTING.md#researcher-contract-library).
+The experimental `n8r-surface` command implements only the read-only bare-startup
+overview. The package check also runs it under temporary homes and a real POSIX
+terminal; Python 3.9+ is required for that rehearsal. See the
+[startup boundary](docs/n8r-surface/startup.md). Keep the package private until a
+separate release decision.
 
 For changes to the Git workflow helper, run its shell syntax check and offline
 integration suite from the repository root (Bash, Git and Python 3.9+ required):
