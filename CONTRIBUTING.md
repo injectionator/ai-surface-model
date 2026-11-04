@@ -35,6 +35,12 @@ Follow this sequence for each contribution, including documentation changes:
 The [Git workflow in AGENTS.md](AGENTS.md#git-workflow) gives the full branch,
 workspace and publication rules, including the prohibition on Git worktrees.
 
+Write simple acceptance checks as plain-language examples: given these files,
+when the user runs this command, then they see this output, verified by these
+process/output/file checks. Representative terminal output is useful; a technical
+DSL or a large per-check form is unnecessary. See the
+[bare startup example](docs/n8r-surface/command-outcomes.md#startup-01-run-the-command-and-see-what-is-here).
+
 ## Cleanup after a merge
 
 Merging a PR on GitHub updates the remote repository; it does not switch your

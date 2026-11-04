@@ -86,6 +86,11 @@ independently verifiable Outcome Z. List expected state changes, visible results
 and the evidence needed to verify them. Keep the complete public command inventory
 and conversational intents current before adding a command, option or behavior.
 
+Keep simple checks simple: a plain-language Given / When / Then / Verify example
+with representative terminal output is enough. Use ordinary process, output and
+file assertions to automate it; do not introduce a technical DSL or require a large
+acceptance form for every small behavior. Record shared run metadata once.
+
 Attempt the task through the current installed product and record actual behavior
 before implementation. If the product or prerequisites are unavailable, record
 the blocker rather than inventing a failed attempt. Implement against the observed

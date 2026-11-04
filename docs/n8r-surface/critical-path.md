@@ -92,6 +92,12 @@ unavailable runners, interrupted saves and human edits between read and write.
 The executable is a local foundation at this point; it must not present an
 unconnected discovery command as working research.
 
+Start with [STARTUP-01](command-outcomes.md#startup-01-run-the-command-and-see-what-is-here):
+given a configuration file and one saved artefact, running `n8r-surface` alone
+shows readable non-private settings and their locations, one line for that artefact,
+and known process status or an honest unknown. Verify this simple terminal example
+before the more involved research paths; it requires no AI or Lab connection.
+
 Exercise those behaviors through the installed command as well as internal
 handlers. Record the applicable SETUP, STATUS, INPUT, SCOPE, SAVE, HELP and
 NONINTERACTIVE cases from [the outcome spec](command-outcomes.md#other-required-paths-and-failure-outcomes),

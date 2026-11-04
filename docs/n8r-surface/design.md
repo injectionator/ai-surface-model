@@ -49,9 +49,13 @@ n8r-surface discover ./product
 n8r-surface discover ./documents/architecture.md
 ```
 
-Bare startup checks setup and opens the conversation when ready. It does not
-start scanning, upload sources or resume a previous task implicitly. `status`
-reports local configuration without invoking inference.
+Bare startup first shows readable non-private configuration and its file locations,
+local artefacts one per line, and process status where known. This local overview
+works without an AI or Lab connection; see the concrete
+[startup example](command-outcomes.md#startup-01-run-the-command-and-see-what-is-here).
+Startup then guides missing setup or opens the conversation when ready. It does
+not scan source repositories, upload sources or resume a previous task implicitly.
+`status` shows the same overview and exits without setup prompts or inference.
 
 `discover` without a source argument uses the process's current directory.
 Explicit relative paths resolve from that directory; absolute paths are accepted

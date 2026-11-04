@@ -50,8 +50,8 @@ be added to this inventory with its own outcome and verification case first.
 
 | ID | Invocation | User intent and delivered outcome | Observable change and verification |
 | --- | --- | --- | --- |
-| CMD-01 | `n8r-surface` | Find out whether the tool is ready; configure missing setup interactively; enter a conversation when ready. | Read back effective nonsecret settings after an accepted setup change. Observe the conversation or a specific blocker. Verify no source was inspected/transmitted merely by starting. |
-| CMD-02 | `n8r-surface status` | Know the effective configuration, runner availability, artefact destination and missing prerequisites. | Display their states and origins without modifying files, scanning sources or invoking inference. Compare with controlled settings/files and runner availability; distinguish configured from successfully exercised. |
+| CMD-01 | `n8r-surface` | See readable non-private configuration and its file locations, local artefacts one per line, and process status where known. Then configure missing setup interactively or enter a conversation when ready. | Compare the initial overview with prepared settings/files using STARTUP-01. Read back any accepted setup change. Verify the overview itself changes no files and does not inspect/transmit source repositories or invoke inference. |
+| CMD-02 | `n8r-surface status` | See the same overview and missing prerequisites, then exit. | Compare settings, locations, artefact rows and known/unknown status with controlled state. No setup prompts or mutation; distinguish configured from successfully exercised. |
 | CMD-03 | `n8r-surface discover` | Research the current directory with the human. | Establish cwd as the source scope, follow the identified Researcher instructions, inspect permitted material, ask relevant questions and save an attributable HTML research record. Verify with E2E-01. |
 | CMD-04 | `n8r-surface discover ./product` | Research an explicitly selected directory. | Resolve the path from invocation cwd and report the actual scope; prove the intended source was read, with no fallback to a different repo. Verify source identity/read evidence and the resulting artefact. |
 | CMD-05 | `n8r-surface discover ./documents/architecture.md` | Research one supplied document. | Inspect that file and retain file-only coverage. Reopen the resulting record and confirm it does not claim repository-wide inspection. |
@@ -74,8 +74,10 @@ must be added here when #16 selects it, before implementing that syntax.
 
 Successful noninteractive informational commands exit successfully. Invalid input,
 missing required setup and unavailable capabilities return a failure with a
-specific reason; they must not wait on a prompt. Bare startup or discovery with no
-interactive input must explain the required interactive path and finish promptly.
+specific reason; they must not wait on a prompt. Bare startup still prints its
+overview without interactive input. If setup or conversation needs interaction,
+explain the required interactive path and finish promptly. Discovery follows the
+same no-wait rule when interaction is unavailable.
 A future unattended-research interface needs an explicit answer/selection policy;
 it is not implied by this first interactive workflow. Exact error codes belong in
 #16's parser contract and must preserve these observable distinctions.
@@ -83,6 +85,84 @@ it is not implied by this first interactive workflow. Exact error codes belong i
 Until #17 connects the actual Researcher, #16's `discover` reports that research
 is unavailable. Printing a prompt or writing a placeholder HTML file is not CMD-03,
 CMD-04 or CMD-05 success.
+
+## STARTUP-01: run the command and see what is here
+
+**Given:** a readable configuration file at `~/.n8r/n8r-surface.json` selects
+`~/n8r/artifacts` as the local artefact folder and JSON as the Surface output
+format. No AI runner or Lab connection is configured. That folder contains one
+valid synthetic Surface definition named LibreChat, stored as
+`librechat-uniqueid.json`. No process status is known.
+
+**When:** the user runs `n8r-surface` with no subcommands or switches.
+
+**Then:** before any setup question or conversation, the terminal shows a readable
+interpretation of those settings, where they came from, the saved artefact on one
+line, and the fact that process status is unknown. For example:
+
+```text
+$ n8r-surface
+
+Configuration
+  File: ~/.n8r/n8r-surface.json
+  Artefact folder: ~/n8r/artifacts
+  Surface output: JSON
+  AI runner: Not configured
+  Lab connection: Not configured
+
+Processes
+  Status unknown
+
+Local artefacts (1)
+  LibreChat | Surface definition | ~/n8r/artifacts/librechat-uniqueid.json
+
+Research needs an AI runner. Setup is available in an interactive terminal.
+```
+
+This is expected output, not a recording of an implemented command. The configured
+folder in this example uses `artifacts`; the command displays the actual effective
+path, whatever the folder is named. LibreChat is a synthetic saved-file label here,
+not evidence that the command has researched LibreChat.
+
+**Verify:** prepare those files under a temporary home directory, run the installed
+command with closed input, and capture its output. Check the configuration path,
+the readable values, exactly one artefact row with the right name and location,
+and unknown process status. The command must finish promptly and identify missing
+runner setup. Compare the files before and after: the overview changes nothing.
+Also exercise an interactive launch and confirm the overview appears before the
+first setup question. These are ordinary process, text and file checks; no special
+test language is required. Exact spacing and decorative punctuation are optional.
+
+The overview follows a few straightforward rules:
+
+- Interpret supported non-private settings with useful labels instead of dumping
+  raw JSON. Show every contributing configuration file and explain defaults or
+  overrides when used. Adding a setting includes deciding how it appears here.
+  Omit secret values and private fields, including credentials inside URLs or
+  nested settings. A synthetic private-value marker must never appear in output.
+- List saved research records and Surface definitions in the configured local
+  folder, with one logical line per artefact. Use available name/type metadata and
+  a distinguishing filename or location. Keep embedded newlines/control characters
+  from splitting a row or issuing terminal commands. Reading saved-file metadata
+  does not authorize scanning the source repositories those files describe.
+- Say when the folder is empty. For missing/unreadable configuration or folders,
+  show the relevant location and problem; do not present failed inspection as an
+  empty corpus. An unreadable or unsupported artefact gets a filename and a clear
+  limitation on its own line rather than disappearing from the listing.
+- Report a relevant process's identity and status when reliable status information
+  is available, including when it was observed if it may be stale. Otherwise say
+  unknown. A configured runner or saved PID alone does not establish that a process
+  is running. This overview does not introduce a background service.
+- Produce the overview locally without AI inference, Lab credentials or implicit
+  network calls. It is read-only until the human accepts a setup change.
+
+Repeat the same simple check with two artefacts, an empty folder, inaccessible
+files, a private-value marker, and known versus unknown process status. Compare
+each output to its prepared state. `n8r-surface status` uses the same overview and
+exits without offering interactive setup.
+
+**Current result:** not attempted; the package has no command entry point. This is
+the first visible acceptance example for #16.
 
 ## Conversation intents are part of the product surface
 
@@ -108,13 +188,21 @@ local persistence. External skill and Lab hosts have separate verification rows.
 
 ## State X, input Y, verified Z
 
-Every acceptance case records these fields before implementation. Expected values
-come from the task and controlled sources, not from the implementation under test.
+Use plain language and concrete examples. For a small behavior, a short **Given /
+When / Then / Verify** description and representative output, as in STARTUP-01,
+are enough. These are prose labels, not a parser, technical DSL or new test engine.
+Automate the same interaction with ordinary process, output and file assertions.
+Expected values come from the task and controlled sources, not from the
+implementation under test.
 
-| Field | Required content |
+The following checklist helps with more involved cases such as repository research;
+it is not a mandatory form to repeat for every small check. Include only relevant
+state and evidence, and record shared run metadata once in the verification record.
+
+| Field | Content when relevant |
 | --- | --- |
 | Intent | The user's useful task and why it matters. |
-| State X | Tool/build revision; instruction revision; initial settings and corpus; source snapshot/dirty state; permitted scope; runner/model and availability; interaction mode. Never include credential values. |
+| State X | Initial settings/files and interaction mode; for research, also instruction revision, source snapshot/dirty state, permitted scope and runner/model availability. Never include credential values. |
 | Input Y | Exact command from its invocation directory, relevant user questions/answers and any supplied files. |
 | Expected change | Files, records, revisions, decisions or configuration that should be created/changed, and important state that should stay unchanged. |
 | Expected observations | What the terminal/conversation should show, including evidence references, questions, limitations and actual output location. |
@@ -208,13 +296,13 @@ must be recorded when exercised; none is invented here.
 
 ## Other required paths and failure outcomes
 
-Each row becomes a concrete State/Input/Outcome record when its increment starts.
+Each row gets a concrete plain-language example when its increment starts.
 These checks accompany E2E-01; they are not a substitute for the complete path.
 
 | Case | State X and input Y | Expected change and observable outcome | Verification |
 | --- | --- | --- | --- |
-| SETUP-01 | Missing settings; interactive CMD-01. | Explain missing setup; accept explicit choices; open a conversation when ready. | Read back settings through CMD-02 and inspect corpus creation. Verify no source scan or source upload from startup alone. |
-| STATUS-01 | Controlled configured/missing/unavailable prerequisites; CMD-02. | Report actual effective status, including limits of runner verification; no mutation. | Compare output to prepared state and before/after settings/corpus, source-read events and inference-call records. |
+| SETUP-01 | Missing settings; interactive CMD-01. | Show the overview and searched configuration location, explain missing setup, accept explicit choices, and open a conversation when ready. | Read back settings through CMD-02 and inspect corpus creation. Verify no source scan or source upload from startup alone. |
+| STATUS-01 | Controlled configured/missing/unavailable prerequisites; CMD-02. | Show STARTUP-01's overview, actual effective status and limits of runner verification; no mutation. | Compare output to prepared state and before/after settings/corpus, source-read events and inference-call records. |
 | INPUT-01 | Unknown argument or nonexistent/unreadable source. | Specific error or explicit coverage limitation; no substituted repo or invented completed record. | Observe terminal/exit result; inspect source-access events and corpus changes. |
 | SCOPE-01 | Explicit file source, or cwd different from installation and source. | Inspect exactly the intended scope, retaining omissions/truncation. | Compare read paths/hashes and saved coverage to prepared inputs; ensure file-only research does not claim whole-repo coverage. |
 | RUNNER-01 | Missing credential, unavailable model, network failure or cancelled interaction. | Report blocked/partial progress honestly, preserve useful accepted work, and avoid fallback. | Inspect actual runner destination/results and saved state; no completed-research claim without evidence. |
@@ -236,7 +324,7 @@ the recorded readback; the implementer's report does not replace human acceptanc
 | Milestone | What its evidence can establish | Required product proof |
 | --- | --- | --- |
 | #15 | Experimental record/graph contracts, synthetic preservation/reference checks and this outcome specification. | Reviewable human-readable examples and concrete inputs for the command work; no successful command claim. |
-| #16 | Installed startup/status, scoped source operations and safe persistence foundation. | Actual installed command rehearsals for applicable setup/status/input/scope/save/help/noninteractive paths. Discovery explicitly remains unavailable until #17. |
+| #16 | Installed startup/status, scoped source operations and safe persistence foundation. | STARTUP-01's readable no-argument overview first, then installed command rehearsals for applicable setup/status/input/scope/save/help/noninteractive paths. Discovery explicitly remains unavailable until #17. |
 | #17 | The shared Researcher completes standalone discovery with a human. | E2E-01 with a real runner, continued/edited research and selected output; E2E-02 before claiming LibreChat support. External skill behavior is exercised separately. |
 | Later Lab integration | A named consumer imports and continues supported standalone work. | The same facts/choices/gaps survive the named application's actual entry points, with limitations and losses recorded. |
 
