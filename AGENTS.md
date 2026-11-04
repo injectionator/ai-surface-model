@@ -6,8 +6,9 @@ when working in their directories.
 
 ## Project and starting points
 
-AI Surface Model is an open model for describing AI systems, their components,
-configuration and relationships at varying levels of detail. It is usable
+`n8r-surface` is the home of the open AI Surface Model, experimental
+`n8r-surface` command and Researcher library. The model describes AI systems,
+their components, configuration and relationships at varying levels of detail. It is usable
 independently of Injection8r or any particular lab product.
 
 The repository contains conceptual documentation, illustrative JSON examples and
