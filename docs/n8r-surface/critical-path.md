@@ -13,18 +13,22 @@ application implementation or prompt extraction a dependency of this path.
 has an experimental [contract](contracts.md),
 [synthetic cases](../../examples/researcher/README.md),
 [host boundary and Lab review](host-contract.md), and
-[implementation decisions](implementation-decisions.md) in draft
-[PR #24](https://github.com/injectionator/n8r-surface/pull/24).
-It is stacked on planning PR #18 and is not merged. After review of this gate,
-#16 is the next implementation milestone; #17 follows it. Source-repository
-analysis is #17's work. No CLI or live Researcher workflow is claimed here.
+[implementation decisions](implementation-decisions.md) in
+[PR #24](https://github.com/injectionator/n8r-surface/pull/24), with default-branch
+integration tracked by [PR #26](https://github.com/injectionator/n8r-surface/pull/26).
+#16's first [bare-startup increment](startup.md) is supplied by
+[PR #25](https://github.com/injectionator/n8r-surface/pull/25). Its read-only
+overview is [verified through the installed command](startup-verification.md);
+the rest of #16 remains open. Source-repository
+analysis and the live Researcher workflow remain #17's work.
 
 The [command intent and verification specification](command-outcomes.md) was
 approved on 4 November 2026 and governs subsequent delivery. The independent
 review's array-prototype correction is implemented and verified through the public
 API and installed package. See the [evidence and limits](verification.md).
-The #15 implementation is available in its draft PR for human acceptance; this
-does not authorize review readiness, merging or starting the next issue.
+The user authorized integration of the planning, contract and startup increments
+on 4 November 2026. The implemented #16 scope remains STARTUP-01 only; subsequent
+capabilities and release remain separate decisions.
 
 ```mermaid
 flowchart LR
@@ -82,8 +86,9 @@ Verify the installed tarball on supported Node.js versions independently of the
 source checkout. Bun may support development/builds but is not an end-user
 requirement. Package tests do not require publishing a release.
 
-Proposed defaults are `~/.n8r/n8r-surface.json` for settings and
-`~/n8r/artefacts` for the corpus. Show effective settings and allow overrides.
+STARTUP-01 selects `~/.n8r/n8r-surface.json` for settings and
+`~/n8r/artefacts` as the default corpus; `artefactRoot` in that file overrides it.
+The overview displays the effective path; see [settings decisions](startup.md).
 Keep AI selection separate from an optional Lab destination. Preserve invalid
 configuration for repair; non-interactive commands must not wait on a prompt.
 
@@ -152,7 +157,9 @@ choose their own editor; safe Researcher-assisted updates are sufficient here.
 ## Review and evidence
 
 Each issue uses its own branch and draft PR in this repository. Link the primary
-issue with `Closes #N` and the overview with `Related to #13`. Keep draft status
+issue with `Closes #N` only when complete; use `Related to #N` for a partial
+increment and retain its remaining scope. Link the overview with `Related to #13`.
+Keep draft status
 until review readiness is authorised; merging and releasing are separate steps.
 
 Run the relevant [repository checks](../../CONTRIBUTING.md)

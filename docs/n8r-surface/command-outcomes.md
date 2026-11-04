@@ -5,10 +5,10 @@ person should be able to accomplish, what changes, what they can observe, and ho
 to verify those outcomes. Implementation plans and lower-level tests must serve
 these tasks. A passing codec test does not establish a working research command.
 
-**Status:** product specification approved on 4 November 2026; command
-implementation remains pending. The #15 package contains an experimental artefact
-library and fixtures but no command entry point, Researcher instructions or AI
-runner. None of the command scenarios below has been exercised successfully.
+**Status:** product specification approved on 4 November 2026. The first #16
+increment implements bare startup only, using the #15 experimental artefact
+library. See [startup decisions and scope](startup.md). Other commands, setup
+writes, Researcher instructions and the AI runner remain unimplemented.
 The [recorded library checks](verification.md) are supporting evidence only.
 
 This specification applies the task-driven development approach requested by the
@@ -30,6 +30,13 @@ a prerequisite for verifying the next useful behavior. Keep earlier checks and
 rerun those affected by a change. Extend the spec when a new user need or observed
 gap justifies it, while keeping expectations independent of implementation output.
 
+Keep each human check as short as its proof allows. Reuse established installation,
+runner and fixture prerequisites, with a setup link for anyone who lacks them. A
+small addition can be verified by its exact command, expected result and relevant
+readback; automated checks retain broader regression and edge-case coverage.
+Expand human steps when changed assumptions or observed gaps require it. A short
+proof must still exercise the intended outcome and identify what remains unproved.
+
 Keep progress visible beside the intent: what is specified, what is implemented,
 what was actually verified, and what remains blocked or unattempted. Update the
 example, relevant repeatable checks and evidence together in the same increment.
@@ -41,7 +48,7 @@ Current progress, with evidence defining the verified scope and revision:
 | User or consumer intent | Current progress | Verification / next increment |
 | --- | --- | --- |
 | Read saved research and selected definitions through the library, retaining identities, findings and references. | Implemented and verified for the experimental library profile; no command claim. | [CONTRACT-01 and repeatable fixture/package checks](verification.md#contract-01-retain-useful-attributable-research-and-selected-definitions). |
-| Run `n8r-surface` alone and see settings, saved artefacts and known process status. | Specified; command not implemented or exercised. | Implement and verify [STARTUP-01](#startup-01-run-the-command-and-see-what-is-here) first in #16. |
+| Run `n8r-surface` alone and see settings, saved artefacts and known process status. | Specified, implemented and verified for the read-only overview and guidance question; setup/conversation unavailable. | [STARTUP-01 installed evidence at `b90358a`](startup-verification.md). Next: separately verify STATUS-01. |
 | Run `n8r-surface status` to inspect the same state and exit. | Specified; command not implemented or exercised. | Reuse the overview and verify STATUS-01 in #16. |
 | Research a supplied repository with a human, then save and reopen the result. | Specified; real Researcher path not implemented or exercised. | Verify E2E-01 in #17; E2E-02 before claiming LibreChat research. |
 
@@ -80,6 +87,8 @@ do not redefine success around whatever the code currently produces.
 ## Initial public command inventory
 
 This is the approved initial terminal surface for the first standalone milestone.
+Only CMD-01's read-only overview and guidance are implemented in this increment;
+all argument forms below remain planned. See the [current parser contract](startup.md#settings-and-parser-decisions).
 It includes startup, status, discover and explicit help/version behavior.
 Corpus operations below are conversation
 intents, not additional undocumented subcommands. Any later command or option must
@@ -153,10 +162,12 @@ Processes
 Local artefacts (1)
   LibreChat | Surface definition | ~/n8r/artifacts/librechat-uniqueid.json
 
-Research needs an AI runner. Setup is available in an interactive terminal.
+Setup and AI conversation are not implemented in this build. Research needs a supported AI runner.
 ```
 
-This is expected output, not a recording of an implemented command. The configured
+This is representative expected output; the process also identifies its own live
+PID and observation time. The interactive guidance question follows this overview.
+The configured
 folder in this example uses `artifacts`; the command displays the actual effective
 path, whatever the folder is named. LibreChat is a synthetic saved-file label here,
 not evidence that the command has researched LibreChat.
@@ -198,8 +209,11 @@ files, a private-value marker, and known versus unknown process status. Compare
 each output to its prepared state. `n8r-surface status` uses the same overview and
 exits without offering interactive setup.
 
-**Current result:** not attempted; the package has no command entry point. This is
-the first visible acceptance example for #16.
+**Current result:** verified through the installed command at `b90358a` on
+Node 22/24/26, including closed input and a real terminal. See the
+[observed output, independent readback and limits](startup-verification.md).
+Setup writes and conversation remain unavailable; `status` has not been
+implemented or verified. [Startup decisions](startup.md) define the bounded path.
 
 ## Conversation intents are part of the product surface
 

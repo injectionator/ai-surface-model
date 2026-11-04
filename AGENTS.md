@@ -45,10 +45,12 @@ and code changes. Apply it in the existing checkout.
 3. Commit only the task's changes. After the first reviewable commit and relevant
    checks, push the branch and open one matching draft PR against the correct
    base. Keep that PR updated as the task develops.
-4. Include `Closes #<primary-issue>` in the PR and use `Related to #<issue>` for
-   other work it does not complete. Explain the final change, verification and
-   remaining limitations. Do not close an issue merely because code or docs
-   were written or automated checks passed.
+4. Include `Closes #<primary-issue>` only when the PR completes that issue. For
+   a deliberately partial increment, use `Related to #<primary-issue>`, name the
+   completed increment and keep the remaining scope visible and the issue open.
+   Use `Related to #<issue>` for other work it does not complete. Explain the final
+   change, verification and remaining limitations. Do not close an issue merely
+   because code or docs were written or automated checks passed.
 5. Keep the PR draft until the user authorizes review readiness. Merge, release
    and deployment remain separate user decisions. A request to push a branch
    does not authorize merging it into the default branch.
@@ -109,6 +111,26 @@ the investigation itself or populate an artefact with prewritten findings and
 claim the Researcher produced them. Keep expected, observed, verified and unproved
 outcomes separate. Final handoffs and PRs must include the exercised interaction,
 state changes, evidence/readback, exact revision/environment and remaining limits.
+
+Every PR must include unambiguous human verification steps: prerequisites and
+starting directory/state, exact copy-and-paste commands or interactions, expected
+output and exit codes, state changes or readback, and cleanup where applicable.
+State which values may vary and what counts as a failure. Include a runnable
+example in the PR, with a link to longer instructions when needed; a test command
+or a claim that automation passed is not enough. Exercise the documented steps
+before handing them back, and distinguish an agent rehearsal from human acceptance.
+For documentation-only changes, identify the exact material to inspect and the
+expected correction.
+
+Choose the shortest unambiguous human proof that establishes the increment. Reuse
+an established installation, working runner and known fixtures when they are still
+applicable; state those prerequisites and link to setup instead of repeating it.
+A new subcommand may need only its exact invocation, expected visible result and
+a saved-output readback where relevant. Keep broad regression and edge-case
+coverage automated, and include extra human cases only when the changed behavior
+or its consequences need them. Expand the procedure when setup, authentication,
+storage, runtime or other assumptions change, or evidence exposes a gap. Preserve
+required checks and accurate evidence; procedure length is not a measure of rigor.
 
 ## Preserve the model's meaning
 
@@ -185,7 +207,10 @@ package check builds, packs and installs in a temporary directory using the loca
 npm cache with scripts disabled, then exercises built exports and bundled assets.
 It removes its temporary directory. Repeat against each supported Node major for
 distribution changes; see [contributor commands](CONTRIBUTING.md#researcher-contract-library).
-There is no working `n8r-surface` command yet. Keep the package private until a
+The experimental `n8r-surface` command implements only the read-only bare-startup
+overview. The package check also runs it under temporary homes and a real POSIX
+terminal; Python 3.9+ is required for that rehearsal. See the
+[startup boundary](docs/n8r-surface/startup.md). Keep the package private until a
 separate release decision.
 
 For changes to the Git workflow helper, run its shell syntax check and offline

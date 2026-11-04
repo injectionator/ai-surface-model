@@ -21,9 +21,10 @@ Follow this sequence for each contribution, including documentation changes:
    `docs/123-model-links`, with the issue number in its name. Work in the existing
    checkout and preserve unrelated changes.
 3. **Do the work and open a draft PR.** Commit and push the branch, open one
-   matching draft PR, and link it with `Closes #123`. Explain the change and record
-   the relevant checks. Repeat the original user interaction and independently
-   read back the changed state; report blocked or unproved outcomes explicitly.
+   matching draft PR. Use `Closes #123` when it completes the issue; use
+   `Related to #123` for a partial increment and list the work still outstanding.
+   Explain the change and record the relevant checks. Repeat the original user
+   interaction and independently read back the changed state; report blocked or unproved outcomes explicitly.
    Internal tests do not establish end-to-end product acceptance. Keep the same
    branch and PR updated as the work develops.
 4. **Review, then merge.** Keep the PR draft until review readiness is approved.
@@ -40,6 +41,20 @@ when the user runs this command, then they see this output, verified by these
 process/output/file checks. Representative terminal output is useful; a technical
 DSL or a large per-check form is unnecessary. See the
 [bare startup example](docs/n8r-surface/command-outcomes.md#startup-01-run-the-command-and-see-what-is-here).
+
+Every PR includes human verification steps with an exact starting state, commands
+or interactions, expected output/exit codes, readback and cleanup. Explain any
+variable output and failure conditions; rehearse the steps before requesting
+review. Include a runnable example in the PR, even when it also links to a longer
+guide. See the [bare-startup human check](docs/n8r-surface/startup-human-check.md).
+Agent execution of the procedure does not replace human acceptance.
+
+Keep the human proof proportional to the change. With an established installation
+and working runner, a small command addition may need just an invocation and its
+expected result/readback. State and reuse those prerequisites, link to setup, and
+leave broad regression coverage to automation. Repeat or expand setup checks when
+the change affects them; the comprehensive startup guide is a foundation example,
+not the required length for every later increment.
 
 Grow the spec and working verification one useful behavior at a time. Existing
 behavior can gain a documented intent and repeatable verification without a code
@@ -126,8 +141,10 @@ the documentation does not claim unimplemented capabilities.
 
 ## Researcher contract library
 
-Prerequisites: Node.js 22, 24 or 26 and npm. Python 3.9+ and Git remain prerequisites
-for the separate workflow-helper tests above. Contributor commands:
+Prerequisites: Node.js 22, 24 or 26 and npm. The installed-command terminal
+rehearsal also requires Python 3.9+ and a POSIX terminal (macOS/Linux). Git and
+Python remain prerequisites for the separate workflow-helper tests above.
+Contributor commands:
 
 ```sh
 npm ci
@@ -140,7 +157,10 @@ git diff --check
 TypeScript into ignored `dist/` and runs Node tests offline. `npm run build` can
 compile independently. The installed-package check uses `npm pack`, installs in
 a temporary directory with `--offline --ignore-scripts`, imports the built library
-and reads bundled assets, then removes the temporary directory. No API credentials,
+and reads bundled assets. It also runs the installed `n8r-surface` executable with
+closed input and in a real terminal under temporary homes, compares output to
+prepared settings/files, and checks that startup leaves them unchanged. It then
+removes the temporary directory. No API credentials,
 Lab, source checkout at runtime or registry publication is required. Populate the
 dependency cache with `npm ci` before the offline package check.
 
@@ -148,14 +168,17 @@ To repeat the package smoke check using already installed Node executables:
 
 ```sh
 npm run build
-node scripts/check-package.mjs /path/to/node22 /path/to/node24 /path/to/node26
+node scripts/check-package.mjs /path/to/node22/bin/node /path/to/node24/bin/node /path/to/node26/bin/node
 ```
 
-Those paths are local command placeholders, not portable artefact fields. Passing
+Use the executable named `node` in each runtime installation: the installed bin
+uses `env node` with that directory first on PATH. These paths are local command
+placeholders, not portable artefact fields. Passing
 no paths uses the current Node executable. Before distribution changes, run the
-full contract tests on each supported Node major too. The current package exposes
-an ESM library and assets, with no CLI entry point; executable npm/npx verification
-belongs to #16.
+full test suite on each supported Node major too. The current package exposes
+an ESM library, assets and a bare-startup executable. No registry or npx-download
+claim follows from these local tarball checks. See the [startup settings, exit
+codes and limits](docs/n8r-surface/startup.md).
 
 The library accepts strings/data and returns strings/data, with no network or
 filesystem effects. It checks a bounded experimental profile, not all AI Surface

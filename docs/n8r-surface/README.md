@@ -10,13 +10,17 @@ same core into n8r-labs. Consider Lab requirements while defining the shared
 contracts; application implementation is not a prerequisite for standalone work.
 
 **Status, 4 November 2026:** #15 supplies experimental artefact contracts,
-JSON/YAML codecs, HTML ownership checks and synthetic cases in a draft PR. No CLI,
-AI Researcher skill, live source analysis or Lab integration is implemented yet.
+JSON/YAML codecs, HTML ownership checks and synthetic cases. See the
+[critical path](critical-path.md) for implementation and integration links.
+The first #16 increment implements a [read-only bare-startup overview](startup.md).
+Other commands, setup writes, the AI Researcher skill, live source analysis and
+Lab integration remain unimplemented.
 This is unreleased work; the remaining map describes intended capabilities.
 
 - [Experimental contracts and checks](contracts.md)
 - [Command intent, outcomes and verification](command-outcomes.md)
-- [Verification evidence and remaining limits](verification.md)
+- [Library verification evidence and remaining limits](verification.md)
+- [Bare-startup installed-command evidence](startup-verification.md)
 - [Synthetic acceptance cases](../../examples/researcher/README.md)
 - [Host boundary and Lab review](host-contract.md)
 - [Implementation decisions](implementation-decisions.md)

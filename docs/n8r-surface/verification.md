@@ -2,7 +2,8 @@
 
 This record applies the [intent/outcome approach](command-outcomes.md) to the
 library delivered by #15. It records observed library behavior and its limits;
-command and AI research outcomes remain unverified.
+this historical library record does not verify command or AI research outcomes.
+The later [STARTUP-01 record](startup-verification.md) separately verifies bare startup.
 
 - Date: 4 November 2026.
 - Implementer/verifier: Codex, with a separate read-only agent review of the
@@ -107,9 +108,10 @@ machine logs are needed in the public evidence record.
 ## Product proof still required
 
 The command inventory and State/Input/Outcome method are approved. E2E-01 and
-E2E-02 remain **not attempted**, because the CLI, Researcher instruction bundle and
-runner are not implemented. #16 must exercise startup/status/source/storage behavior
-through its installed command. #17 must demonstrate the whole real-runner path,
+E2E-02 remain **not attempted**, because discovery, the Researcher instruction
+bundle and runner are not implemented. The first #16 increment separately
+[verifies bare startup](startup-verification.md); status/source/storage behavior
+still needs installed-command evidence. #17 must demonstrate the whole real-runner path,
 human decisions and actual saved/reopened outputs. LibreChat and external skill
 claims need their own actual rehearsals. Lab compatibility needs a named consumer
 trial. None of these claims follows from the passing library checks above.
