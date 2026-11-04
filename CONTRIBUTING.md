@@ -52,7 +52,7 @@ Agent execution of the procedure does not replace human acceptance.
 Write these steps for a teammate who has not followed the implementation: what
 to open, what to do or ask, and what they should see. Keep technical preparation
 and evidence checks with the maintainer; give the tester a short task list and a
-Pass / Fail / Blocked report. The [Researcher test vault](vault/README.md)
+Pass / Fail / Blocked report. The [local vault's walkthroughs](docs/n8r-surface/researcher-vault.md#try-the-installed-skill)
 provides prepared files and walkthroughs that assume the skill is installed.
 
 Keep the human proof proportional to the change. With an established installation

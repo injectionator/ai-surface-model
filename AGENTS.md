@@ -81,6 +81,26 @@ refusal with a reset, stash or forced deletion. Follow the
 
 ## Develop from user intent and observable outcomes
 
+### Local research workspace
+
+For AI Surface research performed in this checkout, read `.local/vault-path`
+when present. It contains the absolute path to the user-selected local vault and
+is ignored by Git. Use `research/<source-slug>/` within that vault for numbered
+notes, `artifacts/<source-slug>/` for intermediate outputs, and
+`surfaces/<source-slug>/` for saved Surface descriptions. Follow the
+[vault guide](docs/n8r-surface/researcher-vault.md). Do not publish the local path
+or working research in this repository.
+
+This is an agent storage convention, not a CLI/plugin setting or a new
+structured-output capability. Explicit user destinations take precedence;
+continue existing notes in their current folder unless the user asks to move
+them. Without a configured vault or another destination, use the installed
+skill's default and announce it. Verification walkthroughs explicitly use `runs/`
+inside the selected vault. Never move or delete earlier research merely to adopt
+this convention.
+
+### Intent and evidence
+
 For command or Researcher behavior, follow
 [the command intent and verification spec](docs/n8r-surface/command-outcomes.md).
 Before coding, define the useful user task, initial State X, actual Input Y and

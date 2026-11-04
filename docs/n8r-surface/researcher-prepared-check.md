@@ -6,32 +6,33 @@ pretend configuration; no application needs to be installed or started.
 
 ## Before you start
 
-Open the `n8r-surface` repository in your file browser. You need a local chat app
-with **n8r-surface Researcher 0.1.5 already installed**, access to this repository,
-and permission to save files here. If access or the skill is missing, record
+Open your local vault in your file browser. You need a local chat app
+with **n8r-surface Researcher 0.1.5 already installed**, access to the prepared example in this repository,
+and permission to save files in your vault. If access or the skill is missing, record
 **Blocked** and what is missing. You do not need to diagnose the installation.
-Follow the [fresh-context guidance](README.md#start-with-fresh-context) before
+Follow the [fresh-context guidance](researcher-vault.md#start-with-fresh-context) before
 the first prompt in each test chat.
 
 ## Tasks
 
-- [ ] **1. Make your working copy.** Open `vault/examples/`. Copy the whole
-  `chat-service` folder into `vault/runs/` and rename the copy `check-001`. If that
+- [ ] **1. Make your working copy.** In the `n8r-surface` repository, open
+  `examples/researcher-vault/`. Copy the whole `chat-service` folder into `runs/`
+  in your local vault (create `runs/` if needed) and rename the copy `check-001`. If that
   name already exists, choose the next unused number and use it throughout these
   steps. Open the copy: it should contain `scope.md`, `system.md` and `current.env`.
 
   **Look for:** `DOCUMENT_SEARCH_URL=` in your copy of `current.env`, with nothing
-  after the equals sign. Leave the shared files in `vault/examples/` unchanged.
+  after the equals sign. Leave the shared files in `examples/researcher-vault/` unchanged.
 
-- [ ] **2. Start the investigation.** Open a fresh local chat in the
-  `n8r-surface` repository and select **n8r-surface Researcher**
+- [ ] **2. Start the investigation.** Open a fresh local chat in your
+  vault folder and select **n8r-surface Researcher**
   (`n8r-surface:research`). Paste this, adjusting `check-001` if needed:
 
-  > Use only scope.md, system.md and current.env in vault/runs/check-001 as source
+  > Use only scope.md, system.md and current.env in runs/check-001 as source
   > material. Describe the main AI-related components and connections. Explain
   > what the product supports, what the supplied settings say, and what is still
   > unknown about a running system. Cite the files you used. Save your findings
-  > as a new numbered note under vault/runs/check-001/notes and give me a link to
+  > as a new numbered note under runs/check-001/notes and give me a link to
   > open it. Create the notes folder if needed.
   > Use the installed skill; do not consult other chats, memories, projects,
   > the web or the test walkthroughs.
@@ -55,14 +56,14 @@ the first prompt in each test chat.
   **Look for:** the new address in your working copy. The shared example should
   still have the empty value.
 
-- [ ] **4. Ask Researcher to compare.** Start another fresh local chat in this
-  repository and select Researcher again. Give it the original saved note from
+- [ ] **4. Ask Researcher to compare.** Start another fresh local chat in your
+  vault folder and select Researcher again. Give it the original saved note from
   `notes/` by attaching the file or pasting its path, then paste:
 
   > Compare my saved findings with scope.md, system.md and current.env in
-  > vault/runs/check-001. Tell me what changed, what stayed the same and what is
+  > runs/check-001. Tell me what changed, what stayed the same and what is
   > still unknown, with references to the evidence. Save the comparison as a new
-  > numbered note under vault/runs/check-001/notes and give me a link. Keep the
+  > numbered note under runs/check-001/notes and give me a link. Keep the
   > original note unchanged.
   > Use the installed skill and these supplied sources only; do not consult
   > other chats, memories, projects, the web or the test walkthroughs.
@@ -105,5 +106,5 @@ codes to check.
 
 This is a document-based rehearsal of the workflow. It does not establish code
 discovery, a working service or Lab recreation. For real source exploration,
-[try another repository](try-another-repository.md), or use the deeper
-[LibreChat declaration trial](../docs/n8r-surface/researcher-reconciliation-trial.md).
+[try another repository](researcher-repository-check.md), or use the deeper
+[LibreChat declaration trial](researcher-reconciliation-trial.md).

@@ -9,9 +9,9 @@ LibreChat source. No target application or service is changed or started.
 ## Teammate checklist
 
 For a first check with the skill already installed, start in the
-[repository vault](../../vault/README.md). It contains a prepared fictional
+[local vault guide](researcher-vault.md). It contains a prepared fictional
 example and a walkthrough for investigating another chat-system repository.
-Each run keeps its working files and saved notes under `vault/runs/`.
+Each run keeps its working files and saved notes under `runs/` in the selected vault.
 
 This page retains the deeper **LibreChat source** trial. Its recorded evidence
 applies to the source revision below, not to the vault's fictional example.

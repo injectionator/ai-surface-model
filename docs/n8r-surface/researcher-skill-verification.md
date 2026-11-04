@@ -9,7 +9,7 @@ use the exact candidate commit when repeating the procedure.
 
 ## Repository vault rehearsal: 0.1.5
 
-The [test vault](../../vault/README.md) adds prepared fictional documents and a
+The [vault walkthrough](researcher-prepared-check.md) adds prepared fictional documents and a
 teammate walkthrough to this repository. The initial state is an already installed
 0.1.5 skill and a fresh copy of source pack version 1 under `vault/runs/`. The
 expected outcome is two saved notes: a baseline, then a comparison after changing
@@ -57,6 +57,23 @@ examples parsed (syntax only). Walkthrough review, ignore-rule checks and
 whitespace checks passed. The eight paused #16 files and the historical
 LibreChat technical procedure remained unchanged. No library or CLI tests were
 run for these documentation and source-pack additions.
+
+## Local vault relocation
+
+The prepared rehearsal above ran before the vault was moved. At the user's
+request, the complete working vault was moved to a separate local directory.
+All sixteen files present at the move retained their SHA-256 values, including
+the six rehearsal files. Saved-note links remain relative within the moved run.
+The local path is recorded in ignored `.local/vault-path`; it is not public
+configuration or a new installed-skill default.
+
+Reusable inputs now live in [the prepared source pack](../../examples/researcher-vault/README.md),
+and the [vault guide](researcher-vault.md) documents notes, intermediate artifacts
+and saved Surface descriptions. Local navigation documents were updated after
+the move, and four obsolete ignore files were removed from the non-Git vault;
+source inputs and research outputs were preserved. The walkthroughs
+now resolve their `runs/` paths from the chosen vault folder. The move and file
+readback do not constitute a new human or sandbox-isolation acceptance run.
 
 ## Direct Lab ownership correction: 0.1.5
 
