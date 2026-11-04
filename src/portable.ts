@@ -21,7 +21,9 @@ export function portable(value: unknown, path = '$', ancestors = new Set<object>
   if (typeof value !== 'object') fail(path, 'unsupported portable value');
   if (ancestors.has(value)) fail(path, 'object cycle; use identified graph edges');
   const array = Array.isArray(value);
-  if (!array && Object.getPrototypeOf(value) !== Object.prototype && Object.getPrototypeOf(value) !== null) fail(path, 'requires a plain object');
+  const prototype = Object.getPrototypeOf(value);
+  if (array && prototype !== Array.prototype) fail(path, 'requires a plain array');
+  if (!array && prototype !== Object.prototype && prototype !== null) fail(path, 'requires a plain object');
   const descriptors = Object.getOwnPropertyDescriptors(value);
   const keys = Reflect.ownKeys(value);
   if (array && (keys.length !== value.length + 1)) fail(path, 'sparse array or extra array properties');

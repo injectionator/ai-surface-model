@@ -126,3 +126,23 @@ test('literal merge-like extension keys preserve as ordinary quoted data', () =>
   input.extensions['urn:ext:x'] = {'<<': {literal: true}};
   for (const format of ['json', 'yaml']) assert.deepEqual(decode(encode(input, format), format), input);
 });
+test('custom array prototypes are rejected without running inherited hooks', () => {
+  let calls = 0;
+  class LossyArray extends Array {
+    toJSON() { calls++; return ['replacement']; }
+  }
+  const withGetter = Object.setPrototypeOf(['original'], Object.create(Array.prototype, {
+    toJSON: {get() { calls++; return () => ['replacement']; }}
+  }));
+  const withMap = Object.setPrototypeOf(['original'], Object.create(Array.prototype, {
+    map: {get() { calls++; return Array.prototype.map; }}
+  }));
+  for (const values of [new LossyArray('original'), withGetter, withMap]) {
+    const input = record(); input.extensions['urn:ext:x'] = values;
+    for (const operation of [validateArtefact, digest, x => encode(x, 'json'), x => encode(x, 'yaml')]) {
+      assert.throws(() => operation(input), /plain array/);
+      assert.equal(calls, 0);
+      assert.equal(values[0], 'original');
+    }
+  }
+});

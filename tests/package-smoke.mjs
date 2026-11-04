@@ -13,4 +13,16 @@ verifySuccessor(readResearchHtml(asset('lumen-r1.research.html')), lumen);
 assert.deepEqual(decode(encode(surface, 'yaml'), 'yaml'), surface);
 assert.throws(() => readResearchHtml(asset('lumen-manual-edit.pending.html')), /conflict/);
 assert.ok(readFileSync(new URL(import.meta.resolve('n8r-surface/contracts/contracts.md')), 'utf8').includes('n8r.research/0.1'));
+// Exercise the public consumer boundary; reject before inherited hooks run.
+let serializationCalls = 0;
+class LossyArray extends Array {
+  toJSON() { serializationCalls++; return ['replacement']; }
+}
+const imported = structuredClone(lumen);
+imported.extensions['urn:ext:array-boundary'] = new LossyArray('original');
+for (const format of ['json', 'yaml']) {
+  assert.throws(() => encode(imported, format), /plain array/);
+  assert.equal(serializationCalls, 0);
+  assert.equal(imported.extensions['urn:ext:array-boundary'][0], 'original');
+}
 console.log(`Installed package passed on Node ${process.version}; 4 nodes, 6 relationships, exact research references.`);
