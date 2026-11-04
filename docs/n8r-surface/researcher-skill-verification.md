@@ -22,8 +22,71 @@ identified the hook's allow/deny powers and worker/browser bypasses, and retaine
 source hashes and unknowns. These behaviors passed and are retained, not invented
 failures. The output had no named profile version or explicit Surface revision;
 0.1.7 had no named profile/lifecycle procedure. The user explicitly authorized
-that missing guidance. Candidate and reconciliation rehearsal evidence follows
-once exercised; human acceptance and automatic Lab recording remain unproved.
+that missing guidance. Human acceptance and automatic Lab recording remain
+unproved.
+
+### Installed candidate and agent rehearsal
+
+Implementation `7ba88ae2fef186d0e3f836a034e422f8bbe19b03` was pushed before
+installation. The documented marketplace remove/add route switched the existing
+Git marketplace from the merged prior branch to `feat/17-skeleton-surface`;
+plugin add/list completed successfully. All four commands exited 0. The fetched
+snapshot matched that implementation commit; exactly one enabled 0.1.8 was listed
+and all twelve installed package files matched the maintained source bytes.
+Environment: 4 November 2026, macOS ARM64, Codex CLI 0.139.0, Python 3.13.1,
+local filesystem harness. No separate model API or target service was configured.
+
+A fresh agent read the installed 0.1.8 skill and bundled references, then executed
+SKELETON-01's exact prompt against the same two source files as the baseline. It
+saved/read back a 6,321-byte Markdown brief identifying Skeleton Surface v0.1 and
+Surface working-draft revision 1. Independent inspection checked the source
+hashes, twelve node labels, nine edge IDs, interception opportunities, hook powers,
+browser/worker bypasses, unknown bindings and portable evidence references.
+
+The coordinator preserved the first output and original source bytes, then made
+only SKELETON-02's documented comment/database/inference declaration edits in the
+disposable settings copy. A different fresh agent received the predecessor,
+current two-file source and exact reconciliation prompt through installed 0.1.8.
+It saved/read back revision 2, retained the profile and all twelve node/nine edge
+identities, and distinguished the two new declarations from effective bindings
+or successful connections. It did not infer proxy behavior from a hostname. Its
+comparison also retained the older documentation statement as separate evidence.
+The agent inherited old settings claims from the predecessor; it was not supplied
+the separately preserved revision-1 settings bytes. The coordinator checked those
+bytes independently. No developing agent wrote either agent's research findings.
+
+Independent readback confirmed the first output remained byte-identical, both
+current source hashes matched the successor, and sources were unchanged during
+research. Outputs remain in the selected vault's trial folder; local paths and
+private comparison research are not published. The three existing private Surface
+files were reviewed locally for meaning/coverage differences and their index
+hashes remained unchanged; they are not public fixtures or verified product claims.
+
+| Evidence | SHA-256 |
+| --- | --- |
+| Installed-0.1.7 baseline brief | `e190c63c4aafa0b6c12e615b510b7e3beec1a25af13872356be25e78a4c3fdcd` |
+| Installed-0.1.8 skill | `cd38dcd85f67ca962f06d86178009308aea527c9783fa0e0a3f834f783f1ebf4` |
+| Candidate first brief | `1877d2997d9d3ad60bb7241e64ee3907ce0d2e74d8100ff4995ef5e11003de93` |
+| Candidate successor | `c91c2131236a8a95c4e8a1d4344ca02c62dd6ffee257e408a937709634dfd746` |
+| Changed synthetic settings | `7e52617dd0918509038a4fc558ba3fb35db30fb268dfd16c9d4d166e0d6bb9a0` |
+
+### Checks and limits
+
+Skill frontmatter, aligned manifests, 124 changed-file local Markdown links/anchors,
+JSON example syntax, whitespace, repository Markdown lint and all 24 offline
+Python tests passed. Independent scoped review found no actionable issues. GitHub
+checks on implementation `7ba88ae` passed, including library and package checks
+on Node 22, 24 and 26, fixtures/tooling, Markdown and local links. No local npm
+run is claimed for this instruction-only change. Lychee was unavailable locally;
+its full local-link check passed in CI. Eight unrelated working files were retained
+and excluded from commits; the branch switch incorporated only the upstream
+comment change in one of them before their preservation hashes were recorded.
+
+This is a bounded installed-instruction agent rehearsal, not human acceptance,
+enforced source/memory isolation, Work UI lifecycle, runtime security enforcement,
+Lab automation, vendor compatibility or structured-output validation. No service
+was installed or started for the source pack. The tester procedure remains ready
+for separate human acceptance. Detailed and recreation profiles remain future work.
 
 ## Optional save offer: 0.1.7
 
