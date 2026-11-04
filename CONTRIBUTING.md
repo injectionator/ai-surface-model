@@ -8,6 +8,34 @@ Open an issue for a use case, modeling question, interoperability finding or
 proposal. Pull requests should explain the problem, the proposed semantics and
 what information remains unknown.
 
+## Propose a change or extension
+
+This is the level 400 reading path from the [README](README.md). Familiarity with
+the [draft concepts](spec/README.md) and [synthetic examples](examples/README.md)
+will help you explain where a proposal fits. There is no stable extension API or
+namespace mechanism yet; extensions begin as design proposals.
+
+Choose the closest issue template: a concept proposal, interoperability question,
+example submission or defect report. Before opening another issue, search for an
+existing discussion of the same problem.
+
+1. **Describe a concrete question.** Who needs to answer it, what information do
+   they have, and what is difficult to express with the current concepts?
+2. **Show the smallest useful example.** Use synthetic data, stable component
+   identities and explicit unknowns. State the scope and what is omitted.
+3. **Explain the proposed meaning.** Identify affected concepts, relationships
+   and evidence. Explain how partial descriptions and historical Run references
+   remain useful, and whether existing examples would need to change.
+4. **For interoperability, bound the claim.** Name source and target versions,
+   the supported subset, transformations and losses. Separate a proposed mapping
+   from results you have actually observed with a named consumer.
+5. **Set acceptance checks.** Describe an example, counterexample or question
+   that would demonstrate the improvement. Agree the scope before implementing.
+
+See [interoperability research](docs/interoperability.md) for the evidence expected
+of compatibility claims. Include only material you have permission to publish;
+do not submit credentials, private deployment details or personal data.
+
 ## Issue, branch and pull request workflow
 
 Follow this sequence for each contribution, including documentation changes:
@@ -91,6 +119,93 @@ use GitHub credentials, access the network or change this repository's branches.
 - Include only material you have the right to publish; use placeholders for
   credentials and synthetic configuration in public examples.
 - Distinguish proposals from released capabilities and verified interoperability.
+
+## Checks before a pull request
+
+Run these from the repository root, including for new files. GitHub runs the
+[repository checks](.github/workflows/checks.yml) on pull requests and pushes to
+`main`. Tool versions and action commits are pinned in the workflows; update the
+commands here when changing those pins.
+
+### Offline fixtures and tooling
+
+With Bash 3.2+, Git and Python 3.9+:
+
+```sh
+bash -n scripts/flow
+python3 -m unittest discover -s tests -v
+git diff --check
+```
+
+The tests parse every JSON file under `examples/`. For the current LibreChat
+fixtures they also check unique local identifiers, relationship endpoints, secret
+requirements and preserved component identities between minimal and expanded
+descriptions. New example families need their own reference checks as appropriate.
+These are fixture integrity checks, not a schema validator or model conformance
+suite. Unknown and omitted information remains valid in these examples.
+
+The workflow-helper tests use temporary local repositories and a stub for GitHub.
+They require no credentials or network access and do not alter your checkout.
+Review new, untracked files too; `git diff --check` does not include them until
+they are staged. Python may create ignored `__pycache__` directories.
+
+### Markdown and local links
+
+With Node.js 22+ and npm, run the same Markdown linter version as CI:
+
+```sh
+npx --yes markdownlint-cli2@0.24.0
+```
+
+This downloads the checker and its dependencies from npm into the npm cache on
+first use. It checks repository Markdown, including the PR template, using
+[the lint configuration](.markdownlint-cli2.jsonc). It does not rewrite files.
+It does not select Node.js as a runtime for future model tooling.
+
+Install [lychee 0.24.2](https://github.com/lycheeverse/lychee/releases/tag/lychee-v0.24.2)
+using the release's installation instructions, then run:
+
+```sh
+lychee --offline --include-fragments --no-progress '**/*.md'
+```
+
+This checks local Markdown links and heading anchors without network requests.
+[The link configuration](lychee.toml) includes hidden GitHub templates and skips
+dependency and scratch directories. A missing target or heading fails the check.
+
+### Citation metadata
+
+Install the checker in an isolated environment and validate CFF 1.2.0 metadata:
+
+```sh
+python3 -m venv .venv
+.venv/bin/python -m pip install 'cffconvert==2.0.0'
+.venv/bin/cffconvert --validate
+```
+
+Installation downloads packages from PyPI into the ignored `.venv` directory;
+validation uses the checker's bundled schema. CI runs the same command with its
+installed `cffconvert`. No release or DOI is needed to cite the draft. Include
+the exact commit URL when citing the version you used.
+
+### External links and manual review
+
+The separate [external-link workflow](.github/workflows/links.yml) runs weekly or
+on manual dispatch. To run its check locally with network access:
+
+```sh
+lychee --no-progress '**/*.md'
+```
+
+This sends requests to the linked public websites. It uses no credentials,
+skips private addresses and reserved `.test` fixtures, and bounds retries and
+timeouts. Failures remain visible; a third-party outage does not block the local
+checks on a PR. External fragment anchors are not checked by this command.
+
+Review the rendered Markdown, semantic consistency, scope and sensitive material
+in the final diff. Passing checks does not establish compatibility, recreation
+or the correctness of a modeling proposal. GitHub-hosted checks also download
+actions and tools; none needs repository secrets or write permissions.
 
 ## Licensing
 

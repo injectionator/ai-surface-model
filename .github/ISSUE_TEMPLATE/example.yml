@@ -1,0 +1,37 @@
+name: Submit an example
+description: Suggest a synthetic description that exercises a useful question.
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Search existing issues first. Examples use provisional fields and are not
+        evidence of conformance or a running integration. Use reserved example
+        domains and credential placeholders.
+  - type: textarea
+    id: question
+    attributes:
+      label: Question this example should answer
+      description: Who would use it, and what would they learn?
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Example and coverage
+      description: Describe the components and relationships, known facts, unknowns and deliberately omitted detail.
+    validations:
+      required: true
+  - type: textarea
+    id: provenance
+    attributes:
+      label: Provenance and permission to publish
+      description: Explain which data is synthetic. Identify sources, licences and publication permission for any third-party material.
+    validations:
+      required: true
+  - type: textarea
+    id: checks
+    attributes:
+      label: Scope and acceptance checks
+      description: Which files or concepts would change, and how will syntax, identities, local references and meaning be checked?
+    validations:
+      required: true

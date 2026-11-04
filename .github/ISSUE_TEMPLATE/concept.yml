@@ -1,0 +1,36 @@
+name: Propose a concept or extension
+description: Explain a use case and a proposed change to the draft model.
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Search existing issues first. The model and field names are provisional.
+        Use synthetic examples and include only material you may publish.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Who needs this, and why?
+      description: Describe a concrete question and what is difficult to express today.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Proposed meaning and scope
+      description: Identify affected concepts, existing behavior to preserve and what is outside this proposal.
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Synthetic example or counterexample
+      description: Keep identities, unknowns, coverage and evidence explicit. No credentials or private deployment data.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance checks
+      description: What question or example would demonstrate that this proposal helps?
+    validations:
+      required: true

@@ -12,9 +12,10 @@ independently of Injection8r or any particular lab product.
 
 The repository currently contains conceptual documentation and synthetic JSON
 examples. There is no released schema, validator, exporter or deployment engine,
-and no model build, lint or conformance suite. The repository's Git workflow
-helper has its own offline tests; this does not choose a language, package
-manager or framework for future model tooling.
+and no model build or conformance suite. Repository checks cover Markdown,
+links, citation metadata, synthetic fixture integrity and the Git workflow
+helper. These do not choose a language, package manager or framework for future
+model tooling.
 
 Read [README.md](README.md), [CONTRIBUTING.md](CONTRIBUTING.md) and the files relevant
 to the task before editing:
@@ -147,6 +148,22 @@ refusal with a reset, stash or forced deletion. Follow the
   Add directory-specific guidance only when a tool needs different conventions.
 
 ## Checks before handing work back
+
+Follow [the repository checks](CONTRIBUTING.md#checks-before-a-pull-request) for
+the full commands, prerequisites, network use and limits. In addition to the
+Python checks below, run Markdown lint, local links/anchors and citation checks
+when relevant:
+
+```sh
+npx --yes markdownlint-cli2@0.24.0
+lychee --offline --include-fragments --no-progress '**/*.md'
+cffconvert --validate
+```
+
+Use lychee 0.24.2 and cffconvert 2.0.0. Lint installation and citation-checker
+installation need network access; local link and fixture checks run offline.
+External links are checked separately by a weekly/manual workflow. Do not report
+unrun checks as passing or fixture integrity as model conformance.
 
 For changes to the Git workflow helper, run its shell syntax check and offline
 integration suite from the repository root (Bash, Git and Python 3.9+ required):

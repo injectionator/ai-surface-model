@@ -1,0 +1,11 @@
+{
+  "globs": ["**/*.md", ".github/**/*.md"],
+  "ignores": ["node_modules/**", ".venv/**", ".superpowers/**"],
+  "config": {
+    "default": true,
+    // Tables and checklist items can be long without harming rendered reading.
+    "MD013": false,
+    // The pull request template intentionally begins with a second-level heading.
+    "MD041": false
+  }
+}

@@ -1,0 +1,37 @@
+name: Report a documentation or tooling defect
+description: Report an error in the draft, examples or repository tooling.
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Search existing issues first. This is a public issue: omit credentials,
+        private logs, personal data and sensitive vulnerability details. For a
+        sensitive report, ask for a private contact without disclosing the issue.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and location
+      description: Link the affected file, section or commit and explain who is affected.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction or conflicting statements
+      description: Give a minimal synthetic reproduction or quote the inconsistent text. Include relevant tool versions for tooling defects.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+      description: What should the reader or tool user see instead?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Proposed scope and acceptance checks
+      description: Suggest the smallest fix and a way to verify it, or state what still needs investigation.
+    validations:
+      required: true

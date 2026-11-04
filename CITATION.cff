@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: >-
+  If you use or discuss this conceptual draft, cite the AI Surface Model
+  contributors using the preferred citation and include the exact commit URL
+  you used. There is no released model version or DOI yet.
+title: AI Surface Model
+authors:
+  - name: AI Surface Model contributors
+url: https://github.com/injectionator/ai-surface-model
+repository-code: https://github.com/injectionator/ai-surface-model
+abstract: >-
+  An early conceptual model for describing connected AI system components,
+  configuration and relationships at varying levels of detail, with explicit
+  gaps and separate definitions, deployments, observations and Experiment Runs.
+preferred-citation:
+  type: generic
+  title: AI Surface Model (conceptual draft)
+  authors:
+    - name: AI Surface Model contributors
+  url: https://github.com/injectionator/ai-surface-model

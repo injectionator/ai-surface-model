@@ -1,118 +1,142 @@
 # AI Surface Model
 
-An open model which surfaces the connected components, configuration and
+An open model for describing the connected components, configuration and
 relationships of an AI system, at the level of detail available or useful.
 
+> [!NOTE]
+> **Early conceptual draft.** This repository contains concepts, synthetic
+> examples and research questions. There is no released schema, validator,
+> exporter or deployment engine yet.
+
+## Why this is needed
+
+An AI model's name does not tell you which services an application calls, how
+authentication is configured, or which setup produced an Experiment result.
+Answering those questions can mean piecing together diagrams, configuration files
+and notes, often with incomplete information.
+
+The AI Surface Model aims to make that context explicit and shareable. Start with
+the components and connections you know, record the gaps, and add detail as it
+becomes available. A saved description should help someone investigate a system,
+understand a result or assess what they would need to recreate a setup.
+
+## Who it is for
+
+| If you… | The model is intended to help you… |
+| --- | --- |
+| Build or operate AI applications | Describe services, integration settings and dependencies across a setup. |
+| Investigate security or component changes | Find affected components while keeping unknown versions and coverage gaps visible. |
+| Run experiments or maintain a Lab | Connect results to the definition revision and effective setup actually used. |
+| Build inventory, provenance or analysis tools | Explore exchange of a defined subset with explicit mapping losses. |
+
+It is usable independently of Injectionator or any particular Lab product.
+Security investigation, reproducibility and configuration understanding are all
+part of its scope.
+
+## What it describes
+
+An **AI Surface** is the connected system being described: applications, agents,
+AI models, inference services, authentication, tools, data stores and supporting
+infrastructure, together with their configuration and relationships.
+
 There is one model: the **AI Surface Model**. Lab, Experiment and related
-descriptions are **fragments** within it. Each fragment describes a focused part
-of the system or its context using the same model.
+descriptions are **fragments** within it. Fragment is a working term for a focused
+part of a description; its boundaries and serialization remain open.
 
 A Lab has equipment and a shelf of reusable Surface descriptions and Experiments.
 It can persist across investigations, preparing a requested setup by attaching
 existing resources or deploying new ones. Source records and a bounded
 [Lab context summary](models/lab-context.md) support work across sessions.
 
-**Status: early conceptual draft.** This repository contains the project scope,
-draft concepts, synthetic examples and interoperability research questions.
-There is no released schema, validator, exporter or deployment engine yet.
+Definitions stay separate from deployments, dated observations and Experiment
+Runs. A Run refers to the definition revision and effective setup used, so later
+discovery does not silently change what an earlier result refers to.
 
-An AI Surface can include applications, agents, models, inference services,
-authentication, tools, data stores, supporting infrastructure and the connections
-between them. Descriptions can grow from a few known components into a detailed
-representation of a complete setup. Different parts can have different depths.
+## Start at the depth you need
 
-## What the model is for
+The levels are reading paths, not prerequisites. Start at 100 for an introduction,
+or jump to the examples, design questions or contribution guidance.
 
-- Investigate saved Surfaces offline, including which contain a particular
-  component and version, with explicit coverage limits.
-- Remember equipment and integration configuration for Lab setups.
-- Bind Experiment results to the Surface revision and effective setup tested.
-- Connect provenance and history across lab, development and production services.
-- Share setups that other people can recreate, with prerequisites and gaps visible.
-- Run many Experiments against one Surface, or one Experiment across many Surfaces.
+| Level | Start here | What you will find |
+| --- | --- | --- |
+| **100 · Understand** | [Model overview](models/ai-surface-model.md), then [Labs and Experiments](models/README.md) | The purpose, vocabulary and a walkthrough of one investigation. |
+| **200 · Explore** | [Synthetic examples](examples/README.md) | Compare descriptions at two depths; identify known facts, gaps and recreation requirements. |
+| **300 · Examine** | [Draft concepts](spec/README.md) and [interoperability research](docs/interoperability.md) | Identity, evidence, partial knowledge, open decisions and proposed mappings to other formats. |
+| **400 · Contribute and extend** | [Propose a change or extension](CONTRIBUTING.md#propose-a-change-or-extension) | Turn a use case into a proposal, example or bounded mapping, then follow the contribution workflow. |
 
-The model is usable independently of Injectionator or any particular Lab product.
-Security investigation is one use; reproducibility, configuration understanding
-and general experimentation are equally relevant.
+The [roadmap](docs/roadmap.md) describes the intended sequence of work and the
+evidence needed before a release.
 
-## Progressive detail
+## See progressive detail
 
-A description can say that LibreChat uses an authentication service without
-already knowing its product, version or integration settings. It can later
-identify Keycloak, describe the connection, and expand Keycloak's own dependencies.
-The original component keeps its identity as more information is recorded.
+Both [LibreChat examples](examples/README.md) describe a fictional authentication
+path. These JSON excerpts show the **same component** at two levels of detail.
+Field names are illustrative, not a released schema.
 
-First- and second-degree components are supported conceptually; depth has no
-fixed two-hop ceiling. Authors choose scope, and unknown or omitted information
-remains visible. A partial description is useful even when it cannot yet support
-full recreation.
+In the [minimal description](examples/librechat/minimal.json), its role is known
+but its product is not:
 
-```mermaid
-flowchart LR
-  App[LibreChat] -->|uses identity| Auth[Authentication service]
-  Auth -->|uses| Database[Supporting database]
-  App -->|uses inference| Inference[Inference service]
-  Inference -->|serves| Model[AI model]
+```json
+{
+  "id": "component:authentication",
+  "kind": "service",
+  "role": "authentication",
+  "product": { "status": "unknown" }
+}
 ```
 
-This is a conceptual example, not a claim about a particular installation.
+In the [expanded description](examples/librechat/expanded.json), the same identity
+has more detail:
 
-## Definitions and evidence
+```json
+{
+  "id": "component:authentication",
+  "kind": "service",
+  "role": "authentication",
+  "product": {
+    "status": "known",
+    "name": "Keycloak",
+    "basis": "synthetic example"
+  }
+}
+```
 
-A versioned Surface definition describes composition and configuration. Separate
-linked records describe deployments, dated observations, provenance and Experiment
-Runs. A Run refers to the immutable definition revision and the effective setup
-used. Later discovery must not silently change what an earlier result refers to.
+The expanded file also describes an OpenID Connect relationship and a supporting
+database. Some settings remain unknown or omitted; inference and other application
+dependencies remain unexplored. Neither example establishes a running integration
+or enough information for recreation. They are alternative synthetic descriptions,
+not a revision history or evidence of a deployment change.
 
-See the [draft concepts](spec/README.md) and
-[LibreChat examples](examples/README.md).
+Detail can grow along any connection, with shared components and cycles. Depth is
+relative to the starting point and has no fixed two-hop ceiling. Missing detail
+does not establish absence.
 
 ## Working with existing standards and tools
 
-The AI Surface Model owns its domain meaning. We intend to exchange supported
-subsets through CycloneDX and SPDX, using their native constructs where suitable
-and reporting omitted or transformed information. Interoperability and round-trip
-fidelity must be demonstrated with named versions and consuming tools.
+We intend to exchange supported subsets through CycloneDX and SPDX, using native
+constructs where suitable and reporting omitted or transformed information.
+Compatibility and round-trip fidelity still need evidence from named versions and
+consuming tools. See the [interoperability research](docs/interoperability.md) for
+mapping questions and related work, including Prismor and sbom-tools.
 
-[CycloneDX](https://cyclonedx.org/), [SPDX](https://spdx.dev/),
-[Prismor](https://github.com/PrismorSec/prismor) and
-[sbom-tools](https://github.com/sbom-tool/sbom-tools) are relevant prior work.
-They are not dependencies of this initial repository. See the
-[interoperability research](docs/interoperability.md).
+## Contribute or cite
 
-## Start here
+Start with an issue, use a dedicated branch and open a linked draft PR; see
+[Contributing](CONTRIBUTING.md) for proposals, checks and the full workflow.
 
-- [The AI Surface Model and its fragments](models/README.md)
-- [Draft concepts and open decisions](spec/README.md)
-- [Examples at different depths](examples/README.md)
-- [Interoperability research](docs/interoperability.md)
-- [Roadmap](docs/roadmap.md)
-- [Contributing](CONTRIBUTING.md)
-- [Licence boundaries](LICENSING.md)
-
-## Contributor workflow
-
-Start with an issue, work on a dedicated branch, and open a linked draft PR.
-After review and merge, return your local checkout to an updated `main` before
-starting the next issue. Merging on GitHub leaves your local checkout on its
-existing branch.
-
-The `./scripts/flow done` helper handles that final step: run it from the
-completed branch after its PR has merged. It checks the merge, switches to
-`main`, fast-forwards it, and removes the completed local branch, with guards
-against deleting unfinished work. See the
-[contributor workflow](CONTRIBUTING.md#issue-branch-and-pull-request-workflow)
-and [helper prerequisites and usage](CONTRIBUTING.md#cleanup-after-a-merge).
+Use [CITATION.cff](CITATION.cff) for attribution and include the exact commit URL
+you used when citing this evolving draft.
 
 ## Licence
 
-Machine-readable model assets, schemas, examples, code snippets and tooling are
-licensed under [Apache License 2.0](LICENSE). Written specification and
-documentation are licensed under [Creative Commons Attribution 4.0 International](LICENSE-DOCS).
+Machine-readable model assets, schemas, examples, code snippets and tooling use
+[Apache-2.0](LICENSE). Written specification and documentation use
+[CC-BY-4.0](LICENSE-DOCS). See [LICENSING.md](LICENSING.md) for the material split
+and attribution requirements.
 
 Commercial and proprietary reuse are welcome under those terms. Users retain
 control of the licensing and publication of their own Surface descriptions and
 Experiment data. Third-party material retains its applicable terms.
 
 This is an independent Injectionator project, with no claimed OWASP affiliation
-or endorsement. See [LICENSING.md](LICENSING.md) for the exact file scope.
+or endorsement.
