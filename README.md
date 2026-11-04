@@ -22,7 +22,9 @@ analysis and the AI Researcher workflow remain subsequent work; see the
 
 The [n8r-surface Researcher skill package](docs/n8r-surface/researcher-skill.md) is now
 available for testing in the existing Codex/ChatGPT harness. It uses the host's
-source access and conversation to produce evidence-backed working notes. See
+source access and conversation to produce evidence-backed working notes. The
+[discovery guide](docs/n8r-surface/researcher-discovery.md) focuses on AI-relevant
+graphs, reusable product knowledge and comparing descriptions with evidence. See
 [verification and pending Work-mode checks](docs/n8r-surface/researcher-skill-verification.md).
 The delivery order is skill first, n8r-labs adaptation second, standalone CLI third.
 

@@ -1,4 +1,4 @@
-# n8r-surface Researcher: share and test
+# n8r-surface Researcher: start an investigation
 
 **First increment:** an experimental instruction-only Researcher, packaged for
 ChatGPT desktop / Work and Codex. It researches supplied sources with the existing
@@ -9,6 +9,108 @@ The user selected this order on 4 November 2026: prove the skill in the existing
 harness, adapt that same core to n8r-labs in its repository, then return to the
 standalone `n8r-surface` command. Unfinished #16 source-overview work is paused.
 There will be no separate status subcommand.
+
+The primary result is a partial **AI Surface graph**, with evidence and unresolved
+connections. It is not an inventory of every application feature or setting.
+Configuration matters when it establishes or explains a relevant node, edge,
+route, data flow or authority boundary. The bundled
+[discovery guide](../../plugins/n8r-surface/skills/research/references/discovery-map.md)
+covers available source combinations, reusable product knowledge and comparison.
+See [discovery, comparison and live-inspection examples](researcher-discovery.md)
+for those broader tasks; the short first trial below uses authentication.
+
+## RESEARCH-01: investigate and continue
+
+Reuse an existing installation only after checking the version:
+
+```sh
+codex plugin list --marketplace n8r-surface --json
+```
+
+Expect one installed/enabled entry at the candidate version below. If an older
+version came from the Git branch marketplace, refresh its snapshot and reinstall:
+
+```sh
+codex plugin marketplace upgrade n8r-surface
+codex plugin add n8r-surface@n8r-surface --json
+codex plugin list --marketplace n8r-surface --json
+```
+
+A marketplace pinned to a commit stays pinned. To choose a different ref, remove
+that marketplace registration and repeat step 1 with the new ref. For a local
+marketplace, update its source checkout first and use the
+[maintainer installation](#maintainer-installation-from-a-local-candidate).
+Refreshing the desktop app alone does not refresh the Git snapshot.
+
+You need a local Work
+or Codex chat that can read your LibreChat checkout and save files. Existing
+ChatGPT sign-in is sufficient for this instruction-only plugin; it adds no model
+API connection. Work's picker and full lifecycle still need
+[human acceptance](researcher-skill-verification.md#remaining-work-mode-acceptance).
+
+1. **Install once.** With Codex CLI installed, run these commands from any
+   directory. They fetch the candidate from GitHub; no manual clone, npm install
+   or build of n8r-surface is needed:
+
+   ```sh
+   codex plugin marketplace add injectionator/n8r-surface --ref feat/17-researcher-skill --json
+   codex plugin add n8r-surface@n8r-surface --json
+   codex plugin list --marketplace n8r-surface --json
+   ```
+
+   Expected: exit 0 and one installed/enabled `n8r-surface@n8r-surface`, version
+   `0.1.4`. The branch is a changing draft candidate, not a release on `main`.
+   Use an identified commit with `--ref` for a repeatable installation. Network
+   access is required; the commands change plugin configuration/cache.
+2. **Open your source.** Start a local chat with your LibreChat folder selected.
+   In Work, select **n8r-surface Researcher** via `@`; the qualified skill is
+   `n8r-surface:research`. Refresh/restart the app if the installed version is
+   missing. The host must actually read the checkout; naming a path in a cloud
+   chat does not supply its files.
+3. **Ask one bounded question:**
+
+   > Use n8r-surface Researcher to investigate authentication in this LibreChat
+   > checkout. Explain the components and configuration choices, cite the files
+   > you read, and distinguish supported options from my selected setup. Save
+   > working notes in your default research folder, show me where they are,
+   > and ask the next useful question.
+
+   Expect a source revision, an explanation with file/line evidence, unanswered
+   questions and a saved Markdown note. Supported options are not your selected
+   deployment, and reading source does not verify a running integration.
+4. **Open the saved note.** The default on a local filesystem is
+   `~/Documents/n8r-surface/research/librechat/authentication-001.md`.
+   The Researcher shows the resolved absolute destination before saving and
+   provides an openable link after reading it back. Existing files get the next
+   unused number. You can request another folder. A host without persistent local
+   file access must say so and provide a download or text; that does not pass the
+   local-save check.
+5. **Answer, then continue.** Answer the Researcher's actual question or correct
+   one finding. Ask it to save a successor. Expect `authentication-002.md` (or
+   the next unused number), the dated human decision separated from source
+   evidence, and the first note unchanged. In a fresh chat with the same source
+   access and skill selected, provide that successor and ask:
+
+   > Continue this research from the saved note. Check the source revision,
+   > retain my decisions and unresolved questions, and investigate the next
+   > useful gap. Save a successor and show me the result.
+
+Wording, source revision, findings, date and file number may vary. Missing access,
+invented citations, a missing saved file, overwritten earlier notes or a lost human
+decision are failures. Independently opening the files is the readback check;
+an agent rehearsal is separate from human acceptance. No service is started and
+the source checkout should remain unchanged. Keep the notes after the trial;
+plugin removal does not delete them.
+
+**State X:** installed skill, readable identified checkout, and a writable notes
+folder. **Input Y:** the prompt above, followed by an actual human answer and a
+fresh-chat continuation. **Outcome Z:** a useful explanation and preserved,
+readable successor notes with source evidence, choices and gaps. See
+[observed results and remaining limits](researcher-skill-verification.md).
+
+These are working notes. Validated HTML/Surface outputs, Lab adaptation and the
+standalone CLI remain later increments. RESEARCH-01 does not establish the
+complete installed-command E2E-01/E2E-02 cases.
 
 ## Package and standards
 
@@ -32,7 +134,7 @@ These are packaging contracts; host behavior still needs its own rehearsal.
   Both use the same skill files; no second instruction copy is maintained.
 - [The repository marketplace](../../.agents/plugins/marketplace.json) exposes
   `n8r-surface@n8r-surface` as available, without forcing installation.
-- Plugin and skill version `0.1.1` identify this experimental candidate. Increment
+- Plugin and skill version `0.1.4` identify this experimental candidate. Increment
   them when changing distributed instructions; record the Git revision and
   installed file digest with test results. This is separate from the npm version.
 
@@ -41,16 +143,14 @@ Bundled references must work there. Instructions use CC-BY-4.0; metadata, icons
 and tooling use Apache-2.0. The package includes the repository's licence texts
 and [licensing explanation](../../LICENSING.md).
 
-## Install from the repository
+## Maintainer installation from a local candidate
 
-Prerequisites: a checkout of the candidate revision, Codex CLI with
-`plugin marketplace`/`plugin add` support, and ChatGPT desktop / Work enabled
-for the account. No API key, running Lab or `n8r-surface` npm installation is
-required. CLI 0.139.0 was used for the local package test; other versions need
-verification. These commands modify the user's plugin configuration/cache, not
-research source files. Record `codex --version` and `git rev-parse HEAD`.
-
-From this repository root:
+Use this route only when developing the plugin itself. CLI 0.139.0 was used for
+the package checks; other versions need verification. Record `codex --version`
+and `git rev-parse HEAD`. If this marketplace is already registered from GitHub,
+run `codex plugin marketplace remove n8r-surface` before changing its source to
+the local checkout. The CLI rejects that source change otherwise. This removes
+the marketplace registration/snapshot, not research notes. From this repository root:
 
 ```sh
 codex plugin marketplace add . --json
@@ -59,7 +159,7 @@ codex plugin list --marketplace n8r-surface --json
 ```
 
 Expected: each command exits 0. The installed list contains exactly one
-`n8r-surface@n8r-surface`, version `0.1.1`, installed and enabled. The installation
+`n8r-surface@n8r-surface`, version `0.1.4`, installed and enabled. The installation
 path varies by computer. `alreadyAdded: true` is fine on a repeated marketplace
 registration. Do not register a second copy of the skill in `.agents/skills`.
 
@@ -76,10 +176,8 @@ In ChatGPT desktop, open Plugins and select the **n8r-surface** source. Verify
 or version is absent, as the packaging guide requires. Then start a fresh Work
 chat. Loading instructions in this development chat is not this acceptance test.
 
-After a reviewed branch is pushed, someone else can register it without a local
-checkout using `codex plugin marketplace add injectionator/n8r-surface --ref REF`,
-replacing `REF` with the reviewed commit or branch. Do not imply this candidate is
-on `main` until it merges. A public Plugins Directory listing requires a separate
+The repository installation above is sufficient for a trial. A public Plugins
+Directory listing requires a separate
 [submission and publication](https://developers.openai.com/plugins/deploy/submission)
 decision; it is not necessary for this repository test.
 
@@ -100,7 +198,7 @@ is not access in a cloud chat.
    > and gaps, and ask the next question that would help me choose a setup.
    > Save working research notes that I can reopen.
 
-   Expected: the skill identifies version `0.1.1`, reads the two actual documents,
+   Expected: the skill identifies version `0.1.4`, reads the two actual documents,
    cites evidence and saves a readable note outside the plugin cache. Independently
    open that note. Both conflicting batch maxima (10 and 25) and the unknown model
    version must survive; optional features must not become user selections. The
@@ -137,19 +235,6 @@ run `codex plugin marketplace remove n8r-surface` to remove this marketplace sou
 Keep user research files. Reinstallation is reversible; cleanup is separate from
 publishing or deleting the source repository.
 
-## RESEARCH-01: investigate and continue
-
-After LOAD-01, answer the skill's question or correct a finding in the actual
-chat. Save a successor and reopen it in a fresh chat with the same source access.
-Check that the human choice is retained separately from source evidence and that
-unresolved conflicts remain visible. Repeat on the Harbor fixtures and then a
-named LibreChat revision before claiming those workflows work.
-
-The first skill intentionally saves ordinary working notes. Structured HTML,
-JSON/YAML definitions, automatic guarded revisions and Lab import remain future
-increments against the [existing contracts](contracts.md). This package does not
-relax their acceptance criteria or claim complete E2E-01/E2E-02 verification.
-
 ## Prepare a shareable ZIP
 
 From a committed, reviewed candidate in the repository root:
@@ -160,7 +245,7 @@ git archive --format=zip --output="$n8r_skill_zip/n8r-surface.zip" HEAD:plugins/
 python3 -m zipfile -l "$n8r_skill_zip/n8r-surface.zip"
 ```
 
-Expected: exit 0; the archive has both manifests, one skill with its two references
+Expected: exit 0; the archive has both manifests, one skill with its three references
 and OpenAI metadata, the icon and licence files. It contains no Git history,
 source-repository research data, credentials or node_modules. The output directory
 varies. Archive only the committed plugin subtree so paused/untracked work cannot

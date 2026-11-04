@@ -5,6 +5,40 @@ working notes, not a released interchange schema or a validated experimental
 HTML/Surface artefact. Use the user's requested prose format when practical;
 retain the same evidence and limitations. Do not impose a large empty template.
 
+## Where notes live
+
+Use a user-selected destination first. When continuing a saved note, use its
+folder unless the user requests a move. Otherwise, on a host with a persistent
+user-owned local filesystem, use:
+
+```text
+~/Documents/n8r-surface/research/<source-slug>/<topic>-001.md
+```
+
+Derive short lowercase hyphenated slugs from the source and question. For a
+LibreChat authentication investigation, use `librechat/authentication-001.md`.
+Resolve the user's actual home directory through the host, expand `~`, and show
+the absolute folder and filename before writing. Create missing directories as
+part of an authorized save. Keep that local locator in the conversation, not in
+portable note content. Do not treat a temporary execution container as the user's
+persistent filesystem. If local saving is unavailable, explain that limitation
+and offer a named Markdown download or text without claiming the default exists.
+
+List existing notes for that topic first. Use the next unused three-digit number
+(`002`, `003`, and so on; grow beyond three digits if needed). An existing filename
+is never permission to overwrite. For continuation, read the predecessor and any
+human edits, name it in the successor and record the change. Recheck its bytes
+before saving; if they changed, reread and reconcile before choosing a new output.
+Check that existing notes describe the same source before continuing them;
+matching directory names alone do not establish source identity.
+
+Provide the actual saved file as a clickable link after readback. On a local
+host, use an absolute file link. The user should be able to open it without
+searching the plugin cache or scrolling back through tool output. Skill removal
+must leave this research folder and every previous note intact.
+
+## What a note retains
+
 A saved note should let another person or a fresh chat continue the task:
 
 - Identify the question, scope, date, skill version and host/tool capabilities
@@ -12,8 +46,10 @@ A saved note should let another person or a fresh chat continue the task:
 - Identify the supplied sources using portable relative names or public locators.
   Record available revision/version information and exact hashes for inspected
   files when supported. Explicitly mark unavailable identity evidence.
-- Describe findings with evidence locations and stable component labels. Keep
-  source-supported possibilities separate from the user's selected composition.
+- Lead with the partial AI Surface graph or edge table, stable component labels
+  and evidence locations. Keep supported possibilities separate from selected
+  connections. Include only settings needed to explain the graph, not an app-wide
+  configuration inventory.
 - Preserve conflicting claims, unknowns, coverage limits and scoped absences.
 - Retain human decisions and unanswered questions separately from source evidence.
 - State what was actually read or exercised and what remains to be done. Include
@@ -23,8 +59,8 @@ Keep source links usable when the notes are moved, or explain what accompanying
 source files are needed. Do not copy whole repositories or credentials into the
 notes. A source digest identifies bytes, not truth, completeness or compatibility.
 
-For revisions, retain the previous file, name the predecessor and explain what
-changed. Read existing notes and any human edits before writing a successor.
+## Save and read back
+
 If the destination already exists or changed since it was read, stop that write
 and propose a new file or a reviewed merge. Do not claim atomic guarded storage
 or byte-conflict guarantees that the host has not provided.

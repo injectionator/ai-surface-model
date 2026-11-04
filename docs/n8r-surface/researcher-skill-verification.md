@@ -1,13 +1,180 @@
 # Researcher skill verification
 
-**Candidate:** `n8r-surface:research` (**n8r-surface Researcher**) **0.1.1**, 4 November 2026.
+**Candidate:** `n8r-surface:research` (**n8r-surface Researcher**) **0.1.4**, 4 November 2026.
 This is a partial #17 increment. ChatGPT desktop / Work lifecycle acceptance is
 **pending**, not passed. No Lab or standalone CLI research claim follows.
 
-Skill entrypoint SHA-256:
-`720afff0822a020b441f08e917304d36f6728f5e9228ec4ba505a147cd679402`.
 The implementation/evidence commits are identified by the associated draft PR;
 use the exact candidate commit when repeating the procedure.
+
+## Review corrections and current checks: 0.1.4
+
+Independent review identified two corrections: check the installed version before
+reuse and refresh a Git marketplace snapshot before reinstalling; and label an
+edge declared only when an applicable declaration supports it. Candidate 0.1.4
+narrows that instruction. It does not change the discovery method or note storage.
+Current skill SHA-256:
+`ed490cf27c127896ea7db0a630bfe24e784508fde2c50c34e2e2dbee8d0bc55a`.
+Current discovery-reference SHA-256:
+`c3fc8065e573c74791b9da04154fe9e0f6c609e3cfd98ee9b72bcccec1a1d340`.
+
+After installing 0.1.4, a targeted instruction regression correctly kept an MCP
+SDK-only clue and an unsupported proxy hypothesis out of a selected graph's
+declared edges, while retaining an applicable staging OIDC configuration as
+declared with its runtime state unknown. This was a synthetic interpretation
+check, not new source or UI evidence. The source-backed graph and continuation
+trials below identify their earlier candidate versions and exact digests.
+
+Current checks used macOS ARM64, Codex CLI 0.139.0 and Python 3.14.7. All eleven
+installed 0.1.4 files matched the local candidate; manifest identity/presentation
+and skill metadata validation passed. Nine changed Markdown files passed
+markdownlint-cli2 0.24.0 with MD013/MD041 disabled; Lychee 0.24.2 reported 68 local
+links/anchors OK, zero errors and ten excluded. JSON examples parsed (syntax only),
+the 19 existing offline Python workflow tests passed, shell syntax passed, and
+whitespace checks passed. The eight paused #16 files retained their initial hashes.
+No npm/library/CLI changes are included or claimed tested by this increment.
+
+An earlier broad lint attempt inherited repository-wide globs and reported the
+existing MD018 issue at `startup-human-check.md:171`. That unrelated file was left
+unchanged; the final lint above targets this increment's files. Independent review
+found no remaining blocking issue after the two corrections.
+
+## Graph-first discovery guidance: 0.1.3
+
+The user expanded the scope to an AI Surface discovery map, reuse of applicable
+product knowledge, reconciliation of existing descriptions, and permitted live
+UI/API evidence. The graph is primary; configuration is inspected only when it
+establishes or explains relevant nodes/edges. The guide distinguishes possible
+connections, a declared setup and dated running-state observations; enabled is
+not exercised. It remains one AI Surface Model with partial descriptions.
+
+The installed package now contains three references. All eleven installed files
+were compared byte-for-byte with the source package. Skill entrypoint SHA-256:
+`79257c192dc629ebfa06722b579d61481dafa62ca4d306c2f1c0438b01f66251`.
+Discovery reference SHA-256:
+`2a0df014620907119d6767712f829ca1bad35119107482ea88266a2d2de5e274`.
+The [human guide](researcher-discovery.md#graph-discovery-reconciliation-and-live-evidence)
+contains the actual prompts and expected evidence for discover, reconcile and live
+inspection; these are conversational intents, not new CLI commands or adapters.
+
+Before the new reference, a fresh evaluator read installed 0.1.2 and considered
+five synthetic starting conditions. It already distinguished possibilities,
+source declarations and runtime uncertainty correctly. It reported that discovery
+sequences, reconciliation intake and live-inspection procedures were inferred
+from general principles, rather than explicitly supplied by the skill. This is
+an observed guidance gap, not a demonstrated reasoning failure or quality benchmark.
+
+A separate fresh evaluator read installed 0.1.3 and all three references, then
+answered these supplied synthetic cases without scenario tools or saved outputs:
+
+| Given / user task | Observed bounded response |
+| --- | --- |
+| Unknown folder; browser-tooling package manifest, unread Python server, unrelated theme settings; identify AI relevance. | Inspect structure/entry points; do not infer runtime or AI relevance from filenames; leave unrelated theme settings out. |
+| Docs-only product describes optional OIDC/retrieval and unavailable code. | Map documented alternatives; implementation and selected composition remain unknown; missing code does not prevent useful work. |
+| Code-only SDK dependency and custom inference base URL, many unrelated packages, no runtime access. | Trace caller and endpoint binding; do not infer provider identity from SDK vendor or inventory unrelated packages. |
+| Older guide and two prior Surfaces select different identity providers. | Check identity/revision/scope, preserve both compositions and ask for current selection; do not union them into a deployment. |
+| Staging R1 Surface claims OIDC enabled; R2 file says disabled; admin access refused. | Compare revision-scoped declarations, preserve R1, leave effective state unknown and do not bypass the refusal. |
+| Supplied hypothetical stored-settings view says OIDC on, issuer at a reserved example domain, masked secret; no runtime test. | Record a dated stored-setting connection claim; do not reveal secrets, save settings or claim effective loading/login. |
+
+This verifies one instruction-reading response per case, not a statistical
+benchmark, actual reconciliation tool implementation or real computer-use trial.
+Component equivalence across unfamiliar vocabularies and ambiguous UI indicators
+still require evidence/judgment; unsupported meanings stay explicit. No real
+admin system was selected or inspected. Live inspection remains **unverified**.
+
+A separate fresh evaluator then loaded installed 0.1.3 and researched the actual
+LibreChat checkout, reusing the saved authentication successor. Its prompt asked
+for a shallow AI-relevant graph and graph-relevant settings; it supplied no
+expected architecture. The agent read 12 additional source files, re-read the
+server entry point and contributor guidance, then saved/read back
+`graph-discovery-001.md`. Its edge table covered documented chat/API entry,
+Agent orchestration/provider options, conditional MCP discovery, persistence and
+MongoDB support, and file-processing/RAG calls. It retained the scoped human
+authentication choice while leaving concrete model/provider, MCP and storage
+instances and runtime use unknown. An initial broad search was truncated;
+focused source reads supported the retained claims. The agent corrected one
+README citation during readback.
+
+The parent independently read the saved graph, verified its digest and all 14
+source hash rows, and spot-checked the MongoDB connector and RAG request evidence.
+Graph-note SHA-256:
+`fc9b03d6b718b60c60c3e5b5bf6c74f460697abe2905aa5b0425df545bea50d5`.
+This is one source-reading graph rehearsal on the same LibreChat revision/dirty
+state as the 0.1.2 trial, not a deployed or exercised graph. Private deployment
+configuration, credentials and infrastructure details are not published here.
+
+The user then supplied additional setup context. The agent preserved the first
+graph and saved/read back `graph-discovery-002.md`, retaining that context as a
+dated human report, not source or live verification. The parent independently
+reopened it and verified the retained statement, earlier human choice and digest:
+`0dbd8739725e80f86a6bc9b6d3bb41bb5587bbd694e95f646f284fd05a657a53`.
+The private setup statement and local paths remain outside this repository.
+
+## Predictable notes and real-source trial: 0.1.2
+
+The [RESEARCH-01 guide](researcher-skill.md#research-01-investigate-and-continue)
+now starts with one useful investigation, followed by a human answer and
+continuation. LOAD-01 remains a separate lifecycle check. The skill adds a local
+default of `~/Documents/n8r-surface/research/<source-slug>/<topic>-001.md`, resolves
+and shows the destination before saving, and retains numbered successors.
+User-selected and predecessor folders take precedence. Temporary host storage
+does not count as a persistent user-owned folder.
+
+**Before the change:** an independent agent loaded installed 0.1.1 and investigated
+authentication in an actual LibreChat checkout. It produced a useful note, with
+file references, unknown selections and source/runtime limits. The existing skill
+did not define a folder/naming convention: the agent chose its own timestamped
+filename in a Documents research folder. The parent independently reopened the
+note, checked its source manifest against all 15 files (11 source reads, three
+search-only sources and contributor guidance), and spot-checked cited local/LDAP
+routing and federation gates. This is a successful bounded source investigation
+with a storage usability gap, not a failed research claim.
+
+Source: upstream LibreChat revision
+`e1dfc10449ff713faffacd60273fddcfe2c0a698`, with one reported tracked change in
+`client/package.json`. The modified file and deployment credentials were not
+read; the dirty state was unchanged after research. Ignored deployment files
+were not inventoried. Private notes and machine paths are not committed here.
+The saved baseline note's SHA-256 was
+`13a7327e1d89024d6b2ed21c28d1a368011da13aa611bdc62de431e48f49ced5`.
+
+**Repository installation:** on Codex CLI 0.139.0, registering
+`injectionator/n8r-surface --ref feat/17-researcher-skill` and installing
+`n8r-surface@n8r-surface` both exited 0. The fetched Git snapshot was
+`3eff6fdd710f7670d4511f83233a01444d658408`; the installed list contained exactly
+one enabled 0.1.1 from that Git marketplace. This exercised the future-user route
+without a manual clone or build. Switching back to the local candidate initially
+failed because the same marketplace was registered from a different source.
+Removing that registration, registering the local checkout and installing again
+all succeeded. All ten installed 0.1.2 files matched the source package bytes;
+the manifests agreed on identity, version and presentation. No model API or
+source-service startup was added. Work picker availability is still unverified.
+
+**After the change:** a fresh agent read installed 0.1.2 and its two references,
+inspected 12 actual LibreChat source files, resolved the default destination,
+saved `authentication-001.md` and read it back. The user supplied a real intended
+authentication choice during this chat; the note retained it as dated human
+intent, separate from effective deployment state. The investigation was interrupted
+when the user broadened the design discussion; the agent saved the completed
+reads as a partial note without claiming deeper investigation of that choice.
+
+A different fresh-context agent received only the installed skill, saved note
+and source location. It recovered the human choice from the note, re-established
+the same source commit/dirty state, re-read `api/server/routes/auth.js:67-80` and
+`api/strategies/localStrategy.js:13-61`, and checked their hashes. It saved/read
+back `authentication-002.md`, preserving the original, identities, evidence,
+uncertainties and unanswered question. The parent independently read both saved
+files, verified their digests and human-choice retention, and checked the 12
+original source hashes plus the successor's two repeated evidence rows.
+
+| Saved result | SHA-256 |
+| --- | --- |
+| Initial numbered note | `db1b17df17121406420253915a9ad7ff07390ad01029e05c3e4098b1441542bb` |
+| Fresh-context successor | `c3a1dcb8caedddabb2589b7f57b7a3f2f0c8a9e907e8ca7ccfe273b2f12bef94` |
+
+This establishes one separate-agent continuation on the same local filesystem,
+with actual human input. It does not establish Work UI discovery, human acceptance,
+a running authentication integration, cross-host continuation or the standalone CLI.
 
 ## Branding update: 0.1.1
 
@@ -123,6 +290,7 @@ A successful test must also retain user research outside the plugin cache.
 Uninstallation does not erase an old chat's instructions or content. Do not infer
 unloading from an old chat's behavior, or infer Work support from CLI JSON alone.
 
-Further #17 work: human correction and continuation, Harbor/LibreChat cases,
-structured HTML and Surface outputs, n8r-labs adaptation in its own repository,
-and the later installed-Codex standalone runner. Both #16 and #17 remain open.
+Further #17 work: human Work-mode acceptance, real live UI/API inspection,
+broader Harbor/LibreChat and reconciliation trials, structured HTML and Surface
+outputs, n8r-labs adaptation in its own repository, and the later installed-Codex
+standalone runner. Both #16 and #17 remain open.

@@ -57,7 +57,11 @@ Current progress, with evidence defining the verified scope and revision:
 | --- | --- | --- |
 | Read saved research and selected definitions through the library, retaining identities, findings and references. | Implemented and verified for the experimental library profile; no command claim. | [CONTRACT-01 and repeatable fixture/package checks](verification.md#contract-01-retain-useful-attributable-research-and-selected-definitions). |
 | Run `n8r-surface` alone and see settings, saved artefacts and known process status. | Specified, implemented and verified for the read-only overview and guidance question; setup/conversation unavailable. | [STARTUP-01 installed evidence at `b90358a`](startup-verification.md). Further CLI work paused while the skill is proved. |
-| Research a supplied repository with a human, then save and reopen the result. | Specified; real Researcher path not implemented or exercised. | Verify E2E-01 in #17; E2E-02 before claiming LibreChat research. |
+| Research supplied sources through the installed skill and save working notes. | Implemented; bounded Lumen and LibreChat agent rehearsals have saved/read back notes. Actual human input survived fresh-agent continuation; Work UI acceptance remains pending. | [RESEARCH-01 evidence and limits](researcher-skill-verification.md). No structured-output or standalone-runner claim. |
+| Discover an AI Surface graph using available sources and applicable prior knowledge. | Instruction guidance in skill 0.1.4; code/docs-only and mixed evidence are valid starting points. | [DISCOVER-01 interaction](researcher-discovery.md#graph-discovery-reconciliation-and-live-evidence); distinguish guidance trials from live acceptance. |
+| Reconcile a supplied Surface against current graph evidence. | Instruction guidance in skill 0.1.4; preserves originals and separates support, intent, declared settings and observations. | [RECONCILE-01 interaction](researcher-discovery.md#graph-discovery-reconciliation-and-live-evidence); no universal JSON schema or automatic deployment reconciliation. |
+| Inspect a graph-relevant live connection with user-assisted sign-in. | Specified through optional host tools; real admin inspection remains unverified. | [LIVE-01 interaction](researcher-discovery.md#graph-discovery-reconciliation-and-live-evidence); require actual UI/API readback without credential exposure. |
+| Research a supplied repository through the standalone command with a human, then save and reopen the result. | Specified; real standalone Researcher path not implemented or exercised. | Verify E2E-01 in #17; E2E-02 before claiming standalone LibreChat research. |
 
 ## Governing development loop
 
@@ -350,7 +354,10 @@ check that the same product-agnostic instructions work without LibreChat-specifi
 control flow. The source version, independent expected-fact set and real output
 must be recorded when exercised; none is invented here.
 
-**Current result:** not attempted. No real LibreChat research proof is claimed.
+**Current result:** this installed-command path is not attempted. A separate
+[installed-skill LibreChat source rehearsal](researcher-skill-verification.md#predictable-notes-and-real-source-trial-012)
+has saved and reopened working notes. It does not establish E2E-02, runtime
+authentication, human acceptance or validated HTML/Surface output.
 
 ## Other required paths and failure outcomes
 
