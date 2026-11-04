@@ -122,6 +122,13 @@ before handing them back, and distinguish an agent rehearsal from human acceptan
 For documentation-only changes, identify the exact material to inspect and the
 expected correction.
 
+Write human verification as a task list a teammate unfamiliar with the change
+can follow. State what to open, provide copyable interactions, and put the expected
+visible result beside each task. Separate maintainer preparation and technical
+evidence checks from the tester's steps. Explain necessary terms and finish with
+a simple Pass / Fail / Blocked report, including what evidence to return. Keep
+commands in the tester's path only when using the command is itself under test.
+
 Choose the shortest unambiguous human proof that establishes the increment. Reuse
 an established installation, working runner and known fixtures when they are still
 applicable; state those prerequisites and link to setup instead of repeating it.
