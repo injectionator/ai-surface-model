@@ -46,8 +46,33 @@ new test folder after review.
 ### Maintainer evidence
 
 The baseline is the observed installed-0.1.6 conversation, not a synthetic failed
-run. Candidate checks and the fresh-agent rehearsal are recorded below after
-execution. Human acceptance and Work UI lifecycle remain separate and pending.
+run. Implementation `0431c547b108db29fcfca790a1fbfe6dfde316e1` was pushed and installed
+using the documented marketplace upgrade/add/list commands (all exit 0).
+Exactly one enabled 0.1.7 was listed; all eleven installed package files matched
+maintained source. Environment: macOS, Codex CLI 0.139.0, local filesystem harness.
+
+A fresh agent investigated the prepared pack through the candidate source skill,
+returned an evidenced map and offered a concrete numbered file. Independent
+inspection confirmed the proposed test directory did not exist. After a simulated
+user refusal, it explained the search gap without saving or repeating the offer.
+After a simulated explicit save request, it reread the installed 0.1.7 skill,
+re-established source identity and saved/read back the draft without another
+confirmation. The developing agent did not write its research findings.
+
+Independent readback checked all three source hashes, graph, uncertainty,
+recommendations and source revision change (source bytes unchanged). The trial
+used a disposable vault `runs/` folder. The note's “Human decisions” section
+records simulated test replies, not separate human acceptance.
+Saved draft SHA-256: `3ec9e68f1eb9ac67bff2fb6c0a9d90d929ead2256227e1606e76889568d7932b`.
+Installed skill SHA-256:
+`2d18698959fb8a23140ee577cac706c5f9594bda2e94742980fbb18094bb29ac`.
+
+Skill frontmatter, 57 local Markdown links/anchors, JSON example syntax and
+whitespace checks passed. All eight unrelated working files were hash-checked
+unchanged. Markdownlint was unavailable on PATH and was not run. No runtime
+code changed; library/CLI tests were not needed for this instruction increment.
+This is one bounded agent rehearsal, not a statistical behavior benchmark.
+Human acceptance and Work UI lifecycle remain separate and pending.
 
 ## Saved recommendations: 0.1.6
 
