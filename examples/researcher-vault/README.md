@@ -7,6 +7,12 @@ Copy that folder into a fresh run in your own local vault; keep these originals
 unchanged. Generated findings and working settings belong in the local vault,
 not in this public example directory.
 
+The [interception-service pack](interception-service/system.md) supplies two
+synthetic documents for the [skeleton walkthrough](../../docs/n8r-surface/researcher-skeleton-check.md).
+It covers model/tool paths, documented hook behavior, alternate routes and
+unselected resource roles. Its settings are an unloaded template; the walkthrough
+changes only a disposable copy to exercise explicit reconciliation.
+
 The source pack is authored by AI Surface Model contributors. The repository's
 [licensing rules](../../LICENSING.md) apply: prose is CC-BY-4.0 and configuration
 examples are Apache-2.0. These are synthetic inputs, not Researcher-generated

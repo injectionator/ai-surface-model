@@ -1,11 +1,29 @@
 # Researcher skill verification
 
-**Candidate:** `n8r-surface:research` (**n8r-surface Researcher**) **0.1.7**, 4 November 2026.
+**Candidate:** `n8r-surface:research` (**n8r-surface Researcher**) **0.1.8**, 4 November 2026.
 This is a partial #17 increment. ChatGPT desktop / Work lifecycle acceptance is
 **pending**, not passed. No Lab or standalone CLI research claim follows.
 
 The implementation/evidence commits are identified by the associated draft PR;
 use the exact candidate commit when repeating the procedure.
+
+## Skeleton Surface: 0.1.8
+
+The authorized increment defines Skeleton Surface v0.1 as a provisional Markdown
+brief and adds the [installed-skill procedure](researcher-skeleton-check.md).
+State X is installed 0.1.7 and the synthetic Cedar Chat source pack revision 1.
+Input Y is SKELETON-01's exact brief/save prompt. Outcome Z adds named profile
+and revision guidance, linked evidence, interception coverage and explicit
+successor reconciliation without setup changes.
+
+The baseline agent read installed 0.1.7 and both source files, saved and read back
+its own brief. It already distinguished model proposals from actual MCP calls,
+identified the hook's allow/deny powers and worker/browser bypasses, and retained
+source hashes and unknowns. These behaviors passed and are retained, not invented
+failures. The output had no named profile version or explicit Surface revision;
+0.1.7 had no named profile/lifecycle procedure. The user explicitly authorized
+that missing guidance. Candidate and reconciliation rehearsal evidence follows
+once exercised; human acceptance and automatic Lab recording remain unproved.
 
 ## Optional save offer: 0.1.7
 

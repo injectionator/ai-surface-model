@@ -7,7 +7,7 @@ not to inventory every setting in an application. The shared
 contains the navigation rules and product-knowledge approach.
 
 Use the [short installation and first-trial route](researcher-skill.md#research-01-investigate-and-continue).
-These instructions describe candidate 0.1.5; see the
+These instructions describe candidate 0.1.8; see the
 [verification record](researcher-skill-verification.md) for exercised paths and
 unverified live inspection. No Lab or new runner is required.
 
@@ -44,6 +44,51 @@ connections outside the supplied checkout. This is not guaranteed set inheritanc
 Component identity and evidence connect the views. The model's existing
 [definition/observation distinction](../../spec/README.md#configuration-and-evidence)
 continues to apply; no new schema or hierarchy is introduced here.
+
+## Skeleton brief and linked evidence
+
+Ask for **Skeleton Surface v0.1** when the useful result is a brief of key nodes
+and relationships. Its security focus is where an integration could intercept
+LLM and actual tool calls, with what powers and gaps. The
+[bundled procedure](../../plugins/n8r-surface/skills/research/references/skeleton-surface.md)
+defines what stays in the brief and what belongs in linked evidence. It works
+from source-only capabilities or supplied setup evidence; bindings are not a
+prerequisite. The larger research descriptions are not minimum-size templates.
+
+This is a named Markdown working profile, not a universal schema or a new CLI
+command. Detailed and recreation profiles remain future work. Follow
+[SKELETON-01 and SKELETON-02](researcher-skeleton-check.md) to exercise the brief
+and a successor after a declaration change through the installed skill.
+
+## Revision lifecycle
+
+1. **Research the available sources.** Save a scoped description of capabilities,
+   roles and relationships, with evidence and gaps. A required database role or
+   supported MCP/vector-store connection need not have a selected instance.
+2. **Configure through a Lab in a later task.** An Experiment selects its desired
+   setup and asks the Lab to configure resources. The intended consumer behavior
+   is to record successor setup/binding revisions as changes happen, with the
+   request, result and effective-state evidence distinguished. Failed or partial
+   configuration must not be recorded as successful. Automatic recording belongs
+   to future Lab integration, not this skill or an implemented API in this repo.
+3. **Reconcile changes made outside the Lab explicitly.** Saved descriptions do
+   not watch external changes. Run the Researcher against current identified
+   sources/settings and the prior description; save an authorized successor with
+   the differences and their evidence. A changed settings file establishes a
+   declaration, not that a running process loaded it or a connection succeeded.
+
+For example, a later setup may bind a required database role and route inference
+through a selected proxy. Retain the role IDs and record resource mappings in
+linked binding records, keeping secrets outside research. A successor can refer
+to the same definition with new bindings; changes to composition or intended
+settings require a successor definition. A newly described proxy may itself need
+an identity and relationships. Do not disguise a topology change as just an address.
+
+Profile version changes when output rules change. Surface/setup revisions change
+when the described composition, knowledge or bindings change. Preserve predecessors
+and the exact definition/effective setup used by earlier Runs. Discovery time does
+not prove when an external change took effect. The Researcher describes and
+reconciles; it does not install or reconfigure the target.
 
 ## Graph discovery, reconciliation and live evidence
 

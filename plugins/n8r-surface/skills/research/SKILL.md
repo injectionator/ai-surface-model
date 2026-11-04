@@ -1,10 +1,10 @@
 ---
 name: research
-description: Use when discovering, continuing or reconciling an AI Surface graph from repositories, documents, prior descriptions or permitted live settings, including LibreChat. Focus on AI-relevant components, connections and evidence; not exhaustive application inventories, deployment changes or security certification.
+description: Use when discovering, creating a skeleton or brief, continuing or reconciling an AI Surface graph from repositories, documents, prior descriptions or permitted live settings. Focus on AI-relevant connections and security interception opportunities; not deployment changes or security certification.
 license: CC-BY-4.0
 metadata:
   author: AI Surface Model contributors
-  version: "0.1.7"
+  version: "0.1.8"
 ---
 
 # n8r-surface Researcher
@@ -20,7 +20,10 @@ Read the relevant sections of the [discovery guide](references/discovery-map.md)
 for source intake, product knowledge, graph exploration, reconciliation or live
 inspection. It supplies clues and follow-up paths, not a required architecture.
 Use [working notes](references/working-notes.md) when saving or continuing work.
-Identify this skill as `n8r-surface:research 0.1.7` at the start of an investigation
+For a skeleton/brief or security interception question, read the
+[Skeleton Surface v0.1 procedure](references/skeleton-surface.md). It defines
+compact content, linked evidence and the stopping point before setup work.
+Identify this skill as `n8r-surface:research 0.1.8` at the start of an investigation
 and in saved notes, so an installed candidate can be checked.
 
 ## Establish the question and source
@@ -28,6 +31,8 @@ and in saved notes, so an installed candidate can be checked.
 Establish whether the user wants to discover, continue or reconcile a Surface.
 Honor a narrow question. For a broad request, start with a shallow map of
 AI-relevant connections and coverage gaps, then deepen the useful branches.
+For an explicit skeleton request, identify the output as Skeleton Surface v0.1
+and stop at the useful brief; larger saved research is not a minimum requirement.
 Inventory the available source types once; missing cards do not block useful work.
 Reuse applicable guides, notes and definitions from explicitly available libraries
 after checking their scope and revision. A Lab is optional.
