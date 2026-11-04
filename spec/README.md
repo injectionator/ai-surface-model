@@ -141,5 +141,10 @@ must be demonstrated for a specified subset before it is claimed.
 
 These are not resolved by the illustrative field names in the examples.
 
+The [experimental Researcher profile](../docs/n8r-surface/contracts.md) makes
+bounded choices for standalone research records and selected partial definitions,
+with executable checks and synthetic cases. It does not settle a universal native
+serialization or change the illustrative LibreChat examples into conforming data.
+
 Related: [project overview](../README.md), [examples](../examples/README.md),
 [interoperability](../docs/interoperability.md), [roadmap](../docs/roadmap.md).

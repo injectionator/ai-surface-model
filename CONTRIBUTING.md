@@ -12,14 +12,20 @@ what information remains unknown.
 
 Follow this sequence for each contribution, including documentation changes:
 
-1. **Start with an issue.** Find or open the issue that describes the problem,
-   intended change and how it will be checked. Agree the scope before editing.
+1. **Start with an issue.** Find or open the issue that describes the user task,
+   initial state, actual interaction, intended state change and observable
+   verification evidence. Use the [command outcome spec](docs/n8r-surface/command-outcomes.md)
+   for command/Researcher work. Agree the scope before editing; attempt the current
+   product path or record why it is unavailable before implementing the gap.
 2. **Create a branch from updated `main`.** Use a dedicated branch such as
    `docs/123-model-links`, with the issue number in its name. Work in the existing
    checkout and preserve unrelated changes.
 3. **Do the work and open a draft PR.** Commit and push the branch, open one
    matching draft PR, and link it with `Closes #123`. Explain the change and record
-   the relevant checks. Keep the same branch and PR updated as the work develops.
+   the relevant checks. Repeat the original user interaction and independently
+   read back the changed state; report blocked or unproved outcomes explicitly.
+   Internal tests do not establish end-to-end product acceptance. Keep the same
+   branch and PR updated as the work develops.
 4. **Review, then merge.** Keep the PR draft until review readiness is approved.
    Merge, release and deployment are separate decisions.
 5. **Return to `main` after the merge.** While still on the completed branch, use
@@ -28,6 +34,17 @@ Follow this sequence for each contribution, including documentation changes:
 
 The [Git workflow in AGENTS.md](AGENTS.md#git-workflow) gives the full branch,
 workspace and publication rules, including the prohibition on Git worktrees.
+
+Write simple acceptance checks as plain-language examples: given these files,
+when the user runs this command, then they see this output, verified by these
+process/output/file checks. Representative terminal output is useful; a technical
+DSL or a large per-check form is unnecessary. See the
+[bare startup example](docs/n8r-surface/command-outcomes.md#startup-01-run-the-command-and-see-what-is-here).
+
+Grow the spec and working verification one useful behavior at a time. Existing
+behavior can gain a documented intent and repeatable verification without a code
+change. Keep [progress and evidence](docs/n8r-surface/command-outcomes.md#grow-the-specification-with-working-verification)
+current so readers can distinguish plans, implementation and verified outcomes.
 
 ## Cleanup after a merge
 
@@ -83,6 +100,9 @@ use GitHub credentials, access the network or change this repository's branches.
 
 ## Contribution principles
 
+See the [Researcher library checks](#researcher-contract-library) when changing
+the experimental TypeScript contracts or fixtures.
+
 - Keep partial descriptions useful. Do not require unrelated detail for a task.
 - Preserve the distinction between declared configuration and observed behavior.
 - Retain identities, sources, time and uncertainty where relevant.
@@ -103,3 +123,49 @@ material and its licence explicitly.
 There is no released conformance suite yet. For the current draft, check that
 JSON examples parse, their local references resolve, Markdown links work and
 the documentation does not claim unimplemented capabilities.
+
+## Researcher contract library
+
+Prerequisites: Node.js 22, 24 or 26 and npm. Python 3.9+ and Git remain prerequisites
+for the separate workflow-helper tests above. Contributor commands:
+
+```sh
+npm ci
+npm test
+npm run check:package
+git diff --check
+```
+
+`npm ci` uses the registry and creates `node_modules/`. `npm test` compiles strict
+TypeScript into ignored `dist/` and runs Node tests offline. `npm run build` can
+compile independently. The installed-package check uses `npm pack`, installs in
+a temporary directory with `--offline --ignore-scripts`, imports the built library
+and reads bundled assets, then removes the temporary directory. No API credentials,
+Lab, source checkout at runtime or registry publication is required. Populate the
+dependency cache with `npm ci` before the offline package check.
+
+To repeat the package smoke check using already installed Node executables:
+
+```sh
+npm run build
+node scripts/check-package.mjs /path/to/node22 /path/to/node24 /path/to/node26
+```
+
+Those paths are local command placeholders, not portable artefact fields. Passing
+no paths uses the current Node executable. Before distribution changes, run the
+full contract tests on each supported Node major too. The current package exposes
+an ESM library and assets, with no CLI entry point; executable npm/npx verification
+belongs to #16.
+
+The library accepts strings/data and returns strings/data, with no network or
+filesystem effects. It checks a bounded experimental profile, not all AI Surface
+Model semantics or consumer compatibility. Read the
+[contract and API boundaries](docs/n8r-surface/contracts.md),
+[host requirements](docs/n8r-surface/host-contract.md) and
+[synthetic cases](examples/researcher/README.md) before changing them.
+
+Preserve all fixture revisions and their references when extending a case. The
+pending manual-edit HTML is intentionally invalid; its rejection is an acceptance
+case. Ordinary `git diff` excludes untracked files, so inspect and check new files
+before committing. Check changed Markdown links/anchors and parse all JSON
+examples; syntax success is not semantic validity.

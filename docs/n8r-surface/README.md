@@ -9,14 +9,21 @@ Build and demonstrate the standalone Researcher here first, then integrate that
 same core into n8r-labs. Consider Lab requirements while defining the shared
 contracts; application implementation is not a prerequisite for standalone work.
 
-**Status, 4 November 2026:** design and delivery issues only. No Researcher skill,
-CLI, research-record format or tool-specific model codec is implemented here yet.
-This map describes intended capabilities, not a released product.
+**Status, 4 November 2026:** #15 supplies experimental artefact contracts,
+JSON/YAML codecs, HTML ownership checks and synthetic cases in a draft PR. No CLI,
+AI Researcher skill, live source analysis or Lab integration is implemented yet.
+This is unreleased work; the remaining map describes intended capabilities.
 
+- [Experimental contracts and checks](contracts.md)
+- [Command intent, outcomes and verification](command-outcomes.md)
+- [Verification evidence and remaining limits](verification.md)
+- [Synthetic acceptance cases](../../examples/researcher/README.md)
+- [Host boundary and Lab review](host-contract.md)
+- [Implementation decisions](implementation-decisions.md)
 - [Next work and critical path](critical-path.md)
 - [Design requirements and open choices](design.md)
-- [Tracking issue #13](https://github.com/injectionator/ai-surface-model/issues/13)
-- [Map and planning issue #14](https://github.com/injectionator/ai-surface-model/issues/14)
+- [Tracking issue #13](https://github.com/injectionator/n8r-surface/issues/13)
+- [Map and planning issue #14](https://github.com/injectionator/n8r-surface/issues/14)
 
 ## Capability map
 
@@ -67,11 +74,11 @@ selected work to a Lab. A Lab connection is optional for standalone authoring.
 
 | Capability | Delivery position | Evidence required |
 | --- | --- | --- |
-| HTML research record and partial graph contract | Next: [#15](https://github.com/injectionator/ai-surface-model/issues/15) | Synthetic examples have explicit sources, decisions, gaps and stable references. |
-| JSON and YAML representations | Contract in #15; usable output in #17 | Supported meanings survive conversion, including relationship attributes and unknowns. |
+| HTML research record and partial graph contract | Experimental implementation: [#15](https://github.com/injectionator/n8r-surface/issues/15) | Synthetic examples have explicit sources, decisions, gaps and stable references. |
+| JSON and YAML representations | Codec and contract in #15; AI-authored output in #17 | Supported meanings survive conversion, including relationship attributes and unknowns. |
 | TypeScript CLI with npm/npx distribution | Agreed; implement in #16 | Installed package and bundled assets work on supported Node.js versions without the source checkout or Bun. |
-| Startup, source access and safe artefact tools | Then: [#16](https://github.com/injectionator/ai-surface-model/issues/16) | Setup, path handling, conflict detection and recovery work in temporary folders. |
-| Researcher conversation, shared skill and one CLI runner | Then: [#17](https://github.com/injectionator/ai-surface-model/issues/17) | Real discovery, human correction, save/resume and model output work without a Lab. |
+| Startup, source access and safe artefact tools | Then: [#16](https://github.com/injectionator/n8r-surface/issues/16) | Setup, path handling, conflict detection and recovery work in temporary folders. |
+| Researcher conversation, shared skill and one CLI runner | Then: [#17](https://github.com/injectionator/n8r-surface/issues/17) | Real discovery, human correction, save/resume and model output work without a Lab. |
 | ChatGPT with supplied documents | First external skill host, in #17 | The same core skill produces usable records and descriptions in the actual host. |
 | More AI runners and external harnesses | Later | Each adapter has demonstrated authentication, tool use and continuation. |
 | Standalone executables | Later distribution option | Each supported platform runs the packaged tool and required assets without a separate Node.js installation. |
@@ -109,6 +116,11 @@ Update these documents in the PR that changes a capability or delivery decision.
 Record implemented behaviour only with its verification evidence. Keep later
 ideas on this map until they are ready to become bounded issues. A draft PR,
 passing fixture checks and a working live integration are distinct states.
+
+Use [State X → Input Y → verified Outcome Z](command-outcomes.md) as the acceptance
+structure for each command increment. Attempt and repeat the actual product path,
+and verify changed state independently. The current fixture/library checks do not
+establish a successful repository-research command.
 
 Related: [model overview](../../README.md), [draft concepts](../../spec/README.md),
 [model roadmap](../roadmap.md), [interoperability](../interoperability.md).

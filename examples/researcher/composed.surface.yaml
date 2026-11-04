@@ -1,0 +1,283 @@
+"contract": n8r.surface/0.1
+"id": urn:surface:lumen-with-harbor
+"title": Selected Lumen and Harbor composition
+"revision":
+  "id": r1
+  "parent": null
+  "createdAt": 2026-11-04T09:00:00Z
+  "author": Synthetic researcher
+  "reason": Synthetic user selects a partial composition; no integration has been run
+"scope": Desired composition from supplied fictional documents. Authentication, schemas and effective setup are incomplete.
+"extensions":
+  "https://example.test/selection/v1":
+    "synthetic": true
+    "opaque":
+      "reviewed": true
+"kind": definition
+"records":
+  - "id": urn:research:lumen
+    "revision": r2
+    "digest": sha256:d7384fe64f1140815ddda3c7bbb2fe826a83140b445e70d839b07145c5840aca
+  - "id": urn:research:harbor
+    "revision": r2
+    "digest": sha256:8e5e492f7154b42b250ad3badea95cc73b571c6e22b4120cd957fcd9e57a0f2b
+"vocabularies":
+  - "id": urn:n8r:vocabulary:researcher-example
+    "version": "0.1"
+"nodes":
+  - "id": urn:component:lumen
+    "type":
+      "vocabulary": urn:n8r:vocabulary:researcher-example
+      "term": application
+    "label": Lumen Desk
+    "attributes":
+      "product":
+        "state": known
+        "note": Synthetic product
+        "value": Lumen Desk
+      "version":
+        "state": unknown
+        "note": No deployable revision supplied
+      "retries":
+        "state": omitted
+        "note": Relevant retry policy deliberately left for later research
+      "tenantLabel":
+        "state": redacted
+        "note": Withheld in this synthetic sharing case
+      "embeddedArchive":
+        "state": absent
+        "note": Settings note describes no embedded archive
+      "theme":
+        "state": out-of-scope
+        "note": UI design is outside this investigation
+    "basis":
+      - "record": urn:research:lumen
+        "revision": r2
+        "items":
+          - urn:finding:lumen:delivery
+          - urn:decision:lumen:archive
+    "requirements": []
+  - "id": urn:component:harbor
+    "type":
+      "vocabulary": urn:n8r:vocabulary:researcher-example
+      "term": service
+    "label": Harbor Archive
+    "attributes":
+      "product":
+        "state": known
+        "note": Synthetic product
+        "value": Harbor Archive
+      "version":
+        "state": unknown
+        "note": No implementation revision supplied
+    "basis":
+      - "record": urn:research:harbor
+        "revision": r2
+        "items":
+          - urn:finding:harbor:intake
+          - urn:decision:harbor:archive
+    "requirements": []
+  - "id": urn:component:identity
+    "type":
+      "vocabulary": urn:n8r:vocabulary:researcher-example
+      "term": service
+    "label": Shared identity service
+    "attributes":
+      "product":
+        "state": unknown
+        "note": Human selected a shared role; product unspecified
+    "basis":
+      - "record": urn:research:lumen
+        "revision": r2
+        "items":
+          - urn:finding:lumen:authentication
+          - urn:decision:lumen:identity
+      - "record": urn:research:harbor
+        "revision": r2
+        "items":
+          - urn:finding:harbor:authentication
+          - urn:decision:harbor:identity
+    "requirements":
+      - urn:requirement:identity
+  - "id": urn:component:inference
+    "type":
+      "vocabulary": urn:n8r:vocabulary:researcher-example
+      "term": inference-service
+    "label": Inference service
+    "attributes":
+      "modelVersion":
+        "state": unknown
+        "note": Not established by supplied sources
+    "basis":
+      - "record": urn:research:lumen
+        "revision": r2
+        "items":
+          - urn:finding:lumen:modelVersion
+    "requirements":
+      - urn:requirement:inference
+"relationships":
+  - "id": urn:relationship:documents
+    "from": urn:component:lumen
+    "to": urn:component:harbor
+    "type":
+      "vocabulary": urn:n8r:vocabulary:researcher-example
+      "term": sends-documents
+    "claim": declared
+    "attributes":
+      "batchLimit":
+        "state": unknown
+        "note": Guide says 10; settings note says 25. Conflict remains unresolved.
+      "protocol":
+        "state": known
+        "note": Selected declared protocol
+        "value": HTTP
+    "basis":
+      - "record": urn:research:lumen
+        "revision": r2
+        "items":
+          - urn:finding:lumen:delivery
+          - urn:decision:lumen:archive
+      - "record": urn:research:harbor
+        "revision": r2
+        "items":
+          - urn:finding:harbor:intake
+          - urn:decision:harbor:archive
+      - "record": urn:research:lumen
+        "revision": r2
+        "items":
+          - urn:finding:lumen:batchLimit
+    "requirements":
+      - urn:requirement:archive-token
+      - urn:requirement:payload
+  - "id": urn:relationship:audit
+    "from": urn:component:lumen
+    "to": urn:component:harbor
+    "type":
+      "vocabulary": urn:n8r:vocabulary:researcher-example
+      "term": sends-audit
+    "claim": declared
+    "attributes":
+      "protocol":
+        "state": known
+        "note": Independent parallel route
+        "value": HTTP
+    "basis":
+      - "record": urn:research:lumen
+        "revision": r2
+        "items":
+          - urn:finding:lumen:delivery
+          - urn:decision:lumen:archive
+      - "record": urn:research:harbor
+        "revision": r2
+        "items":
+          - urn:finding:harbor:intake
+          - urn:decision:harbor:archive
+    "requirements":
+      - urn:requirement:archive-token
+      - urn:requirement:payload
+  - "id": urn:relationship:callback
+    "from": urn:component:harbor
+    "to": urn:component:lumen
+    "type":
+      "vocabulary": urn:n8r:vocabulary:researcher-example
+      "term": notifies
+    "claim": declared
+    "attributes":
+      "schema":
+        "state": unknown
+        "note": Both support callback possibilities; exact compatibility not established
+    "basis":
+      - "record": urn:research:lumen
+        "revision": r2
+        "items":
+          - urn:finding:lumen:callback
+          - urn:decision:lumen:callback
+      - "record": urn:research:harbor
+        "revision": r2
+        "items":
+          - urn:finding:harbor:callback
+          - urn:decision:harbor:callback
+    "requirements":
+      - urn:requirement:payload
+  - "id": urn:relationship:lumen-auth
+    "from": urn:component:lumen
+    "to": urn:component:identity
+    "type":
+      "vocabulary": urn:n8r:vocabulary:researcher-example
+      "term": uses-identity
+    "claim": declared
+    "attributes":
+      "protocol":
+        "state": known
+        "note": Selected option
+        "value": OIDC
+    "basis":
+      - "record": urn:research:lumen
+        "revision": r2
+        "items":
+          - urn:finding:lumen:authentication
+          - urn:decision:lumen:identity
+    "requirements":
+      - urn:requirement:identity
+  - "id": urn:relationship:harbor-auth
+    "from": urn:component:harbor
+    "to": urn:component:identity
+    "type":
+      "vocabulary": urn:n8r:vocabulary:researcher-example
+      "term": uses-identity
+    "claim": declared
+    "attributes":
+      "protocol":
+        "state": known
+        "note": Selected option
+        "value": OIDC bearer token
+    "basis":
+      - "record": urn:research:harbor
+        "revision": r2
+        "items":
+          - urn:finding:harbor:authentication
+          - urn:decision:harbor:identity
+    "requirements":
+      - urn:requirement:identity
+  - "id": urn:relationship:inference
+    "from": urn:component:lumen
+    "to": urn:component:inference
+    "type":
+      "vocabulary": urn:n8r:vocabulary:researcher-example
+      "term": uses-inference
+    "claim": declared
+    "attributes":
+      "model":
+        "state": unknown
+        "note": Source does not identify model
+    "basis":
+      - "record": urn:research:lumen
+        "revision": r2
+        "items":
+          - urn:finding:lumen:modelVersion
+    "requirements":
+      - urn:requirement:inference
+"requirements":
+  - "id": urn:requirement:archive-token
+    "kind": secret
+    "description": Recipient supplies an appropriate local token binding; no secret value included.
+    "state": unknown
+  - "id": urn:requirement:identity
+    "kind": configuration
+    "description": Choose shared issuer, audiences and claim checks; selection does not configure a service.
+    "state": unknown
+  - "id": urn:requirement:payload
+    "kind": configuration
+    "description": Agree document/audit/callback schemas and limits.
+    "state": unknown
+  - "id": urn:requirement:inference
+    "kind": resource
+    "description": Select inference implementation, model and local bindings.
+    "state": unknown
+"coverage":
+  - Two fictional products researched from supplied documents.
+  - Shared identity and inference roles remain partial.
+"gaps":
+  - Integration not tested; no reachable or exercised connection evidence.
+  - Batch-limit conflict remains unresolved.
+  - No deployment bindings, effective setup or Experiment Runs supplied.
