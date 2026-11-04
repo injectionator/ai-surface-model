@@ -1,11 +1,34 @@
 # Researcher skill verification
 
-**Candidate:** `n8r-surface:research` (**n8r-surface Researcher**) **0.1.5**, 4 November 2026.
+**Candidate:** `n8r-surface:research` (**n8r-surface Researcher**) **0.1.6**, 4 November 2026.
 This is a partial #17 increment. ChatGPT desktop / Work lifecycle acceptance is
 **pending**, not passed. No Lab or standalone CLI research claim follows.
 
 The implementation/evidence commits are identified by the associated draft PR;
 use the exact candidate commit when repeating the procedure.
+
+## Saved recommendations: 0.1.6
+
+State X: installed 0.1.5 had generic remaining-work and predecessor instructions,
+but no required recommendation section, Surface-note precedence or three-part
+resumption guidance. A fresh Researcher read the installed skill and the prepared
+chat-service source pack, then saved/read back a research note. Independent
+inspection found a general continuation paragraph but no **Recommended next steps**
+section. The developing agent did not write the findings.
+
+Input Y: map the prepared sources and save; then, in a fresh chat, read the saved
+recommendations, compare the sources after changing the document-search address,
+and save a successor. Outcome Z: actionable recommendations in both notes, used
+and updated on continuation, with the predecessor preserved. The
+[prepared walkthrough](researcher-prepared-check.md) supplies the exact prompts,
+visible checks and Pass / Fail / Blocked report. Use installed 0.1.6 and a fresh
+run folder; no live service is needed. Surface-note precedence is a separate
+instruction check; this source-pack rehearsal uses research notes.
+
+Candidate 0.1.6 adds the rule and detailed note guidance, updates both manifests
+and the installation/walkthrough version. Installed save/continue and cache-byte
+verification are pending the candidate push and refresh. This remains a partial
+#17 increment; no structured-output or runtime behavior is claimed.
 
 ## Repository vault rehearsal: 0.1.5
 

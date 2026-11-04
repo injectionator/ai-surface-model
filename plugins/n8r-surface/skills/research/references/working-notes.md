@@ -53,11 +53,47 @@ A saved note should let another person or a fresh chat continue the task:
 - Preserve conflicting claims, unknowns, coverage limits and scoped absences.
 - Retain human decisions and unanswered questions separately from source evidence.
 - State what was actually read or exercised and what remains to be done. Include
-  a useful next question when a user decision is needed.
+  **Recommended next steps** as described below, and a useful next question when
+  a user decision is needed.
 
 Keep source links usable when the notes are moved, or explain what accompanying
 source files are needed. Do not copy whole repositories or credentials into the
 notes. A source digest identifies bytes, not truth, completeness or compatibility.
+
+## Recommended next steps
+
+Include a **Recommended next steps** section in the latest Surface note for the
+same source and scope. If no Surface note exists, include it in the latest research
+note. A Surface note here is a saved prose description of the Surface; this rule
+does not add validated structured-output support or require creating one.
+
+For each recommendation, state:
+
+- **Next investigation:** the concrete question or connection to investigate.
+- **Why it matters:** which uncertainty or user decision it would resolve.
+- **Where to resume:** the relevant source file/section, component ID, saved note
+  or permitted view, plus any access or missing evidence needed to proceed.
+
+Use portable references, not local absolute paths or credentials. For example:
+
+> **Next investigation:** establish the selected document-search target.
+> **Why it matters:** the optional search path has no address in the supplied
+> settings, so its selected connection remains unresolved.
+> **Where to resume:** `current.env`, `DOCUMENT_SEARCH_URL`, and `system.md` →
+> Uploaded documents; request applicable deployment settings if available.
+
+When continuing, read this section alongside the predecessor and human edits,
+re-establish source identity, and use it to choose the next investigation within
+the user's current scope. Recommendations are proposed work, not permission for
+new access or evidence that a connection exists. If the needed evidence is
+unavailable, retain the blocker and a concrete resumption point.
+
+In the saved successor, update the section to reflect what was resolved, what
+remains and the next useful investigation. Explain a changed priority or superseded
+recommendation briefly. Preserve earlier notes unchanged. If an older note has
+no recommendations, derive them from its supported gaps and current evidence in
+the successor; do not retrofit the predecessor. If no further investigation is
+needed within scope, say so and explain why rather than inventing work.
 
 ## Save and read back
 
@@ -66,8 +102,8 @@ and propose a new file or a reviewed merge. Do not claim atomic guarded storage
 or byte-conflict guarantees that the host has not provided.
 
 After saving, read the saved bytes through an available tool and check that the
-findings, references, uncertainties and human choices survived. Provide the actual
-path or download and report any readback limitation. Merely printing a filename
+findings, references, uncertainties, human choices and current recommendations
+survived. Provide the actual path or download and report any readback limitation. Merely printing a filename
 is not a save. Reopening in a fresh chat is a separate continuation check.
 
 Installing or removing the skill changes its availability in the host. User notes

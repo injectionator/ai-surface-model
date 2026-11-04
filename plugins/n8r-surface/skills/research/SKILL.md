@@ -4,7 +4,7 @@ description: Use when discovering, continuing or reconciling an AI Surface graph
 license: CC-BY-4.0
 metadata:
   author: AI Surface Model contributors
-  version: "0.1.5"
+  version: "0.1.6"
 ---
 
 # n8r-surface Researcher
@@ -20,7 +20,7 @@ Read the relevant sections of the [discovery guide](references/discovery-map.md)
 for source intake, product knowledge, graph exploration, reconciliation or live
 inspection. It supplies clues and follow-up paths, not a required architecture.
 Use [working notes](references/working-notes.md) when saving or continuing work.
-Identify this skill as `n8r-surface:research 0.1.5` at the start of an investigation
+Identify this skill as `n8r-surface:research 0.1.6` at the start of an investigation
 and in saved notes, so an installed candidate can be checked.
 
 ## Establish the question and source
@@ -91,6 +91,11 @@ and show the absolute folder and filename before writing. On a persistent local
 filesystem, the default is `~/Documents/n8r-surface/research/<source-slug>/`,
 with numbered notes such as `authentication-001.md`. Honor a user-selected folder;
 for continuation, use the predecessor's folder unless the user requests a move.
+Include **Recommended next steps** in the latest Surface note—or research note
+when no Surface note exists. State the next investigation, why it matters, and
+where to resume. Read these recommendations when continuing, and update them in
+the saved successor. See the [recommendation details](references/working-notes.md#recommended-next-steps).
+
 Keep previous versions, read back the saved bytes and provide an openable file
 link. If the host can only return text or a download, say so; never claim a local
 write that did not happen. Keep notes outside the source repository by default.

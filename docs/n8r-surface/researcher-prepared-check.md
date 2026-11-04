@@ -7,7 +7,7 @@ pretend configuration; no application needs to be installed or started.
 ## Before you start
 
 Open your local vault in your file browser. You need a local chat app
-with **n8r-surface Researcher 0.1.5 already installed**, access to the prepared example in this repository,
+with **n8r-surface Researcher 0.1.6 already installed**, access to the prepared example in this repository,
 and permission to save files in your vault. If access or the skill is missing, record
 **Blocked** and what is missing. You do not need to diagnose the installation.
 Follow the [fresh-context guidance](researcher-vault.md#start-with-fresh-context) before
@@ -44,6 +44,9 @@ the first prompt in each test chat.
   document-search address; they do give a model-gateway address. Running services,
   the language model and authentication details remain unverified or unknown.
 
+  Check **Recommended next steps**: each item names the next investigation, why
+  it matters and a source location or missing evidence from which to resume.
+
   Make a copy of this first note named `first-note-backup.md` directly in your
   `check-001` folder. Keep the original in `notes/` for the next chat.
 
@@ -60,6 +63,7 @@ the first prompt in each test chat.
   vault folder and select Researcher again. Give it the original saved note from
   `notes/` by attaching the file or pasting its path, then paste:
 
+  > Read the saved recommendations and continue within these supplied sources.
   > Compare my saved findings with scope.md, system.md and current.env in
   > runs/check-001. Tell me what changed, what stayed the same and what is
   > still unknown, with references to the evidence. Save the comparison as a new
@@ -73,7 +77,10 @@ the first prompt in each test chat.
   gateway address, other components and unresolved questions should carry forward.
   Whether any service is running or working remains unknown. A claim such as
   “document search now works” fails this check. Reopen the first note and compare
-  it with `first-note-backup.md`; its contents should be unchanged.
+  it with `first-note-backup.md`; its contents should be unchanged. The successor
+  should update **Recommended next steps**, explaining resolved items or blockers
+  and where to resume. It must not silently copy recommendations made obsolete by
+  the changed settings.
 
 - [ ] **5. Check the setup explanation.** In the chat, ask:
 
