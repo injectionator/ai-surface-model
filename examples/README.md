@@ -40,3 +40,7 @@ correct product-specific settings, credentials and local deployment bindings.
 
 The JSON files use [Apache-2.0](../LICENSE); this explanation uses
 [CC-BY-4.0](../LICENSE-DOCS). See the [licence boundaries](../LICENSING.md).
+
+The separate [Researcher acceptance cases](researcher/README.md) exercise the
+experimental 0.1 HTML/JSON/YAML contracts. They do not change the illustrative
+status or field names of these LibreChat examples.

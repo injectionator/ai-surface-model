@@ -2,8 +2,8 @@
 
 The home of the **AI Surface Model**, an open model for describing the connected
 components, configuration and relationships of an AI system, at the level of
-detail available or useful. This repository also owns the planned `n8r-surface`
-command.
+detail available or useful. This repository also develops the experimental
+`n8r-surface` command and Researcher library.
 
 There is one model: the **AI Surface Model**. Lab, Bench, Experiment and related
 descriptions are **fragments** within it. Each fragment describes a focused part
@@ -12,6 +12,19 @@ of the system or its context using the same model.
 **Status: early conceptual draft.** This repository contains the project scope,
 draft concepts, synthetic examples and interoperability research questions.
 There is no released schema, validator, exporter or deployment engine yet.
+
+The [experimental Researcher contracts](docs/n8r-surface/contracts.md) now have
+a TypeScript library and [synthetic acceptance cases](examples/researcher/README.md)
+for HTML research records and selected partial definitions in JSON/YAML. These
+bounded checks are not universal model conformance. An experimental
+[bare-startup command](docs/n8r-surface/startup.md) now shows local settings and
+artefacts without changing files. Setup, other commands, source-repository
+analysis and the AI Researcher workflow remain subsequent work; see the
+[critical path](docs/n8r-surface/critical-path.md).
+
+The [command intent and verification spec](docs/n8r-surface/command-outcomes.md)
+defines the proposed commands, user outcomes and evidence required before claiming
+that those workflows work.
 
 An AI Surface can include applications, agents, models, inference services,
 authentication, tools, data stores, supporting infrastructure and the connections
