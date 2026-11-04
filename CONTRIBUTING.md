@@ -126,8 +126,10 @@ the documentation does not claim unimplemented capabilities.
 
 ## Researcher contract library
 
-Prerequisites: Node.js 22, 24 or 26 and npm. Python 3.9+ and Git remain prerequisites
-for the separate workflow-helper tests above. Contributor commands:
+Prerequisites: Node.js 22, 24 or 26 and npm. The installed-command terminal
+rehearsal also requires Python 3.9+ and a POSIX terminal (macOS/Linux). Git and
+Python remain prerequisites for the separate workflow-helper tests above.
+Contributor commands:
 
 ```sh
 npm ci
@@ -140,7 +142,10 @@ git diff --check
 TypeScript into ignored `dist/` and runs Node tests offline. `npm run build` can
 compile independently. The installed-package check uses `npm pack`, installs in
 a temporary directory with `--offline --ignore-scripts`, imports the built library
-and reads bundled assets, then removes the temporary directory. No API credentials,
+and reads bundled assets. It also runs the installed `n8r-surface` executable with
+closed input and in a real terminal under temporary homes, compares output to
+prepared settings/files, and checks that startup leaves them unchanged. It then
+removes the temporary directory. No API credentials,
 Lab, source checkout at runtime or registry publication is required. Populate the
 dependency cache with `npm ci` before the offline package check.
 
@@ -148,14 +153,17 @@ To repeat the package smoke check using already installed Node executables:
 
 ```sh
 npm run build
-node scripts/check-package.mjs /path/to/node22 /path/to/node24 /path/to/node26
+node scripts/check-package.mjs /path/to/node22/bin/node /path/to/node24/bin/node /path/to/node26/bin/node
 ```
 
-Those paths are local command placeholders, not portable artefact fields. Passing
+Use the executable named `node` in each runtime installation: the installed bin
+uses `env node` with that directory first on PATH. These paths are local command
+placeholders, not portable artefact fields. Passing
 no paths uses the current Node executable. Before distribution changes, run the
-full contract tests on each supported Node major too. The current package exposes
-an ESM library and assets, with no CLI entry point; executable npm/npx verification
-belongs to #16.
+full test suite on each supported Node major too. The current package exposes
+an ESM library, assets and a bare-startup executable. No registry or npx-download
+claim follows from these local tarball checks. See the [startup settings, exit
+codes and limits](docs/n8r-surface/startup.md).
 
 The library accepts strings/data and returns strings/data, with no network or
 filesystem effects. It checks a bounded experimental profile, not all AI Surface

@@ -6,7 +6,9 @@ The [capability map](README.md) shows the intended scope;
 the [critical path](critical-path.md) determines what comes next.
 
 **Status:** the [experimental #15 contract](contracts.md), codecs, HTML checks and
-synthetic cases now provide concrete inputs to the next milestones. The CLI,
+synthetic cases now provide concrete inputs to the next milestones.
+The bare-startup overview is implemented; its [bounded behavior](startup.md)
+does not include setup writes, conversation or other commands.
 Researcher instructions and runner remain unimplemented. Existing LibreChat JSON
 examples remain illustrative; this bounded profile is not a universal schema.
 
@@ -132,9 +134,13 @@ compatibility. See the repository's [mapping requirements](../interoperability.m
 
 ## Local settings and artefact tools
 
-Recommended defaults, to settle in the first implementation issue:
+The first #16 increment selects the settings path and corpus default below.
+See [the implemented settings subset](startup.md); setup and storage tools in
+this section remain planned.
 
-| Setting | Proposal |
+Selected defaults and planned outputs:
+
+| Setting | Choice |
 | --- | --- |
 | Tool settings | `~/.n8r/n8r-surface.json` |
 | Visible corpus | `~/n8r/artefacts`, overridable with a project or vault folder |

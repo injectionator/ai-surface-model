@@ -23,10 +23,11 @@ prove publishing rights. The package remains `private: true` and versioned
 test. If the name is unavailable at release, explicitly select a scoped package
 while preserving the command name where practical.
 
-Issue #15 ships only a library, built declarations, contracts and synthetic assets.
-There is no `bin` entry or working npm/npx command yet. #16 adds the executable and
-must verify its installed behavior outside the source checkout; #17 adds the
-versioned Researcher instructions. Runtime consumers do not need TypeScript or Bun.
+Issue #15 ships a library, built declarations, contracts and synthetic assets.
+The first #16 increment adds a `bin` entry for bare startup only; see its
+[settings, parser and inspection decisions](startup.md). It must be exercised
+through the installed tarball outside the source checkout. #17 adds the versioned
+Researcher instructions. Runtime consumers do not need TypeScript or Bun.
 
 Use `yaml` 2.9.1 as the single runtime dependency; its parsed nodes allow rejection
 of tags, aliases, duplicate keys and unsupported numeric forms before conversion.

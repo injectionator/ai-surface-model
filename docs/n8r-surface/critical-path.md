@@ -15,16 +15,18 @@ has an experimental [contract](contracts.md),
 [host boundary and Lab review](host-contract.md), and
 [implementation decisions](implementation-decisions.md) in draft
 [PR #24](https://github.com/injectionator/n8r-surface/pull/24).
-It is stacked on planning PR #18 and is not merged. After review of this gate,
-#16 is the next implementation milestone; #17 follows it. Source-repository
-analysis is #17's work. No CLI or live Researcher workflow is claimed here.
+It is stacked on planning PR #18 and is not merged. The user has authorized
+#16's first [bare-startup increment](startup.md), stacked on #15. It implements
+only a read-only local overview; the rest of #16 remains open. Source-repository
+analysis and the live Researcher workflow remain #17's work.
 
 The [command intent and verification specification](command-outcomes.md) was
 approved on 4 November 2026 and governs subsequent delivery. The independent
 review's array-prototype correction is implemented and verified through the public
 API and installed package. See the [evidence and limits](verification.md).
 The #15 implementation is available in its draft PR for human acceptance; this
-does not authorize review readiness, merging or starting the next issue.
+does not authorize review readiness or merging. The separate authorization for
+#16 covers STARTUP-01 only.
 
 ```mermaid
 flowchart LR
@@ -82,8 +84,9 @@ Verify the installed tarball on supported Node.js versions independently of the
 source checkout. Bun may support development/builds but is not an end-user
 requirement. Package tests do not require publishing a release.
 
-Proposed defaults are `~/.n8r/n8r-surface.json` for settings and
-`~/n8r/artefacts` for the corpus. Show effective settings and allow overrides.
+STARTUP-01 selects `~/.n8r/n8r-surface.json` for settings and
+`~/n8r/artefacts` as the default corpus; `artefactRoot` in that file overrides it.
+The overview displays the effective path; see [settings decisions](startup.md).
 Keep AI selection separate from an optional Lab destination. Preserve invalid
 configuration for repair; non-interactive commands must not wait on a prompt.
 
