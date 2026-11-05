@@ -1,8 +1,10 @@
 # Researcher skill verification
 
-**Candidate:** `n8r-surface:research` (**n8r-surface Researcher**) **0.1.8**, 4 November 2026.
+**Candidate:** `n8r-surface:research` (**n8r-surface Researcher**) **0.1.8**, updated 5 November 2026.
 This is a partial #17 increment. ChatGPT desktop / Work lifecycle acceptance is
 **pending**, not passed. No Lab or standalone CLI research claim follows.
+The bounded Skeleton Surface creation and reconciliation human checks passed;
+see the human verification record below.
 
 The implementation/evidence commits are identified by the associated draft PR;
 use the exact candidate commit when repeating the procedure.
@@ -22,8 +24,8 @@ identified the hook's allow/deny powers and worker/browser bypasses, and retaine
 source hashes and unknowns. These behaviors passed and are retained, not invented
 failures. The output had no named profile version or explicit Surface revision;
 0.1.7 had no named profile/lifecycle procedure. The user explicitly authorized
-that missing guidance. Human acceptance and automatic Lab recording remain
-unproved.
+that missing guidance. At that stage, human acceptance and automatic Lab
+recording remained unproved.
 
 ### Installed candidate and agent rehearsal
 
@@ -82,11 +84,59 @@ its full local-link check passed in CI. Eight unrelated working files were retai
 and excluded from commits; the branch switch incorporated only the upstream
 comment change in one of them before their preservation hashes were recorded.
 
-This is a bounded installed-instruction agent rehearsal, not human acceptance,
+This was a bounded installed-instruction agent rehearsal, not human acceptance,
 enforced source/memory isolation, Work UI lifecycle, runtime security enforcement,
 Lab automation, vendor compatibility or structured-output validation. No service
-was installed or started for the source pack. The tester procedure remains ready
-for separate human acceptance. Detailed and recreation profiles remain future work.
+was installed or started for the source pack. The separate human trial follows.
+Detailed and recreation profiles remain future work.
+
+### Human verification: 5 November 2026
+
+The tester reported **Pass** for both SKELETON-01 and SKELETON-02 in the
+[walkthrough](researcher-skeleton-check.md), against candidate
+`9ca7e5352401f2c35a5d5eb066b85651cadfaf12`. The guided prompts supplied the trial
+folder and restricted evidence to its source files, plus the predecessor for
+reconciliation, without other chats, projects or the web. Each step requested a
+fresh chat with installed Researcher 0.1.8. Source/memory isolation was not enforced.
+
+Preparation and independent readback used macOS ARM64, Codex app
+26.1021.31345 (build 21828, bundle `com.openai.codex`), Codex CLI 0.139.0 and
+Python 3.13.1. All twelve installed package files matched the candidate before
+the trial and after the second pass. The existing agent rehearsal above remains
+a separate result.
+
+SKELETON-01 saved `skeleton-surface-001.md` (7,544 bytes). Independent readback
+confirmed Skeleton Surface v0.1, Surface revision 001, both source hashes,
+unknown bindings, documented hook powers and worker/browser bypasses. Both
+revision-1 source files were unchanged. The coordinator preserved the output
+and original sources, then changed only the disposable settings comment and
+the two target values specified by SKELETON-02.
+
+SKELETON-02 saved `skeleton-surface-002.md` (12,254 bytes). Readback confirmed
+the unchanged first output, twelve stable role identities, all nine edge IDs
+and an unchanged interception table. The successor retained the profile version,
+recorded Surface revision 002 and distinguished the new database/inference
+declarations from effective configuration or successful connections. It noted
+the unchanged product-document statement separately and attributed old settings
+to the predecessor rather than claiming to have read historical settings bytes.
+Both current source hashes matched their values before reconciliation. Relative
+source/predecessor links and heading anchors resolved; the successor explicitly
+warned that the predecessor's settings link now points to current source bytes.
+
+| Human-trial evidence | SHA-256 |
+| --- | --- |
+| First brief | `b4003865e0ed79514392438cfee0434bf5fad63086d94fb6309845754a56d758` |
+| Successor | `3f99713f240642c8c06baa55025c22a1ae3dc9658bfd6d50075f10f2f8f986e0` |
+| Product document, unchanged | `5836520dcb2c6912988f57cbf6d88f557a69d14f7433c34a1387e0565753b997` |
+| Original settings, preserved | `6ae9b186a8bae39c70180e753baea8ae0c28ce2f66c0d1aa757b537609192b85` |
+| Changed settings | `7e52617dd0918509038a4fc558ba3fb35db30fb268dfd16c9d4d166e0d6bb9a0` |
+
+The outputs and preservation copies remain local; no local paths or research
+files are published here. This human acceptance covers the two Markdown brief
+interactions. Work picker/unload/reinstall lifecycle, live enforcement, automatic
+Lab revision recording, vendor compatibility and validated structured output
+remain unproved. Issue #17 remains open; review readiness and merge are separate
+decisions.
 
 ## Optional save offer: 0.1.7
 
