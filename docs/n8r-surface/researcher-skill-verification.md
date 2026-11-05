@@ -1,11 +1,142 @@
 # Researcher skill verification
 
-**Candidate:** `n8r-surface:research` (**n8r-surface Researcher**) **0.1.7**, 4 November 2026.
+**Candidate:** `n8r-surface:research` (**n8r-surface Researcher**) **0.1.8**, updated 5 November 2026.
 This is a partial #17 increment. ChatGPT desktop / Work lifecycle acceptance is
 **pending**, not passed. No Lab or standalone CLI research claim follows.
+The bounded Skeleton Surface creation and reconciliation human checks passed;
+see the human verification record below.
 
 The implementation/evidence commits are identified by the associated draft PR;
 use the exact candidate commit when repeating the procedure.
+
+## Skeleton Surface: 0.1.8
+
+The authorized increment defines Skeleton Surface v0.1 as a provisional Markdown
+brief and adds the [installed-skill procedure](researcher-skeleton-check.md).
+State X is installed 0.1.7 and the synthetic Cedar Chat source pack revision 1.
+Input Y is SKELETON-01's exact brief/save prompt. Outcome Z adds named profile
+and revision guidance, linked evidence, interception coverage and explicit
+successor reconciliation without setup changes.
+
+The baseline agent read installed 0.1.7 and both source files, saved and read back
+its own brief. It already distinguished model proposals from actual MCP calls,
+identified the hook's allow/deny powers and worker/browser bypasses, and retained
+source hashes and unknowns. These behaviors passed and are retained, not invented
+failures. The output had no named profile version or explicit Surface revision;
+0.1.7 had no named profile/lifecycle procedure. The user explicitly authorized
+that missing guidance. At that stage, human acceptance and automatic Lab
+recording remained unproved.
+
+### Installed candidate and agent rehearsal
+
+Implementation `7ba88ae2fef186d0e3f836a034e422f8bbe19b03` was pushed before
+installation. The documented marketplace remove/add route switched the existing
+Git marketplace from the merged prior branch to `feat/17-skeleton-surface`;
+plugin add/list completed successfully. All four commands exited 0. The fetched
+snapshot matched that implementation commit; exactly one enabled 0.1.8 was listed
+and all twelve installed package files matched the maintained source bytes.
+Environment: 4 November 2026, macOS ARM64, Codex CLI 0.139.0, Python 3.13.1,
+local filesystem harness. No separate model API or target service was configured.
+
+A fresh agent read the installed 0.1.8 skill and bundled references, then executed
+SKELETON-01's exact prompt against the same two source files as the baseline. It
+saved/read back a 6,321-byte Markdown brief identifying Skeleton Surface v0.1 and
+Surface working-draft revision 1. Independent inspection checked the source
+hashes, twelve node labels, nine edge IDs, interception opportunities, hook powers,
+browser/worker bypasses, unknown bindings and portable evidence references.
+
+The coordinator preserved the first output and original source bytes, then made
+only SKELETON-02's documented comment/database/inference declaration edits in the
+disposable settings copy. A different fresh agent received the predecessor,
+current two-file source and exact reconciliation prompt through installed 0.1.8.
+It saved/read back revision 2, retained the profile and all twelve node/nine edge
+identities, and distinguished the two new declarations from effective bindings
+or successful connections. It did not infer proxy behavior from a hostname. Its
+comparison also retained the older documentation statement as separate evidence.
+The agent inherited old settings claims from the predecessor; it was not supplied
+the separately preserved revision-1 settings bytes. The coordinator checked those
+bytes independently. No developing agent wrote either agent's research findings.
+
+Independent readback confirmed the first output remained byte-identical, both
+current source hashes matched the successor, and sources were unchanged during
+research. Outputs remain in the selected vault's trial folder; local paths and
+private comparison research are not published. The three existing private Surface
+files were reviewed locally for meaning/coverage differences and their index
+hashes remained unchanged; they are not public fixtures or verified product claims.
+
+| Evidence | SHA-256 |
+| --- | --- |
+| Installed-0.1.7 baseline brief | `e190c63c4aafa0b6c12e615b510b7e3beec1a25af13872356be25e78a4c3fdcd` |
+| Installed-0.1.8 skill | `cd38dcd85f67ca962f06d86178009308aea527c9783fa0e0a3f834f783f1ebf4` |
+| Candidate first brief | `1877d2997d9d3ad60bb7241e64ee3907ce0d2e74d8100ff4995ef5e11003de93` |
+| Candidate successor | `c91c2131236a8a95c4e8a1d4344ca02c62dd6ffee257e408a937709634dfd746` |
+| Changed synthetic settings | `7e52617dd0918509038a4fc558ba3fb35db30fb268dfd16c9d4d166e0d6bb9a0` |
+
+### Checks and limits
+
+Skill frontmatter, aligned manifests, 124 changed-file local Markdown links/anchors,
+JSON example syntax, whitespace, repository Markdown lint and all 24 offline
+Python tests passed. Independent scoped review found no actionable issues. GitHub
+checks on implementation `7ba88ae` passed, including library and package checks
+on Node 22, 24 and 26, fixtures/tooling, Markdown and local links. No local npm
+run is claimed for this instruction-only change. Lychee was unavailable locally;
+its full local-link check passed in CI. Eight unrelated working files were retained
+and excluded from commits; the branch switch incorporated only the upstream
+comment change in one of them before their preservation hashes were recorded.
+
+This was a bounded installed-instruction agent rehearsal, not human acceptance,
+enforced source/memory isolation, Work UI lifecycle, runtime security enforcement,
+Lab automation, vendor compatibility or structured-output validation. No service
+was installed or started for the source pack. The separate human trial follows.
+Detailed and recreation profiles remain future work.
+
+### Human verification: 5 November 2026
+
+The tester reported **Pass** for both SKELETON-01 and SKELETON-02 in the
+[walkthrough](researcher-skeleton-check.md), against candidate
+`9ca7e5352401f2c35a5d5eb066b85651cadfaf12`. The guided prompts supplied the trial
+folder and restricted evidence to its source files, plus the predecessor for
+reconciliation, without other chats, projects or the web. Each step requested a
+fresh chat with installed Researcher 0.1.8. Source/memory isolation was not enforced.
+
+Preparation and independent readback used macOS ARM64, Codex app
+26.1021.31345 (build 21828, bundle `com.openai.codex`), Codex CLI 0.139.0 and
+Python 3.13.1. All twelve installed package files matched the candidate before
+the trial and after the second pass. The existing agent rehearsal above remains
+a separate result.
+
+SKELETON-01 saved `skeleton-surface-001.md` (7,544 bytes). Independent readback
+confirmed Skeleton Surface v0.1, Surface revision 001, both source hashes,
+unknown bindings, documented hook powers and worker/browser bypasses. Both
+revision-1 source files were unchanged. The coordinator preserved the output
+and original sources, then changed only the disposable settings comment and
+the two target values specified by SKELETON-02.
+
+SKELETON-02 saved `skeleton-surface-002.md` (12,254 bytes). Readback confirmed
+the unchanged first output, twelve stable role identities, all nine edge IDs
+and an unchanged interception table. The successor retained the profile version,
+recorded Surface revision 002 and distinguished the new database/inference
+declarations from effective configuration or successful connections. It noted
+the unchanged product-document statement separately and attributed old settings
+to the predecessor rather than claiming to have read historical settings bytes.
+Both current source hashes matched their values before reconciliation. Relative
+source/predecessor links and heading anchors resolved; the successor explicitly
+warned that the predecessor's settings link now points to current source bytes.
+
+| Human-trial evidence | SHA-256 |
+| --- | --- |
+| First brief | `b4003865e0ed79514392438cfee0434bf5fad63086d94fb6309845754a56d758` |
+| Successor | `3f99713f240642c8c06baa55025c22a1ae3dc9658bfd6d50075f10f2f8f986e0` |
+| Product document, unchanged | `5836520dcb2c6912988f57cbf6d88f557a69d14f7433c34a1387e0565753b997` |
+| Original settings, preserved | `6ae9b186a8bae39c70180e753baea8ae0c28ce2f66c0d1aa757b537609192b85` |
+| Changed settings | `7e52617dd0918509038a4fc558ba3fb35db30fb268dfd16c9d4d166e0d6bb9a0` |
+
+The outputs and preservation copies remain local; no local paths or research
+files are published here. This human acceptance covers the two Markdown brief
+interactions. Work picker/unload/reinstall lifecycle, live enforcement, automatic
+Lab revision recording, vendor compatibility and validated structured output
+remain unproved. Issue #17 remains open; review readiness and merge are separate
+decisions.
 
 ## Optional save offer: 0.1.7
 

@@ -39,9 +39,16 @@ Interoperability is a bounded, versioned mapping with explicit losses. Matching
 names, parsing JSON or reading a schema does not establish compatibility or
 successful recreation. Distinguish a product possibility from a selected setup.
 
-This bundled reference records the draft meanings for skill 0.1.5, including the
-4 November 2026 direct-Lab ownership correction. The repository's
-[draft concepts](https://github.com/injectionator/n8r-surface/blob/feat/17-researcher-skill/spec/README.md)
+Named output profiles select content within this one model. Size, purpose and
+deployment knowledge are independent. A profile version identifies output rules;
+Surface definition and setup/binding revisions identify the described state.
+Preserve those revisions and prior Run attribution when adding detail or bindings.
+The [skeleton procedure](skeleton-surface.md) defines the provisional brief and
+explicit reconciliation lifecycle. Detailed and recreation profiles remain future
+directions, not implemented contracts.
+
+This bundled reference records the draft meanings for skill 0.1.8. The repository's
+[draft concepts](https://github.com/injectionator/n8r-surface/blob/main/spec/README.md)
 are a moving source link; use the installed package version and digest to identify
 the instructions actually used. Fields and serialization remain provisional. Maintainers must update this
 reference with semantic changes; consumers do not need the source checkout to

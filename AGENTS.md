@@ -107,6 +107,11 @@ this convention.
 
 ### Intent and evidence
 
+For brief/security-focused output and revision guidance, follow the
+[output profile meanings](spec/README.md#output-profiles-and-size) and bundled
+[skeleton procedure](plugins/n8r-surface/skills/research/references/skeleton-surface.md).
+Keep those references aligned; larger research is not a minimum Surface size.
+
 For command or Researcher behavior, follow
 [the command intent and verification spec](docs/n8r-surface/command-outcomes.md).
 Before coding, define the useful user task, initial State X, actual Input Y and
