@@ -30,19 +30,19 @@ claiming any baseline setup success.
 
 ## Candidate observations
 
-Product/test revision: `aec7cfd8317e012a2ba36ee05be8010398477d0f`, stacked
+Product/test revision: `ebcb4b7eea1029ef013aa4a82f01195c4548a913`, stacked
 on the unmerged planning PR #31 at `6c88ffb`. Agent rehearsal on 5 November 2026,
 macOS 26.6.2 ARM64; no human acceptance is claimed.
 
 | Runtime | Full suite | Installed process checks | Installed terminal interactions | Library consumer |
 | --- | --- | --- | --- | --- |
-| Node 22.23.2 | 70 passed | 25 passed | 12 passed | Passed |
-| Node 24.22.2 | 70 passed | 25 passed | 12 passed | Passed |
-| Node 26.13.0 | 70 passed | 25 passed | 12 passed | Passed |
+| Node 22.23.2 | 74 passed | 25 passed | 18 passed | Passed |
+| Node 24.22.2 | 74 passed | 25 passed | 18 passed | Passed |
+| Node 26.13.0 | 74 passed | 25 passed | 18 passed | Passed |
 
 Each `npm test` and `npm run check:package` exited 0, with no failed/skipped tests.
 The package check installed a tarball outside the checkout and executed the bin.
-The full suite's terminal case repeats the same 12 interactions against the build.
+The full suite's terminal case repeats the same 18 interactions against the build.
 
 The human task list below was separately rehearsed through a disposable installed
 candidate on Node 26.13.0, using a real terminal and manually supplied Enter/`y`:
@@ -57,16 +57,26 @@ candidate on Node 26.13.0, using a real terminal and manually supplied Enter/`y`
 The automated interactions additionally exercised custom relative paths with
 spaces, retained legacy/unknown settings, repair without settings modification,
 refusal, EOF and SIGINT at both questions, and an external edit before acceptance.
+The final review added installed checks for legacy-corpus overlap refusal and
+safe/unsafe resolved root symlinks.
 Transaction tests exercised deterministic publication conflicts/failures and a
 second real process while the first held the lock. None of this is AI research
 or proof of safety against writers outside the documented boundary.
 
 Supporting repository checks: 24 Python fixture/workflow tests, Bash syntax,
 Markdownlint 0.24.0 (56 files), cffconvert 2.0.0 and whitespace checks passed.
-Lychee 0.24.2 passed for all tracked Markdown (368 links, zero errors). The exact
+Lychee 0.24.2 passed for all tracked Markdown (zero errors). The exact
 broad `**/*.md` invocation failed on 15 pre-existing links in an ignored local
 evidence folder. That unrelated material was left unchanged; the broad command
 is not reported as passing.
+
+Fresh-context code review found three Important preservation/reuse failures:
+legacy overlap, unknown numeric literal loss, and controls introduced by path
+resolution. Each received a failing regression before the fix; the final suite
+and installed matrix above were repeated after all fixes. No Critical or Minor
+findings were reported, and none were deferred. The final pass retains the
+approved setup-only and concurrency boundaries; it is not approval to merge.
+
 Public output is sanitized; exact temporary paths and raw local evidence remain
 outside tracked files. No real deployment data was used.
 
