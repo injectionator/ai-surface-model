@@ -41,3 +41,12 @@ test('retained relationship endpoints cannot silently change',()=>{
   const first=api.prepareSurfaceDraft(c,context);c.surface.relationships[0].to='urn:node:app';
   assert.throws(()=>api.prepareSurfaceDraft(c,{...context,previous:first}),/endpoints/);
 });
+test('generated entities require structured basis and successors cannot drop historical claims or human notes',()=>{
+  const c=content();c.surface.nodes[0].basis=[];
+  assert.throws(()=>api.prepareSurfaceDraft(c,context),/basis/);
+  const original=content();original.research.notes=[{by:'human',at:'2026-11-05T12:00:00Z',text:'Prioritize expiry evidence'}];
+  const first=api.prepareSurfaceDraft(original,context);
+  const lost=structuredClone(original);lost.research.findings[0].state='unknown';lost.research.findings[0].claims=[];
+  assert.throws(()=>api.prepareSurfaceDraft(lost,{...context,previous:first}),/claim/);
+  const noNote=content();assert.throws(()=>api.prepareSurfaceDraft(noNote,{...context,previous:first}),/note/);
+});

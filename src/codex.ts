@@ -245,6 +245,8 @@ export class ResearchConversation {
       if (params.turnId !== this.turnId || !this.active || this.cancelled || params.threadId !== this.threadId) return {success: false, contentItems: [{type: 'inputText', text: 'No active authorized research turn'}]};
       try {
         if (params.tool === 'surface_draft') {
+          this.pendingSurface=undefined;
+          if (this.saving) throw new InspectionError('Surface staging is unavailable during a Markdown save; request a Surface in a normal conversation turn');
           const candidate=prepareSurfaceDraft(params.arguments,{previous:this.previousSurface});
           for(const source of candidate.research.sources) {
             if(!this.evidence.some(e=>e.path===source.location && e.digest===source.digest)

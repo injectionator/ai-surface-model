@@ -111,3 +111,14 @@ test('fresh pair reopen retains historical evidence and bounds complete context'
   const huge=structuredClone(draft);huge.research.notes=[{by:'human',at:'2026-11-05T12:00:00Z',text:'x'.repeat(512*1024)}];
   await assert.rejects(session.reopenSurface({...huge,manifest:{provenance:{evidence:[old]}}}),/context.*512/i);
 });
+test('a rejected replacement draft cannot leave the earlier candidate eligible for saving',async()=>{
+  const {ResearchConversation}=await import('../dist/codex.js');const {content}=await import('./surface-fixture.mjs');
+  const session=Object.assign(Object.create(ResearchConversation.prototype),{ready:Promise.resolve(),turnId:'t1',threadId:'thread',active:{resolve(){},reject(){},timer:setTimeout(()=>{},10000)},evidence:[{path:'guide.md',digest:'sha256:'+'a'.repeat(64),inspectedAt:'2026-11-05T12:00:00Z',startLine:1,endLine:2}],output(){}});
+  const call=args=>session.serve('item/tool/call',{threadId:'thread',turnId:'t1',tool:'surface_draft',arguments:args});
+  try{assert.equal((await call(content())).success,true);assert.equal((await call({})).success,false);session.finish();assert.equal(session.surfaceDraft,undefined);}finally{if(session.active)session.finish(new Error('cleanup'));}
+});
+test('Markdown save turns cannot stage a Surface that the CLI never previews',async()=>{
+  const {ResearchConversation}=await import('../dist/codex.js');const {content}=await import('./surface-fixture.mjs');
+  const session=Object.assign(Object.create(ResearchConversation.prototype),{saving:true,ready:Promise.resolve(),turnId:'t1',threadId:'thread',active:{resolve(){},reject(){},timer:setTimeout(()=>{},10000)},evidence:[{path:'guide.md',digest:'sha256:'+'a'.repeat(64),inspectedAt:'2026-11-05T12:00:00Z',startLine:1,endLine:2}],output(){}});
+  try{const result=await session.serve('item/tool/call',{threadId:'thread',turnId:'t1',tool:'surface_draft',arguments:content()});assert.equal(result.success,false);session.finish();assert.equal(session.surfaceDraft,undefined);}finally{if(session.active)session.finish(new Error('cleanup'));}
+});

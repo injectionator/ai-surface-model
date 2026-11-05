@@ -15,15 +15,17 @@ function retained(before: {id:string}[], after: {id:string}[], label: string) {
 /** Preservation beyond the library's bounded lineage checks. */
 export function verifyPairSuccessor(before: SurfaceDraft, after: SurfaceDraft) {
   verifySuccessor(before.research,after.research); verifySuccessor(before.surface,after.surface);
-  for (const key of ['sources','findings','alternatives','decisions'] as const) retained(before.research[key],after.research[key],key);
+  for (const key of ['sources','findings','alternatives','decisions','questions'] as const) retained(before.research[key],after.research[key],key);
   retained(before.surface.nodes,after.surface.nodes,'component');
   for (const source of before.research.sources) {
     if (canonical(source)!==canonical(after.research.sources.find(x=>x.id===source.id))) error(`Preserve historical source ${source.id}; add a new source identity for new evidence`);
   }
   for (const finding of before.research.findings) {
     const next=after.research.findings.find(x=>x.id===finding.id)!;
+    for (const claim of finding.claims) if (!next.claims.some(c=>canonical(c)===canonical(claim))) error(`Preserve historical claim in ${finding.id}`);
     if (next.subject!==finding.subject || next.property!==finding.property) error(`Retained finding changed subject/property: ${finding.id}`);
   }
+  for (const note of before.research.notes) if (!after.research.notes.some(n=>canonical(n)===canonical(note))) error('Preserve historical research note; append corrections');
   for (const decision of before.research.decisions) if (after.research.decisions.find(x=>x.id===decision.id)!.alternative!==decision.alternative) error(`Retained decision changed alternative: ${decision.id}`);
   for (const node of before.surface.nodes) if (canonical(after.surface.nodes.find(x=>x.id===node.id)!.type)!==canonical(node.type)) error(`Retained component changed type: ${node.id}`);
   for (const key of ['research','surface'] as const) for (const [name,value] of Object.entries(before[key].extensions)) {
@@ -49,7 +51,7 @@ export function prepareSurfaceDraft(input: unknown, context: DraftContext = {}):
   const research=validateArtefact(data.research) as ResearchRecord;
   data.surface.records=[revisionRef(research)];
   for (const entity of [...(data.surface.nodes ?? []),...(data.surface.relationships ?? [])]) {
-    if (!Array.isArray(entity.basis)) error('Each entity needs a basis array');
+    if (!Array.isArray(entity.basis) || !entity.basis.length) error('Each entity needs a nonempty structured basis array');
     for (const basis of entity.basis) {
       if (!basis || Object.keys(basis).join(',')!=='items') error('Supply each basis as {items: [finding or decision IDs]}; the host owns record/revision');
       basis.record=research.id;basis.revision=research.revision.id;
