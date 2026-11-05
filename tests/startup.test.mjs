@@ -174,7 +174,7 @@ test('arguments fail before reading settings and are not echoed', t => {
   const before = snapshot(f.home);
   const r = f.run([marker]);
   assert.equal(r.status, 2);
-  assert.match(r.stdout, /Only bare startup is implemented/);
+  assert.match(r.stdout, /Unsupported arguments/);
   assert.doesNotMatch(r.stdout, /Configuration/);
   assert.deepEqual(snapshot(f.home), before);
 });
@@ -211,4 +211,14 @@ test('legacy error wins over a complete vault and never offers setup', t => {
   for (const child of ['research','artifacts','surfaces']) mkdirSync(join(f.home,'vault',child),{recursive:true});
   writeFileSync(join(f.folder,'bad.json'),'invalid');
   const r=f.run(); assert.equal(r.status,2); assert.doesNotMatch(r.stdout,/Vault ready:|Vault setup required|Create vault/);
+});
+
+test('discovery help/version are local; closed-input discovery cannot launch a runner', t => {
+  const f = fixture(t); const before = snapshot(f.home);
+  for (const args of [['--help'], ['discover', '--help']]) {
+    const r = f.run(args); assert.equal(r.status, 0); assert.match(r.stdout, /discover/); assert.match(r.stdout, /ChatGPT/);
+  }
+  assert.equal(f.run(['--version']).stdout.trim(), 'n8r-surface 0.0.0-experimental.1');
+  const r = f.run(['discover']); assert.equal(r.status, 1); assert.match(r.stdout, /interactive terminal/);
+  assert.deepEqual(snapshot(f.home), before);
 });

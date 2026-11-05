@@ -266,7 +266,10 @@ npm cache with scripts disabled, then exercises built exports and bundled assets
 It removes its temporary directory. Repeat against each supported Node major for
 distribution changes; see [contributor commands](CONTRIBUTING.md#researcher-contract-library).
 The experimental `n8r-surface` command implements the read-only overview and
-explicitly confirmed local vault setup/reuse; it does not start research. The package check also runs it under temporary homes and a real POSIX
+explicitly confirmed local vault setup/reuse. Bare startup does not start research;
+`discover [source] [--model MODEL]` now runs a bounded Codex 0.166.0 conversation
+using ChatGPT sign-in. Saving/reopening and structured research remain later work.
+See [the installed conversation evidence](docs/n8r-surface/codex-research-verification.md). The package check also runs it under temporary homes and a real POSIX
 terminal; Python 3.9+ is required for that rehearsal. See the
 [startup boundary](docs/n8r-surface/startup.md). Keep the package private until a
 separate release decision.

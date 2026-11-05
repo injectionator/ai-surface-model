@@ -1,47 +1,65 @@
-# Install and choose your vault
+# Research a source with Codex
 
-Start here. You do not need to run the maintainer verification procedure.
-This unreleased candidate installs from the repository checkout; it is not yet
-published on npm. It supports vault setup only. AI research comes later.
+This candidate lets you ask about a local source and follow up in the same
+conversation. Codex reads the source through bounded tools and cites its evidence.
+Saving and reopening research come later. The package is private and unpublished.
+
+Use Node 22, 24 or 26, **Codex CLI 0.166.0**, and your existing ChatGPT sign-in.
+The selected model must work with that account. This check uses `gpt-6-astra`;
+it does not use API-key billing.
 
 ## 1. Install
 
-Use Node 22, 24 or 26 with npm. Open a terminal in the `n8r-surface` checkout
-prepared on branch `feat/16-local-vault-setup`, then paste:
+Open a terminal in the checkout on `feat/17-codex-research` and paste:
 
 ```sh
 npm ci && npm pack && npm install --global ./n8r-surface-0.0.0-experimental.1.tgz
 ```
 
-This downloads dependencies, builds the package and installs the `n8r-surface`
-command for your current Node installation. Wait until it finishes and returns
-to the terminal prompt. If it fails, stop and share the error.
+Expect installation to finish and return to the terminal prompt. If it fails,
+stop and share the error. Keep this terminal in the checkout for the next step.
 
-## 2. Choose your vault
-
-In the same terminal, run:
+## 2. Run
 
 ```sh
 n8r-surface
+n8r-surface discover examples/researcher/sources/lumen-guide.md --model gpt-6-astra
 ```
 
-At `Vault directory [~/n8r/]:`, press **Enter** to use `~/n8r/`, or type another
-folder path. Check the displayed location. At
-`Create vault folders and save this location? [y/N]`, type **y** and press Enter.
+The first command shows your vault. On first use, accept or choose a location,
+then type **y** to create it. The discovery command shows the selected fictional
+source and explains that inspected text goes to OpenAI through Codex. Type **y**
+to start. Expect `Connected: ChatGPT sign-in; model gpt-6-astra`, a Researcher
+version/digest, and `You>`.
 
-Expect `Vault ready:` followed by the chosen path. Setup creates the folders
-`research`, `artifacts` and `surfaces` there, and remembers the location in
-`~/.n8r/n8r-surface.json`. If a vault was already configured, it shows that vault
-without asking again.
+## 3. Check
 
-## 3. Check it worked
+At `You>`, paste this as one line:
 
-Open the reported vault in your file browser and check that the three folders
-exist. Run `n8r-surface` again: expect the same vault without another question.
+```text
+Describe the AI-relevant components and connections in the supplied source, citing file lines and distinguishing selected connections from options. Keep it concise.
+```
 
-That's all for this increment. Tell the maintainer whether installation worked,
-whether you saw the three folders, and whether the second run remembered the
-vault. If anything differs, share the message you saw.
+Expect a source-read message and findings citing `lumen-guide.md`. Open
+[the guide](../../examples/researcher/sources/lumen-guide.md): inference is
+configured in the fictional description; OIDC is an option, and callbacks are
+disabled until selected. The answer should preserve those distinctions.
 
-The [maintainer verification record](vault-setup-verification.md) contains isolated
-test procedures and technical evidence for reviewers; it is optional reading.
+At the next `You>`, paste:
+
+```text
+For this investigation I choose not to use external OIDC. Retain that as my decision, not a change to the guide. Which authentication facts remain unknown?
+```
+
+Expect your choice to be retained separately from the source. Not selecting OIDC
+does not establish anonymous access. Type `/exit` to finish; expect the terminal
+prompt and exit 0. The source stays unchanged and no research file is saved.
+Ctrl-C cancels a running answer and exits 130.
+
+Report **Pass**, **Fail** or **Blocked**, with the message or citation that differed.
+Wording can vary; invented source facts, a lost correction, changed source bytes,
+or a claimed save are failures. If Codex reports an unavailable model, stop and
+report it; the command does not silently choose another.
+
+The [maintainer evidence](codex-research-verification.md) records architecture,
+automated checks, real execution and limitations. It is optional reading.

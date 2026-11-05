@@ -26,3 +26,11 @@ for (const format of ['json', 'yaml']) {
   assert.equal(imported.extensions['urn:ext:array-boundary'][0], 'original');
 }
 console.log(`Installed package passed on Node ${process.version}; 4 nodes, 6 relationships, exact research references.`);
+
+// Internal module location is inspected only for distribution QA, not a public API.
+const installedRoot = new URL('../', import.meta.resolve('n8r-surface'));
+const {researcherInstructions} = await import(new URL('dist/codex.js', installedRoot));
+const instructions = researcherInstructions();
+assert.equal(instructions.version, '0.1.8');
+assert.equal(instructions.digest, 'sha256:8af29c3073df9b8210a7dd94ced9700379b0a98f76bd3a2902f9430b93c98a2a');
+console.log('Installed Researcher instructions and all references match the reviewed 0.1.8 digest.');
