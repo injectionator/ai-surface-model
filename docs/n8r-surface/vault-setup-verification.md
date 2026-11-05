@@ -30,7 +30,7 @@ claiming any baseline setup success.
 
 ## Candidate observations
 
-Product/test revision: `aec7cfd` (full SHA recorded in the Git history), stacked
+Product/test revision: `aec7cfd8317e012a2ba36ee05be8010398477d0f`, stacked
 on the unmerged planning PR #31 at `6c88ffb`. Agent rehearsal on 5 November 2026,
 macOS 26.6.2 ARM64; no human acceptance is claimed.
 
@@ -63,7 +63,10 @@ or proof of safety against writers outside the documented boundary.
 
 Supporting repository checks: 24 Python fixture/workflow tests, Bash syntax,
 Markdownlint 0.24.0 (56 files), cffconvert 2.0.0 and whitespace checks passed.
-The offline link check is recorded separately after final documentation review.
+Lychee 0.24.2 passed for all tracked Markdown (368 links, zero errors). The exact
+broad `**/*.md` invocation failed on 15 pre-existing links in an ignored local
+evidence folder. That unrelated material was left unchanged; the broad command
+is not reported as passing.
 Public output is sanitized; exact temporary paths and raw local evidence remain
 outside tracked files. No real deployment data was used.
 

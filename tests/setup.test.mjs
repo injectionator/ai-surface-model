@@ -161,8 +161,36 @@ test('repair of valid near-limit settings avoids reserialization and preserves b
 });
 
 test('settings expansion beyond read limit fails before any vault writes', t => {
-  const f=fixture(t,{version:1,unknown:Array(12000).fill(1)});
+  const f=fixture(t,{version:1,unknown:'x'.repeat(65500)});
   const before=fs.readFileSync(f.file);
   assert.throws(f.save,/65536/); assert.ok(!fs.existsSync(f.vault));
   assert.deepEqual(fs.readFileSync(f.file),before);
+});
+
+for (const nested of [false,true]) test(`reject vault within legacy corpus before writes (nested=${nested})`,t=>{
+  const f=fixture(t,{version:1,artefactRoot:'../legacy'});
+  const selected=join(f.home,'legacy',...(nested?['new-vault']:[]));
+  assert.throws(()=>setup.saveSetup(f.snapshot,selected,f.source),/legacy|artefact/i);
+  assert.ok(!fs.existsSync(join(f.home,'legacy')));
+  assert.equal(read(f.file).vaultRoot,undefined);
+});
+
+test('unknown JSON numeric values retain exact representation',t=>{
+  const f=fixture(t);
+  const original='{ "version":1, "big":9007199254740993, "huge":1e400, "tiny":1e-400, "negative":-0, "nested":{"__proto__":1} }\n';
+  fs.writeFileSync(f.file,original);
+  setup.saveSetup(settings.loadSettings(f.home),f.vault,f.source);
+  const saved=fs.readFileSync(f.file,'utf8');
+  for (const literal of ['9007199254740993','1e400','1e-400','"negative":-0','"__proto__":1']) assert.ok(saved.includes(literal),literal+' was changed');
+  assert.equal(read(f.file).vaultRoot,f.vault);
+});
+
+test('reject controls introduced by root symlink, home or cwd expansion',t=>{
+  const f=fixture(t), bad=join(f.root,'vault\nname'), alias=join(f.root,'clean-alias');
+  fs.mkdirSync(bad);fs.symlinkSync(bad,alias);
+  assert.throws(()=>setup.chooseVault(alias,f.home,f.source),/local path/i);
+  assert.throws(()=>setup.chooseVault('~/vault',bad,f.source),/local path/i);
+  assert.throws(()=>setup.chooseVault('vault',f.home,bad),/local path/i);
+  assert.throws(()=>setup.saveSetup(f.snapshot,alias,f.source),/local path/i);
+  assert.deepEqual(fs.readdirSync(bad),[]);assert.equal(read(f.file).vaultRoot,undefined);
 });

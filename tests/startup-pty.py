@@ -80,7 +80,7 @@ with tempfile.TemporaryDirectory(prefix='n8r-vault-pty-') as temporary:
         home = root / ('custom-home' if custom else 'default-home')
         home.mkdir()
         file = home / '.n8r/n8r-surface.json'
-        original = {'version': 1, 'artefactRoot': '../legacy', 'unknown': {'private': 'PRIVATE_VALUE_MUST_NOT_APPEAR'}}
+        original = {'version': 1, 'artefactRoot': '../legacy', 'large': 9007199254740993, 'unknown': {'private': 'PRIVATE_VALUE_MUST_NOT_APPEAR'}}
         if custom:
             file.parent.mkdir()
             file.write_text(json.dumps(original))
@@ -132,6 +132,42 @@ with tempfile.TemporaryDirectory(prefix='n8r-vault-pty-') as temporary:
     terminal(home,source,[(location,b'\n'),(confirm,b'y\n')],2,edit)
     assert json.loads(file.read_text()) == {'version':1,'other':'writer'}
     assert not (home / 'n8r').exists()
+    count += 1
+    # An accepted destination must not poison the legacy listing on next startup.
+    for kind in ('root', 'nested', 'alias'):
+        home = root / ('legacy-overlap-' + kind)
+        (home / '.n8r').mkdir(parents=True)
+        legacy = home / 'legacy'
+        legacy.mkdir()
+        (home / '.n8r/n8r-surface.json').write_text('{"version":1,"artefactRoot":"../legacy"}')
+        selected = legacy / 'nested' if kind == 'nested' else legacy
+        if kind == 'alias':
+            selected = root / 'legacy-alias'
+            selected.symlink_to(legacy)
+        state_before = snapshot(home)
+        terminal(home, source, [(location, (str(selected)+'\n').encode()), (confirm, b'y\n')], 2)
+        assert snapshot(home) == state_before
+        count += 1
+    # A root alias is resolved for confirmation and persistence; unsafe targets fail.
+    home = root / 'root-alias-home'
+    home.mkdir()
+    target = root / 'alias-target'
+    target.mkdir()
+    alias = root / 'root-alias'
+    alias.symlink_to(target)
+    output = terminal(home, source, [(location, (str(alias)+'\n').encode()), (confirm, b'y\n')], 0)
+    assert 'Vault directory: '+str(target) in output
+    assert json.loads((home / '.n8r/n8r-surface.json').read_text())['vaultRoot'] == str(target)
+    terminal(home, source2, [], 0)
+    count += 2
+    home = root / 'bad-alias-home'
+    home.mkdir()
+    bad = root / 'bad\nname'
+    bad.mkdir()
+    alias = root / 'safe-looking-alias'
+    alias.symlink_to(bad)
+    terminal(home, source, [(location, (str(alias)+'\n').encode())], 2)
+    assert snapshot(home) == {} and snapshot(bad) == {}
     count += 1
     assert (snapshot(source), snapshot(source2)) == before
     print(f'Installed PTY vault setup passed: {count} interactions; default/custom, reuse, repair, cancellation, EOF, SIGINT, conflict; independent settings/folder/source readback.')

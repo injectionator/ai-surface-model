@@ -96,8 +96,11 @@ available or that any Surface has been produced.
 These cases assume the legacy corpus is absent or readable with valid entries;
 legacy errors follow the exit-2 rule below.
 
-All rows are **specified, unimplemented and unverified**. The historical baseline
-attempt above is blocked; it is not a failed execution of these candidate checks.
+At planning time all rows were **specified, unimplemented and unverified**.
+Implementation and the installed agent rehearsal are now recorded in the
+[setup verification](../../n8r-surface/vault-setup-verification.md); human acceptance
+remains pending. The historical missing-executable attempt above is not a failed
+execution; the later installed baseline is recorded separately.
 Automated process and terminal tests cover cancellation, compatibility and the
 failure cases below. The human task list proves the shortest first-use/reuse path.
 
@@ -168,16 +171,13 @@ only the dedicated test homes if desired.
   First successful setup adds only `vaultRoot`; retained JSON values may be
   reformatted, but no existing setting value is removed or reinterpreted.
 - Preserve pre-existing vault contents. Create only missing directories. Publish
-  settings only after all required directories are available; use an exclusive
-  temporary sibling and atomic rename, checking the original file bytes for
-  conflicts before replacement. A byte check followed by rename does not guarantee
-  protection from a writer changing the file between those operations. Before
-  implementation, choose and document the supported concurrency boundary and a
-  publication protocol; do not claim arbitrary-writer protection from this sketch.
-  Include missing-file creation races and two simultaneous setup processes in
-  that decision and its deterministic tests. Detected conflicts exit 2 and retain
-  the other writer's values. An interrupted setup may leave empty folders;
-  report/reuse them on retry rather than deleting potentially user-owned contents.
+  settings only after all required directories are available. The approved
+  [concurrency decision](#concurrency-decision-approved-5-november-2026) uses an
+  exclusive lock, exact original-byte checks, exclusive hard-link creation for
+  absent settings and atomic replacement for existing settings. Detected conflicts
+  exit 2 and retain the other writer's values. An interrupted setup may leave
+  empty folders; report/reuse them on retry rather than deleting potentially
+  user-owned contents.
   Remove only this invocation's temporary settings file when safely identifiable.
 - Refuse settings-file symlinks and special files using existing bounded-read
   protections. Reject symlinked required vault children for this first write

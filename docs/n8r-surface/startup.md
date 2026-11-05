@@ -41,7 +41,9 @@ only configuration presence is shown, never their private contents.
 
 Expand `~/` against home. Stored relative paths resolve against the settings
 folder. Newly entered relative vault paths resolve against invocation cwd;
-first setup saves an absolute path. Resolve pre-existing ancestors and an
+first setup saves an absolute path. Validate the fully expanded/resolved path as
+well as the input so that neither can introduce forbidden control characters.
+Resolve pre-existing ancestors and an
 explicitly selected vault-root symlink before showing the destination. Reject
 empty custom paths, control characters, URL forms, non-directory collisions,
 settings symlinks/special files and symlinked required vault children. Invalid
@@ -66,10 +68,12 @@ Enter at the location question chooses `~/n8r/`. Only `y` or `yes` (case insensi
 at confirmation permits writes. Refusal, EOF and interruption before acceptance
 exit 1 without writes. Acceptance creates only missing directories, then adds
 `vaultRoot` to settings and prints `Vault ready: <resolved absolute path>`.
-Existing JSON values are retained, although whitespace may be reformatted.
+Existing JSON member bytes are retained when inserting the new field, including
+unknown numeric literals outside JavaScript precision/range.
 No source files are read or written. Reject writes to settings/vault paths inside
 the invocation directory, including symlink aliases and missing descendants.
-Running setup from home can therefore be refused; run from a separate source
+Also reject vault folders inside the legacy corpus: adding directories there
+would break its next inspection. Running setup from home can therefore be refused; run from a separate source
 folder. Complete configured reuse is read-only even from such a directory.
 
 A complete configured vault exits 0 without questions, locks or settings rewrites.

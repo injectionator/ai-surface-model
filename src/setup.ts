@@ -20,7 +20,7 @@ function canonical(path: string): string {
 }
 
 export function chooseVault(value: string, home: string, cwd: string): string {
-  return canonical(localPath(value, home, cwd));
+  return localPath(canonical(localPath(value, home, cwd)), home, cwd);
 }
 
 /** Read-only validation: missing folders need consent, occupied paths are errors. */
@@ -55,16 +55,32 @@ function unchanged(snapshot: Settings): void {
 
 /** Called only after explicit acceptance. See startup.md for the writer boundary. */
 export function saveSetup(snapshot: Settings, selected: string, cwd: string): string {
-  const vault = inspectVault(resolve(selected)).root;
+  const vault = inspectVault(chooseVault(selected, snapshot.home, cwd)).root;
   const source = canonical(resolve(cwd));
   const file = snapshot.file;
   for (const path of [dirname(file), file, vault, ...children.map(child => join(vault, child))]) {
     if (inside(path, source)) throw new InspectionError('Setup would write inside the source; choose a separate vault or source directory.');
   }
   if (snapshot.vault !== undefined && canonical(snapshot.vault) !== vault) throw new InspectionError('Configured vault cannot be changed by setup');
-  const output = snapshot.vault === undefined
-    ? Buffer.from(JSON.stringify({...snapshot.data, vaultRoot: vault}, null, 2) + '\n')
-    : Buffer.alloc(0);
+  const legacy = canonical(snapshot.root);
+  for (const child of children) {
+    const path = join(vault, child);
+    if (canonical(path) !== legacy && inside(path, legacy)) {
+      throw new InspectionError('Vault folders would occupy the legacy artefact corpus; choose a separate vault.');
+    }
+  }
+  // Keep unknown JSON member bytes, including numbers outside JS precision/range.
+  // The validated original is an object containing version, so a comma is valid.
+  let output = Buffer.alloc(0);
+  if (snapshot.vault === undefined) {
+    if (snapshot.original === undefined) {
+      output = Buffer.from(JSON.stringify({version: 1, vaultRoot: vault}, null, 2) + '\n');
+    } else {
+      const end = snapshot.original.lastIndexOf(0x7d);
+      output = Buffer.concat([snapshot.original.subarray(0, end),
+        Buffer.from(`,\n  "vaultRoot": ${JSON.stringify(vault)}\n`), snapshot.original.subarray(end)]);
+    }
+  }
   if (output.length > 64 * 1024) throw new InspectionError('Updated settings exceeds 65536 bytes');
   fs.mkdirSync(dirname(file), {recursive: true});
   const lock = file + '.lock';
