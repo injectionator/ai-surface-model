@@ -128,3 +128,25 @@ stable during synchronous filesystem operations; this is not protection against
 an adversarial concurrent directory replacement. An interrupted process can leave
 an unreferenced hidden temporary file; it does not overwrite an earlier note.
 Local storage does not provide backup, encryption or publication.
+
+## Pending-operation indicator follow-up
+
+The user reported long silent waits during `/save` and after questions. Commit
+`a6d11ad` adds a terminal-only spinner with elapsed seconds for connecting,
+answering, reopening and preparing a note. It clears around normal output and
+stops before returning to the prompt, including errors/cancellation. It reports a
+pending request, not known server-side progress; nonterminal output never animates.
+
+An isolated installed candidate was rehearsed with real Codex 0.166.0,
+`gpt-6-astra`, ChatGPT sign-in and Node 26.13.0 on macOS. The same synthetic Lumen
+question/OIDC choice was followed by `/save` and `/exit`. The spinner produced
+162 preparation frames over approximately 40 seconds, cleared before
+**Saved and read back**, and produced no activity after the final `You>` prompt.
+One note was saved, exit was 0, and source/settings bytes remained unchanged.
+Raw terminal output and independent readback remain in the selected vault's runs/.
+Tarball SHA-256: `d90df87bc3f1db05a5de01ee0080d88a599ca4050e63473e548907f53b6dfe3a`.
+
+99 Node tests and the installed-package check passed. Terminal scenarios still
+cover cancellation/failure; focused tests verify repeated activity, clearing around
+output, timer cleanup and nonterminal silence. The six GitHub checks passed on
+`a6d11ad`. The short walkthrough now names the visible labels and expected stop.
