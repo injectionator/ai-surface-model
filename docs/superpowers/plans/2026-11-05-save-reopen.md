@@ -55,20 +55,20 @@ on successful completion; `evidence` records actual tool observations.
   failed draft, fresh reopen, suggestion refusal and preserved successors.
 - [x] Implement `/save`, optional-note reopen and source comparison in the host.
 - [x] Verify source/settings remain unchanged and no writes on ordinary turns.
-- [ ] Run the full suite and installed package checks; commit and open a draft PR.
+- [x] Run the full suite and installed package checks; commit and open a draft PR.
 
 ### Task 3: Real proof and handoff
 
 **Files:** getting-started guide, command inventory, current overview docs and a
 separate save/reopen verification record.
 
-- [ ] Install a candidate under the selected vault's runs/; exercise real Codex
+- [x] Install a candidate under the selected vault's runs/; exercise real Codex
   research, human correction, save, exit, fresh reopen, continuation and save.
-- [ ] Independently inspect notes, source hashes, predecessor bytes and lineage.
-- [ ] Rehearse latest-note selection and retain automated broad coverage.
-- [ ] Run relevant repository checks, obtain a fresh whole-branch review and
+- [x] Independently inspect notes, source hashes, predecessor bytes and lineage.
+- [x] Rehearse latest-note selection and retain automated broad coverage.
+- [x] Run relevant repository checks, obtain a fresh whole-branch review and
   fix important findings with regression tests.
-- [ ] Push final evidence and a concise human task list to the draft PR.
+- [x] Push final evidence and a concise human task list to the draft PR.
 
 ## Decisions and progress
 
@@ -94,3 +94,10 @@ CI exposed ambiguous prompt matching in the test driver: `[y/N]` from the first
 selection prompt was reused for transmission consent. Match the complete second
 prompt instead. The Linux log captures both answers before the second prompt;
 local runs did not reproduce that scheduling order. Product code is unchanged.
+
+Completion evidence: real installed Codex save/reopen/latest-edited continuation
+passed with three outputs and independent readback; details and hashes are in
+`docs/n8r-surface/save-reopen-verification.md`. Native execution used one fresh
+whole-branch reviewer; the two important findings have regression coverage. The
+concurrent-directory-swap limitation remains explicit. Human acceptance is pending;
+PR #34 stays draft and #17 stays open.

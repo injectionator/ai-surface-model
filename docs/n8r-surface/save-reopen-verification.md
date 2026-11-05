@@ -7,15 +7,85 @@ broader host/live trials, Lab integration or registry distribution.
 
 ## Current verification
 
-Real installed-Codex rehearsal pending. Human acceptance of this new increment
-is pending. The prior conversation increment was user-reported Pass and PR #33
-merged at `b186050`; that does not establish saved continuation.
+**Pass (agent rehearsal), 5 November 2026. Human acceptance remains pending.**
+The prior conversation increment was user-reported Pass and PR #33 merged at
+`b186050`; the new saved-continuation evidence is recorded separately here.
 
-The installed baseline advertises no saving/reopening and rejects `reopen`.
-New offline tests exercise numbered saves/readback, predecessor byte conflicts,
-source-write exclusion, symlink/replaced-folder refusal, human edits, latest mtime
-ranking, explicit save authorization, failed draft turns, fresh reopening and
-suggestion refusal. Scripted protocol responses are not real AI evidence.
+- Implementation: [`447f440`](https://github.com/injectionator/n8r-surface/commit/447f44058c142d3a49ed827298d922a6458fbcb1).
+  Rehearsal completed while repository HEAD was `b4407aa`, which changes only the
+  offline test driver's prompt matching and plan notes, not product code.
+- Installed tarball SHA-256:
+  `926823a95209ace0183875b2aaa2a3423f46671ad423f38e2b1fcdf885ef9b2d`.
+- Environment: macOS arm64, Node 26.13.0, Codex CLI 0.166.0, existing ChatGPT
+  sign-in, explicit `gpt-6-astra`. A private run under the selected vault held the
+  isolated install, n8r HOME/settings and copied synthetic source. Existing Codex
+  sign-in was reused through CODEX_HOME without copying credentials.
+- Loaded Researcher 0.1.8, combined instruction SHA-256
+  `8af29c3073df9b8210a7dd94ced9700379b0a98f76bd3a2902f9430b93c98a2a`.
+- [Actual sanitized terminal transcripts](save-reopen-transcript.md) retain model
+  messages and source-read activity. Findings and note prose were produced by
+  real Codex, not prewritten by the developing agent.
+
+### Exercised interaction and independent readback
+
+Starting state: copied `lumen-guide.md`, complete configured test vault, no saved
+notes and unchanged version-1 settings. The installed command performed the short
+human walkthrough's source investigation and OIDC decision, `/save`, `/exit`,
+explicit-note reopen with renewed transmission consent, authentication follow-up,
+`/save`, `/exit`. Both processes exited **0**. The original first note remained
+byte-identical after its successor was saved.
+
+A third process tested the user's additional request: append a human edit to the
+older first note, prioritizing session-expiry evidence while retaining the OIDC
+non-selection, then run `reopen --source SOURCE --model gpt-6-astra` without NOTE.
+It suggested the edited `research-001.md`, showed its edit time, and waited for
+selection and transmission consent. The conversation retained that edit and saved
+`research-003.md`, linking the edited first note. It did not overwrite 002 or edit
+001 again. This process also exited **0**.
+
+Independent file reads found all five stable IDs in every note:
+`component:lumen`, `component:inference`, `component:archive`,
+`component:callback`, `component:oidc`. All retained the OIDC decision separately
+from source claims, cited the actual guide, preserved unknowns and included
+recommended next steps. The third retained the session-expiry priority. The first
+note explicitly explains that source references require the accompanying guide.
+No runtime connection or alternative authentication mechanism was invented as fact.
+
+| Readback | SHA-256 / result |
+| --- | --- |
+| Source before and after all processes | `98d3374c79c166b37f0debb4ffb5e457eda1385dd7847b042cbad674cac98693` |
+| Original 001, preserved after saving 002 and referenced by 002 | `9910959c740959e943e7d6cf4e81b1d365468ab33576fb9c83aa9ce25dc054e7` |
+| Deliberately edited 001, preserved after saving 003 and referenced by 003 | `76b6abe6d616b903f641f2b8d52f06777ad5383060701ce49a314d3ff68eca52` |
+| Saved 002 | `927a6a84a810d518b5e7bc8f37df3f29916e353a3bb6817ccf21b2cc36aee265` |
+| Saved 003 | `56f317af8dfd30ea76cbfe0318bf74b226cc3be0ef851e0edc67bcd120d029d6` |
+| n8r settings | Unchanged bytes |
+
+Raw transcripts, saved files and readback report remain under the selected vault's
+runs/ convention. No local vault path or private infrastructure data is published.
+These are agent rehearsals using supplied synthetic human input, not human acceptance.
+
+### Automated verification and review
+
+- 97 Node tests passed on each of Node 22.23.2, 24.22.2 and 26.13.0.
+- Installed-package checks passed on all three runtimes, including 20 offline
+  discovery/save/reopen terminal scenarios. They cover no premature writes,
+  failed and cancelled staged drafts, source scope, latest selection/refusal,
+  changed-source comparisons, preserved predecessors and process cleanup.
+- Storage tests cover edit-time ranking, occupied names, changed predecessors,
+  symlink/replaced-folder refusal, bounded UTF-8 and human edits after metadata.
+- Fresh review found missing historical evidence and incompatible reopen-size
+  limits. Regression tests failed first, then passed after preserving unavailable
+  evidence and using bounded comparison summaries rather than embedded source text.
+- Linux CI exposed a test-driver race: a generic `[y/N]` matcher reused the first
+  prompt's suffix. The driver now waits for the complete transmission prompt.
+  Product code was unchanged; the initial failed CI run remains visible.
+- Python fixture/workflow suite: 24 passed. Shell syntax, Markdownlint 0.24.0,
+  offline Lychee 0.24.2 with fragments, cffconvert 2.0.0 and whitespace passed.
+
+Scripted protocol tests are not AI evidence; fixture integrity is not model
+conformance. The real rehearsal used one synthetic source and unchanged source
+bytes. Broader products, live observations, second-source integration, structured
+HTML/JSON/YAML, named Lab consumers and npm distribution remain open in #17/#27.
 
 ## Storage and continuation boundary
 
