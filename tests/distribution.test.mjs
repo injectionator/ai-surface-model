@@ -6,14 +6,14 @@ import {join} from 'node:path';
 import {execFileSync, spawnSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 
-test('candidate tarballs have equivalent private manifests and exact payload bytes', t => {
+for (const publishable of [false, true]) test(`candidate tarballs have equivalent ${publishable ? 'publishable' : 'private'} manifests and exact payload bytes`, t => {
   const temp = mkdtempSync(join(tmpdir(), 'n8r-distribution-'));
   t.after(() => rmSync(temp, {recursive: true, force: true}));
   const stale = 'dist/obsolete-candidate-check.js';
   writeFileSync(stale, 'stale build output', {flag:'wx'});
   t.after(() => rmSync(stale, {force:true}));
   const out = join(temp, 'candidates');
-  const result = spawnSync(process.execPath, ['scripts/pack-candidates.mjs', out], {encoding: 'utf8'});
+  const result = spawnSync(process.execPath, ['scripts/pack-candidates.mjs', out, ...(publishable ? ['--publishable'] : [])], {encoding: 'utf8'});
   assert.equal(result.status, 0, result.stderr);
   const report = JSON.parse(readFileSync(join(out, 'candidates.json'), 'utf8'));
   assert.deepEqual(report.packages.map(p => p.name), ['@n8r/surface', 'n8r-surface']);
@@ -29,7 +29,8 @@ test('candidate tarballs have equivalent private manifests and exact payload byt
     const manifest = JSON.parse(readFileSync(join(root, 'package.json')));
     assert.equal(manifest.name, p.name);
     assert.equal(manifest.version, report.version);
-    assert.equal(manifest.private, true);
+    assert.equal(manifest.private, !publishable);
+    if (publishable) assert.deepEqual(manifest.publishConfig, {access:'public', registry:'https://registry.npmjs.org', tag:'experimental'});
     assert.equal(manifest.scripts, undefined);
     assert.equal(manifest.devDependencies, undefined);
     delete manifest.name;
@@ -46,4 +47,12 @@ test('candidate tarballs have equivalent private manifests and exact payload byt
   const before = readFileSync(join(out, 'candidates.json'));
   assert.notEqual(spawnSync(process.execPath, ['scripts/pack-candidates.mjs', out]).status, 0);
   assert.deepEqual(readFileSync(join(out, 'candidates.json')), before);
+});
+
+test('unknown candidate option fails before creating a destination', t => {
+  const temp = mkdtempSync(join(tmpdir(), 'n8r-option-'));
+  t.after(() => rmSync(temp, {recursive:true, force:true}));
+  const result = spawnSync(process.execPath, ['scripts/pack-candidates.mjs', join(temp, 'out'), '--publisable'], {encoding:'utf8'});
+  assert.notEqual(result.status, 0);
+  assert.deepEqual(readdirSync(temp), []);
 });

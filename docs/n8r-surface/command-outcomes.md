@@ -547,3 +547,18 @@ they do not establish an authenticated release or registry provenance. The publi
 CLI inventory is unchanged; `check:version` and `check:release` are maintainer npm
 scripts. Real release verification remains blocked until an authorized release
 and publishing setup exist.
+
+## RELEASE-01: prepare and publish the first dual release
+
+Given reviewed version `0.1.0-experimental.1`, explicit
+`npm run pack:candidates -- NEW_DIRECTORY --publishable` creates both equivalent
+publishable archives; the source and default candidates remain private. The
+[human procedure](npm-release.md#human-check-before-publication) checks both
+installed routes and unchanged isolated homes. Public CLI inventory is unchanged.
+
+The manual workflow prepares retained archives before publication and verifies
+existing registry bytes before staging only absent versions for maintainer 2FA approval. Tests cover altered
+bytes, wrong registry identity/integrity, partial-publication recovery and network
+failure. These use synthetic registry boundaries, not authenticated publication.
+Live workflow, registry installation, cryptographic provenance and immutable
+release acceptance remain unverified until the documented release procedure runs.

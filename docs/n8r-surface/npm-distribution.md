@@ -6,8 +6,10 @@ an official alternative. Both expose the `n8r-surface` executable. Install one
 route per environment because they provide the same command name.
 
 This increment prepares **private local candidates**, not a published release.
-The root manifest and generated manifests retain `private: true` and version
-`0.0.0-experimental.1`. Publishing rights and registry installation are unproved.
+The root manifest and default generated manifests retain `private: true`. The
+maintainer selected `0.1.0-experimental.1` and authorized publication. Explicit
+`--publishable` preparation removes the generated guards only; see the
+[first-release procedure](npm-release.md). Registry installation remains unproved.
 
 ## Build and inspect candidates
 
@@ -32,7 +34,7 @@ only `name` differs between them. Versions, engines, licenses, dependencies,
 exports, executable and asset bytes match. Existing destinations are refused.
 A failed run may leave an incomplete destination; use a new directory on retry.
 
-Both tarballs are named `n8r-surface-0.0.0-experimental.1.tgz`, so they live in
+Both tarballs are named `n8r-surface-0.1.0-experimental.1.tgz`, so they live in
 separate `scoped/` and `unscoped/` directories. `candidates.json` records their
 relative paths, SHA-256 digests, version, source HEAD and dirty status. This is
 local build evidence, not registry provenance. Each entry also names a unique
@@ -56,13 +58,13 @@ Codex sign-in or existing vault is needed for this distribution check.
   ```sh
   mkdir "$candidate_run/consumer"
   cd "$candidate_run/consumer"
-  npm install --offline --ignore-scripts --no-audit --no-fund --package-lock=false "$candidate_run/packages/scoped/n8r-surface-0.0.0-experimental.1.tgz"
+  npm install --offline --ignore-scripts --no-audit --no-fund --package-lock=false "$candidate_run/packages/scoped/n8r-surface-0.1.0-experimental.1.tgz"
   node --input-type=module -e 'import {decode} from "@n8r/surface"; console.log(typeof decode)'
   ./node_modules/.bin/n8r-surface --version
   ```
 
   Expect successful installation, `function`, then
-  `n8r-surface 0.0.0-experimental.1`; each exits 0.
+  `n8r-surface 0.1.0-experimental.1`; each exits 0.
 - [ ] Run bare startup with a fresh isolated home and closed input:
 
   ```sh
@@ -112,15 +114,17 @@ On 5 November 2026, public metadata lookups returned E404 for both names and
 `npm whoami --registry=https://registry.npmjs.org` returned E401. This establishes
 neither name availability nor publishing rights. An authorized maintainer must
 establish the npm identity, `n8r` organization/team rights and unscoped ownership.
-No credentials or account-security settings were changed by this increment.
+Subsequent authenticated readback identified the intended npm account and its
+`n8r` owner role; new-package publication rights still require an actual publish.
 
-Before publication, approve the release version, removal of private guards,
-release workflow and authentication. Prefer trusted publishing for both packages
+The approved first version is `0.1.0-experimental.1`. Review the release
+workflow before merging; account configuration and registry verification remain. Prefer trusted publishing for both packages
 from the public repository on GitHub-hosted runners. npm documents Node 22.14+
 and npm 11.5.1+ for trusted publishing and automatic provenance for public packages
 from public repositories. Configure and verify each package's trust relationship;
 local tarball tests cannot do this. See [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/)
-(checked 5 November 2026). This PR adds no publishing workflow.
+(checked 5 November 2026). The manual workflow and its remaining account prerequisites are described in
+[the first-release procedure](npm-release.md).
 
 Use the same version and an explicit `experimental` distribution tag for both
 packages; do not promote `latest` implicitly. Record each package's publication,

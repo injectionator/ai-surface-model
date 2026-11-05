@@ -1,4 +1,4 @@
-// Creates private local candidates with a fresh temporary build; never publishes.
+// Creates local candidates with a fresh temporary build; never publishes.
 import {mkdtempSync, mkdirSync, cpSync, readFileSync, writeFileSync, rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join, resolve} from 'node:path';
@@ -9,7 +9,7 @@ import {checkVersion} from './check-version.mjs';
 const root = resolve(import.meta.dirname, '..');
 const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 
-export function packCandidates(destination) {
+export function packCandidates(destination, {publishable = false} = {}) {
   checkVersion(root);
   const output = resolve(destination);
   // Never reuse or remove an existing destination, even after a failed run.
@@ -32,6 +32,11 @@ export function packCandidates(destination) {
     // The source was already built; consumers do not need development tooling.
     delete manifest.scripts;
     delete manifest.devDependencies;
+    if (publishable) {
+      if (manifest.version !== '0.1.0-experimental.1') throw new Error('Publishable preparation is limited to approved version 0.1.0-experimental.1');
+      manifest.private = false;
+      manifest.publishConfig = {access:'public', registry:'https://registry.npmjs.org', tag:'experimental'};
+    }
     const report = {revision, dirty, version:manifest.version, packages:[]};
     for (const name of ['@n8r/surface', 'n8r-surface']) {
       writeFileSync(manifestPath, JSON.stringify({...manifest, name}, null, 2) + '\n');
@@ -50,6 +55,6 @@ export function packCandidates(destination) {
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  if (process.argv.length !== 3) throw new Error('Usage: node scripts/pack-candidates.mjs NEW_DIRECTORY');
-  console.log(JSON.stringify(packCandidates(process.argv[2]), null, 2));
+  if (process.argv.length < 3 || process.argv.length > 4 || (process.argv[3] && process.argv[3] !== '--publishable')) throw new Error('Usage: node scripts/pack-candidates.mjs NEW_DIRECTORY [--publishable]');
+  console.log(JSON.stringify(packCandidates(process.argv[2], {publishable:process.argv[3] === '--publishable'}), null, 2));
 }

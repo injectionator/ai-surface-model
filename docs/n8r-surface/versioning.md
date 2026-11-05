@@ -31,9 +31,9 @@ Use `npm version VERSION --no-git-tag-version` for an approved version change,
 then review both manifests in the issue's PR. `npm run check:version` rejects
 invalid versions and drift in either lockfile version. `npm test` and candidate
 packing run that check. A version bump needs no source-code edit for CLI output.
-Keep the development version `0.0.0-experimental.1` for this increment.
-`0.1.0-experimental.1` is the recommended first public prerelease; final selection
-and publication still require a separate decision.
+The maintainer confirmed `0.1.0-experimental.1` and authorized publication on
+5 November 2026. Review/merge and required account actions remain separate. See
+the [first-release procedure](npm-release.md).
 
 npm distribution tags are movable pointers, unlike permanent Git release tags:
 
@@ -66,9 +66,9 @@ both original tarballs the same basename. Upload the report too, and retain the
 build environment, test evidence, release notes and per-package registry results.
 SHA-256 identifies bytes; it does not authenticate the builder.
 
-The current packer deliberately requires `private: true`. Turning these into
-publishable artifacts requires a separately approved preparation change, followed
-by a fresh reviewed commit and build. Do not strip the guard from an old tarball
+The source packer requires `private: true`. The explicit `--publishable` option
+creates fresh publishable archives at the approved first version; ordinary
+candidates stay private. Use a fresh reviewed commit and build. Do not strip the guard from an old tarball
 and keep its old hash or claim it was built from an unchanged commit. The current
 verifier accepts private artifacts only for draft metadata rehearsals.
 
@@ -102,8 +102,8 @@ contact GitHub or verify a remote tag. Handwritten or stale JSON is not live
 release evidence. The report is also not a reproducible-build proof: validating
 its claimed revision cannot prove arbitrary supplied artifacts were built from
 that revision. Authenticated build provenance and registry readback remain
-required. The current increment supplies read-only checks and CI fixture tests;
-it does not install a publication workflow or enforce registry permissions.
+required. This checker remains read-only. The separate [release workflow](npm-release.md)
+performs explicitly selected publication; registry permissions remain external.
 
 ## Authentication, provenance and incomplete releases
 
@@ -112,9 +112,10 @@ Before any first publication, establish the npm account, package ownership and
 [scoped publication guide](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages/)
 documents public access and direct-publication authentication requirements.
 Its staged first-publication path creates a public placeholder; staging is not
-a read-only readiness check and is not authorized by this increment. Do not
-publish a reservation package. Resolve the first-publication/authentication route
-with the maintainer before registry writes.
+a read-only readiness check. The maintainer approved this staged route for the
+first release after npm offered stage-only tokens; submit the actual retained
+artifacts, not an empty reservation package. The [procedure](npm-release.md)
+requires maintainer 2FA approval of both real versions.
 
 Prefer [trusted publishing](https://docs.npmjs.com/trusted-publishers/) from the
 public repository using GitHub-hosted runners. Configure each package separately
@@ -151,7 +152,7 @@ No npm credentials, real Git tag, GitHub Release or global-install change is nee
 Keep the current terminal with `candidate_run` set by that guide.
 
 - [ ] From the checkout root run `npm run check:version`. Expect
-  `Version consistent: 0.0.0-experimental.1`, exit 0. Inspect `package.json` and
+  `Version consistent: 0.1.0-experimental.1`, exit 0. Inspect `package.json` and
   both root version fields in `package-lock.json`; they must match.
 - [ ] Follow the [candidate install steps](npm-distribution.md#human-verification)
   for both names. In each consumer directory run:
@@ -162,7 +163,7 @@ Keep the current terminal with `candidate_run` set by that guide.
   ```
 
   For the alternative use `./node_modules/n8r-surface/package.json`. Expect
-  `0.0.0-experimental.1` and `n8r-surface 0.0.0-experimental.1`, both exit 0.
+  `0.1.0-experimental.1` and `n8r-surface 0.1.0-experimental.1`, both exit 0.
 - [ ] Inspect `candidates.json`: both entries have distinct `releaseAsset` names,
   the same report version/revision, and hashes matching the retained tarballs.
   A clean-commit rehearsal must say `dirty: false`.
