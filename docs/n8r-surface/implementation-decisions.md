@@ -23,7 +23,10 @@ This supersedes the unscoped-first/fallback decision under
 Generate both from one build with matching payloads and version. The
 [distribution candidate procedure](npm-distribution.md) preserves `private: true`
 and `0.0.0-experimental.1`; publication remains a separate decision. Registry
-lookups do not reserve names or establish publishing rights.
+lookups do not reserve names or establish publishing rights. The approved
+[package version policy](versioning.md) makes the root manifest authoritative,
+derives CLI output from the installed manifest and verifies retained artifact
+identity against the exact Git tag, commit and GitHub Release metadata.
 
 Issue #15 ships a library, built declarations, contracts and synthetic assets.
 The first #16 increment adds a `bin` entry for bare startup only; see its

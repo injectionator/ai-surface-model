@@ -5,10 +5,12 @@ import {join, resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
+import {checkVersion} from './check-version.mjs';
 const root = resolve(import.meta.dirname, '..');
 const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 
 export function packCandidates(destination) {
+  checkVersion(root);
   const output = resolve(destination);
   // Never reuse or remove an existing destination, even after a failed run.
   mkdirSync(output);
@@ -38,7 +40,7 @@ export function packCandidates(destination) {
       const packed = pack(payload, join(output, folder));
       packed.filename = `${folder}/${packed.filename}`;
       const sha256 = createHash('sha256').update(readFileSync(join(output, packed.filename))).digest('hex');
-      report.packages.push({name, filename:packed.filename, sha256});
+      report.packages.push({name, filename:packed.filename, sha256, releaseAsset:`n8r-surface-${manifest.version}-${folder}.tgz`});
     }
     writeFileSync(join(output, 'candidates.json'), JSON.stringify(report, null, 2) + '\n');
     return report;

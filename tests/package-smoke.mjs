@@ -32,7 +32,8 @@ console.log(`Installed package passed on Node ${process.version}; 4 nodes, 6 rel
 const installedRoot = new URL('../', import.meta.resolve(packageName));
 const manifest = JSON.parse(readFileSync(new URL('package.json', installedRoot)));
 assert.equal(manifest.name, packageName);
-assert.equal(manifest.version, '0.0.0-experimental.1');
+assert.ok(process.env.N8R_TEST_VERSION, 'independent candidate version required');
+assert.equal(manifest.version, process.env.N8R_TEST_VERSION);
 assert.equal(manifest.bin['n8r-surface'], './dist/cli.js');
 console.log(`Verified installed identity: ${manifest.name}@${manifest.version}`);
 const {researcherInstructions} = await import(new URL('dist/codex.js', installedRoot));
