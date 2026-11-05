@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
-import {mkdtempSync, mkdirSync, writeFileSync, readFileSync, readdirSync, lstatSync, chmodSync, symlinkSync, rmSync} from 'node:fs';
+import {mkdtempSync, mkdirSync, writeFileSync, readFileSync, readdirSync, lstatSync, chmodSync, symlinkSync, readlinkSync, realpathSync, rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join, resolve, dirname} from 'node:path';
 import {spawnSync} from 'node:child_process';
@@ -13,7 +13,7 @@ const assets = installed ? new URL(import.meta.resolve('n8r-surface/examples/lum
 const marker = 'PRIVATE_VALUE_MUST_NOT_APPEAR';
 
 function fixture(t, config = {version: 1, artefactRoot: '~/n8r/artifacts', surfaceFormat: 'json'}) {
-  const home = mkdtempSync(join(tmpdir(), 'n8r startup '));
+  const home = realpathSync(mkdtempSync(join(tmpdir(), 'n8r startup ')));
   t.after(() => rmSync(home, {recursive: true, force: true}));
   mkdirSync(join(home, '.n8r'));
   const folder = join(home, 'n8r/artifacts');
@@ -39,6 +39,7 @@ function snapshot(root) {
   return readdirSync(root).sort().flatMap(name => {
     const path = join(root, name);
     const stat = lstatSync(path);
+    if (stat.isSymbolicLink()) return [[path, 'symlink', readlinkSync(path)]];
     return stat.isDirectory() ? [[path, 'directory', stat.mode], ...snapshot(path)] : [[path, readFileSync(path).toString('hex'), stat.mode, stat.mtimeMs]];
   });
 }
@@ -61,7 +62,7 @@ test('STARTUP-01: bare startup matches prepared state with closed input and no w
   const rows = r.stdout.split('\n').filter(x => x.includes('librechat-uniqueid.json'));
   assert.equal(rows.length, 1);
   assert.ok(rows[0].includes(`LibreChat | Surface definition | ${f.file}`));
-  assert.match(r.stdout, /Setup and AI conversation are not implemented/);
+  assert.match(r.stdout, /Vault setup required; run n8r-surface in an interactive terminal\./);
   assert.ok(!r.stdout.includes('Show setup requirements?'));
   assert.deepEqual(snapshot(f.home), before);
 });
@@ -82,7 +83,7 @@ test('missing settings use explicit defaults without creating a file or mistakin
   const f = fixture(t, null);
   const before = snapshot(f.home);
   const r = f.run();
-  assert.equal(r.status, 2);
+  assert.equal(r.status, 1);
   assert.match(r.stdout, /Missing; using defaults/);
   assert.ok(r.stdout.includes(join(f.home, 'n8r/artefacts')));
   assert.match(r.stdout, /Folder unavailable \(ENOENT\)/);
@@ -189,4 +190,25 @@ for (const target of ['configuration', 'artefact']) test(`FIFO ${target} does no
   assert.equal(r.status, 2);
   assert.match(r.stdout, /Not a regular file/);
   assert.ok(lstatSync(path).isFIFO());
+});
+
+for (const state of ['ready', 'missing', 'occupied', 'symlink']) test(`configured vault ${state}: correct exit and no closed-input writes`, t => {
+  const f = fixture(t, {version: 1, vaultRoot: '../vault'});
+  const vault = join(f.home, 'vault');
+  mkdirSync(vault);
+  for (const child of ['research','artifacts','surfaces']) mkdirSync(join(vault,child));
+  if (state !== 'ready') rmSync(join(vault,'surfaces'), {recursive:true});
+  if (state === 'occupied') writeFileSync(join(vault,'surfaces'),'keep');
+  if (state === 'symlink') symlinkSync(f.folder,join(vault,'surfaces'));
+  const before = snapshot(f.home), r = f.run();
+  assert.equal(r.status, state === 'ready' ? 0 : state === 'missing' ? 1 : 2);
+  if (state === 'ready') assert.ok(r.stdout.includes(`Vault ready: ${vault}`));
+  assert.deepEqual(snapshot(f.home),before);
+});
+
+test('legacy error wins over a complete vault and never offers setup', t => {
+  const f = fixture(t,{version:1,vaultRoot:'../vault',artefactRoot:'~/n8r/artifacts'});
+  for (const child of ['research','artifacts','surfaces']) mkdirSync(join(f.home,'vault',child),{recursive:true});
+  writeFileSync(join(f.folder,'bad.json'),'invalid');
+  const r=f.run(); assert.equal(r.status,2); assert.doesNotMatch(r.stdout,/Vault ready:|Vault setup required|Create vault/);
 });

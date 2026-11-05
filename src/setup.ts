@@ -62,7 +62,9 @@ export function saveSetup(snapshot: Settings, selected: string, cwd: string): st
     if (inside(path, source)) throw new InspectionError('Setup would write inside the source; choose a separate vault or source directory.');
   }
   if (snapshot.vault !== undefined && canonical(snapshot.vault) !== vault) throw new InspectionError('Configured vault cannot be changed by setup');
-  const output = Buffer.from(JSON.stringify({...snapshot.data, vaultRoot: vault}, null, 2) + '\n');
+  const output = snapshot.vault === undefined
+    ? Buffer.from(JSON.stringify({...snapshot.data, vaultRoot: vault}, null, 2) + '\n')
+    : Buffer.alloc(0);
   if (output.length > 64 * 1024) throw new InspectionError('Updated settings exceeds 65536 bytes');
   fs.mkdirSync(dirname(file), {recursive: true});
   const lock = file + '.lock';

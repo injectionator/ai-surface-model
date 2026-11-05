@@ -8,7 +8,7 @@ import {line, problem, readLocal, InspectionError, loadSettings, type Settings} 
 function artefacts(root: string): {lines: string[]; failed: boolean} {
   let entries;
   try { entries = readdirSync(root, {withFileTypes: true}); }
-  catch (error) { return {lines: ['Local artefacts', `  ${line(root)} | Folder unavailable (${problem(error)})`], failed: true}; }
+  catch (error) { return {lines: ['Local artefacts', `  ${line(root)} | Folder unavailable (${problem(error)})`], failed: (error as NodeJS.ErrnoException)?.code !== 'ENOENT'}; }
   entries.sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
   const lines = [`Local artefacts (${entries.length})`];
   let failed = false;
@@ -34,7 +34,7 @@ function artefacts(root: string): {lines: string[]; failed: boolean} {
   return {lines, failed};
 }
 
-export function overview(): {text: string; failed: boolean; configured: boolean} {
+export function overview(): {text: string; failed: boolean; configured: boolean; settings?: Settings} {
   const home = homedir();
   const file = join(home, '.n8r/n8r-surface.json');
   const lines = ['Configuration', `  File: ${line(file)}`];
@@ -46,6 +46,7 @@ export function overview(): {text: string; failed: boolean; configured: boolean}
     if (text === undefined) lines.push('  Missing; using defaults (no file created)');
     lines.push(`  Settings version: 1${text === undefined ? ' (default)' : ''}`,
       `  Artefact folder: ${line(config.root)}${config.defaultRoot ? ' (default)' : ''}`,
+      `  Vault folder: ${config.vault === undefined ? 'Not configured' : line(config.vault)}`,
       `  Surface output: ${config.format.toUpperCase()}${config.defaultFormat ? ' (default)' : ''}`,
       `  AI runner: ${config.runner ? 'Configured (unverified; details withheld)' : 'Not configured'}`,
       `  Lab connection: ${config.lab ? 'Configured (unverified; details withheld)' : 'Not configured'}`);
@@ -60,5 +61,5 @@ export function overview(): {text: string; failed: boolean; configured: boolean}
     lines.push(...listed.lines);
     failed ||= listed.failed;
   } else lines.push('Local artefacts', '  Not inspected: configuration unavailable');
-  return {text: lines.join('\n') + '\n', failed, configured: config !== undefined};
+  return {text: lines.join('\n') + '\n', failed, configured: config !== undefined, settings: config};
 }

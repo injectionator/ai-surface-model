@@ -13,8 +13,8 @@ subcommand will be added. The existing STARTUP-01 behavior remains the CLI basel
 
 The original command specification follows, with the planned inventory updated. The first #16
 increment implements bare startup only, using the #15 experimental artefact
-library. See [startup decisions and scope](startup.md). Other commands, setup
-writes and the standalone AI runner remain unimplemented. The first skill
+library. See [startup decisions and scope](startup.md). The setup-only increment now adds accepted local vault writes; other commands
+and the standalone AI runner remain unimplemented. The first skill
 provides instructions for working notes; it does not complete the structured-output
 or installed-CLI research cases below.
 The [recorded library checks](verification.md) are supporting evidence only.
@@ -56,7 +56,8 @@ Current progress, with evidence defining the verified scope and revision:
 | User or consumer intent | Current progress | Verification / next increment |
 | --- | --- | --- |
 | Read saved research and selected definitions through the library, retaining identities, findings and references. | Implemented and verified for the experimental library profile; no command claim. | [CONTRACT-01 and repeatable fixture/package checks](verification.md#contract-01-retain-useful-attributable-research-and-selected-definitions). |
-| Run `n8r-surface` alone and see settings, saved artefacts and known process status. | Specified, implemented and verified for the read-only overview and guidance question; setup/conversation unavailable. | [STARTUP-01 installed evidence at `b90358a`](startup-verification.md). Further CLI work paused while the skill is proved. |
+| Run `n8r-surface` alone and see settings, saved artefacts and known process status. | Specified, implemented and verified for the read-only overview and guidance question; setup/conversation unavailable. | [STARTUP-01 installed evidence at `b90358a`](startup-verification.md). Historical read-only baseline; setup supersedes its guidance and exit behavior. |
+| Choose a local vault once and reuse it from another source directory. | Setup-only implementation; installed rehearsal and human acceptance tracked separately. | [SETUP-01 evidence and tasks](vault-setup-verification.md). Research and continuation remain pending. |
 | Research supplied sources through the installed skill and save working notes. | Implemented; bounded Lumen and LibreChat agent rehearsals have saved/read back notes. Actual human input survived fresh-agent continuation; Work UI acceptance remains pending. | [RESEARCH-01 evidence and limits](researcher-skill-verification.md). No structured-output or standalone-runner claim. |
 | Offer to retain an initial partial graph when saving is undecided. | Implemented in skill 0.1.7; acceptance and evidence are tracked separately. | [Optional save offer](researcher-skill-verification.md#optional-save-offer-017). |
 | Resume from saved recommendations and retain useful next investigations. | Implemented in skill 0.1.6; installed fresh-agent save/continue and independent readback passed. Human acceptance remains pending. | [Recommendations evidence](researcher-skill-verification.md#saved-recommendations-016) and [prepared interaction](researcher-prepared-check.md). |
@@ -101,7 +102,7 @@ do not redefine success around whatever the code currently produces.
 ## Initial public command inventory
 
 This is the approved initial terminal surface for the first standalone milestone.
-Only CMD-01's read-only overview and guidance are implemented in this increment;
+CMD-01 implements the overview and explicitly accepted local vault setup;
 all argument forms below remain planned. See the [current parser contract](startup.md#settings-and-parser-decisions).
 It includes startup, discover and explicit help/version behavior; the formerly
 planned CMD-02 status command is retired.
@@ -221,13 +222,14 @@ The overview follows a few straightforward rules:
 Repeat the same simple check with two artefacts, an empty folder, inaccessible
 files, a private-value marker, and known versus unknown process status. Compare
 each output to its prepared state. The separately planned status command was
-retired before implementation; a later CLI increment will make the bare overview
-exit without a prompt.
+retired before implementation. Configured vault reuse exits without a prompt;
+first-use setup requires explicit confirmation.
 
 **Current result:** verified through the installed command at `b90358a` on
 Node 22/24/26, including closed input and a real terminal. See the
 [observed output, independent readback and limits](startup-verification.md).
-Setup writes and conversation remain unavailable; the planned status subcommand has been retired. [Startup decisions](startup.md) define the bounded path.
+This is historical evidence. Current setup behavior has its own
+[verification record](vault-setup-verification.md); research remains unavailable. [Startup decisions](startup.md) define the bounded path.
 
 ## Conversation intents are part of the product surface
 
@@ -403,8 +405,9 @@ checks demonstrated in terms a person trying the feature can assess.
 
 ## SETUP-01: setup-only increment
 
-Specified before implementation on 5 November 2026; implementation and candidate
-verification pending. The [plan](../superpowers/plans/2026-11-05-standalone-vault.md)
+Specified before implementation on 5 November 2026; setup is implemented.
+Candidate verification and its limits are recorded in
+[the setup evidence](vault-setup-verification.md). The [plan](../superpowers/plans/2026-11-05-standalone-vault.md)
 defines exact prompts, path handling, repair, preservation and the user-approved
 cooperating-writer concurrency boundary. No arguments are added. SOURCE-01 remains
 paused. Earlier read-only STARTUP-01 evidence is historical, not evidence for the

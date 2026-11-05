@@ -59,7 +59,7 @@ function settings(text: string | undefined, home: string, file: string): Setting
     catch { throw new InspectionError('Invalid JSON; repair the existing file'); }
   }
   if (!object(data) || data.version !== 1) throw new InspectionError('Expected settings object with version 1');
-  const path = localPath(data.artefactRoot ?? (data.artefactRoot === undefined ? '~/n8r/artefacts' : null), home, dirname(file));
+  const path = localPath(data.artefactRoot === undefined ? '~/n8r/artefacts' : data.artefactRoot, home, dirname(file));
   const vault = data.vaultRoot === undefined ? undefined : localPath(data.vaultRoot, home, dirname(file));
   const format = data.surfaceFormat === undefined ? 'json' : data.surfaceFormat;
   if (format !== 'json' && format !== 'yaml') throw new InspectionError('surfaceFormat must be json or yaml');

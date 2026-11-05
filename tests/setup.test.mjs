@@ -113,3 +113,56 @@ test('settings symlink is refused and saved relative vault uses settings directo
   fs.renameSync(f.file,join(f.home,'original')); fs.symlinkSync(join(f.home,'original'),f.file);
   assert.throws(() => settings.loadSettings(f.home));
 });
+
+test('late detected external edit preserves competing values and cleans temporary siblings', t => {
+  const f = fixture(t); const original = fs.openSync;
+  t.mock.method(fs, 'openSync', (path,...args) => {
+    const fd = original(path,...args);
+    if (String(path).endsWith('.tmp')) fs.writeFileSync(f.file,'{"version":1,"late":true}');
+    return fd;
+  });
+  assert.throws(f.save,/changed|conflict/i); assert.equal(read(f.file).late,true);
+  assert.deepEqual(fs.readdirSync(join(f.home,'.n8r')),['n8r-surface.json']);
+});
+
+test('another real setup process is refused deterministically while lock is held', async t => {
+  const {spawnSync} = await import('node:child_process');
+  const f=fixture(t), original=fs.mkdirSync; let competitor;
+  t.mock.method(fs,'mkdirSync',(path,...args) => {
+    if (path === f.vault && competitor === undefined) {
+      const code = `import {loadSettings} from ${JSON.stringify(new URL('../dist/settings.js',import.meta.url).href)}; import {saveSetup} from ${JSON.stringify(new URL('../dist/setup.js',import.meta.url).href)}; try {saveSetup(loadSettings(${JSON.stringify(f.home)}),${JSON.stringify(f.vault)},${JSON.stringify(f.source)});process.exitCode=0;} catch(e) {console.log(e.message);process.exitCode=2;}`;
+      competitor=spawnSync(process.execPath,['--input-type=module','-e',code],{encoding:'utf8',timeout:5000});
+    }
+    return original(path,...args);
+  });
+  f.save(); assert.equal(competitor.status,2); assert.match(competitor.stdout,/lock/); layout(f.vault);
+});
+
+test('stale lock and temporary write failure cannot change settings', t => {
+  const f=fixture(t), before=fs.readFileSync(f.file);
+  fs.writeFileSync(f.file+'.lock','unowned lock');
+  assert.throws(f.save,/lock/); assert.equal(fs.readFileSync(f.file+'.lock','utf8'),'unowned lock');
+  fs.unlinkSync(f.file+'.lock');
+  const original=fs.writeFileSync;
+  t.mock.method(fs,'writeFileSync',(path,...args) => {
+    if (typeof path === 'number') throw Object.assign(new Error('disk full'),{code:'ENOSPC'});
+    return original(path,...args);
+  });
+  assert.throws(f.save); assert.deepEqual(fs.readFileSync(f.file),before);
+  assert.deepEqual(fs.readdirSync(join(f.home,'.n8r')),['n8r-surface.json']);
+});
+
+test('repair of valid near-limit settings avoids reserialization and preserves bytes', t => {
+  const f=fixture(t);
+  fs.writeFileSync(f.file,JSON.stringify({version:1,vaultRoot:f.vault,unknown:Array(12000).fill(1)}));
+  const before=fs.readFileSync(f.file);
+  setup.saveSetup(settings.loadSettings(f.home),f.vault,f.source);
+  layout(f.vault); assert.deepEqual(fs.readFileSync(f.file),before);
+});
+
+test('settings expansion beyond read limit fails before any vault writes', t => {
+  const f=fixture(t,{version:1,unknown:Array(12000).fill(1)});
+  const before=fs.readFileSync(f.file);
+  assert.throws(f.save,/65536/); assert.ok(!fs.existsSync(f.vault));
+  assert.deepEqual(fs.readFileSync(f.file),before);
+});
