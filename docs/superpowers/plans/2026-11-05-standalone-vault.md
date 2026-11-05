@@ -48,21 +48,22 @@ Planning branch: `docs/30-standalone-vault-plan`, based on `origin/main` at
 The draft PR contains this plan only and uses `Related to #30` and `Related to #16`.
 It does not complete either issue.
 
-The checkout also contains eight paused SOURCE-01 files associated with
-`feat/16-source-overview`: four modified tracked files and four untracked files.
-They are preserved, excluded from this planning commit and not a setup dependency.
-Do not build a candidate from this dirty tree and attribute its behavior to main.
-Before execution, agree how to retain that work separately in the existing
-checkout; do not stash, discard, silently commit it, or use a Git worktree.
+The eight paused SOURCE-01 files are preserved separately on local branch
+`feat/16-source-overview` at checkpoint `e71834c8f800f64f0f671a72bf88e624dea63515`.
+The planning checkout was clean before this review on 5 November 2026. The checkpoint
+is incomplete and unverified; do not incorporate it into the setup candidate or
+resume SOURCE-01 implicitly. No Git worktree is needed or permitted.
 
 Proposed implementation branch: `feat/16-local-vault-setup`, under the existing
 foundation issue #16, from then-current main after planning integration. Reuse a
 matching branch/PR if one exists. If planning remains unmerged, document a stacked
 base rather than claiming that main contains this plan.
 
-PR #29 is still draft and open at this snapshot. Setup needs neither its Skeleton
-Surface changes nor the shared skill bundle. It need not land first. A later npm
-skill increment must explicitly choose a merged or documented dependent revision.
+PR #29 merged on 5 November 2026 at
+`8b8d10dfd60b911cbeda2a56a8b280bf49d0e751`. This planning branch retains its original
+base; implementation must use then-current main or name its stacked base. Setup
+does not require shared skill bundling. A later npm skill increment must identify
+the instruction revision it packages.
 
 ### Baseline evidence
 
@@ -77,6 +78,34 @@ outside the source checkout using the existing
 [installation procedure](../../n8r-surface/startup-human-check.md). Use an isolated
 home and record the actual terminal and closed-input results for the interaction
 below. Do not substitute the paused working copy or fabricate expected failures.
+
+## Intent and evidence for this increment
+
+**User task:** choose where future research belongs once, then reliably reuse that
+location from another source folder. A successful setup does not mean research is
+available or that any Surface has been produced.
+
+| Starting state (X) | Actual input (Y) | Observable outcome (Z) and independent verification |
+| --- | --- | --- |
+| Installed candidate; isolated home with no settings; source outside the proposed vault | Run `n8r-surface`, press Enter, then enter `y` | Exit 0; reported settings contain `version: 1` and absolute `vaultRoot`; open the vault and see all three folders; compare source snapshot unchanged. |
+| Saved settings and complete vault; a different source cwd | Run `n8r-surface` | Same resolved vault, no question, exit 0; settings and vault contents unchanged. |
+| Another empty isolated home; closed input | Run `n8r-surface </dev/null` | Exact setup-required message below, exit 1 without waiting; compare home/source snapshots and find no writes. |
+| Setup pending; interactive terminal | Choose a path, then answer `n`, send EOF or interrupt before confirmation | Exit 1; settings, vault and source snapshots unchanged. |
+| Existing valid settings with legacy and unknown values | Confirm a separate vault | Only `vaultRoot` is added; independently parse before/after settings and compare retained values and legacy file bytes. |
+
+These cases assume the legacy corpus is absent or readable with valid entries;
+legacy errors follow the exit-2 rule below.
+
+All rows are **specified, unimplemented and unverified**. The historical baseline
+attempt above is blocked; it is not a failed execution of these candidate checks.
+Automated process and terminal tests cover cancellation, compatibility and the
+failure cases below. The human task list proves the shortest first-use/reuse path.
+
+For each installed rehearsal, record the starting state, exact interaction,
+observed output/exit, before/after readback, package commit and runtime environment.
+Mark each result Pass / Fail / Blocked. Retain actual observations separately from
+these expectations; tests or developer-created folders cannot stand in for the
+installed command producing its own result.
 
 ## Human task list for the setup candidate
 
@@ -94,8 +123,10 @@ tester's real home/settings. This setup-only check needs no Codex or account.
   and `surfaces` folders. Open the reported settings file: expect `version: 1`
   and `vaultRoot` holding the selected absolute path. Open the source folder:
   expect no added setup files or changes to its existing files.
-- [ ] Run `n8r-surface` again. Expect the same resolved vault, no setup question,
-  and exit 0. No research has begun and no research outputs are promised.
+- [ ] Open a terminal in a second maintainer-prepared source folder using the
+  same test home and run `n8r-surface`. Expect the same resolved vault, no setup
+  question, and exit 0. The maintainer compares settings and vault bytes unchanged.
+  No research has begun and no research outputs are promised.
 - [ ] In a second maintainer-prepared empty test home, run
   `n8r-surface </dev/null`. Expect `Vault setup required; run n8r-surface in an interactive terminal.`,
   exit 1 promptly and no created settings or vault. The maintainer independently
@@ -116,6 +147,12 @@ only the dedicated test homes if desired.
   invocation cwd and store the absolute result. Reject empty custom paths,
   controls, URL forms and non-directory collisions. Show the resolved path before
   confirmation. Existing stored relative paths resolve against the settings folder.
+  Before writes, reject destinations that would create or change settings or vault
+  entries inside the selected source (invocation cwd), including resolved symlink
+  aliases; exit 2 with guidance to choose a separate vault or source directory.
+  Pre-existing ancestors must be resolved when checking a not-yet-created path.
+  This also means setup from home itself can be refused when settings would be
+  inside that selected source. Complete configured reuse remains read-only.
 - Prompt only with both stdin and stdout attached to terminals, after displaying
   existing non-private settings. Enter at the location prompt chooses the default;
   only `y` or `yes` confirms writes. Refusal, EOF or interruption before confirmation
@@ -133,17 +170,27 @@ only the dedicated test homes if desired.
 - Preserve pre-existing vault contents. Create only missing directories. Publish
   settings only after all required directories are available; use an exclusive
   temporary sibling and atomic rename, checking the original file bytes for
-  conflicts before replacement. Concurrent modification fails without overwriting
-  the other writer. An interrupted setup may leave empty folders; report/reuse
-  them on retry rather than deleting potentially user-owned contents.
+  conflicts before replacement. A byte check followed by rename does not guarantee
+  protection from a writer changing the file between those operations. Before
+  implementation, choose and document the supported concurrency boundary and a
+  publication protocol; do not claim arbitrary-writer protection from this sketch.
+  Include missing-file creation races and two simultaneous setup processes in
+  that decision and its deterministic tests. Detected conflicts exit 2 and retain
+  the other writer's values. An interrupted setup may leave empty folders;
+  report/reuse them on retry rather than deleting potentially user-owned contents.
+  Remove only this invocation's temporary settings file when safely identifiable.
 - Refuse settings-file symlinks and special files using existing bounded-read
   protections. Reject symlinked required vault children for this first write
   increment; report the limitation. Resolve and display an explicitly chosen
   vault-root symlink before confirmation, without silently redirecting its children.
 - Successful local setup/reuse exits 0; missing/declined setup exits 1; invalid
   settings, unsupported arguments and filesystem failures exit 2. Existing
-  structured-artefact errors remain visible. Missing legacy corpus alone is not
-  a setup failure and does not create that legacy folder.
+  structured-artefact errors remain visible. Any legacy inspection error other
+  than a missing corpus exits 2 before offering setup or writing files; a valid
+  vault must not hide that error. A missing legacy corpus is reported as absent,
+  permits setup/reuse, and does not create that legacy folder. On reuse, missing
+  required vault folders exit 1 without writes when input is closed; an occupied
+  child path or inaccessible vault exits 2.
 - Add no `--path`, `--vault`, setup, status or discovery command in this increment.
   Bare startup is the setup entry point. Later per-run overrides must leave the
   saved default intact. Default-changing UI, migration and research are later work.
@@ -162,7 +209,19 @@ only the dedicated test homes if desired.
 Pin these cases in automated process tests: existing legacy settings and content;
 unknown settings and malformed JSON; changed settings between prompt and save;
 partial creation failure and retry; cancellation and closed input. Also check
-spaces, relative paths, control characters, symlinks and a second source cwd.
+spaces, relative paths, control characters, symlinks, source/destination overlap,
+a second source cwd and unchanged settings on reuse. Inject publication failures
+and interleavings deterministically; timing-dependent tests are insufficient
+proof of the selected concurrency boundary.
+
+### Decision required before implementation
+
+The concurrency boundary remains open: the desired outcome is to retain a competing
+writer's settings, but the proposed byte-check/rename sequence cannot establish it
+for arbitrary external writers. Record the chosen guarantee, limitations and
+reproducible conflict checks before coding Task 1. Review of this plan does not
+approve weakening the preservation requirement. Setup-only implementation also
+still needs explicit user authorization to resume that part of #16.
 
 ## Task 1: Settings compatibility and setup transaction
 
@@ -185,7 +244,7 @@ as new public library APIs.
 - [ ] Implement the bounded parser and confirmed setup transaction with Node
   built-ins. Test the path/symlink cases listed above and settings size limits.
 - [ ] Run `npm test`; require all relevant assertions to pass. Commit only this
-  increment's files after resolving the paused-work overlap explicitly.
+  increment's files; leave the preserved SOURCE-01 checkpoint separate.
 
 ## Task 2: First-use interaction and installed proof
 
