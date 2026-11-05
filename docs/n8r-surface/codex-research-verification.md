@@ -10,13 +10,38 @@ RESEARCH-01 implements a source conversation and follow-up. It does not complete
 E2E-01, save/reopen/continue, structured output, Lab integration or distribution.
 The user prioritized standalone AI, then saved continuation, then npm distribution.
 
-The installed development candidate completed a real two-turn synthetic Lumen
-conversation on 5 November 2026: source list/read, cited findings, and the supplied
-OIDC correction retained separately from guide claims. Independent readback found
-identical source SHA-256, unchanged settings and no files in the research vault.
-That run preceded the final root-identity and turn-correlation fixes. The final
-candidate rehearsal and exact commit will be recorded here before handoff.
-Human acceptance remains pending.
+**Final candidate rehearsal: Pass (agent), 5 November 2026. Human acceptance
+remains pending.** The installed command completed both interactions from the
+short guide with real `gpt-6-astra` execution: source list/read, cited findings,
+and the supplied OIDC correction retained separately from guide claims.
+
+- Code revision: [`ba6f95d`](https://github.com/injectionator/n8r-surface/commit/ba6f95dc62947c53e9ab7276e60f5b7cb4d3e17e).
+- Environment: macOS arm64, Node 26.13.0, npm tarball installed into an isolated
+  prefix, Codex CLI 0.166.0, existing ChatGPT sign-in, explicit `gpt-6-astra`.
+  A separate test HOME held n8r settings; CODEX_HOME pointed to the existing Codex
+  installation without copying credentials. No account tier claim is inferred.
+- Executed tarball SHA-256:
+  `c996b4085eaab0324c0f514b41d5440256ad27845675e1912aaffbd74e8179ec`.
+- Starting state: one copied synthetic `lumen-guide.md`, complete configured vault,
+  unchanged version-1 n8r settings, no existing research output.
+- Interaction: installed `n8r-surface discover <selected-source>/lumen-guide.md --model gpt-6-astra`,
+  accepted transmission, pasted the two prompts in the guide, then `/exit`.
+  The relative path in the human guide and this explicit file selection resolve
+  the same bytes. Exit **0**.
+- [Sanitized full terminal transcript](codex-research-transcript.md) retains actual
+  model messages and source-call lines. The developing agent did not prewrite
+  findings or replace the model's investigation.
+- Independent readback: source SHA-256 before and after was
+  `98d3374c79c166b37f0debb4ffb5e457eda1385dd7847b042cbad674cac98693`;
+  settings bytes were unchanged; the vault contained no research files. The
+  stated inference, OIDC, archive and callback facts match guide lines 8–22.
+  The follow-up retained non-selection of OIDC without inventing anonymous access.
+
+The earlier directory-source rehearsal also passed before the root-identity and
+turn-correlation fixes; it remains local historical evidence. The final file-scope
+rehearsal above includes both fixes. Later documentation-only evidence commits do
+not change the exercised implementation. Local transcripts/readback are retained
+under the selected vault's `runs/` convention; no local vault path is published.
 
 ## Architecture
 
@@ -104,8 +129,10 @@ a newer client. Its model list offered `gpt-5.5`; the user explicitly selected i
 but inference rejected it for ChatGPT sign-in. Neither result proves inference.
 
 The user then authorized a CLI update and retry of `gpt-6-astra`. `codex update`
-installed 0.166.0 in the active Node 26 global prefix; the older executable in a
-different prefix remains. The command checks whichever `codex` is on its PATH.
+installed 0.166.0 in the active Node 26 global prefix. The original standalone
+installation in the other prefix was then explicitly updated to the same 0.166.0;
+both reported that version and retained ChatGPT sign-in. The command checks
+whichever `codex` is on its PATH.
 Existing sign-in was reused; the saved model setting was not changed.
 
 `codex exec` and then app-server both completed real `gpt-6-astra` responses.
@@ -116,16 +143,28 @@ No managed requirement was disabled or bypassed.
 
 ## Automated verification
 
-Current development run: 89 Node tests passed, including offline terminal cases
+Final implementation: 89 Node tests passed on each of Node 22.23.2, 24.22.2 and
+26.13.0, including offline terminal cases
 for confirmation refusal (no Codex launch), API-key rejection, same-thread turns,
 out-of-scope tool calls, failed answers, stale events/callbacks, malformed identity,
 authentication changes, EOF, and cancellation during connection and an active turn.
 The terminal fixture is explicitly scripted and is **not real AI evidence**.
 It verifies process behavior, source/settings bytes and child cleanup.
 
-Final Node 22/24/26, installed-package, Markdown, local-link, citation and fixture
-results will be recorded with the final candidate. Automated rehearsal does not
-replace human acceptance of the short walkthrough.
+Additional checks passed:
+
+- Installed-package check on all three Node majors: library exports, all bundled
+  Researcher references/digest, startup terminal/readback and 13 offline discovery
+  terminal cases. Runtime dependency metadata was cached with `npm cache add yaml@2.9.1`.
+- `bash -n scripts/flow`; Python unittest discovery: 24 tests, including JSON
+  syntax and applicable synthetic identifier/reference checks.
+- Markdownlint 0.24.0: 57 files, zero issues after transcript addition.
+- Lychee 0.24.2 offline with fragments: 410 links, zero errors after transcript addition.
+- cffconvert 2.0.0: citation metadata valid; `git diff --check`: clean.
+
+Documentation checks were repeated after recording the transcript. External link
+requests and registry publication were not part of these checks. Fixture integrity
+is not model conformance. Automated rehearsal does not replace human acceptance.
 
 ## Remaining acceptance
 
