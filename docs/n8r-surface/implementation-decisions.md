@@ -16,21 +16,21 @@ majors and Bun-only execution are not part of the initial support promise. Revis
 lists 22/24/26 support windows through April 2027/2028/2029 respectively (checked
 4 November 2026).
 
-Use **`@n8r/surface`** as the preferred npm package/library import and
-**`n8r-surface`** as the supported alternative, both exposing `n8r-surface`.
-This supersedes the unscoped-first/fallback decision under
+Use **`@n8r/surface`** as the published npm package/library import, exposing the
+`n8r-surface` executable. The maintainer approved a scoped-only first release on
+5 November 2026, superseding the dual-publication requirement in
 [issue #27](https://github.com/injectionator/n8r-surface/issues/27).
-Generate both from one build with matching payloads and version. The
-[distribution candidate procedure](npm-distribution.md) preserves `private: true`
-by default. The maintainer confirmed `0.1.0-experimental.2` and authorized
-publication; explicit `--publishable` preparation creates fresh public archives.
-The [first-release workflow](npm-release.md) retains both archives before
-publication, uses stage-only token bootstrap with provenance and maintainer 2FA approval, and requires
-independent registry verification. Merge and account prerequisites remain. Registry
-lookups do not reserve names or establish publishing rights. The approved
-[package version policy](versioning.md) makes the root manifest authoritative,
-derives CLI output from the installed manifest and verifies retained artifact
-identity against the exact Git tag, commit and GitHub Release metadata.
+Unscoped publication and name reservation are removed from the plan. The
+remaining unscoped candidate generation/testing is legacy tooling to remove;
+`n8r-surface` was not published or secured on npm. The [release record](npm-release.md#verified-scoped-release)
+identifies the verified registry version, source and provenance.
+
+The [distribution candidate procedure](npm-distribution.md) preserves
+`private: true` in source and default candidates. Explicit publishable preparation
+is guarded to the approved version; it does not publish. The existing workflow
+still assumes dual submission/verification and must be reviewed before future
+releases. The [version policy](versioning.md) keeps the manifest authoritative and
+verifies artifact identity against the exact tag, commit and GitHub Release.
 
 Issue #15 ships a library, built declarations, contracts and synthetic assets.
 The first #16 increment adds a `bin` entry for bare startup only; see its

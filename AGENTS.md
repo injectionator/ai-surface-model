@@ -329,6 +329,14 @@ GitHub CLI read access and never publishes. An optional second argument supplies
 an offline release JSON response and explicitly limits the result to rehearsal.
 See [version policy, prerequisites and human verification](docs/n8r-surface/versioning.md).
 
+## Scoped-only release scope
+
+Publish only `@n8r/surface`; the executable remains `n8r-surface`. Unscoped
+publication and name reservation are not planned. Remove dual-package behavior
+from release tooling before another release, preserving existing tagged artifacts.
+The commands below describe the historical first-release tooling, not permission
+to rerun it for an already released version.
+
 ## First npm release preparation
 
 Default candidates remain private. For the approved `0.1.0-experimental.2`

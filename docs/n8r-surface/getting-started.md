@@ -1,23 +1,29 @@
 # Create a Surface from saved research
 
-This candidate adds a linked research HTML record and partial Surface JSON to
-the existing Markdown research workflow. Reopen either saved file to revise the pair. The package remains private and unpublished.
+The experimental command saves a linked research HTML record and partial Surface
+JSON alongside Markdown research notes. Reopen either saved file to revise the pair.
+The first published package is `@n8r/surface@0.1.0-experimental.2`; see the
+[release and verification record](npm-release.md#verified-scoped-release).
 Use Node 22, 24 or 26, Codex CLI **0.166.0**, and an existing ChatGPT sign-in with
 access to `gpt-6-astra`. No API-key billing or model fallback is used.
 
-For isolated checks of both official npm package candidates, use the
-[distribution walkthrough](npm-distribution.md). The global install below uses
-the checkout tarball and replaces the command in your npm global prefix.
+For isolated checks of locally built candidates, use the
+[distribution walkthrough](npm-distribution.md). The registry install below
+replaces the command in your npm global prefix. The unscoped npm package is not
+published; the executable is still named `n8r-surface`.
 
 ## 1. Install
 
-- Open a terminal in this checkout at the reviewed candidate revision and paste:
+- Open a terminal and paste:
 
   ```sh
-  npm ci && npm pack && npm install --global ./n8r-surface-0.1.0-experimental.2.tgz
+  npm install --global @n8r/surface@0.1.0-experimental.2
+  n8r-surface --version
   ```
 
-  Expect successful installation and the terminal prompt. Stay in the checkout.
+  Expect successful installation and `n8r-surface 0.1.0-experimental.2`.
+  Use this exact version or `@experimental`; npm's `latest` tag still points to
+  its first-stage placeholder and has not been promoted.
   If installation fails, stop and report the error.
 
 ## 2. Create and save a Surface
@@ -84,11 +90,13 @@ rehearsal from human acceptance and lists remaining limits.
 
   ```sh
   n8r-surface
-  n8r-surface discover examples/researcher/sources/lumen-guide.md --model gpt-6-astra
+  research_source="$(npm root -g)/@n8r/surface/examples/researcher/sources/lumen-guide.md"
+  n8r-surface discover "$research_source" --model gpt-6-astra
   ```
 
   The first command reuses your vault (or asks you to choose/create it once).
-  The second names the fictional source and requests permission to send inspected
+  The `discover` command uses the fictional source bundled in your installed
+  package and requests permission to send inspected
   text to OpenAI. Type **y**; expect the connected model and `You>` prompt.
 - At `You>`, paste this as one line:
 

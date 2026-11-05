@@ -1,5 +1,11 @@
 # First npm release implementation plan
 
+**Historical plan — superseded:** the scoped package was published and verified.
+The maintainer removed unscoped publication and name reservation from the plan
+on 5 November 2026. Any unfinished two-package tasks below are cancelled, not
+backlog work. Preserve this record and the original artifacts as history. Current
+scope is [scoped-only distribution](../../n8r-surface/versioning.md).
+
 > **For agentic workers:** use superpowers:executing-plans for this authorized increment.
 
 **Goal:** prepare and publish both official packages at `0.1.0-experimental.1`
@@ -37,11 +43,11 @@ requires account access; private local tests cannot establish provenance.
   on retry download retained artifacts rather than rebuild. Fail on differing
   registry bytes. Exercise local checks with synthetic network evidence clearly
   labeled; live authentication/provenance remains a separate verification.
-- [ ] Update distribution/version documentation and runnable human verification.
+- Update distribution/version documentation and runnable human verification.
   Run Node 22/24/26 tests and installed package checks, lint, links and fixture
   checks. Rehearse publishable installs from a clean commit. Review and push a
   draft PR related to #27, recording exact revision/environment and limitations.
-- [ ] After required account actions and review/merge decision, build from the
+- After required account actions and review/merge decision, build from the
   reviewed release revision, publish both packages, independently inspect registry
   bytes/provenance/installations, and finalize the immutable release. Report any
   partial release without rebuilding or replacing the existing version.

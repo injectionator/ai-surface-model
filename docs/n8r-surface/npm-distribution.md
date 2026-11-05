@@ -1,17 +1,22 @@
-# Dual npm distribution candidates
+# npm distribution and retained candidates
 
-Issue [#27](https://github.com/injectionator/n8r-surface/issues/27) selects
-`@n8r/surface` as the preferred package and library import, with `n8r-surface` as
-an official alternative. Both expose the `n8r-surface` executable. Install one
-route per environment because they provide the same command name.
+The published package is **`@n8r/surface@0.1.0-experimental.2`**, exposing the
+`n8r-surface` executable. The maintainer selected scoped-only publication under
+[issue #27](https://github.com/injectionator/n8r-surface/issues/27).
+Unscoped publication and name reservation have been removed from the plan.
+The existing unscoped output is legacy tooling, not a supported registry route.
+See the [verified release record](npm-release.md#verified-scoped-release).
 
-This increment prepares **private local candidates**, not a published release.
-The root manifest and default generated manifests retain `private: true`. The
-maintainer selected `0.1.0-experimental.2` and authorized publication. Explicit
-`--publishable` preparation removes the generated guards only; see the
-[first-release procedure](npm-release.md). Registry installation remains unproved.
+The tooling below still generates and tests both candidates from one build.
+Source and default generated manifests retain `private: true`; explicit
+`--publishable` preparation creates fresh publishable archives without publishing.
+Do not rebuild or restage the released version. A later release requires a new
+reviewed version and updated first-release guards.
 
 ## Build and inspect candidates
+
+These commands describe the current legacy implementation, which still generates
+and tests both names. They are not a plan to publish the unscoped output.
 
 From the checkout root, with Node 22, 24 or 26, npm, Git, POSIX `tar` and Python 3.9+:
 
@@ -86,52 +91,25 @@ Codex sign-in or existing vault is needed for this distribution check.
   After inspection, leave the consumer directory and remove only the temporary
   directory created by `mktemp`; keep any evidence you need first.
 
-## Registry routes after a separately approved release
-
-These are planned routes; do not use them as evidence of a release today.
-Replace `VERSION` with the same verified published version for either route:
+## Verified scoped registry route
 
 ```sh
-npm install --global @n8r/surface@VERSION
-# Alternative in a separate environment:
-npm install --global n8r-surface@VERSION
-# Explicit executable selection for a one-off invocation:
-npm exec --package=@n8r/surface@VERSION -- n8r-surface --version
-npm exec --package=n8r-surface@VERSION -- n8r-surface --version
+npm install --global @n8r/surface@0.1.0-experimental.2
+npm exec --yes --package=@n8r/surface@0.1.0-experimental.2 -- n8r-surface --version
 ```
 
-Library users install the chosen exact version locally and import from
-`@n8r/surface` (preferred) or `n8r-surface`. Source links must resolve to
-[the official repository](https://github.com/injectionator/n8r-surface).
-After publication, check each registry manifest's version, repository and
-`dist.integrity`, verify its provenance against the reviewed source revision,
-and repeat isolated installs and the command/asset readback for both names.
-Matching repository text alone does not prove origin.
+Library users install the scoped exact version locally and import from
+`@n8r/surface`. The [release record](npm-release.md#verified-scoped-release)
+contains independent bytes, installation and signed-provenance verification.
+Use the exact version or `experimental`; `latest` was not promoted.
 
-## Remaining release decisions and recovery
+## Remaining tooling cleanup
 
-On 5 November 2026, public metadata lookups returned E404 for both names and
-`npm whoami --registry=https://registry.npmjs.org` returned E401. This establishes
-neither name availability nor publishing rights. An authorized maintainer must
-establish the npm identity, `n8r` organization/team rights and unscoped ownership.
-Subsequent authenticated readback identified the intended npm account and its
-`n8r` owner role; new-package publication rights still require an actual publish.
+Remove unscoped candidate generation and dual-package assumptions from packing,
+package checks, release verification and the release workflow before a future
+scoped release. Preserve the existing immutable release and historical artifacts;
+no unscoped publication, reservation or acquisition work is planned.
 
-The approved first version is `0.1.0-experimental.2`. Review the release
-workflow before merging; account configuration and registry verification remain. Prefer trusted publishing for both packages
-from the public repository on GitHub-hosted runners. npm documents Node 22.14+
-and npm 11.5.1+ for trusted publishing and automatic provenance for public packages
-from public repositories. Configure and verify each package's trust relationship;
-local tarball tests cannot do this. See [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/)
-(checked 5 November 2026). The manual workflow and its remaining account prerequisites are described in
-[the first-release procedure](npm-release.md).
-
-Use the same version and an explicit `experimental` distribution tag for both
-packages; do not promote `latest` implicitly. Record each package's publication,
-integrity and verification separately. If only one publishes, report the release
-as incomplete and retain the exact approved build. Inspect existing registry
-bytes before retrying the missing package; never replace or rebuild a published
-version under an assumption of equivalence. Align tags only after both packages
-pass registry readback. A mismatching published payload needs a new approved
-version for both names. Publication, registry rehearsals, provenance verification
-and human acceptance remain open under #27.
+The scoped release used stage-only authentication and maintainer 2FA approval.
+Future authentication and recovery follow the [version policy](versioning.md).
+A new release or tag promotion still requires its own authorization.
