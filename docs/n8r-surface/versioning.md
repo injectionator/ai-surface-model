@@ -1,17 +1,16 @@
 # Package version and release identity
 
-The [approved decision in issue #27](https://github.com/injectionator/n8r-surface/issues/27#issuecomment-6661015093)
-applies to both `@n8r/surface` and `n8r-surface`. Their authoritative version is
-`package.json`; the lockfile must agree. Both packages come from one build of one
-commit. The installed command reads its own manifest for `--version`, regardless
-of the working directory. Package versions do not version the AI Surface Model,
-Researcher skill, or individual saved Surface revisions.
+The distribution plan is **`@n8r/surface` only**. Its authoritative version is
+`package.json`; the lockfile must agree, and the installed command reads its own
+manifest for `--version`. Package versions do not version the AI Surface Model,
+Researcher skill or individual saved Surface revisions.
 
-The first verified release is scoped-only, by the maintainer's revised decision:
+The maintainer removed unscoped publication and name reservation from the plan
+on 5 November 2026. The first verified release is
 [`@n8r/surface@0.1.0-experimental.2`](npm-release.md#verified-scoped-release).
-The dual-publication rules below apply if a future release explicitly publishes
-both names; they do not establish publication of the unscoped candidate. The
-existing workflow's dual verification must be adapted before another release.
+Historical dual archives remain evidence, not a second supported package or a
+future publication commitment. Existing dual-package tooling must be reduced to
+the scoped package before another release; that cleanup does not authorize one.
 
 ## Compatibility and version changes
 
@@ -43,9 +42,9 @@ the [first-release procedure](npm-release.md).
 
 npm distribution tags are movable pointers, unlike permanent Git release tags:
 
-- Experimental prereleases use explicit `experimental` on both packages.
+- Experimental prereleases use explicit `experimental` on the scoped package.
 - Release candidates use explicit `next`; they must not update `latest`.
-- Stable releases may use `latest` only after both exact-version routes pass
+- Stable releases may use `latest` only after the scoped exact-version route passes
   verification and promotion is authorized. Publish initially under `next` to
   permit independent readback before promotion.
 
@@ -64,19 +63,16 @@ that do not report `immutable: true`. No repository settings are changed by
 these local tools. Review/approval of the selected commit is a maintainer
 prerequisite; the verifier checks identity, not the adequacy of code review.
 
-Retain `candidates.json` and both exact tarballs from the approved build. Each
-report entry has a `releaseAsset` name, respectively
-`n8r-surface-VERSION-scoped.tgz` and `n8r-surface-VERSION-unscoped.tgz`. Copy the
-bytes under those distinct names when uploading release assets, since npm gives
-both original tarballs the same basename. Upload the report too, and retain the
-build environment, test evidence, release notes and per-package registry results.
-SHA-256 identifies bytes; it does not authenticate the builder.
+Retain the approved scoped archive, its digest report, build environment, test
+evidence, release notes and registry readback. SHA-256 identifies bytes; it does
+not authenticate the builder. Do not rebuild or alter a published version.
 
-The source packer requires `private: true`. The explicit `--publishable` option
-creates fresh publishable archives at the approved first version; ordinary
-candidates stay private. Use a fresh reviewed commit and build. Do not strip the guard from an old tarball
-and keep its old hash or claim it was built from an unchanged commit. The current
-verifier accepts private artifacts only for draft metadata rehearsals.
+The current packer and release checker still retain two artifacts from the
+superseded implementation. Preserve the historical report and both archives for
+verification of `.1` and `.2`; remove the unscoped output and dual-package
+requirements when adapting the tooling for future scoped releases. Source and
+default candidates remain private. Never strip a guard from an old tarball and
+retain its old digest or source claim.
 
 ## Read-only verification commands
 
@@ -113,42 +109,31 @@ performs explicitly selected publication; registry permissions remain external.
 
 ## Authentication, provenance and incomplete releases
 
-Before any first publication, establish the npm account, package ownership and
-`n8r` organization/team rights for both names. The official
-[scoped publication guide](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages/)
-documents public access and direct-publication authentication requirements.
-Its staged first-publication path creates a public placeholder; staging is not
-a read-only readiness check. The maintainer approved this staged route for the
-first release after npm offered stage-only tokens; submit the actual retained
-artifacts, not an empty reservation package. The [procedure](npm-release.md)
-requires maintainer 2FA approval of both real versions.
+Future publication requires an authorized npm identity with write access to
+`@n8r/surface`. Unscoped ownership, reservation and defensive publication are
+out of scope. The first release used a stage-only token, followed by maintainer
+2FA approval; [the release record](npm-release.md#verified-scoped-release)
+contains the observed results.
 
 Prefer [trusted publishing](https://docs.npmjs.com/trusted-publishers/) from the
-public repository using GitHub-hosted runners. Configure each package separately
-for the exact workflow and environment. npm documents Node 22.14+ and npm 11.5.1+
-for trusted publishing; its dist-tag permission is separate and requires newer
-npm (11.21.0+ in the 11 series or 12.2.0+ in the 12 series). A newly configured
-publisher must complete a successful publish within two days or be recreated.
-These are prerequisites to verify during release preparation, not settings this
-increment changes. References checked 5 November 2026.
+public repository on GitHub-hosted runners for future scoped releases. Configure
+only `@n8r/surface` for the reviewed workflow/environment. This has not yet been
+exercised. Recheck npm's current requirements before setup; a newly configured
+publisher must complete a successful publication within two days or be recreated.
+Keep credentials outside tracked files.
 
-For each exact installed registry version, run `npm audit signatures` and inspect
-its [provenance](https://docs.npmjs.com/generating-provenance-statements/). Require
-evidence for the package itself, not merely an attested dependency. Compare the
-attestation's source commit/repository and artifact digest with the approved
-release. Also compare registry tarball bytes with the retained SHA-256 and record
-registry `dist.integrity`. A repository URL or locally generated hash is not
-registry provenance. Repeat the [isolated consumer checks](npm-distribution.md#human-verification)
-and documented npm-exec routes for both names.
+For the exact scoped registry version, verify registry signatures and the
+package's own provenance, source repository/commit, workflow identity and subject
+digest. Compare downloaded bytes with the retained SHA-256 and registry integrity.
+Exercise the documented isolated installation and npm-exec route. An attested
+dependency or matching repository text alone is insufficient.
 
-If one package publishes and the other fails, the release is **incomplete**.
-Retain the exact build and draft GitHub Release. Inspect the existing published
-bytes and evidence, then retry only the missing package using the retained
-artifact after resolving the failure. Never rebuild or overwrite the published
-version. A mismatch requires a new approved version for both names. Promote both
-npm dist-tags and finalize the immutable GitHub Release only after both routes
-pass. If tag promotion partially fails, record that too and repair only the
-missing pointer update; it does not require republishing package bytes.
+If submission or verification fails, keep the release incomplete and retain its
+exact archives. Check whether the version already exists before retrying; verify
+existing bytes instead of overwriting or silently rebuilding them. A mismatch
+requires a new approved version. Finalize the immutable GitHub Release only after
+the scoped package passes acceptance. Promote `latest` only after a separate
+promotion decision; no unscoped publication is required.
 
 ## Human check for this increment
 
@@ -161,23 +146,23 @@ Keep the current terminal with `candidate_run` set by that guide.
   `Version consistent: 0.1.0-experimental.2`, exit 0. Inspect `package.json` and
   both root version fields in `package-lock.json`; they must match.
 - [ ] Follow the [candidate install steps](npm-distribution.md#human-verification)
-  for both names. In each consumer directory run:
+  for the scoped package. In its consumer directory run:
 
   ```sh
   node -p 'require("./node_modules/@n8r/surface/package.json").version'
   ./node_modules/.bin/n8r-surface --version
   ```
 
-  For the alternative use `./node_modules/n8r-surface/package.json`. Expect
+  Expect
   `0.1.0-experimental.2` and `n8r-surface 0.1.0-experimental.2`, both exit 0.
 - [ ] Inspect `candidates.json`: both entries have distinct `releaseAsset` names,
   the same report version/revision, and hashes matching the retained tarballs.
   A clean-commit rehearsal must say `dirty: false`.
 - [ ] Read the compatibility table and release/recovery procedure above. Expect
-  one permanent Git tag and exact commit for both package names; `experimental`
+  one permanent Git tag and exact commit for the scoped package; `experimental`
   and `next` do not silently promote `latest`.
 - [ ] Report **Pass / Fail / Blocked**, Node/npm versions, report revision and
-  both CLI outputs. Version drift or missing artifacts is Fail. Missing real
+  the scoped CLI output. Version drift or missing artifacts is Fail. Missing real
   release/authentication is Blocked for live release verification, not a reason
   to create a tag or publish. Clean up only the temporary consumer directory
   created by the distribution procedure after retaining needed evidence.

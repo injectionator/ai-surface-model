@@ -573,4 +573,5 @@ The GitHub prerelease was finalized and read back as immutable. See the
 [release evidence](npm-release.md#verified-scoped-release). The unscoped
 submission failed with E403 and was removed from the release scope; no unscoped
 registry success or name protection is claimed. Future workflow adaptation
-remains separate from this verified scoped release.
+must remove dual-package assumptions before another scoped release. Unscoped
+publication and name reservation are no longer planned.

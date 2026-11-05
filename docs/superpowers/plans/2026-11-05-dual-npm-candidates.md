@@ -1,5 +1,10 @@
 # Dual npm candidates implementation plan
 
+**Historical implementation record:** the current distribution plan is
+[`@n8r/surface` only](../../n8r-surface/versioning.md). Unscoped publication
+and name reservation were removed from the plan on 5 November 2026. References
+to two packages below describe the earlier implementation, not future work.
+
 > **For agentic workers:** Use superpowers:executing-plans for this increment.
 
 **Goal:** Prepare equivalent private tarballs for both official names under #27.

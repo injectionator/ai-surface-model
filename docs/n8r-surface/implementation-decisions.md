@@ -20,8 +20,9 @@ Use **`@n8r/surface`** as the published npm package/library import, exposing the
 `n8r-surface` executable. The maintainer approved a scoped-only first release on
 5 November 2026, superseding the dual-publication requirement in
 [issue #27](https://github.com/injectionator/n8r-surface/issues/27).
-The unscoped candidate remains generated and tested, but `n8r-surface` was not
-published or secured on npm. The [release record](npm-release.md#verified-scoped-release)
+Unscoped publication and name reservation are removed from the plan. The
+remaining unscoped candidate generation/testing is legacy tooling to remove;
+`n8r-surface` was not published or secured on npm. The [release record](npm-release.md#verified-scoped-release)
 identifies the verified registry version, source and provenance.
 
 The [distribution candidate procedure](npm-distribution.md) preserves

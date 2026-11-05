@@ -15,6 +15,7 @@ The maintainer approved **scoped-only** publication after npm accepted the scope
 stage but rejected the unscoped submission with E403. `n8r-surface` remains the
 executable name; the unscoped registry package was not published or secured.
 Its archive remains retained solely as evidence of the original dual build.
+Unscoped publication and name reservation have since been removed from the plan.
 
 Independent readback verified registry bytes against the retained archive,
 installed library/assets and CLI identity on Node 22.23.2, 24.22.2 and 26.13.0,
@@ -34,7 +35,8 @@ and unpublished draft artifacts remain retained.
 The procedure below records the original dual-package preparation. Its two-name
 acceptance requirement was superseded by the maintainer's scoped-only decision.
 Do not rerun it for the released version. The existing workflow still expects
-both names; a future release requires updated scope and version guards, reviewed
+both names; remove that legacy behavior before a future scoped release. Future
+releases require updated version guards, reviewed
 authentication configuration, and a new permanent version/tag. Trusted publishing
 has not been exercised; this release used stage-only token authentication and
 maintainer 2FA approval.
@@ -87,7 +89,7 @@ Prerequisites: the PR checkout with dependencies installed, Node 22/24/26, npm,
 Git and POSIX `tar`. Staging uses npm 11.20.0 (staging requires 11.15+). Start in the repository root. These steps require no npm
 write credentials and do not alter normal settings or installations.
 
-- [ ] Create fresh publishable candidates:
+- Create fresh publishable candidates:
 
   ```sh
   release_run=$(mktemp -d)
@@ -98,7 +100,7 @@ write credentials and do not alter normal settings or installations.
   Expect exit 0, version `0.1.0-experimental.2`, name `@n8r/surface`,
   `private: false`, public npm registry/access and tag `experimental`.
   The source `package.json` must still have `private: true`.
-- [ ] Install and run the preferred archive:
+- Install and run the preferred archive:
 
   ```sh
   mkdir "$release_run/consumer"
@@ -115,9 +117,9 @@ write credentials and do not alter normal settings or installations.
   Expect install/import/version exits 0, `function`, and
   `n8r-surface 0.1.0-experimental.2`. Bare startup prints setup guidance,
   exits **1**, and leaves the isolated home empty.
-- [ ] Repeat in a new consumer and home directory using the `unscoped/` archive
+- Repeat in a new consumer and home directory using the `unscoped/` archive
   and import `n8r-surface`. Expect identical behavior, with that installed name.
-- [ ] Report **Pass / Fail / Blocked**, both CLI outputs, Node/npm versions and
+- Report **Pass / Fail / Blocked**, both CLI outputs, Node/npm versions and
   candidate revision/dirty flag. Unexpected version, missing imports, or home
   writes are Fail. Missing prerequisites are Blocked. Leave the consumer and
   remove only the temporary directory created above after retaining evidence.

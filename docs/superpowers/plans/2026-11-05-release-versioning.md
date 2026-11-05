@@ -1,5 +1,10 @@
 # Release versioning implementation plan
 
+**Historical implementation record:** the current distribution plan is
+[`@n8r/surface` only](../../n8r-surface/versioning.md). Unscoped publication
+and name reservation were removed from the plan on 5 November 2026. References
+to two packages below describe the earlier implementation, not future work.
+
 > **For agentic workers:** use superpowers:executing-plans for this approved increment.
 
 **Goal:** enforce one package version and verify its mapping to source and release artifacts.

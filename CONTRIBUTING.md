@@ -332,9 +332,10 @@ case. Ordinary `git diff` excludes untracked files, so inspect and check new fil
 before committing. Check changed Markdown links/anchors and parse all JSON
 examples; syntax success is not semantic validity.
 
-### Dual npm candidates
+### Legacy dual npm candidates
 
-`npm run check:package` checks both official names independently. To retain the
+`npm run check:package` still checks two candidate names independently. Only
+`@n8r/surface` is planned for publication; the unscoped path is legacy tooling. To retain the
 two private tarballs and their source/digest report, use
 `npm run pack:candidates -- NEW_DIRECTORY` after dependency setup. This needs Git
 and POSIX `tar`; the destination must not exist. See the
@@ -349,6 +350,14 @@ release metadata, tag/commit identity and both retained archive hashes. It needs
 GitHub CLI read access and never publishes. An optional second argument supplies
 an offline release JSON response and explicitly limits the result to rehearsal.
 See [version policy, prerequisites and human verification](docs/n8r-surface/versioning.md).
+
+## Scoped-only release scope
+
+Publish only `@n8r/surface`; the executable remains `n8r-surface`. Unscoped
+publication and name reservation are not planned. Remove dual-package behavior
+from release tooling before another release, preserving existing tagged artifacts.
+The commands below describe the historical first-release tooling, not permission
+to rerun it for an already released version.
 
 ## First npm release preparation
 
