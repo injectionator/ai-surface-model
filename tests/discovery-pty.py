@@ -188,7 +188,8 @@ readline.createInterface({input:process.stdin}).on('line',l=>{
 
 node = sys.argv[1]
 entry = os.environ.get('N8R_TEST_ENTRY') or str(Path(os.environ['N8R_TEST_BIN_DIR']) / 'n8r-surface')
-confirm = b'[y/N]'
+# Match the whole second prompt: the first selection prompt also contains [y/N].
+confirm = b'Start research with OpenAI using Codex ChatGPT sign-in? [y/N]'
 prompt = b'You>'
 with tempfile.TemporaryDirectory(prefix='n8r-discovery-pty-') as temporary:
     root = Path(temporary)

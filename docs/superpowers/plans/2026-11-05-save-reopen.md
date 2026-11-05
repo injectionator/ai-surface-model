@@ -89,3 +89,8 @@ failed first and now pass. Keep the documented stable-directory-topology
 assumption during individual synchronous operations, matching the existing host
 boundary; this does not claim protection against adversarial concurrent swaps.
 Added cancellation after a draft is staged; no file is published.
+
+CI exposed ambiguous prompt matching in the test driver: `[y/N]` from the first
+selection prompt was reused for transmission consent. Match the complete second
+prompt instead. The Linux log captures both answers before the second prompt;
+local runs did not reproduce that scheduling order. Product code is unchanged.
