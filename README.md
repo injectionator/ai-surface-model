@@ -63,8 +63,9 @@ HTML research records and partial definitions in JSON/YAML, with
 establish universal model conformance or consumer compatibility.
 
 The [bare-startup command](docs/n8r-surface/startup.md) displays local settings and
-saved artefacts without changing files. Setup, other commands, source-repository
-analysis and AI research through the standalone CLI remain unimplemented. See the
+saved artefacts, then offers explicitly confirmed local vault setup or reuses the
+saved vault. Other commands, source-repository analysis and AI research through
+the standalone CLI remain unimplemented. See the
 [critical path](docs/n8r-surface/critical-path.md) for the next work and the
 [command outcome specification](docs/n8r-surface/command-outcomes.md) for the
 intended interactions and required evidence.

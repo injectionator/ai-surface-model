@@ -30,11 +30,42 @@ claiming any baseline setup success.
 
 ## Candidate observations
 
-Candidate revision and final runtime results will be recorded after the clean
-candidate is committed and the full installed matrix is run. During development,
-the Node 26 package rehearsal has passed first-use, reuse, repair, cancellation
-and conflicting-write interactions. These interim observations are not final
-human acceptance. The human steps below are awaiting the final rehearsal.
+Product/test revision: `aec7cfd` (full SHA recorded in the Git history), stacked
+on the unmerged planning PR #31 at `6c88ffb`. Agent rehearsal on 5 November 2026,
+macOS 26.6.2 ARM64; no human acceptance is claimed.
+
+| Runtime | Full suite | Installed process checks | Installed terminal interactions | Library consumer |
+| --- | --- | --- | --- | --- |
+| Node 22.23.2 | 70 passed | 25 passed | 12 passed | Passed |
+| Node 24.22.2 | 70 passed | 25 passed | 12 passed | Passed |
+| Node 26.13.0 | 70 passed | 25 passed | 12 passed | Passed |
+
+Each `npm test` and `npm run check:package` exited 0, with no failed/skipped tests.
+The package check installed a tarball outside the checkout and executed the bin.
+The full suite's terminal case repeats the same 12 interactions against the build.
+
+The human task list below was separately rehearsed through a disposable installed
+candidate on Node 26.13.0, using a real terminal and manually supplied Enter/`y`:
+
+| Task | Actual observation and independent readback | Agent result |
+| --- | --- | --- |
+| First use | Location then confirmation appeared; Enter/`y` printed `Vault ready:` and exited 0. | Pass |
+| Open saved state | Parsed/read JSON contained exactly `version: 1` and absolute `vaultRoot`; directory listing showed `research`, `artifacts`, `surfaces`. | Pass |
+| Another source directory | Same vault, no question, exit 0. Recursive before/after home comparison exited 0; both source comparisons exited 0. | Pass |
+| Closed input, empty home | Exact setup-required line, exit 1 promptly; independent directory enumeration found zero entries. | Pass |
+
+The automated interactions additionally exercised custom relative paths with
+spaces, retained legacy/unknown settings, repair without settings modification,
+refusal, EOF and SIGINT at both questions, and an external edit before acceptance.
+Transaction tests exercised deterministic publication conflicts/failures and a
+second real process while the first held the lock. None of this is AI research
+or proof of safety against writers outside the documented boundary.
+
+Supporting repository checks: 24 Python fixture/workflow tests, Bash syntax,
+Markdownlint 0.24.0 (56 files), cffconvert 2.0.0 and whitespace checks passed.
+The offline link check is recorded separately after final documentation review.
+Public output is sanitized; exact temporary paths and raw local evidence remain
+outside tracked files. No real deployment data was used.
 
 ## Maintainer preparation
 
