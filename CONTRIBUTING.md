@@ -331,3 +331,11 @@ pending manual-edit HTML is intentionally invalid; its rejection is an acceptanc
 case. Ordinary `git diff` excludes untracked files, so inspect and check new files
 before committing. Check changed Markdown links/anchors and parse all JSON
 examples; syntax success is not semantic validity.
+
+### Dual npm candidates
+
+`npm run check:package` checks both official names independently. To retain the
+two private tarballs and their source/digest report, use
+`npm run pack:candidates -- NEW_DIRECTORY` after dependency setup. This needs Git
+and POSIX `tar`; the destination must not exist. See the
+[human distribution check and release boundaries](docs/n8r-surface/npm-distribution.md).

@@ -263,7 +263,10 @@ Tests are offline and cover contracts, codecs,
 references, revision checks, HTML/data conflicts and synthetic fixtures. The
 package check builds, packs and installs in a temporary directory using the local
 npm cache with scripts disabled, then exercises built exports and bundled assets.
-It removes its temporary directory. Repeat against each supported Node major for
+It removes its temporary directory. Candidate generation requires Git and POSIX
+`tar`; `npm run pack:candidates -- NEW_DIRECTORY` retains both tarballs and a
+revision/digest report without publishing. See the
+[distribution procedure](docs/n8r-surface/npm-distribution.md). Repeat against each supported Node major for
 distribution changes; see [contributor commands](CONTRIBUTING.md#researcher-contract-library).
 The experimental `n8r-surface` command implements the read-only overview and
 explicitly confirmed local vault setup/reuse. Bare startup does not start research;

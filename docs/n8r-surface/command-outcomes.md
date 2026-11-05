@@ -516,3 +516,18 @@ parent digests and retained IDs/decisions/evidence, and compare note, predecesso
 source and settings bytes. Repeat a small second-product case. Real installed Codex
 output is required; scripted protocol tests do not establish research correctness.
 See the [design and short human proof](../superpowers/specs/2026-11-05-surface-revisions-design.md).
+
+## DISTRIBUTION-01: install either official package candidate
+
+Given a built checkout and cached dependencies, generate private candidates using
+`npm run pack:candidates -- NEW_DIRECTORY`. Install each tarball independently
+outside the checkout. Expect the same `n8r-surface` command, version, library
+exports and bundled assets; bare startup with a fresh home and closed input exits
+1 with setup guidance and no writes. Configured startup retains existing read-only
+checks. The public command inventory is unchanged.
+
+The [distribution procedure](npm-distribution.md) supplies copyable interactions,
+readback and release blockers. The pre-change registry attempt returned E404 for
+both names and E401 for identity on 5 November 2026. Local candidates cannot prove
+registry installation, permissions or provenance. Candidate checks use scripted
+runner fixtures; no new real-model research claim follows.

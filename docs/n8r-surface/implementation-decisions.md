@@ -16,12 +16,14 @@ majors and Bun-only execution are not part of the initial support promise. Revis
 lists 22/24/26 support windows through April 2027/2028/2029 respectively (checked
 4 November 2026).
 
-Choose **`n8r-surface`** for the npm package and future command. A registry lookup
-on 4 November 2026 returned no public package; that does not reserve the name or
-prove publishing rights. The package remains `private: true` and versioned
-`0.0.0-experimental.1` during this work. No publication is authorized by a tarball
-test. If the name is unavailable at release, explicitly select a scoped package
-while preserving the command name where practical.
+Use **`@n8r/surface`** as the preferred npm package/library import and
+**`n8r-surface`** as the supported alternative, both exposing `n8r-surface`.
+This supersedes the unscoped-first/fallback decision under
+[issue #27](https://github.com/injectionator/n8r-surface/issues/27).
+Generate both from one build with matching payloads and version. The
+[distribution candidate procedure](npm-distribution.md) preserves `private: true`
+and `0.0.0-experimental.1`; publication remains a separate decision. Registry
+lookups do not reserve names or establish publishing rights.
 
 Issue #15 ships a library, built declarations, contracts and synthetic assets.
 The first #16 increment adds a `bin` entry for bare startup only; see its
