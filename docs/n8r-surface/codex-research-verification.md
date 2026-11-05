@@ -10,8 +10,8 @@ RESEARCH-01 implements a source conversation and follow-up. It does not complete
 E2E-01, save/reopen/continue, structured output, Lab integration or distribution.
 The user prioritized standalone AI, then saved continuation, then npm distribution.
 
-**Final candidate rehearsal: Pass (agent), 5 November 2026. Human acceptance
-remains pending.** The installed command completed both interactions from the
+**Final candidate rehearsal: Pass (agent), 5 November 2026. Human acceptance: user-reported Pass on 5 November 2026; PR #33 is confirmed
+merged at `b186050`. This is the user’s report, not another agent observation.** The installed command completed both interactions from the
 short guide with real `gpt-6-astra` execution: source list/read, cited findings,
 and the supplied OIDC correction retained separately from guide claims.
 
@@ -168,7 +168,8 @@ is not model conformance. Automated rehearsal does not replace human acceptance.
 
 ## Remaining acceptance
 
-- Human run of the short walkthrough and Pass / Fail / Blocked report.
+- Conversation-only human check: user reported Pass; saved continuation has its
+  own [verification record](save-reopen-verification.md).
 - Save/readback, fresh-session continuation, preserved decisions and identities.
 - Validated HTML/JSON/YAML, broader products and the complete E2E-01/E2E-02 cases.
 - Live UI/API observations and later named Lab consumer verification.

@@ -6,6 +6,7 @@ import {line, problem, loadSettings, localPath, InspectionError, type Settings} 
 
 import {SourceTools} from './source-tools.js';
 import {ResearchConversation} from './codex.js';
+import {Notes, readNote, latestNote, type Note} from './notes.js';
 
 async function setup(config: Settings): Promise<number> {
   const existing = config.vault === undefined ? undefined : inspectVault(config.vault);
@@ -58,6 +59,8 @@ const help = `n8r-surface — experimental local AI Surface research
   n8r-surface                        Set up or show your local vault
   n8r-surface discover [source]       Research a directory or file (default: cwd)
   n8r-surface discover [source] --model MODEL
+  n8r-surface reopen [NOTE] --source SOURCE [--model MODEL]
+                                    Continue a note; omit NOTE for latest edited
   n8r-surface --help                  Show this help
   n8r-surface --version               Show package version
 
@@ -66,17 +69,21 @@ Discovery requires a configured vault, an interactive terminal, and Codex CLI
 Uses your configured Codex model unless --model selects one; no fallback.
 Source tools list, search and read bounded UTF-8 text. Hidden entries, dependency
 folders, symlinks, key files and oversized/binary files are excluded.
-No source execution, edits, web access, saving or reopening in this increment.
+No source execution, edits or web access. /save writes numbered Markdown notes.
+Reopen confirms note/source transmission again; no old Codex thread is restored.
 Codex manages its own auth/cache/diagnostics. /exit ends the chat; Ctrl-C cancels.`;
 
-async function discover(args: string[]): Promise<number> {
-  let source: string | undefined, model: string | undefined;
+async function discover(args: string[], reopening = false): Promise<number> {
+  let source: string | undefined, model: string | undefined, notePath: string | undefined;
   for (let i = 0; i < args.length; i++) {
     const arg = args[i]!;
     if (arg === '--model' && model === undefined && args[i + 1] && /^[a-zA-Z0-9._-]{1,100}$/.test(args[i + 1]!)) model = args[++i];
-    else if (!arg.startsWith('-') && source === undefined) source = arg;
+    else if (reopening && arg === '--source' && source === undefined && args[i+1] && !args[i+1]!.startsWith('-')) source = args[++i];
+    else if (reopening && !arg.startsWith('-') && notePath === undefined) notePath = arg;
+    else if (!reopening && !arg.startsWith('-') && source === undefined) source = arg;
     else throw new InspectionError('Unsupported arguments; run n8r-surface discover --help');
   }
+  if (reopening && !source) throw new InspectionError('Reopen requires --source SOURCE; source access must be selected again');
   if (!process.stdin.isTTY || !process.stdout.isTTY) {
     console.log('Discovery requires an interactive terminal; no research started.'); return 1;
   }
@@ -87,7 +94,7 @@ async function discover(args: string[]): Promise<number> {
   const tools = new SourceTools(localPath(source ?? process.cwd(), config.home, process.cwd()));
   console.log(`Research source: ${line(tools.selected)} (${tools.file ? 'one file' : 'directory'})`);
   console.log('Inspected source text and your messages will be sent to OpenAI through Codex using ChatGPT sign-in.');
-  console.log('Source access is read-only. Saving and reopening are not available yet.');
+  console.log('Source access is read-only. /save explicitly saves a numbered Markdown working note.');
   const input = createInterface({input: process.stdin, output: process.stdout});
   const controller = new AbortController();
   let closed = false, interrupted = false;
@@ -102,6 +109,21 @@ async function discover(args: string[]): Promise<number> {
   });
   const output = (text: string) => console.log(text.split('\n').map(part => line(part)).join('\n'));
   try {
+    let note: Note | undefined;
+    if (reopening) {
+      note = notePath ? readNote(localPath(notePath,config.home,process.cwd())) : latestNote(config.vault,tools.selected);
+      if (!note) { console.log('No saved numbered note found for this source. Name a note explicitly or start with discover.'); return 1; }
+      console.log(`Saved note: ${line(note.path)}`);
+      console.log(`Last edited: ${note.modifiedAt}`);
+      console.log(`Recorded source: ${line(note.metadata.source.name)} (${note.metadata.source.kind}); this is not verified identity.`);
+      if (!notePath) {
+        const choice = await ask('Open this note? [y/N] ');
+        if (interrupted) return 130;
+        if (choice === undefined || !/^y(es)?$/i.test(choice.trim())) return 1;
+      }
+      console.log('The saved note, including human edits, will also be sent to OpenAI after confirmation.');
+    }
+    const notes = new Notes(config.vault,tools.selected,note);
     const accepted = await ask('Start research with OpenAI using Codex ChatGPT sign-in? [y/N] ');
     if (interrupted) return 130;
     if (accepted === undefined || !/^y(es)?$/i.test(accepted.trim())) return 1;
@@ -109,12 +131,23 @@ async function discover(args: string[]): Promise<number> {
     session = await ResearchConversation.start(tools, output, model, controller.signal);
     console.log(`Connected: ChatGPT sign-in; model ${line(session.model)}.`);
     console.log(`Researcher ${session.instructions.version}; ${session.instructions.digest}`);
-    console.log('Ask about your source. /exit ends the chat; Ctrl-C cancels.');
+    console.log('Ask about your source. /save saves a note; /exit ends the chat; Ctrl-C cancels.');
+    if (note) await session.reopen(note);
     while (!closed) {
       const question = await ask('You> ');
       if (question === undefined || question.trim() === '/exit') break;
       if (!question.trim()) continue;
-      await session.turn(question);
+      if (question.trim() === '/save') {
+        const destination = notes.next();
+        console.log(`Save destination: ${line(destination)}`);
+        const markdown = await session.prepareNote();
+        if (closed || controller.signal.aborted) throw new InspectionError('Research cancelled; nothing saved');
+        const saved = notes.save(destination,markdown,{researcher:{version:session.instructions.version,digest:session.instructions.digest},model:session.model,evidence:session.evidence});
+        console.log(`Saved and read back: ${line(saved.path)}`);
+        console.log(saved.digest);
+      } else if (question.trim().startsWith('/')) {
+        console.log('Unknown chat command. Use /save or /exit.');
+      } else await session.turn(question);
     }
     return interrupted ? 130 : 0;
   } catch (error) {
@@ -129,8 +162,9 @@ async function discover(args: string[]): Promise<number> {
 
 const args = process.argv.slice(2);
 try {
-  if ((args.length === 1 && args[0] === '--help') || (args.length === 2 && args[0] === 'discover' && args[1] === '--help')) console.log(help);
+  if ((args.length === 1 && args[0] === '--help') || (args.length === 2 && ['discover','reopen'].includes(args[0]!) && args[1] === '--help')) console.log(help);
   else if (args.length === 1 && args[0] === '--version') console.log('n8r-surface 0.0.0-experimental.1');
+  else if (args[0] === 'reopen') process.exitCode = await discover(args.slice(1),true);
   else if (args[0] === 'discover') process.exitCode = await discover(args.slice(1));
   else if (args.length) {
     console.log('Unsupported arguments; run n8r-surface --help.'); process.exitCode = 2;

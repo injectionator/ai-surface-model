@@ -62,7 +62,19 @@ readline.createInterface({input:process.stdin}).on('line',l=>{
   send({method:'turn/started',params:{threadId:thread,turn:{id:'turn-'+count}}});
   if(mode==='failure') {send({method:'turn/completed',params:{threadId:thread,turn:{id:'turn-'+count,status:'failed',error:{message:'PRIVATE_VALUE_MUST_NOT_APPEAR'}}}});return;}
   if(mode==='cancel'||mode==='eof-active') {send({method:'item/completed',params:{threadId:thread,turnId:'turn-'+count,item:{type:'agentMessage',text:'TEST_TURN_ACTIVE'}}});return;}
+  if ((mode==='save'||mode==='failed-note'||mode==='cancel-draft'||mode.startsWith('reopen')) && x.params.input[0].text.includes('HOST_SAVE_REQUEST')) {
+   send({id:'draft-'+count,method:'item/tool/call',params:{threadId:thread,turnId:'turn-'+count,tool:'research_note',arguments:{markdown:'# app-1\n\nHuman decision: no OIDC.\n\n## Recommended next steps\nInspect authentication.'}}});return;
+  }
+  if(mode==='unsolicited') {
+   send({id:'draft-'+count,method:'item/tool/call',params:{threadId:thread,turnId:'turn-'+count,tool:'research_note',arguments:{markdown:'Unrequested write'}}});return;
+  }
   send({id:'tool-'+count,method:'item/tool/call',params:{threadId:thread,turnId:'turn-'+count,tool:'source_read',arguments:{path:mode==='outside'?'../outside.txt':'case.md'}}});
+ }
+ if(String(x.id).startsWith('draft-')) {
+  if(mode==='unsolicited' && x.result.success!==false) throw new Error('unsolicited draft accepted');
+  if(mode!=='unsolicited' && x.result.success!==true) throw new Error('authorized draft rejected');
+  if(mode==='cancel-draft'){send({method:'item/completed',params:{threadId:thread,turnId:'turn-'+count,item:{type:'agentMessage',text:'TEST_DRAFT_STAGED'}}});return;}
+  send({method:'turn/completed',params:{threadId:thread,turn:{id:'turn-'+count,status:mode==='failed-note'?'failed':'completed'}}});
  }
  if(String(x.id).startsWith('tool-')) {
   const text=JSON.stringify(x.result);
@@ -77,11 +89,27 @@ readline.createInterface({input:process.stdin}).on('line',l=>{
     fake = bin_dir / 'codex'
     fake.write_text(program)
     fake.chmod(0o755)
+    if mode.startswith('reopen'):
+        notes = vault / 'research/source'
+        notes.mkdir()
+        metadata = {'version': 1, 'createdAt': '2026-01-01', 'source': {'name': 'source', 'kind': 'directory'},
+                    'model': 'fixture-model', 'researcher': {'version': '0.1.8', 'digest': 'fixture'}, 'evidence': [{'path':'case.md','digest':'sha256:'+'0'*64,'inspectedAt':'2026-01-01','startLine':1,'endLine':1}]}
+        old = notes / 'research-001.md'
+        old.write_text('# Saved app-1\nHuman decision: no OIDC.\n<!-- n8r-note-v1 -->\n```json\n' + json.dumps(metadata) + '\n```\n')
+        newer = notes / 'research-002.md'
+        newer.write_bytes(old.read_bytes())
+        os.utime(old, (2000000000, 2000000000))
+        predecessor_bytes = old.read_bytes()
     before = settings.read_bytes(), source_file.read_bytes()
     master, slave = pty.openpty()
     env = {**os.environ, 'HOME': str(home), 'OPENAI_API_KEY': 'PRIVATE_VALUE_MUST_NOT_APPEAR',
            'PATH': os.pathsep.join([str(bin_dir), str(Path(node).parent), os.environ['PATH']])}
-    child = subprocess.Popen([node, entry, 'discover', str(source)], env=env,
+    command = ['discover', str(source)]
+    if mode.startswith('reopen'):
+        command = ['reopen', '--source', str(source)]
+        if mode == 'reopen-explicit':
+            command.insert(1, str(old))
+    child = subprocess.Popen([node, entry, *command], env=env,
                              stdin=slave, stdout=slave, stderr=slave, cwd=home)
     os.close(slave)
     output = b''
@@ -117,9 +145,23 @@ readline.createInterface({input:process.stdin}).on('line',l=>{
         assert b'PRIVATE_VALUE_MUST_NOT_APPEAR' not in output
         assert b'OUTSIDE_SCOPE_SENTINEL' not in output
         assert (settings.read_bytes(), source_file.read_bytes()) == before
-        assert not list(vault.rglob('*.*'))
+        files = list(vault.rglob('*.md'))
+        if mode == 'save':
+            assert len(files) == 1, (mode, output.decode())
+            saved = files[0].read_text()
+            assert 'Human decision: no OIDC.' in saved and 'case.md' in saved and 'sha256:' in saved
+            assert b'Saved and read back:' in output
+        elif mode.startswith('reopen'):
+            assert old.read_bytes() == predecessor_bytes
+            assert str(old).encode() in output
+            assert len(files) == (2 if mode == 'reopen-refuse' else 3)
+            if mode != 'reopen-refuse':
+                assert (notes / 'research-003.md').exists()
+                assert b'case.md: changed' in output
+        else:
+            assert not list(vault.rglob('*.*'))
         records = [json.loads(l) for l in trace.read_text().splitlines()] if trace.exists() else []
-        if mode == 'refuse':
+        if mode in ('refuse', 'reopen-refuse'):
             assert not records, 'runner launched before acceptance'
         if mode == 'api-key':
             assert not any(r.get('method') == 'thread/start' for r in records)
@@ -151,6 +193,13 @@ prompt = b'You>'
 with tempfile.TemporaryDirectory(prefix='n8r-discovery-pty-') as temporary:
     root = Path(temporary)
     cases = [
+        ('save', [(confirm, b'y\n'), (prompt, b'first\n'), (prompt, b'/save\n'), (prompt, b'/exit\n')], 0),
+        ('unsolicited', [(confirm, b'y\n'), (prompt, b'first\n'), (prompt, b'/exit\n')], 0),
+        ('cancel-draft', [(confirm, b'y\n'), (prompt, b'/save\n'), (b'TEST_DRAFT_STAGED', 'SIGINT')], 130),
+        ('failed-note', [(confirm, b'y\n'), (prompt, b'/save\n')], 2),
+        ('reopen-latest', [(b'Open this note?', b'y\n'), (confirm, b'y\n'), (prompt, b'/save\n'), (prompt, b'/exit\n')], 0),
+        ('reopen-explicit', [(confirm, b'y\n'), (prompt, b'/save\n'), (prompt, b'/exit\n')], 0),
+        ('reopen-refuse', [(b'Open this note?', b'n\n')], 1),
         ('refuse', [(confirm, b'n\n')], 1),
         ('api-key', [(confirm, b'y\n')], 2),
         ('continue', [(confirm, b'y\n'), (prompt, b'first\n'), (prompt, b'correction\n'), (prompt, b'/exit\n')], 0),

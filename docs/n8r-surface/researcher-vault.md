@@ -96,3 +96,24 @@ folders. The legacy `artefactRoot` remains separate and unchanged. This setup-on
 increment does not run the Researcher or save findings. It does not read the
 repository's `.local/vault-path`. See [startup behavior](startup.md) and the
 [installed verification tasks](vault-setup-verification.md).
+
+## Standalone saved continuation
+
+The command now writes `research/<source-slug>/research-NNN.md` only when the user
+enters `/save`. A successor stays beside its predecessor with the next unused
+number. The host appends experimental provenance metadata; keep that block intact
+when editing prose. Edits before or after the block are included on reopening.
+These notes are Markdown working research, not validated HTML or Surface JSON/YAML.
+
+Use `n8r-surface reopen NOTE --source SOURCE` to select one explicitly. Without
+NOTE, `reopen --source SOURCE` suggests the most recently filesystem-edited
+numbered note in that source's research folder. It shows the path and UTC edit time
+and asks before selecting it. Tied edit times use filename order. The source slug
+is a convenience only: the chosen source and saved evidence are compared anew.
+An invalid newest note reports an error rather than silently selecting an older one.
+
+Explicitly named notes may live outside the configured vault; saving continues in
+that note's folder. Only notes with this command's metadata envelope are supported
+in this increment; arbitrary older skill notes need a later import decision.
+The source is always selected explicitly again. See [the short check](getting-started.md)
+and [storage limits](save-reopen-verification.md).

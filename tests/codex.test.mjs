@@ -49,3 +49,34 @@ test('bundled Researcher contains canonical instructions and references with a d
 test('a preexisting reserved permission profile cannot widen the research profile by merging', () => {
   assert.throws(()=>runnerConfiguration({permissions:{n8r_source_tools:{filesystem:{'/':'read'}}}}), /reserved.*profile/i);
 });
+
+test('reopen retains unavailable historical evidence and compares it after restoration', async () => {
+  const {ResearchConversation} = await import('../dist/codex.js');
+  const hash='sha256:'+'a'.repeat(64), changed='sha256:'+'b'.repeat(64);
+  const old={path:'removed.md',digest:hash,inspectedAt:'2026-01-01',startLine:1,endLine:1};
+  let missing=true, context='';
+  const session=Object.assign(Object.create(ResearchConversation.prototype),{
+    evidence:[],output:()=>{},source:{read:path=>{if(missing)throw new Error('missing');return {...old,path,digest:changed};}},
+    runTurn:async text=>{context=text;}
+  });
+  await session.reopen({text:'Saved app-1',digest:hash,metadata:{evidence:[old]}});
+  assert.deepEqual(session.evidence,[old]);
+  missing=false;
+  await session.reopen({text:'Continued app-1',digest:hash,metadata:{evidence:session.evidence.slice()}});
+  assert.match(context,/changed/);
+  assert.ok(session.evidence.some(e=>e.digest===hash));
+  assert.ok(session.evidence.some(e=>e.digest===changed));
+});
+test('reopen accepts 101 saved evidence files without embedding full source text', async () => {
+  const {ResearchConversation} = await import('../dist/codex.js');
+  const entries=Array.from({length:101},(_,n)=>({path:`file-${n}.md`,digest:'sha256:'+'a'.repeat(64),inspectedAt:'2026-01-01',startLine:1,endLine:200}));
+  let context='';
+  const session=Object.assign(Object.create(ResearchConversation.prototype),{
+    evidence:[],output:()=>{},source:{read:path=>({...entries.find(e=>e.path===path),text:'x'.repeat(32000)})},
+    runTurn:async text=>{context=text;}
+  });
+  await session.reopen({text:'Saved app-1',digest:'sha256:'+'a'.repeat(64),metadata:{evidence:entries}});
+  assert.ok(Buffer.byteLength(context)<512*1024);
+  assert.ok(!context.includes('x'.repeat(1000)));
+  assert.equal(session.evidence.length,101);
+});
