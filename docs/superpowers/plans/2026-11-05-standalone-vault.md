@@ -214,14 +214,34 @@ a second source cwd and unchanged settings on reuse. Inject publication failures
 and interleavings deterministically; timing-dependent tests are insufficient
 proof of the selected concurrency boundary.
 
-### Decision required before implementation
+### Concurrency decision (approved 5 November 2026)
 
-The concurrency boundary remains open: the desired outcome is to retain a competing
-writer's settings, but the proposed byte-check/rename sequence cannot establish it
-for arbitrary external writers. Record the chosen guarantee, limitations and
-reproducible conflict checks before coding Task 1. Review of this plan does not
-approve weakening the preservation requirement. Setup-only implementation also
-still needs explicit user authorization to resume that part of #16.
+The user approved an exclusive setup lock for cooperating `n8r-surface` processes.
+After confirmation, acquire `n8r-surface.json.lock` exclusively; a competing or
+stale lock fails with exit 2 and is never removed automatically. Read and compare
+original settings bytes under the lock before creating folders and again before
+publication. A changed or newly created file is a conflict, never a merge.
+
+Write an exclusive temporary sibling, close it, then publish only after the vault
+folders exist. For originally absent settings, hard-link the temporary file to
+the settings filename: EEXIST preserves a competing creator even after the byte
+check. For existing settings, use atomic rename under the lock. Remove only the
+owned temporary file and lock in normal completion/failure cleanup. A killed
+process can leave a lock; users must establish that no setup is active before
+manually removing it. Empty directories left by failed setup are preserved.
+
+Other editors must not write settings during confirmed setup. Existing-file
+replacement does not protect against arbitrary writers that ignore the lock.
+Directory/symlink topology must also remain stable during setup; this is a local
+cooperating-process protocol, not an adversarial filesystem transaction or a
+power-loss durability guarantee. Reuse does not acquire a lock or write anything.
+Tests intercept individual filesystem operations to inject a competitor before
+publication, including the absent-file hard-link race and a second setup while
+the first holds its lock. No timing-dependent race is counted as proof.
+
+Implementation is authorized for setup only. Branch `feat/16-local-vault-setup`
+is stacked on this unmerged plan at `6c88ffb`; PR #31 remains draft. SOURCE-01
+remains paused and its separate checkpoint is not included.
 
 ## Task 1: Settings compatibility and setup transaction
 

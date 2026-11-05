@@ -111,7 +111,7 @@ be added to this inventory with its own outcome and verification case first.
 
 | ID | Invocation | User intent and delivered outcome | Observable change and verification |
 | --- | --- | --- | --- |
-| CMD-01 | `n8r-surface` | See readable non-private configuration and its file locations, local artefacts one per line, and process status where known. The planned simplification exits after the overview; the implemented baseline still offers read-only guidance. Setup and research require explicit interaction. | Compare the initial overview with prepared settings/files using STARTUP-01. Read back any accepted setup change. Verify the overview itself changes no files and does not inspect/transmit source repositories or invoke inference. |
+| CMD-01 | `n8r-surface` | See readable non-private configuration and its file locations, local artefacts one per line, and process status where known. The setup-only increment offers vault selection and explicit write confirmation; configured reuse exits 0 without questions. Research remains unavailable. | Compare the initial overview with prepared settings/files using STARTUP-01. Read back any accepted setup change. Verify the overview itself changes no files and does not inspect/transmit source repositories or invoke inference. |
 | CMD-03 | `n8r-surface discover` | Research the current directory with the human. | Establish cwd as the source scope, follow the identified Researcher instructions, inspect permitted material, ask relevant questions and save an attributable HTML research record. Verify with E2E-01. |
 | CMD-04 | `n8r-surface discover ./product` | Research an explicitly selected directory. | Resolve the path from invocation cwd and report the actual scope; prove the intended source was read, with no fallback to a different repo. Verify source identity/read evidence and the resulting artefact. |
 | CMD-05 | `n8r-surface discover ./documents/architecture.md` | Research one supplied document. | Inspect that file and retain file-only coverage. Reopen the resulting record and confirm it does not claim repository-wide inspection. |
@@ -369,7 +369,7 @@ These checks accompany E2E-01; they are not a substitute for the complete path.
 
 | Case | State X and input Y | Expected change and observable outcome | Verification |
 | --- | --- | --- | --- |
-| SETUP-01 | Missing settings; explicitly requested setup interaction. Its entry point must be specified before implementation. | Explain missing setup and its configuration location, accept explicit choices, and report the saved settings. Bare informational startup does not initiate this interaction. | Read back settings through CMD-01 and inspect corpus creation. Verify no source scan or source upload from startup alone. |
+| SETUP-01 | Isolated home without settings, source outside the vault; run bare `n8r-surface`, press Enter then `y`. | Show `Vault directory [~/n8r/]:`, resolved path and `Create vault folders and save this location? [y/N]`. Acceptance creates three folders and saves version-1 `vaultRoot`, exit 0. Refusal/EOF/interrupt exits 1 without writes. | Read settings and `research/`, `artifacts/`, `surfaces/` independently; repeat from another source cwd with no question or settings rewrite. Preserve source and legacy bytes. |
 | INPUT-01 | Unknown argument or nonexistent/unreadable source. | Specific error or explicit coverage limitation; no substituted repo or invented completed record. | Observe terminal/exit result; inspect source-access events and corpus changes. |
 | SCOPE-01 | Explicit file source, or cwd different from installation and source. | Inspect exactly the intended scope, retaining omissions/truncation. | Compare read paths/hashes and saved coverage to prepared inputs; ensure file-only research does not claim whole-repo coverage. |
 | RUNNER-01 | Missing credential, unavailable model, network failure or cancelled interaction. | Report blocked/partial progress honestly, preserve useful accepted work, and avoid fallback. | Inspect actual runner destination/results and saved state; no completed-research claim without evidence. |
@@ -377,7 +377,7 @@ These checks accompany E2E-01; they are not a substitute for the complete path.
 | EDIT-01 | Accepted record changed manually after read; CHAT-06/save. | Preserve the manual edit, report conflict and reconcile only the human-reviewed intent. | Keep before/edited/after bytes and compare both data and visible HTML. Verify the old revision remains recoverable. |
 | SAVE-01 | Unwritable destination or interruption during write. | Report failure accurately and retain recoverable previous work. | Read actual filesystem state after the failed operation; check no partial replacement masquerades as the accepted record. |
 | SELECT-01 | Two researched products and explicit human choices; CHAT-07. | Save a separate selected graph with shared nodes, parallel edges, cycles, references, requirements and gaps. | Compare persisted graph to selections and exact research revisions, reopen both JSON/YAML outputs and verify supported meanings. |
-| NONINTERACTIVE-01 | No interactive input; CMD-01 or discover needs a decision. | Explain unavailable interaction and terminate promptly; preserve unresolved work. | Exercise the installed process with closed input under a bounded harness and inspect its output/state. |
+| NONINTERACTIVE-01 | No interactive input; CMD-01 or discover needs a decision. | For bare startup needing setup/repair: `Vault setup required; run n8r-surface in an interactive terminal.`, exit 1 promptly, no writes. Configured reuse exits 0; invalid settings, filesystem and legacy inspection failures exit 2 before setup. | Exercise the installed process with closed input under a bounded harness and inspect its output/state. |
 | HELP-01 | Any setup state; CMD-06/07/08. | Accurate help/version, no work begun. | Compare to the inventory/manifest and verify unchanged settings/corpus and no source/inference calls. |
 
 Absence-of-side-effect claims need instrumented boundaries and before/after state,
@@ -400,3 +400,13 @@ case ID, initial state, exact interaction, expected/actual changes, evidence/rea
 revision/environment, verdict and unproved limits. Link it from the issue and PR.
 Tests may automate parts of this process, but the record must explain what those
 checks demonstrated in terms a person trying the feature can assess.
+
+## SETUP-01: setup-only increment
+
+Specified before implementation on 5 November 2026; implementation and candidate
+verification pending. The [plan](../superpowers/plans/2026-11-05-standalone-vault.md)
+defines exact prompts, path handling, repair, preservation and the user-approved
+cooperating-writer concurrency boundary. No arguments are added. SOURCE-01 remains
+paused. Earlier read-only STARTUP-01 evidence is historical, not evidence for the
+new setup interaction. Missing legacy corpus now permits setup; other legacy
+inspection errors still take precedence (exit 2). No research is started.
