@@ -132,9 +132,11 @@ if (JSON.stringify(args) === JSON.stringify(['release','view',release.tag_name,'
   console.log(JSON.stringify({databaseId:17}));
 } else if (args[0] === 'api' && args[1] === '--hostname' && args[2] === 'github.com') {
   if (args[3] === base + 'releases/17') console.log(JSON.stringify(release));
-  else if (args[3] === base + 'commits/tags/' + release.tag_name) {
+  else if (args[3] === base + 'git/ref/tags/' + release.tag_name) {
     if (process.env.FIXTURE_NO_TAG) process.exit(1);
-    console.log(JSON.stringify({sha:process.env.FIXTURE_WRONG_SHA ? '0'.repeat(40) : release.target_commitish}));
+    console.log(JSON.stringify({ref:'refs/tags/' + release.tag_name, object:{type:'tag',sha:'a'.repeat(40)}}));
+  } else if (args[3] === base + 'git/tags/' + 'a'.repeat(40)) {
+    console.log(JSON.stringify({sha:'a'.repeat(40),tag:release.tag_name,object:{type:process.env.FIXTURE_BAD_TYPE ? 'tree' : 'commit',sha:process.env.FIXTURE_WRONG_SHA ? '0'.repeat(40) : release.target_commitish}}));
   } else if (args[3] === base + 'commits/' + release.tag_name) {
     // A branch with this name exists even when the tag does not.
     console.log(JSON.stringify({sha:release.target_commitish}));
@@ -150,4 +152,5 @@ if (JSON.stringify(args) === JSON.stringify(['release','view',release.tag_name,'
   assert.equal(JSON.parse(result.stdout).evidence,'GitHub API readback');
   assert.notEqual(run({FIXTURE_NO_TAG:'1'}).status,0,'same-named branch cannot replace missing remote tag');
   assert.notEqual(run({FIXTURE_WRONG_SHA:'1'}).status,0,'remote tag SHA must match');
+  assert.notEqual(run({FIXTURE_BAD_TYPE:'1'}).status,0,'tag must resolve to a commit');
 });
