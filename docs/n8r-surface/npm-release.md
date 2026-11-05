@@ -1,9 +1,15 @@
 # First public npm release
 
 The maintainer authorized publication of both `@n8r/surface` and `n8r-surface`
-at **0.1.0-experimental.1** on 5 November 2026. This procedure is release
+at **0.1.0-experimental.2** on 5 November 2026. This procedure is release
 preparation, not evidence that publication succeeded. Both packages use the
 explicit `experimental` tag. No `latest` promotion is included.
+
+The `.1` preparation run built and retained both archives but failed remote-tag
+verification before any npm staging. Its permanent tag and draft assets remain
+for diagnosis. The maintainer approved `.2` after the verifier was corrected to
+read the exact Git reference and dereference annotated tag objects. No `.1`
+package or placeholder was staged or published by that run.
 
 ## User outcome and starting evidence
 
@@ -35,7 +41,7 @@ name availability or successful first publication. No placeholder was published.
    creating the draft. An administrator may be needed; an API 404 under a
    non-admin account is not proof the setting is disabled.
 4. Verify all required Node 22/24/26 checks on the reviewed revision. From its
-   clean checkout, create an annotated `v0.1.0-experimental.1` tag and push only
+   clean checkout, create an annotated `v0.1.0-experimental.2` tag and push only
    that tag. Never move or reuse it. Record its full commit SHA.
 
 References checked 5 November 2026: [npm token setup](https://docs.npmjs.com/creating-and-viewing-access-tokens/),
@@ -58,10 +64,10 @@ write credentials and do not alter normal settings or installations.
   ```sh
   release_run=$(mktemp -d)
   npm run pack:candidates -- "$release_run/packages" --publishable
-  tar -xOf "$release_run/packages/scoped/n8r-surface-0.1.0-experimental.1.tgz" package/package.json
+  tar -xOf "$release_run/packages/scoped/n8r-surface-0.1.0-experimental.2.tgz" package/package.json
   ```
 
-  Expect exit 0, version `0.1.0-experimental.1`, name `@n8r/surface`,
+  Expect exit 0, version `0.1.0-experimental.2`, name `@n8r/surface`,
   `private: false`, public npm registry/access and tag `experimental`.
   The source `package.json` must still have `private: true`.
 - [ ] Install and run the preferred archive:
@@ -69,7 +75,7 @@ write credentials and do not alter normal settings or installations.
   ```sh
   mkdir "$release_run/consumer"
   cd "$release_run/consumer"
-  npm install --offline --ignore-scripts --no-audit --no-fund --package-lock=false "$release_run/packages/scoped/n8r-surface-0.1.0-experimental.1.tgz"
+  npm install --offline --ignore-scripts --no-audit --no-fund --package-lock=false "$release_run/packages/scoped/n8r-surface-0.1.0-experimental.2.tgz"
   node --input-type=module -e 'import {decode} from "@n8r/surface"; console.log(typeof decode)'
   ./node_modules/.bin/n8r-surface --version
   mkdir "$release_run/home"
@@ -79,7 +85,7 @@ write credentials and do not alter normal settings or installations.
   ```
 
   Expect install/import/version exits 0, `function`, and
-  `n8r-surface 0.1.0-experimental.1`. Bare startup prints setup guidance,
+  `n8r-surface 0.1.0-experimental.2`. Bare startup prints setup guidance,
   exits **1**, and leaves the isolated home empty.
 - [ ] Repeat in a new consumer and home directory using the `unscoped/` archive
   and import `n8r-surface`. Expect identical behavior, with that installed name.
@@ -102,7 +108,7 @@ write effects are draft release assets and, only for `stage`, npm staged version
 From the repository root with GitHub CLI access:
 
 ```sh
-gh workflow run npm-release.yml --ref v0.1.0-experimental.1 -f operation=prepare
+gh workflow run npm-release.yml --ref v0.1.0-experimental.2 -f operation=prepare
 gh run list --workflow npm-release.yml --limit 1
 ```
 
@@ -110,7 +116,7 @@ Inspect the run and draft assets; record the run ID and full source revision.
 Preparation must finish successfully before selecting staging:
 
 ```sh
-gh workflow run npm-release.yml --ref v0.1.0-experimental.1 -f operation=stage
+gh workflow run npm-release.yml --ref v0.1.0-experimental.2 -f operation=stage
 ```
 
 The publisher reads both registry versions first. An existing version must match
@@ -135,7 +141,7 @@ original bytes cannot be recovered, stop; do not regenerate them.
 ## Approve each staged version with 2FA
 
 Open npm's **Staged Packages** page as the authorized maintainer. For each of
-`@n8r/surface` and `n8r-surface`, inspect version `0.1.0-experimental.1`, tag
+`@n8r/surface` and `n8r-surface`, inspect version `0.1.0-experimental.2`, tag
 `experimental`, the workflow's stage ID and downloaded bytes. Approve each with
 2FA. Alternatively run `npm stage approve STAGE_ID` in your authenticated terminal.
 These actions publish the real versions; the placeholders are not acceptance.
@@ -143,7 +149,7 @@ These actions publish the real versions; the placeholders are not acceptance.
 Then run the read-only verification operation:
 
 ```sh
-gh workflow run npm-release.yml --ref v0.1.0-experimental.1 -f operation=verify
+gh workflow run npm-release.yml --ref v0.1.0-experimental.2 -f operation=verify
 ```
 
 Expect success only when both exact registry versions match retained bytes and
@@ -157,11 +163,11 @@ read the installed name/version, import `decode`, run `--version` and the isolat
 closed-input startup above. Also exercise the two explicit one-off routes:
 
 ```sh
-npm exec --yes --package=@n8r/surface@0.1.0-experimental.1 -- n8r-surface --version
-npm exec --yes --package=n8r-surface@0.1.0-experimental.1 -- n8r-surface --version
+npm exec --yes --package=@n8r/surface@0.1.0-experimental.2 -- n8r-surface --version
+npm exec --yes --package=n8r-surface@0.1.0-experimental.2 -- n8r-surface --version
 ```
 
-Both must print `n8r-surface 0.1.0-experimental.1` and exit 0. Download each
+Both must print `n8r-surface 0.1.0-experimental.2` and exit 0. Download each
 registry tarball and compare its bytes/digests with the draft assets. Inspect
 its own provenance attestation, including source repository, full commit,
 workflow identity and subject digest; an attested dependency is insufficient.

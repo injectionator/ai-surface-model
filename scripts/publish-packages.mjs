@@ -56,7 +56,7 @@ async function main(directory, operation) {
   if (process.env.GITHUB_ACTIONS !== 'true' || process.env.GITHUB_REPOSITORY !== 'injectionator/n8r-surface') throw new Error('Publication requires the official GitHub Actions workflow');
   const root = resolve(import.meta.dirname, '..');
   const report = JSON.parse(readFileSync(join(directory, 'candidates.json'), 'utf8'));
-  if (report.version !== '0.1.0-experimental.1' || process.env.GITHUB_REF !== `refs/tags/v${report.version}` || process.env.GITHUB_SHA !== report.revision) throw new Error('Workflow must run at the exact approved version tag/revision');
+  if (report.version !== '0.1.0-experimental.2' || process.env.GITHUB_REF !== `refs/tags/v${report.version}` || process.env.GITHUB_SHA !== report.revision) throw new Error('Workflow must run at the exact approved version tag/revision');
   // Revalidate live release mapping immediately before any registry writes.
   execFileSync(process.execPath, [join(root, 'scripts/check-release.mjs'), directory], {stdio:'inherit'});
   for (const entry of report.packages) {

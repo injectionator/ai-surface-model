@@ -22,7 +22,7 @@ This supersedes the unscoped-first/fallback decision under
 [issue #27](https://github.com/injectionator/n8r-surface/issues/27).
 Generate both from one build with matching payloads and version. The
 [distribution candidate procedure](npm-distribution.md) preserves `private: true`
-by default. The maintainer confirmed `0.1.0-experimental.1` and authorized
+by default. The maintainer confirmed `0.1.0-experimental.2` and authorized
 publication; explicit `--publishable` preparation creates fresh public archives.
 The [first-release workflow](npm-release.md) retains both archives before
 publication, uses stage-only token bootstrap with provenance and maintainer 2FA approval, and requires

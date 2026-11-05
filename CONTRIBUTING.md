@@ -352,7 +352,7 @@ See [version policy, prerequisites and human verification](docs/n8r-surface/vers
 
 ## First npm release preparation
 
-Default candidates remain private. For the approved `0.1.0-experimental.1`
+Default candidates remain private. For the approved `0.1.0-experimental.2`
 release, `npm run pack:candidates -- NEW_DIRECTORY --publishable` builds fresh
 publishable archives without registry writes. The manual GitHub Actions workflow
 prepares retained assets, stages those exact bytes for maintainer 2FA approval,

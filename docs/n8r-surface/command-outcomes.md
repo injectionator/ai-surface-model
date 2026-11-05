@@ -550,7 +550,7 @@ and publishing setup exist.
 
 ## RELEASE-01: prepare and publish the first dual release
 
-Given reviewed version `0.1.0-experimental.1`, explicit
+Given reviewed version `0.1.0-experimental.2`, explicit
 `npm run pack:candidates -- NEW_DIRECTORY --publishable` creates both equivalent
 publishable archives; the source and default candidates remain private. The
 [human procedure](npm-release.md#human-check-before-publication) checks both

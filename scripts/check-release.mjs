@@ -11,6 +11,22 @@ const root = resolve(import.meta.dirname, '..');
 const json = path => JSON.parse(readFileSync(path, 'utf8'));
 const requireMatch = (condition, message) => { if (!condition) throw new Error(message); };
 
+export function resolveRemoteTag(tag, api) {
+  const reference = api(`git/ref/tags/${tag}`);
+  requireMatch(reference?.ref === `refs/tags/${tag}`, 'Remote reference must be the exact release tag');
+  let object = reference.object;
+  const seen = new Set();
+  while (object?.type === 'tag') {
+    requireMatch(/^[a-f0-9]{40}$/.test(object.sha) && !seen.has(object.sha) && seen.size < 16, 'Invalid or cyclic annotated tag');
+    seen.add(object.sha);
+    const annotation = api(`git/tags/${object.sha}`);
+    requireMatch(annotation?.sha === object.sha, 'Annotated tag identity mismatch');
+    object = annotation.object;
+  }
+  requireMatch(object?.type === 'commit' && /^[a-f0-9]{40}$/.test(object.sha), 'Remote release tag must resolve to a commit');
+  return object.sha;
+}
+
 export function checkRelease(source, directory, release) {
   const version = checkVersion(source);
   const git = (...args) => execFileSync('git', args, {cwd:source, encoding:'utf8', stdio:['ignore','pipe','pipe']}).trim();
@@ -68,8 +84,8 @@ if (process.argv[1] && realpathSync(process.argv[1]) === fileURLToPath(import.me
   const release = offline ? json(offline) : api(`releases/${releaseId}`);
   const result = checkRelease(root,process.argv[2],release);
   if (!offline) {
-    const commit = api(`commits/tags/${tag}`);
-    requireMatch(commit.sha === result.revision, 'Remote release tag must resolve to candidate commit');
+    const commit = resolveRemoteTag(tag, api);
+    requireMatch(commit === result.revision, 'Remote release tag must resolve to candidate commit');
   }
   console.log(JSON.stringify({...result,evidence:offline ? 'offline metadata rehearsal' : 'GitHub API readback',
     npmPublication:'not checked',provenance:'not checked'},null,2));

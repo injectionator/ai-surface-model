@@ -31,7 +31,7 @@ Use `npm version VERSION --no-git-tag-version` for an approved version change,
 then review both manifests in the issue's PR. `npm run check:version` rejects
 invalid versions and drift in either lockfile version. `npm test` and candidate
 packing run that check. A version bump needs no source-code edit for CLI output.
-The maintainer confirmed `0.1.0-experimental.1` and authorized publication on
+The maintainer confirmed `0.1.0-experimental.2` and authorized publication on
 5 November 2026. Review/merge and required account actions remain separate. See
 the [first-release procedure](npm-release.md).
 
@@ -152,7 +152,7 @@ No npm credentials, real Git tag, GitHub Release or global-install change is nee
 Keep the current terminal with `candidate_run` set by that guide.
 
 - [ ] From the checkout root run `npm run check:version`. Expect
-  `Version consistent: 0.1.0-experimental.1`, exit 0. Inspect `package.json` and
+  `Version consistent: 0.1.0-experimental.2`, exit 0. Inspect `package.json` and
   both root version fields in `package-lock.json`; they must match.
 - [ ] Follow the [candidate install steps](npm-distribution.md#human-verification)
   for both names. In each consumer directory run:
@@ -163,7 +163,7 @@ Keep the current terminal with `candidate_run` set by that guide.
   ```
 
   For the alternative use `./node_modules/n8r-surface/package.json`. Expect
-  `0.1.0-experimental.1` and `n8r-surface 0.1.0-experimental.1`, both exit 0.
+  `0.1.0-experimental.2` and `n8r-surface 0.1.0-experimental.2`, both exit 0.
 - [ ] Inspect `candidates.json`: both entries have distinct `releaseAsset` names,
   the same report version/revision, and hashes matching the retained tarballs.
   A clean-commit rehearsal must say `dirty: false`.

@@ -7,7 +7,7 @@ route per environment because they provide the same command name.
 
 This increment prepares **private local candidates**, not a published release.
 The root manifest and default generated manifests retain `private: true`. The
-maintainer selected `0.1.0-experimental.1` and authorized publication. Explicit
+maintainer selected `0.1.0-experimental.2` and authorized publication. Explicit
 `--publishable` preparation removes the generated guards only; see the
 [first-release procedure](npm-release.md). Registry installation remains unproved.
 
@@ -34,7 +34,7 @@ only `name` differs between them. Versions, engines, licenses, dependencies,
 exports, executable and asset bytes match. Existing destinations are refused.
 A failed run may leave an incomplete destination; use a new directory on retry.
 
-Both tarballs are named `n8r-surface-0.1.0-experimental.1.tgz`, so they live in
+Both tarballs are named `n8r-surface-0.1.0-experimental.2.tgz`, so they live in
 separate `scoped/` and `unscoped/` directories. `candidates.json` records their
 relative paths, SHA-256 digests, version, source HEAD and dirty status. This is
 local build evidence, not registry provenance. Each entry also names a unique
@@ -58,13 +58,13 @@ Codex sign-in or existing vault is needed for this distribution check.
   ```sh
   mkdir "$candidate_run/consumer"
   cd "$candidate_run/consumer"
-  npm install --offline --ignore-scripts --no-audit --no-fund --package-lock=false "$candidate_run/packages/scoped/n8r-surface-0.1.0-experimental.1.tgz"
+  npm install --offline --ignore-scripts --no-audit --no-fund --package-lock=false "$candidate_run/packages/scoped/n8r-surface-0.1.0-experimental.2.tgz"
   node --input-type=module -e 'import {decode} from "@n8r/surface"; console.log(typeof decode)'
   ./node_modules/.bin/n8r-surface --version
   ```
 
   Expect successful installation, `function`, then
-  `n8r-surface 0.1.0-experimental.1`; each exits 0.
+  `n8r-surface 0.1.0-experimental.2`; each exits 0.
 - [ ] Run bare startup with a fresh isolated home and closed input:
 
   ```sh
@@ -117,7 +117,7 @@ establish the npm identity, `n8r` organization/team rights and unscoped ownershi
 Subsequent authenticated readback identified the intended npm account and its
 `n8r` owner role; new-package publication rights still require an actual publish.
 
-The approved first version is `0.1.0-experimental.1`. Review the release
+The approved first version is `0.1.0-experimental.2`. Review the release
 workflow before merging; account configuration and registry verification remain. Prefer trusted publishing for both packages
 from the public repository on GitHub-hosted runners. npm documents Node 22.14+
 and npm 11.5.1+ for trusted publishing and automatic provenance for public packages
