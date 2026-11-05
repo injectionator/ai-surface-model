@@ -151,6 +151,8 @@ readline.createInterface({input:process.stdin}).on('line',l=>{
             saved = files[0].read_text()
             assert 'Human decision: no OIDC.' in saved and 'case.md' in saved and 'sha256:' in saved
             assert b'Saved and read back:' in output
+            assert b'Preparing note' in output
+            assert b'Waiting for Codex' in output
         elif mode.startswith('reopen'):
             assert old.read_bytes() == predecessor_bytes
             assert str(old).encode() in output

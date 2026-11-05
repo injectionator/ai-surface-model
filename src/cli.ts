@@ -6,6 +6,7 @@ import {line, problem, loadSettings, localPath, InspectionError, type Settings} 
 
 import {SourceTools} from './source-tools.js';
 import {ResearchConversation} from './codex.js';
+import {Activity} from './activity.js';
 import {Notes, readNote, latestNote, type Note} from './notes.js';
 
 async function setup(config: Settings): Promise<number> {
@@ -107,7 +108,8 @@ async function discover(args: string[], reopening = false): Promise<number> {
     const ended = () => resolve(undefined); input.once('close', ended);
     input.question(prompt, answer => { input.removeListener('close', ended); resolve(answer); });
   });
-  const output = (text: string) => console.log(text.split('\n').map(part => line(part)).join('\n'));
+  const activity = new Activity();
+  const output = (text: string) => activity.log(text.split('\n').map(part => line(part)).join('\n') + '\n');
   try {
     let note: Note | undefined;
     if (reopening) {
@@ -128,11 +130,11 @@ async function discover(args: string[], reopening = false): Promise<number> {
     if (interrupted) return 130;
     if (accepted === undefined || !/^y(es)?$/i.test(accepted.trim())) return 1;
     console.log('Connecting to Codex…');
-    session = await ResearchConversation.start(tools, output, model, controller.signal);
+    session = await activity.run('Connecting to Codex', () => ResearchConversation.start(tools, output, model, controller.signal));
     console.log(`Connected: ChatGPT sign-in; model ${line(session.model)}.`);
     console.log(`Researcher ${session.instructions.version}; ${session.instructions.digest}`);
     console.log('Ask about your source. /save saves a note; /exit ends the chat; Ctrl-C cancels.');
-    if (note) await session.reopen(note);
+    if (note) await activity.run('Reopening research', () => session!.reopen(note!));
     while (!closed) {
       const question = await ask('You> ');
       if (question === undefined || question.trim() === '/exit') break;
@@ -140,14 +142,14 @@ async function discover(args: string[], reopening = false): Promise<number> {
       if (question.trim() === '/save') {
         const destination = notes.next();
         console.log(`Save destination: ${line(destination)}`);
-        const markdown = await session.prepareNote();
+        const markdown = await activity.run('Preparing note', () => session!.prepareNote());
         if (closed || controller.signal.aborted) throw new InspectionError('Research cancelled; nothing saved');
         const saved = notes.save(destination,markdown,{researcher:{version:session.instructions.version,digest:session.instructions.digest},model:session.model,evidence:session.evidence});
         console.log(`Saved and read back: ${line(saved.path)}`);
         console.log(saved.digest);
       } else if (question.trim().startsWith('/')) {
         console.log('Unknown chat command. Use /save or /exit.');
-      } else await session.turn(question);
+      } else await activity.run('Waiting for Codex', () => session!.turn(question));
     }
     return interrupted ? 130 : 0;
   } catch (error) {

@@ -38,7 +38,9 @@ access to `gpt-6-astra`. No API-key billing or model fallback is used.
   describes configured inference; OIDC is an option, not proof of selected or
   exercised authentication. Your decision must stay separate from source claims.
 - Enter `/save`. Expect a numbered destination followed by **Saved and read back**,
-  its full path and SHA-256 digest. Open that file: it should retain component IDs,
+  its full path and SHA-256 digest. While waiting, a spinner shows
+  **Preparing note** and elapsed seconds; answers use **Waiting for Codex**.
+  It should stop when the operation finishes or you cancel. Open that file: it should retain component IDs,
   your OIDC choice, evidence and next steps. Copy its path, then enter `/exit`.
   Expect exit 0 and the terminal prompt.
 

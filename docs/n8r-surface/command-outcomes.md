@@ -480,3 +480,12 @@ Implemented bounded Markdown increment for #17; see [evidence and limits](save-r
 The suggested filename is convenience, not evidence of source identity or a
 selection of a deployment. A fresh process requires explicit `--source`; it never
 restores private source paths from a saved note. Help (`reopen --help`) is read-only.
+
+### Pending-operation feedback
+
+While connecting, answering, reopening or preparing a `/save` draft, show an
+interactive-terminal spinner with elapsed seconds and the operation label. Clear
+it before normal output and stop it on completion, failure or cancellation. Do
+not animate at `You>` or in nonterminal output. It means the request is pending,
+not that server-side progress is known. Verify a delayed answer/save and Ctrl-C;
+expect visible activity, clean answer/prompt output, and no continuing timer.
