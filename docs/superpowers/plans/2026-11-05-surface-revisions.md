@@ -43,19 +43,19 @@ Interfaces: export `prepareSurfaceDraft(input, context): SurfaceDraft` and
 and `surface: SurfaceDefinition`. Context supplies host revision metadata,
 optional accepted predecessor pair and original-note provenance. Input is untrusted.
 
-- [ ] Specify the command inventory and SURFACE-01 Given / When / Then / Verify
+- [x] Specify the command inventory and SURFACE-01 Given / When / Then / Verify
   outcome, distinguishing planned work from the recorded installed-help baseline.
-- [ ] Write tests asserting that valid structured content receives host-owned
+- [x] Write tests asserting that valid structured content receives host-owned
   revision/reference digests, invalid references fail, and preview includes the
   nodes, declared connections, choices, requirements, coverage and gaps.
-- [ ] Run the focused tests and record the expected missing-capability failure.
-- [ ] Implement using `validateArtefact`, `verifyReferences`, `digest` and
+- [x] Run the focused tests and record the expected missing-capability failure.
+- [x] Implement using `validateArtefact`, `verifyReferences`, `digest` and
   `verifySuccessor`; retain IDs and extensions and reject silent omission of
   predecessor sources/findings/decisions/nodes. Keep semantic prose-to-ID mapping
   an explicit model instruction and real-rehearsal check.
-- [ ] Add tests for dropped history, changed relationship endpoints, opaque
+- [x] Add tests for dropped history, changed relationship endpoints, opaque
   extension loss, conflicting evidence and a legitimate changed decision.
-- [ ] Run `npm test`; commit the draft-validation increment once passing.
+- [x] Run `npm test`; commit the draft-validation increment once passing.
 
 ## Task 2: immutable pair persistence and independent reopening
 
@@ -67,15 +67,15 @@ Interfaces: export `readSurfacePair(path): SavedSurfacePair` and class
 artefacts, original bytes/hashes, its directory and manifest. Input paths must name
 one of the supported pair members. The manifest is versioned host data.
 
-- [ ] Write failing tests saving a pair, reopening from either member and comparing
+- [x] Write failing tests saving a pair, reopening from either member and comparing
   research references, logical digests and exact file bytes.
-- [ ] Add tests for immutable successor history, changed note/predecessor bytes,
+- [x] Add tests for immutable successor history, changed note/predecessor bytes,
   edited HTML, symlink ancestry, occupied outputs, malformed manifests, relocated
   pairs and failures during staged publication. Assert earlier files remain intact.
-- [ ] Implement bounded UTF-8 reads, manifest/file verification, temporary-directory
+- [x] Implement bounded UTF-8 reads, manifest/file verification, temporary-directory
   staging, complete directory publication and independent readback. Use existing
   codec/HTML APIs. Record only portable evidence and relative predecessor locations.
-- [ ] Run focused tests then `npm test`; commit the persistence increment.
+- [x] Run focused tests then `npm test`; commit the persistence increment.
 
 ## Task 3: restricted conversation tool and command interaction
 
@@ -89,19 +89,19 @@ A fresh turn clears the old draft; only successful completion promotes a candida
 The CLI prints the host preview and calls `SurfaceStore.save` only for literal
 `/save surface`. It never regenerates during saving.
 
-- [ ] Write failing protocol tests for tool argument validation, model retry after
+- [x] Write failing protocol tests for tool argument validation, model retry after
   validation feedback, promotion only on success, cancellation and stale-preview
   invalidation. Assert no storage operation occurs during model turns.
-- [ ] Implement the tool schema and host instructions using the existing contracts.
+- [x] Implement the tool schema and host instructions using the existing contracts.
   Host assigns envelopes and exact research references; the model supplies content.
-- [ ] Write failing reopen tests for retained unavailable evidence and bounded total
+- [x] Write failing reopen tests for retained unavailable evidence and bounded total
   context; implement fresh-session pair context with renewed source access.
-- [ ] Extend PTY tests to generate, preview, save, exit, reopen by each pair member,
+- [x] Extend PTY tests to generate, preview, save, exit, reopen by each pair member,
   revise and save. Assert `/save` still writes Markdown and a missing preview cannot
   save. Use distinct full confirmation prompts, not generic `[y/N]` matches.
-- [ ] Update help, source/transmission disclosure and activity messages. Preserve
+- [x] Update help, source/transmission disclosure and activity messages. Preserve
   the existing no-argument latest-edited Markdown selection behavior.
-- [ ] Run `npm test` and `npm run check:package`; commit and update the draft PR.
+- [x] Run `npm test` and `npm run check:package`; commit and update the draft PR.
 
 ## Task 4: installed real-runner proof and handoff
 
@@ -110,28 +110,32 @@ Files: update `docs/n8r-surface/getting-started.md`, `host-contract.md`,
 `docs/n8r-surface/surface-revisions-verification.md` with sanitized evidence.
 Keep raw rehearsal outputs under `runs/` in the configured local vault.
 
-- [ ] Install a candidate tarball in an isolated local location, retaining existing
+- [x] Install a candidate tarball in an isolated local location, retaining existing
   global installation and using established Codex sign-in. Record exact source and
   tarball hashes, Node/Codex/model/instruction revisions once.
-- [ ] Run the design's short proof through real Codex on saved Lumen research. The
+- [x] Run the design's short proof through real Codex on saved Lumen research. The
   Researcher must generate the content; the developing agent supplies interactions
   and independently checks output, never prewritten findings.
-- [ ] Read back both revisions: validate references and parent digests, compare
+- [x] Read back both revisions: validate references and parent digests, compare
   retained component/finding IDs, evidence and decisions, and prove predecessor,
   note, source and settings bytes unchanged. Capture any failure before fixing it.
-- [ ] Repeat a small Harbor case from its own research, retaining unknown facts;
+- [x] Repeat a small Harbor case from its own research, retaining unknown facts;
   reopen by the other pair member. Record the actual observation and limits.
-- [ ] Run required Node/package and repository checks; inspect tracked and new
+- [x] Run required Node/package and repository checks; inspect tracked and new
   files for whitespace, links, semantic consistency and sensitive material.
-- [ ] Request a final independent code review, address findings and rerun affected
+- [x] Request a final independent code review, address findings and rerun affected
   checks. Record which tests and real trials ran on each exact revision.
-- [ ] Update the single draft PR with short human tasks first, evidence links,
+- [x] Update the single draft PR with short human tasks first, evidence links,
   remaining scope and Related to #17. Report branch, commit, pushed status and
   unproved human acceptance. Keep npm distribution last and separate.
 
 ## Execution status
 
-Design and plan only. No product code, new tests or installed Surface trial has run.
+Tasks 1–3 are implemented at `62cc6d9`. The 115-test suite passes on Node
+22/24/26; installed-package and real-runner evidence is recorded in the
+[verification record](../../n8r-surface/surface-revisions-verification.md).
+Task 4 completed its agent rehearsal and independent readback on Lumen and Harbor.
+Human acceptance remains separate.
 The user approved the conversational outcome and selected inline implementation
 after presentation of this plan. The fresh builder check found no important
 unresolved questions. The storage, conversation and command interfaces are tightly

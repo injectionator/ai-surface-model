@@ -120,9 +120,9 @@ be added to this inventory with its own outcome and verification case first.
 | CMD-06 | `n8r-surface --help` | Discover the complete supported command surface and its effects. | Display syntax, purpose, source/destination behavior and links to details; exit without setup, source access, inference or writes. Compare with this inventory. |
 | CMD-07 | `n8r-surface discover --help` | Understand the selected command before invoking it. | Display that command's inputs, outputs, side effects and limitations; no operation or setup begins. |
 | CMD-08 | `n8r-surface --version` | Identify the installed tool being used or verified. | Display the package/build version without inference or mutation; compare with the installed package manifest. |
-| CMD-10 | `n8r-surface reopen [NOTE] --source SOURCE [--model MODEL]` | Continue a named Markdown note, or accept the latest-edited suggestion. | Renew transmission consent; compare source evidence; see SAVE-01. |
+| CMD-10 | `n8r-surface reopen [FILE] --source SOURCE [--model MODEL]` | Continue a named Markdown note or saved HTML/JSON pair; omission suggests the latest-edited Markdown note. | Renew transmission consent; compare source evidence; see SAVE-01. |
 | CMD-11 | `/save` at `You>` | Explicitly save or create a successor Markdown note. | Read back saved bytes and preserve predecessors; see SAVE-01. |
-| CMD-12 | `/save surface` at `You>` (planned) | Save the exact validated pair previewed in the current conversation. | Immutable paired research HTML and Surface JSON, independent readback; see SURFACE-01. |
+| CMD-12 | `/save surface` at `You>` | Save the exact validated pair previewed in the current conversation. | Immutable paired research HTML and Surface JSON, independent readback; see SURFACE-01. |
 | CMD-09 | Unknown command, unknown option or invalid arguments | Receive an actionable explanation without unintended work. | Report the invalid input and applicable help, return failure, and leave source/corpus/settings unchanged. Never interpret a typo as permission to research. |
 
 `discover [source]` also accepts an explicit absolute local source path; the
@@ -493,8 +493,9 @@ expect visible activity, clean answer/prompt output, and no continuing timer.
 
 ## SURFACE-01: generate, save and revise a partial Surface
 
-**Specified; implementation and real-runner verification pending.** The installed
-help checked on 5 November 2026 supports Markdown-only saves. Structured output is
+**Implemented in the candidate; verification is tracked in the
+[Surface evidence record](surface-revisions-verification.md).** The installed baseline
+help checked on 5 November 2026 supported Markdown-only saves. Structured output was
 the authorized known missing capability; no failed live generation trial is claimed.
 
 **Given:** a saved numbered note, permitted source, configured vault and supported

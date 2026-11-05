@@ -75,7 +75,8 @@ saved vault. The explicit `discover [source]` command now starts a
 [Codex research conversation](docs/n8r-surface/codex-research-verification.md)
 with source evidence, follow-up, explicit Markdown saves and fresh-session reopening.
 See [save/reopen evidence and limits](docs/n8r-surface/save-reopen-verification.md).
-Validated structured research output remains future work. See the
+The current candidate adds validated paired research HTML and partial Surface JSON,
+with fresh-session revision; see the [candidate evidence and limits](docs/n8r-surface/surface-revisions-verification.md). See the
 [critical path](docs/n8r-surface/critical-path.md) for the next work and the
 [command outcome specification](docs/n8r-surface/command-outcomes.md) for the
 intended interactions and required evidence.
