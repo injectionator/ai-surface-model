@@ -9,7 +9,7 @@ import {surface} from './helpers.mjs';
 const installed = process.env.N8R_TEST_BIN_DIR;
 const command = installed ? 'n8r-surface' : process.execPath;
 const prefix = installed ? [] : [resolve('dist/cli.js')];
-const assets = installed ? new URL(import.meta.resolve('n8r-surface/examples/lumen-r1.research.html')) : new URL('../examples/researcher/lumen-r1.research.html', import.meta.url);
+const assets = installed ? new URL(import.meta.resolve(`${process.env.N8R_TEST_PACKAGE || 'n8r-surface'}/examples/lumen-r1.research.html`)) : new URL('../examples/researcher/lumen-r1.research.html', import.meta.url);
 const marker = 'PRIVATE_VALUE_MUST_NOT_APPEAR';
 
 function fixture(t, config = {version: 1, artefactRoot: '~/n8r/artifacts', surfaceFormat: 'json'}) {

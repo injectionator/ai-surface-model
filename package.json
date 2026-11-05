@@ -32,7 +32,8 @@
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && node --test tests/*.test.mjs",
     "check:package": "npm run build && node scripts/check-package.mjs",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "pack:candidates": "node scripts/pack-candidates.mjs"
   },
   "dependencies": {
     "yaml": "2.9.1"
@@ -40,5 +41,13 @@
   "devDependencies": {
     "@types/node": "22.20.5",
     "typescript": "6.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/injectionator/n8r-surface.git"
+  },
+  "homepage": "https://github.com/injectionator/n8r-surface#readme",
+  "bugs": {
+    "url": "https://github.com/injectionator/n8r-surface/issues"
   }
 }

@@ -5,9 +5,13 @@ the existing Markdown research workflow. Reopen either saved file to revise the 
 Use Node 22, 24 or 26, Codex CLI **0.166.0**, and an existing ChatGPT sign-in with
 access to `gpt-6-astra`. No API-key billing or model fallback is used.
 
+For isolated checks of both official npm package candidates, use the
+[distribution walkthrough](npm-distribution.md). The global install below uses
+the checkout tarball and replaces the command in your npm global prefix.
+
 ## 1. Install
 
-- Open a terminal in this checkout on `feat/17-surface-revisions` and paste:
+- Open a terminal in this checkout at the reviewed candidate revision and paste:
 
   ```sh
   npm ci && npm pack && npm install --global ./n8r-surface-0.0.0-experimental.1.tgz

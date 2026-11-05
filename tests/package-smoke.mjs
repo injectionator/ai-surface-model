@@ -1,8 +1,9 @@
 // Copied into a temporary consumer directory; no checkout-relative imports.
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {readResearchHtml, decode, encode, verifyReferences, verifySuccessor} from 'n8r-surface';
-const asset = name => readFileSync(new URL(import.meta.resolve(`n8r-surface/examples/${name}`)), 'utf8');
+const packageName = process.env.N8R_TEST_PACKAGE || 'n8r-surface';
+const {readResearchHtml, decode, encode, verifyReferences, verifySuccessor} = await import(packageName);
+const asset = name => readFileSync(new URL(import.meta.resolve(`${packageName}/examples/${name}`)), 'utf8');
 const lumen = readResearchHtml(asset('lumen-r2.research.html'));
 const harbor = readResearchHtml(asset('harbor-r2.research.html'));
 const surface = decode(asset('composed.surface.json'), 'json');
@@ -12,7 +13,7 @@ verifyReferences(surface, [lumen, harbor]);
 verifySuccessor(readResearchHtml(asset('lumen-r1.research.html')), lumen);
 assert.deepEqual(decode(encode(surface, 'yaml'), 'yaml'), surface);
 assert.throws(() => readResearchHtml(asset('lumen-manual-edit.pending.html')), /conflict/);
-assert.ok(readFileSync(new URL(import.meta.resolve('n8r-surface/contracts/contracts.md')), 'utf8').includes('n8r.research/0.1'));
+assert.ok(readFileSync(new URL(import.meta.resolve(`${packageName}/contracts/contracts.md`)), 'utf8').includes('n8r.research/0.1'));
 // Exercise the public consumer boundary; reject before inherited hooks run.
 let serializationCalls = 0;
 class LossyArray extends Array {
@@ -28,7 +29,12 @@ for (const format of ['json', 'yaml']) {
 console.log(`Installed package passed on Node ${process.version}; 4 nodes, 6 relationships, exact research references.`);
 
 // Internal module location is inspected only for distribution QA, not a public API.
-const installedRoot = new URL('../', import.meta.resolve('n8r-surface'));
+const installedRoot = new URL('../', import.meta.resolve(packageName));
+const manifest = JSON.parse(readFileSync(new URL('package.json', installedRoot)));
+assert.equal(manifest.name, packageName);
+assert.equal(manifest.version, '0.0.0-experimental.1');
+assert.equal(manifest.bin['n8r-surface'], './dist/cli.js');
+console.log(`Verified installed identity: ${manifest.name}@${manifest.version}`);
 const {researcherInstructions} = await import(new URL('dist/codex.js', installedRoot));
 const instructions = researcherInstructions();
 assert.equal(instructions.version, '0.1.8');
