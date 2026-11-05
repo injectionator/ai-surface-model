@@ -7,7 +7,7 @@ exclude_all_private = true
 
 # Include GitHub templates, but never scan local dependency or scratch directories.
 hidden = true
-exclude_path = ['(^|/)(\.git|\.superpowers|node_modules|\.venv)/']
+exclude_path = ['(^|/)(\.git|\.local|\.superpowers|node_modules|\.venv)/']
 
 # Reserved fixture addresses are not deployed services.
 exclude = ['^https?://[^/]+\.test(?:[/:]|$)']

@@ -12,7 +12,7 @@ try {
   writeFileSync(join(temp, 'package.json'), '{"private":true,"type":"module"}\n');
   execFileSync(npm, ['install', '--offline', '--ignore-scripts', '--no-audit', '--no-fund', '--package-lock=false', join(temp, packed[0].filename)], {cwd: temp, stdio: 'pipe'});
   copyFileSync(join(root, 'tests/package-smoke.mjs'), join(temp, 'smoke.mjs'));
-  for (const name of ['startup.test.mjs', 'helpers.mjs', 'startup-pty.py']) {
+  for (const name of ['startup.test.mjs', 'helpers.mjs', 'startup-pty.py', 'discovery-pty.py']) {
     copyFileSync(join(root, 'tests', name), join(temp, name));
   }
   const runtimes = process.argv.slice(2);
@@ -24,6 +24,7 @@ try {
       throw new Error('The interactive startup rehearsal requires a POSIX terminal and Python 3');
     }
     execFileSync('python3', ['startup-pty.py', node], {cwd: temp, env, stdio: 'inherit'});
+    execFileSync('python3', ['discovery-pty.py', node], {cwd: temp, env, stdio: 'inherit'});
   }
 } finally {
   rmSync(temp, {recursive: true, force: true});

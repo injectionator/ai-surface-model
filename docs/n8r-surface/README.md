@@ -5,20 +5,19 @@ authoring partial AI Surface Model descriptions with a human. Researcher is its
 shared discovery skill. The tool can run independently and later exchange work
 with n8r-labs.
 
-Build and demonstrate the [shareable skill](researcher-skill.md) in the existing
-Codex/ChatGPT harness first, then adapt the same core in the n8r-labs repository,
-then complete the standalone CLI. The user selected this sequence on 4 November
-2026; the CLI foundation is paused while the skill is proved.
+The [shareable skill](researcher-skill.md) has bounded existing-harness evidence.
+On 5 November 2026 the user prioritized standalone AI integration, then complete
+save/reopen/continue verification, then npm distribution. Later n8r-labs adaptation
+uses the same core in that separate repository.
 
-**Status, 4 November 2026:** #15 supplies experimental artefact contracts,
-JSON/YAML codecs, HTML ownership checks and synthetic cases. See the
-[critical path](critical-path.md) for implementation and integration links.
-The first #16 increment implements a [read-only bare-startup overview](startup.md).
-The first Researcher skill package is a candidate for working-notes research;
-[verification](researcher-skill-verification.md) distinguishes local package tests
-from the pending Work-mode lifecycle trial. Other commands, setup writes, a
-standalone AI runner and Lab integration remain unimplemented.
-This is unreleased work; the remaining map describes intended capabilities.
+**Status, 5 November 2026:** #15 supplies experimental artefact contracts,
+JSON/YAML codecs, HTML ownership checks and synthetic cases. The command implements
+[bare startup and vault setup](startup.md), plus a
+[bounded Codex conversation](codex-research-verification.md). Saved continuation,
+complete structured research and Lab integration remain outstanding.
+[Skill verification](researcher-skill-verification.md) distinguishes instruction
+trials from the pending Work-mode lifecycle trial. This is unreleased work;
+the remaining map describes intended capabilities.
 
 - [Experimental contracts and checks](contracts.md)
 - [Command intent, outcomes and verification](command-outcomes.md)

@@ -6,7 +6,7 @@ to verify those outcomes. Implementation plans and lower-level tests must serve
 these tasks. A passing codec test does not establish a working research command.
 
 **Status:** product specification approved on 4 November 2026; delivery order
-revised later that day to skill in the existing harness, Lab adaptation, then CLI.
+revised on 5 November 2026 to standalone AI integration, save/reopen/continue verification, then npm distribution. Lab adaptation remains separate.
 [The skill lifecycle and research checks](researcher-skill.md) govern the active
 increment. STATUS-01/CMD-02 are retired before implementation; no status
 subcommand will be added. The existing STARTUP-01 behavior remains the CLI baseline.
@@ -14,7 +14,7 @@ subcommand will be added. The existing STARTUP-01 behavior remains the CLI basel
 The original command specification follows, with the planned inventory updated. The first #16
 increment implements bare startup only, using the #15 experimental artefact
 library. See [startup decisions and scope](startup.md). The setup-only increment now adds accepted local vault writes; other commands
-and the standalone AI runner remain unimplemented. The first skill
+remain broader acceptance work. The bounded RESEARCH-01 conversation is implemented; see the [Codex evidence](codex-research-verification.md). The first skill
 provides instructions for working notes; it does not complete the structured-output
 or installed-CLI research cases below.
 The [recorded library checks](verification.md) are supporting evidence only.
@@ -414,3 +414,40 @@ cooperating-writer concurrency boundary. No arguments are added. SOURCE-01 remai
 paused. Earlier read-only STARTUP-01 evidence is historical, not evidence for the
 new setup interaction. Missing legacy corpus now permits setup; other legacy
 inspection errors still take precedence (exit 2). No research is started.
+
+## RESEARCH-01: first standalone conversation
+
+Specified on 5 November 2026 before implementation. This is a bounded #17
+increment, not completion of E2E-01. The delivery priority is now standalone AI,
+then save/reopen/continue verification, then distribution (#27). Lab adaptation
+remains separate work in its own repository.
+
+**Given** a configured vault, permitted local source and Codex 0.166.0 signed in
+with ChatGPT, **when** the user runs `n8r-surface discover [source]`, accepts the
+source-transmission confirmation and asks about the source, **then** Codex uses
+bounded host tools to inspect it and returns findings with source locations.
+A correction or follow-up stays in the same conversation. **Verify** by comparing
+the cited source lines and tool digests with the unchanged source bytes.
+
+CMD-03/04/05 accept one optional directory or file (default cwd), plus optional
+`--model MODEL` for an explicit per-session choice. Without it, use the configured
+Codex model; never silently select another. CMD-06/07 display local help and CMD-08
+(`--version`) displays the package version without setup, source reads or Codex.
+Unknown arguments fail with exit 2 without echoing them or reading configuration.
+
+Discovery requires an interactive input/output terminal; otherwise exit 1 without
+loading settings or launching Codex. In a terminal, validate settings, require a
+complete configured vault, resolve the selected scope and display it. Explain
+that inspected source text and the conversation go to OpenAI through Codex using
+ChatGPT sign-in; ask `Start research with OpenAI using Codex ChatGPT sign-in? [y/N]`.
+Only y/yes authorizes inference and source content reads. Refusal/EOF exits 1;
+invalid source/settings, runner failure or failed turns exit 2. Ctrl-C exits 130
+and stops the owned server. No API-key, provider or model fallback is permitted.
+
+After connecting, display the model and bundled Researcher version/digest.
+At `You>`, accept one line per turn. Display tool-read paths/digests and completed
+agent messages as they arrive. `/exit` or EOF at the prompt exits 0. Ctrl-C during
+a turn requests interruption and closes the server. A failed or timed-out answer
+is marked incomplete and exits 2. Saving, reopening, structured output, web/live
+access and extra source selection remain unsupported. The CLI creates no research
+artefact; Codex owns its own authentication, cache and diagnostic state.

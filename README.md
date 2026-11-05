@@ -7,10 +7,10 @@ detail available or useful. This repository also develops the experimental
 
 > [!NOTE]
 > **Early draft; experimental tooling.** The model concepts and illustrative
-> fields remain provisional. The library and bare-startup command are unreleased;
+> fields remain provisional. The library and command are unreleased;
 > there is no universal schema, exporter or deployment engine yet. The Researcher
-> skill supports working research through the host; standalone AI research remains
-> future work.
+> skill supports working research through the host. The standalone command now
+> supports a bounded Codex conversation; saving and reopening remain future work.
 
 ## Why this is needed
 
@@ -67,12 +67,14 @@ HTML research records and partial definitions in JSON/YAML, with
 [synthetic acceptance cases](examples/researcher/README.md). These checks do not
 establish universal model conformance or consumer compatibility.
 
-**To try the command, follow [Install and choose your vault](docs/n8r-surface/getting-started.md).**
+**To try the command, follow [Install, run and check research](docs/n8r-surface/getting-started.md).**
 
 The [bare-startup command](docs/n8r-surface/startup.md) displays local settings and
 saved artefacts, then offers explicitly confirmed local vault setup or reuses the
-saved vault. Other commands, source-repository analysis and AI research through
-the standalone CLI remain unimplemented. See the
+saved vault. The explicit `discover [source]` command now starts a
+[Codex research conversation](docs/n8r-surface/codex-research-verification.md)
+with source evidence and same-session follow-up. Saving, reopening and structured
+research output remain future work. See the
 [critical path](docs/n8r-surface/critical-path.md) for the next work and the
 [command outcome specification](docs/n8r-surface/command-outcomes.md) for the
 intended interactions and required evidence.

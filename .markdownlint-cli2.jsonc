@@ -1,6 +1,6 @@
 {
   "globs": ["**/*.md", ".github/**/*.md"],
-  "ignores": ["node_modules/**", ".venv/**", ".superpowers/**"],
+  "ignores": ["node_modules/**", ".venv/**", ".superpowers/**", ".local/**"],
   "config": {
     "default": true,
     // Tables and checklist items can be long without harming rendered reading.

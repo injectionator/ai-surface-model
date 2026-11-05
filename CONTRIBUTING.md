@@ -293,7 +293,11 @@ a temporary directory with `--offline --ignore-scripts`, imports the built libra
 and reads bundled assets. It also runs the installed `n8r-surface` executable with
 closed input and in a real terminal under temporary homes, compares output to
 prepared settings/files, verifies confirmed vault setup and unchanged source bytes,
-and checks that reuse/closed-input startup does not write. It then
+and checks that reuse/closed-input startup does not write. It also checks
+installed Researcher instruction digests and discovery authorization, scope,
+errors, EOF and cancellation with an explicitly scripted offline Codex fixture.
+That fixture is a process test, not real AI evidence; the separate
+[Codex rehearsal](docs/n8r-surface/codex-research-verification.md) covers actual inference. It then
 removes the temporary directory. No API credentials,
 Lab, source checkout at runtime or registry publication is required. Populate the
 dependency cache with both preparation commands above before the offline package

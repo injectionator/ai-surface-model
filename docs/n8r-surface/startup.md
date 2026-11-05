@@ -3,9 +3,8 @@
 Bare `n8r-surface` displays readable non-private configuration, legacy saved
 artefacts and known own-process status. It then offers first-use vault setup or
 reuses the configured vault. Setup does not start research, scan source contents,
-use a network, launch a runner or require an account. No new arguments are added.
-SOURCE-01 remains paused; help/version, discovery and source selection remain
-future work. This increment does not complete #16 or #30.
+use a network, launch a runner or require an account. Bare startup is unchanged by the separate [Codex discovery increment](codex-research-verification.md).
+SOURCE-01 remains paused; the new discovery path does not incorporate that checkpoint. This increment does not complete #16 or #30.
 
 The earlier read-only overview and guidance question were delivered by
 [PR #25](https://github.com/injectionator/n8r-surface/pull/25).
@@ -49,9 +48,10 @@ empty custom paths, control characters, URL forms, non-directory collisions,
 settings symlinks/special files and symlinked required vault children. Invalid
 settings are retained for repair, never replaced with defaults.
 
-Only zero arguments launches startup. Any argument exits 2 with bare-startup
-guidance without echoing supplied text or inspecting settings. No `setup`,
-`--vault`, `--path`, `status`, help/version or discovery syntax is added.
+Only zero arguments launches startup. Discovery and local help/version now have
+separate paths described in [the command inventory](command-outcomes.md#research-01-first-standalone-conversation).
+Unknown arguments exit 2 without echoing them or inspecting settings. No `setup`,
+`--vault`, `--path` or `status` command is added.
 
 ## First use, reuse and repair
 

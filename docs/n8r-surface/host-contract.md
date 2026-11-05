@@ -3,15 +3,16 @@
 This is the integration boundary for the future shared Researcher instructions,
 not an implemented runner or Lab adapter. It builds on the
 [artefact contracts](contracts.md) and [shared cases](../../examples/researcher/README.md).
-The existing chat harness is the first skill host, followed by Lab adaptation
-and then the standalone CLI. A Lab is optional, and AI runner selection is
+The existing chat harness was the first skill host. The standalone CLI now has a
+bounded conversation adapter; [its evidence and limits](codex-research-verification.md)
+do not establish the complete artefact workflow. Lab adaptation remains later work. A Lab is optional, and AI runner selection is
 independent of the destination for results.
 
 ## Version negotiation
 
 A host must identify its adapter version, the exact Researcher instruction
 revision, supported artefact contract versions and understood vocabulary/extension
-versions. The current #17 skill candidate is version `0.1.5`, with
+versions. The bundled #17 skill is version `0.1.8`, with
 [bounded package and behavioral evidence](researcher-skill-verification.md).
 It produces working notes, not validated contract artefacts. Broader host support
 requires the applicable trial; applications consume that revision
