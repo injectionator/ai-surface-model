@@ -14,7 +14,7 @@ the checkout tarball and replaces the command in your npm global prefix.
 - Open a terminal in this checkout at the reviewed candidate revision and paste:
 
   ```sh
-  npm ci && npm pack && npm install --global ./n8r-surface-0.0.0-experimental.1.tgz
+  npm ci && npm pack && npm install --global ./n8r-surface-0.1.0-experimental.1.tgz
   ```
 
   Expect successful installation and the terminal prompt. Stay in the checkout.

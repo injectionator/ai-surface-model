@@ -349,3 +349,14 @@ release metadata, tag/commit identity and both retained archive hashes. It needs
 GitHub CLI read access and never publishes. An optional second argument supplies
 an offline release JSON response and explicitly limits the result to rehearsal.
 See [version policy, prerequisites and human verification](docs/n8r-surface/versioning.md).
+
+## First npm release preparation
+
+Default candidates remain private. For the approved `0.1.0-experimental.1`
+release, `npm run pack:candidates -- NEW_DIRECTORY --publishable` builds fresh
+publishable archives without registry writes. The manual GitHub Actions workflow
+prepares retained assets, stages those exact bytes for maintainer 2FA approval,
+and independently compares published bytes. Follow the
+[first-release procedure](docs/n8r-surface/npm-release.md), including account
+prerequisites, human checks and partial-stage recovery. Keep merge, acceptance
+and actual registry/provenance verification distinct from local checks.

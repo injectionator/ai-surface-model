@@ -22,7 +22,11 @@ This supersedes the unscoped-first/fallback decision under
 [issue #27](https://github.com/injectionator/n8r-surface/issues/27).
 Generate both from one build with matching payloads and version. The
 [distribution candidate procedure](npm-distribution.md) preserves `private: true`
-and `0.0.0-experimental.1`; publication remains a separate decision. Registry
+by default. The maintainer confirmed `0.1.0-experimental.1` and authorized
+publication; explicit `--publishable` preparation creates fresh public archives.
+The [first-release workflow](npm-release.md) retains both archives before
+publication, uses stage-only token bootstrap with provenance and maintainer 2FA approval, and requires
+independent registry verification. Merge and account prerequisites remain. Registry
 lookups do not reserve names or establish publishing rights. The approved
 [package version policy](versioning.md) makes the root manifest authoritative,
 derives CLI output from the installed manifest and verifies retained artifact
