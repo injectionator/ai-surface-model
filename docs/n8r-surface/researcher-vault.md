@@ -86,3 +86,13 @@ Keep each run until you have reviewed its findings. To start again, use a new ru
 name. After review, you can delete that one folder under `runs/` with your file
 browser. Leave the shared examples, ongoing research, saved Surfaces and source
 repositories intact.
+
+## Standalone command setup
+
+The experimental bare `n8r-surface` command offers a local vault once and remembers
+it as `vaultRoot` in version-1 user settings. It creates `research/`, `artifacts/`
+and `surfaces/` only after confirmation, and reuses that vault from other source
+folders. The legacy `artefactRoot` remains separate and unchanged. This setup-only
+increment does not run the Researcher or save findings. It does not read the
+repository's `.local/vault-path`. See [startup behavior](startup.md) and the
+[installed verification tasks](vault-setup-verification.md).

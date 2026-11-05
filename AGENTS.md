@@ -265,8 +265,8 @@ package check builds, packs and installs in a temporary directory using the loca
 npm cache with scripts disabled, then exercises built exports and bundled assets.
 It removes its temporary directory. Repeat against each supported Node major for
 distribution changes; see [contributor commands](CONTRIBUTING.md#researcher-contract-library).
-The experimental `n8r-surface` command implements only the read-only bare-startup
-overview. The package check also runs it under temporary homes and a real POSIX
+The experimental `n8r-surface` command implements the read-only overview and
+explicitly confirmed local vault setup/reuse; it does not start research. The package check also runs it under temporary homes and a real POSIX
 terminal; Python 3.9+ is required for that rehearsal. See the
 [startup boundary](docs/n8r-surface/startup.md). Keep the package private until a
 separate release decision.

@@ -1,97 +1,151 @@
-# Bare startup increment (#16)
+# Bare startup and local vault setup (#16)
 
-Implements only [STARTUP-01](command-outcomes.md#startup-01-run-the-command-and-see-what-is-here).
-The increment was developed from #15's `feat/15-researcher-contracts` at
-`5f67dbe`. At implementation start on 4 November 2026, PR #24 and its base PR #18
-were still draft and unmerged. See the [critical path](critical-path.md) for
-subsequent integration.
-The user authorized this dependent increment. It does not complete #16.
-[PR #25](https://github.com/injectionator/n8r-surface/pull/25) retains the work;
-[installed-command evidence](startup-verification.md) records STARTUP-01 as verified.
+Bare `n8r-surface` displays readable non-private configuration, legacy saved
+artefacts and known own-process status. It then offers first-use vault setup or
+reuses the configured vault. Setup does not start research, scan source contents,
+use a network, launch a runner or require an account. No new arguments are added.
+SOURCE-01 remains paused; help/version, discovery and source selection remain
+future work. This increment does not complete #16 or #30.
+
+The earlier read-only overview and guidance question were delivered by
+[PR #25](https://github.com/injectionator/n8r-surface/pull/25).
+[Historical STARTUP-01 evidence](startup-verification.md) applies to that revision.
+The setup increment replaces its guidance question and exit behavior; see the
+[current setup rehearsal and human tasks](vault-setup-verification.md).
 
 ## Settings and parser decisions
 
-One contributing file: `~/.n8r/n8r-surface.json`. No project-file, environment
-setting or command-line overrides are introduced in this increment. The process's
-home directory selects `~`, which also permits an isolated verification home.
+One settings file: `~/.n8r/n8r-surface.json`, version 1, limited to 64 KiB.
+The process home directory selects `~`, allowing an isolated verification home.
+There are no project settings, command-line overrides or credential environment
+reads. The repository's `.local/vault-path` remains an agent convention and is
+not read by this command.
 
 ```json
 {
   "version": 1,
-  "artefactRoot": "~/n8r/artifacts",
+  "vaultRoot": "~/n8r/",
+  "artefactRoot": "~/n8r/artefacts",
   "surfaceFormat": "json"
 }
 ```
 
-`version` must be `1`. Optional `artefactRoot` defaults to `~/n8r/artefacts`;
-optional `surfaceFormat` defaults to `json` and also accepts `yaml`. Expand `~/`
-against home; resolve a relative folder against the settings file's directory,
-never invocation cwd. Display the effective absolute folder and which values
-defaulted. This resolves the earlier proposed default while preserving the
-`artifacts` override used by STARTUP-01. Missing configuration uses defaults with
-an explicit missing-file notice; invalid/unreadable configuration is retained and
-prevents corpus inspection, rather than silently selecting a different folder.
+`vaultRoot` is optional; absence means setup is pending. It stores the vault for
+future research, containing `research/`, `artifacts/` and `surfaces/`.
+`artefactRoot` remains the separate legacy structured-artefact location and defaults
+to `~/n8r/artefacts`. No migration, renaming or inference from its parent occurs.
+Both locations are displayed. Existing legacy content and every unknown settings
+value are preserved. `surfaceFormat` defaults to `json` and also accepts `yaml`.
+Optional `runner` and `lab` objects (or null) remain independent declarations;
+only configuration presence is shown, never their private contents.
 
-Optional `runner` and `lab` objects are independent declarations reserved for
-later increments. Report only whether each is configured, with connection and
-availability unverified; do not print their contents, URLs or credential fields.
-Unknown settings are retained on disk and not interpreted or printed. No values
-are read from credential environment variables. Settings are limited to 64 KiB.
+Expand `~/` against home. Stored relative paths resolve against the settings
+folder. Newly entered relative vault paths resolve against invocation cwd;
+first setup saves an absolute path. Validate the fully expanded/resolved path as
+well as the input so that neither can introduce forbidden control characters.
+Resolve pre-existing ancestors and an
+explicitly selected vault-root symlink before showing the destination. Reject
+empty custom paths, control characters, URL forms, non-directory collisions,
+settings symlinks/special files and symlinked required vault children. Invalid
+settings are retained for repair, never replaced with defaults.
 
-Only zero arguments launches the overview. Any arguments currently return code 2
-and explain that only bare startup is implemented, without echoing supplied text
-or inspecting files. `status`, help/version and discovery remain specified future
-increments, not accepted parser syntax. Valid startup exits 1 because setup and
-the AI conversation remain unavailable; inspection/configuration errors exit 2.
-Exit 0 is reserved for a later successful informational command.
+Only zero arguments launches startup. Any argument exits 2 with bare-startup
+guidance without echoing supplied text or inspecting settings. No `setup`,
+`--vault`, `--path`, `status`, help/version or discovery syntax is added.
 
-The overview always precedes any question. With terminal input/output it offers
-`Show setup requirements? [y/N]`, then prints guidance on `y` and exits without
-writing. This is a read-only guidance question, not setup or conversation success.
-With closed/piped input it gives the unavailable-capability explanation and exits
-without reading input. Invalid configuration does not offer a question.
+## First use, reuse and repair
+
+The read-only overview precedes all questions. With both input and output attached
+to terminals, first use asks:
+
+```text
+Vault directory [~/n8r/]:
+Vault directory: <resolved absolute path>
+Create vault folders and save this location? [y/N]
+```
+
+Enter at the location question chooses `~/n8r/`. Only `y` or `yes` (case insensitive)
+at confirmation permits writes. Refusal, EOF and interruption before acceptance
+exit 1 without writes. Acceptance creates only missing directories, then adds
+`vaultRoot` to settings and prints `Vault ready: <resolved absolute path>`.
+Existing JSON member bytes are retained when inserting the new field, including
+unknown numeric literals outside JavaScript precision/range.
+No source files are read or written. Reject writes to settings/vault paths inside
+the invocation directory, including symlink aliases and missing descendants.
+Also reject vault folders inside the legacy corpus: adding directories there
+would break its next inspection. Running setup from home can therefore be refused; run from a separate source
+folder. Complete configured reuse is read-only even from such a directory.
+
+A complete configured vault exits 0 without questions, locks or settings rewrites.
+Missing required folders need repair confirmation; repair creates folders without
+rewriting settings. An occupied child path or inaccessible vault exits 2. Existing
+vault files are never removed. A failed confirmed setup may leave empty folders;
+retry reuses them. Setup does not create the legacy corpus when it is absent.
+
+| Outcome | Exit | Writes |
+| --- | --- | --- |
+| Successful accepted setup/repair | 0 | Missing folders; settings only on first setup |
+| Complete configured reuse | 0 | None |
+| Decline, EOF or interrupt before confirmation | 1 | None |
+| Setup/repair needed with nonterminal input or output | 1 | None |
+| Invalid settings/arguments, filesystem or conflict error | 2 | No successful setup claim; partial confirmed folders may remain |
+| Legacy inspection error except absent corpus | 2 | None; takes precedence before any setup question |
+
+Closed-input setup/repair prints exactly:
+
+```text
+Vault setup required; run n8r-surface in an interactive terminal.
+```
+
+It finishes promptly without waiting. Missing legacy corpus is reported as
+unavailable/absent (`ENOENT`) and permits setup/reuse; it is not reported empty.
+Other legacy errors remain visible even when a complete vault exists.
+
+## Concurrency and recovery boundary
+
+The user approved this cooperating-writer boundary on 5 November 2026. Other
+editors must not write settings during confirmed setup. Directory/symlink topology
+must stay stable while setup runs. This is not an adversarial filesystem or
+power-loss durability guarantee, nor protection against arbitrary external writers.
+
+After confirmation, exclusively create `~/.n8r/n8r-surface.json.lock`. Other setup
+processes fail with exit 2 rather than wait or steal the lock. Compare the original
+settings bytes under the lock before folder creation and again before publication.
+Detected edits fail and retain the competing values. Write an exclusive temporary
+sibling and close it only after all required folders are available. For absent
+settings, publish with an exclusive hard link: a competing creator is preserved
+even after the final byte check. For existing settings, atomically rename under
+the lock. A writer ignoring that lock can still race the final check/rename;
+no stronger guarantee is claimed.
+
+Normal completion/failure removes only this invocation's temporary sibling and
+lock. A killed process may leave these and empty folders. If a lock remains,
+first establish that no setup process is active, inspect the saved settings and
+vault, then remove the stale `n8r-surface.json.lock` manually and retry. Never
+remove a lock while another setup may be running. Abandoned `.tmp` siblings may
+be inspected and removed manually after establishing ownership; automatic setup
+does not delete another invocation's files. No automatic age/PID-based lock theft.
 
 ## Local inspection boundary
 
-List direct folder entries in filename order, one terminal-safe line each. Read
-JSON/YAML definitions and HTML research records using the existing bounded
-contract readers; use title/type metadata, never source or extension contents.
-Unknown, invalid, oversized, unreadable, symlink and non-regular entries retain
-their filename and a limitation. Do not recurse, follow entry symlinks, open
-source locations or execute HTML. Reads are bounded to 2 MiB per artefact.
-Control characters, line separators and bidirectional formatting characters in
-labels/paths are escaped so they cannot inject terminal actions or extra rows.
+List direct legacy folder entries in filename order, one terminal-safe line each.
+Read JSON/YAML definitions and HTML research records with existing bounded readers;
+use title/type metadata, never source or extension contents. Unsupported, invalid,
+oversized, unreadable, symlink and non-regular entries remain visible as errors.
+Do not recurse, open source locations or execute HTML. Reads are bounded to 2 MiB
+per artefact. Terminal controls, line separators and bidi characters are escaped.
 
-The current command can reliably identify only its own live process: show its
-PID and observation time. Other runner/Lab process status is unknown. Configuration
-or saved PIDs are never evidence of a live process. No daemon, PID registry,
-network probe, source scan or inference is added.
+The process identifies only its own PID and observation time. Runner/Lab process
+status remains unknown; configured settings do not establish a live process.
+There is no daemon, PID registry, source scan, network probe or inference.
 
-## Implementation and verification plan
+## Verification boundary
 
-Use TypeScript, existing codecs and Node built-ins; add no dependency.
-
-1. Add ordinary process/output/file tests in `tests/startup.test.mjs`. Prepare the
-   synthetic configuration and LibreChat Surface under a temporary home. Catch a
-   missing overview, leaked private marker, incorrect location, invented process
-   status, changed files and a process that waits on closed input. Run them before
-   implementation to confirm the missing entry point.
-2. Add `src/startup.ts` for safe local inspection and `src/cli.ts` for the zero-arg
-   process/terminal boundary; register the built executable in `package.json`.
-   Cover defaults, two artefacts, empty/missing/unreadable folders and entries,
-   invalid configuration, spaces, controls, symlinks and unsupported files.
-3. Extend `scripts/check-package.mjs` to run the same checks through the installed
-   `n8r-surface` bin outside the checkout. Use a Python PTY rehearsal to observe
-   output before answering the real guidance question, then independently compare
-   file snapshots. Run all tests and package checks on Node 22, 24 and 26.
-4. Record observed output, revision, environment and limits; update progress and
-   contributor instructions. Inspect the diff, commit, push and open a draft PR.
-
-Review focus: no raw parser errors or nested private settings in output; no
-invented process liveness; no false empty-corpus result after failed inspection;
-no symlink/FIFO traversal or terminal escape injection; installed execution has
-no dependency on the source checkout. All are covered by the checks above.
-
-Remaining #16 work: real setup and configuration changes, `status`, help/version,
-source selection, guarded create/update storage, and unavailable-discovery
-handling. Actual AI research and instruction bundles belong to #17.
+Transaction tests cover preserved values/bytes, malformed and oversized settings,
+source overlap and symlinks, deterministic conflicting writes, a second real
+process under a held lock, partial filesystem/publication failure and retry.
+Process and PTY checks exercise the real command with independent filesystem
+readback; the package check repeats them outside the checkout. See
+[the verification record](vault-setup-verification.md) for exact revisions,
+runtimes, human tasks and remaining limits. Automated rehearsal is not human
+acceptance or proof of research, save/continue, or consumer compatibility.
