@@ -1,7 +1,7 @@
 # Surface revision rehearsal transcript
 
 Actual installed Codex interactions on fictional sources. Local paths are replaced
-with `<rehearsal>`; spinner frames are omitted. These are agent rehearsal
+with `<rehearsal>`; spinner frames and trailing spaces are omitted. These are agent rehearsal
 interactions, not human acceptance. See [environment, readback and limits](surface-revisions-verification.md).
 
 ## generate
@@ -109,12 +109,12 @@ Evidence:
   urn:lumen:f:archive: known — One shared service. Schema and authentication require separate agreement; not a tested Harbor Archive integration.; urn:lumen:source:current lumen-guide.md:13–16
   urn:lumen:f:callback: known — A documented condition, not observed runtime state; validation, retries and tested protocol unspecified.; urn:lumen:source:current lumen-guide.md:20–22
   urn:lumen:f:oidc: known — Support does not establish selection or effective enablement.; urn:lumen:source:current lumen-guide.md:9
-  urn:lumen:f:model: unknown — Endpoint service identity, model and version remain unknown.; 
-  urn:lumen:f:session: unknown — No session timeout, renewal, invalidation or enforcement evidence in the complete guide; absence of documentation is not absence of controls.; 
-  urn:lumen:f:selection: unknown — No deployment selections are established beyond the human decision not to use external OIDC.; 
+  urn:lumen:f:model: unknown — Endpoint service identity, model and version remain unknown.;
+  urn:lumen:f:session: unknown — No session timeout, renewal, invalidation or enforcement evidence in the complete guide; absence of documentation is not absence of controls.;
+  urn:lumen:f:selection: unknown — No deployment selections are established beyond the human decision not to use external OIDC.;
   urn:lumen:f:scope: known — Source-only investigation; reachability and exercise not established.; urn:lumen:source:current lumen-guide.md:24–28
-  urn:lumen:f:inputs: unknown — Summary input sources, context assembly and inference payload details remain unknown.; 
-  urn:lumen:f:auth: unknown — Authentication and access controls without external OIDC remain unknown.; 
+  urn:lumen:f:inputs: unknown — Summary input sources, context assembly and inference payload details remain unknown.;
+  urn:lumen:f:auth: unknown — Authentication and access controls without external OIDC remain unknown.;
 Not saved. Enter /save surface to save exactly this preview.
 You> /save surface
 
@@ -222,14 +222,14 @@ Evidence:
   urn:lumen:f:archive: known — One shared service. Schema and authentication require separate agreement; not a tested Harbor Archive integration.; urn:lumen:source:current lumen-guide.md:13–16
   urn:lumen:f:callback: known — A documented condition, not observed runtime state; validation, retries and tested protocol unspecified.; urn:lumen:source:current lumen-guide.md:20–22
   urn:lumen:f:oidc: known — Support does not establish selection or effective enablement.; urn:lumen:source:current lumen-guide.md:9
-  urn:lumen:f:model: unknown — Endpoint service identity, model and version remain unknown.; 
-  urn:lumen:f:session: unknown — No session timeout, renewal, invalidation or enforcement evidence in the complete guide; absence of documentation is not absence of controls.; 
-  urn:lumen:f:selection: unknown — No deployment selections are established beyond the human decision not to use external OIDC.; 
+  urn:lumen:f:model: unknown — Endpoint service identity, model and version remain unknown.;
+  urn:lumen:f:session: unknown — No session timeout, renewal, invalidation or enforcement evidence in the complete guide; absence of documentation is not absence of controls.;
+  urn:lumen:f:selection: unknown — No deployment selections are established beyond the human decision not to use external OIDC.;
   urn:lumen:f:scope: known — Source-only investigation; reachability and exercise not established.; urn:lumen:source:current lumen-guide.md:24–28
-  urn:lumen:f:inputs: unknown — Summary input sources, context assembly and inference payload details remain unknown.; 
-  urn:lumen:f:auth: unknown — Authentication and access controls without external OIDC remain unknown.; 
-  urn:lumen:f:oidc-binding: unknown — User selects external OIDC in desired composition; provider identity, issuer and configuration remain unknown.; 
-  urn:lumen:f:oidc-runtime: unknown — Selection does not establish configured, reachable, enabled or exercised OIDC behavior.; 
+  urn:lumen:f:inputs: unknown — Summary input sources, context assembly and inference payload details remain unknown.;
+  urn:lumen:f:auth: unknown — Authentication and access controls without external OIDC remain unknown.;
+  urn:lumen:f:oidc-binding: unknown — User selects external OIDC in desired composition; provider identity, issuer and configuration remain unknown.;
+  urn:lumen:f:oidc-runtime: unknown — Selection does not establish configured, reachable, enabled or exercised OIDC behavior.;
   urn:lumen:f:recheck: known — Fresh document evidence corroborates historical capabilities only within the fictional fixture; matching bytes do not establish deployment identity.; urn:lumen:source:20261105-115310 lumen-guide.md:1–28
 Not saved. Enter /save surface to save exactly this preview.
 You> /save surface
@@ -474,11 +474,11 @@ Evidence:
   urn:harbor:f:store: known — Supported capability, not a selected connection.; urn:harbor:source:current harbor-api.md:8–10
   urn:harbor:f:audit: known — Supported capability, not a selected connection.; urn:harbor:source:current harbor-api.md:8–10
   urn:harbor:f:callback: known — Human deferred selection; receiver remains unresolved.; urn:harbor:source:current harbor-api.md:14–16
-  urn:harbor:f:authentication: unknown — Unspecified in harbor-api.md:8–10; retained unknown under the human's scope decision.; 
-  urn:harbor:f:compatibility: unknown — Receiver compatibility and any proposed integration remain unknown; lack of tested integration does not establish incompatibility.; 
-  urn:harbor:f:client: unknown — Unidentified caller role, not a selected client.; 
-  urn:harbor:f:receiver: unknown — Unresolved receiver role; callback deferred.; 
-  urn:harbor:f:contracts: unknown — Exact route addresses, payload fields and request limits remain unknown.; 
+  urn:harbor:f:authentication: unknown — Unspecified in harbor-api.md:8–10; retained unknown under the human's scope decision.;
+  urn:harbor:f:compatibility: unknown — Receiver compatibility and any proposed integration remain unknown; lack of tested integration does not establish incompatibility.;
+  urn:harbor:f:client: unknown — Unidentified caller role, not a selected client.;
+  urn:harbor:f:receiver: unknown — Unresolved receiver role; callback deferred.;
+  urn:harbor:f:contracts: unknown — Exact route addresses, payload fields and request limits remain unknown.;
   urn:harbor:f:runtime-evidence: known — Statement about supplied evidence, not proof of runtime absence.; urn:harbor:source:current harbor-api.md:15–16
 Not saved. Enter /save surface to save exactly this preview.
 You> /save surface
