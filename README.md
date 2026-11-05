@@ -37,6 +37,11 @@ It is usable independently of Injectionator or any particular application.
 Security investigation, reproducibility and configuration understanding are all
 part of its scope.
 
+For a compact security view, start with the provisional
+[Skeleton Surface v0.1](spec/README.md#output-profiles-and-size): key nodes,
+relationships and potential LLM/tool interception points, with linked evidence
+and explicit gaps. Bindings are optional; larger research is not a minimum size.
+
 This repository maintains the model and standalone tooling. Application design
 and implementation for `n8r-labs` are maintained in its separate repository.
 

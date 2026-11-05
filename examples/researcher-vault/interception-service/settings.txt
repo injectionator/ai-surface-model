@@ -1,0 +1,8 @@
+# Synthetic declaration template, revision 1. No process has loaded these values.
+MONGODB_URL=
+MODEL_BASE_URL=
+MODEL_NAME=
+MCP_URL=
+VECTOR_URL=
+BEFORE_TOOL_HOOK=
+BROWSER_MODEL_URL=

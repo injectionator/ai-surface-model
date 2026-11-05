@@ -84,6 +84,54 @@ distinguish matches, known non-matches and unresolved coverage.
 Formal schema validity and fitness for a task are separate. A small description
 can support inventory lookup while lacking enough configuration for recreation.
 
+## Output profiles and size
+
+Named output profiles select useful content from the one AI Surface Model; they
+are not separate models or a universal minimum schema. Size, purpose and deployment
+knowledge are independent: a skeleton may describe a bound setup, while a detailed
+description may contain only product capabilities. Different branches can retain
+different depths. Larger research records do not establish a minimum size.
+
+**Skeleton Surface v0.1** is a provisional brief profile, currently expressed as
+Markdown working research. Retain identity, revision, scope, stable key nodes,
+directed relationships, claim basis, material conditions, uncertainty and evidence
+references. Include a component or capability when omitting it would hide a useful
+capability, security boundary, or place an Experiment could change or observe
+behavior. A feature needs its own node when independent identity or relationships
+are useful; ordinary settings need not become nodes.
+
+The security-focused skeleton answers: where could an integration inspect or
+intervene in LLM and actual tool calls, with what powers, coverage and gaps?
+Keep execution/trust boundaries and alternate routes material to that answer.
+A provider proxy seeing tool-call proposals does not establish interception of
+tool execution. Sidecar placement alone establishes neither visibility nor control.
+Source-supported extension points remain distinct from proposed insertion points,
+configured integrations and exercised behavior. Stop at this map; installation,
+resource binding and integration tests are subsequent tasks.
+
+Keep detailed source excerpts, investigation narrative, configuration inventories
+and test results in linked records. Keep conditions that change a graph claim's
+meaning visible in the brief. Evidence references identify the supporting record
+revision and claim/location where available; unavailable evidence remains explicit.
+Compaction preserves identities and reports omissions rather than changing meaning.
+No fixed node count, hop limit or byte quota defines this profile.
+
+**Detailed Surface** and **Recreation package** are future profile directions,
+not implemented output contracts. A recreation package would identify a selected
+definition, artifacts, prerequisites and binding requirements; a recipient supplies
+its own local bindings. Completeness must always name its scope.
+
+Profile version identifies these output rules. A Surface definition revision
+identifies composition, intended settings and knowledge at a point in history;
+setup/binding revisions identify local resource selections. Changing a binding
+does not change the profile version or retroactively mutate a definition. A
+successor can reference an unchanged definition and new binding records. Changed
+composition or intended settings require a successor definition. Each Run keeps
+the exact definition and effective setup it used.
+
+See the bundled [skeleton procedure](../plugins/n8r-surface/skills/research/references/skeleton-surface.md)
+and [revision lifecycle](../docs/n8r-surface/researcher-discovery.md#revision-lifecycle).
+
 ## Configuration and evidence
 
 A definition records composition, intended settings, behavior-affecting constraints
