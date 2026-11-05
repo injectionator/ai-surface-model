@@ -1,4 +1,9 @@
-# Local vault setup: intent, installed proof and human check
+# Vault setup: maintainer verification record
+
+**Installing or trying the command? Start with
+[Install and choose your vault](getting-started.md).**
+The procedures below are for maintainers recording isolated test evidence; they
+are not prerequisites for using the command.
 
 ## Intent and expected result
 
@@ -79,6 +84,16 @@ approved setup-only and concurrency boundaries; it is not approval to merge.
 
 Public output is sanitized; exact temporary paths and raw local evidence remain
 outside tracked files. No real deployment data was used.
+
+## Installation-guide rehearsal
+
+On 5 November 2026, the documentation follow-up exercised the exact three npm
+commands in [the getting-started guide](getting-started.md): `npm ci`, `npm pack`,
+and global installation of the generated local tarball. All exited 0. Only npm's
+global prefix was redirected to a temporary directory; the normal installation
+was untouched. The installed bin then passed all 18 terminal interactions under
+isolated homes on Node 26.13.0. This verifies the local-package installation route,
+not npm registry publication or human acceptance.
 
 ## Maintainer preparation
 
