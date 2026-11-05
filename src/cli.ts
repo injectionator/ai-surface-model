@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import {readFileSync} from 'node:fs';
 import {createInterface} from 'node:readline';
 import {overview} from './startup.js';
 import {chooseVault, inspectVault, saveSetup} from './setup.js';
@@ -186,7 +187,7 @@ async function discover(args: string[], reopening = false): Promise<number> {
 const args = process.argv.slice(2);
 try {
   if ((args.length === 1 && args[0] === '--help') || (args.length === 2 && ['discover','reopen'].includes(args[0]!) && args[1] === '--help')) console.log(help);
-  else if (args.length === 1 && args[0] === '--version') console.log('n8r-surface 0.0.0-experimental.1');
+  else if (args.length === 1 && args[0] === '--version') console.log(`n8r-surface ${JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version}`);
   else if (args[0] === 'reopen') process.exitCode = await discover(args.slice(1),true);
   else if (args[0] === 'discover') process.exitCode = await discover(args.slice(1));
   else if (args.length) {

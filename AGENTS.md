@@ -318,3 +318,13 @@ tests when tooling exists, and report checks that could not be run.
 Inspect the final diff for unintended changes and sensitive material. Preserve
 unrelated user work. Summarize what changed, what was checked and any remaining
 limitations without claiming capabilities beyond the evidence.
+
+## Package version checks
+
+`npm run check:version` validates the authoritative package version and lockfile;
+it also runs in `npm test` and before candidate packing. From a clean tagged
+checkout, `npm run check:release -- CANDIDATE_DIRECTORY` reads GitHub to verify
+release metadata, tag/commit identity and both retained archive hashes. It needs
+GitHub CLI read access and never publishes. An optional second argument supplies
+an offline release JSON response and explicitly limits the result to rehearsal.
+See [version policy, prerequisites and human verification](docs/n8r-surface/versioning.md).

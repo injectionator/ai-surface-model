@@ -22,7 +22,7 @@ try {
     }
     const runtimes = process.argv.slice(2);
     for (const node of runtimes.length ? runtimes : [process.execPath]) {
-      const env = {...process.env, N8R_TEST_PACKAGE: packed.name, N8R_TEST_BIN_DIR: join(consumer, 'node_modules/.bin')};
+      const env = {...process.env, N8R_TEST_PACKAGE: packed.name, N8R_TEST_VERSION: report.version, N8R_TEST_BIN_DIR: join(consumer, 'node_modules/.bin')};
       execFileSync(node, ['smoke.mjs'], {cwd: consumer, env, stdio: 'inherit'});
       execFileSync(node, ['--test', 'startup.test.mjs'], {cwd: consumer, env, stdio: 'inherit'});
       if (process.platform === 'win32') {

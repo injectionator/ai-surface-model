@@ -7,6 +7,8 @@ import {spawnSync} from 'node:child_process';
 import {surface} from './helpers.mjs';
 
 const installed = process.env.N8R_TEST_BIN_DIR;
+const expectedVersion = installed ? process.env.N8R_TEST_VERSION : JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version;
+assert.ok(expectedVersion, 'independent expected package version required');
 const command = installed ? 'n8r-surface' : process.execPath;
 const prefix = installed ? [] : [resolve('dist/cli.js')];
 const assets = installed ? new URL(import.meta.resolve(`${process.env.N8R_TEST_PACKAGE || 'n8r-surface'}/examples/lumen-r1.research.html`)) : new URL('../examples/researcher/lumen-r1.research.html', import.meta.url);
@@ -218,7 +220,7 @@ test('discovery help/version are local; closed-input discovery cannot launch a r
   for (const args of [['--help'], ['discover', '--help']]) {
     const r = f.run(args); assert.equal(r.status, 0); assert.match(r.stdout, /discover/); assert.match(r.stdout, /ChatGPT/);
   }
-  assert.equal(f.run(['--version']).stdout.trim(), 'n8r-surface 0.0.0-experimental.1');
+  assert.equal(f.run(['--version']).stdout.trim(), `n8r-surface ${expectedVersion}`);
   const r = f.run(['discover']); assert.equal(r.status, 1); assert.match(r.stdout, /interactive terminal/);
   assert.deepEqual(snapshot(f.home), before);
 });

@@ -35,7 +35,8 @@ A failed run may leave an incomplete destination; use a new directory on retry.
 Both tarballs are named `n8r-surface-0.0.0-experimental.1.tgz`, so they live in
 separate `scoped/` and `unscoped/` directories. `candidates.json` records their
 relative paths, SHA-256 digests, version, source HEAD and dirty status. This is
-local build evidence, not registry provenance. Release evidence must use a clean
+local build evidence, not registry provenance. Each entry also names a unique
+`releaseAsset` for later GitHub upload; see the [version and release policy](versioning.md). Release evidence must use a clean
 reviewed checkout; a dirty report does not identify all inputs by commit alone.
 
 `check:package` installs each candidate in a separate temporary consumer outside

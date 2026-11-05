@@ -531,3 +531,19 @@ readback and release blockers. The pre-change registry attempt returned E404 for
 both names and E401 for identity on 5 November 2026. Local candidates cannot prove
 registry installation, permissions or provenance. Candidate checks use scripted
 runner fixtures; no new real-model research claim follows.
+
+## VERSION-01: identify the installed package and its release source
+
+Given an installed candidate in an isolated consumer, run `n8r-surface --version`
+from another directory. Expect the installed manifest's version, exit 0, no setup
+or inference. The pre-change installed command reported `0.0.0-experimental.1`;
+a copied installation with manifest `0.7.3-rc.2` reproduced the stale hardcoded
+output. The regression now reads back `n8r-surface 0.7.3-rc.2`.
+
+The [version policy and human check](versioning.md) describe source/lockfile
+validation and read-only release mapping verification. Synthetic Git repositories
+exercise missing/wrong tags, dirty source, altered archives and release metadata;
+they do not establish an authenticated release or registry provenance. The public
+CLI inventory is unchanged; `check:version` and `check:release` are maintainer npm
+scripts. Real release verification remains blocked until an authorized release
+and publishing setup exist.
