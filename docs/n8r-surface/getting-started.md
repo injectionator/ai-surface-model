@@ -1,65 +1,74 @@
-# Research a source with Codex
+# Save research and continue later
 
-This candidate lets you ask about a local source and follow up in the same
-conversation. Codex reads the source through bounded tools and cites its evidence.
-Saving and reopening research come later. The package is private and unpublished.
-
-Use Node 22, 24 or 26, **Codex CLI 0.166.0**, and your existing ChatGPT sign-in.
-The selected model must work with that account. This check uses `gpt-6-astra`;
-it does not use API-key billing.
+This candidate lets you research a local source, save Markdown working notes and
+continue in a fresh conversation. The package remains private and unpublished.
+Use Node 22, 24 or 26, Codex CLI **0.166.0**, and an existing ChatGPT sign-in with
+access to `gpt-6-astra`. No API-key billing or model fallback is used.
 
 ## 1. Install
 
-Open a terminal in the checkout on `feat/17-codex-research` and paste:
+- Open a terminal in this checkout on `feat/17-save-reopen` and paste:
 
-```sh
-npm ci && npm pack && npm install --global ./n8r-surface-0.0.0-experimental.1.tgz
-```
+  ```sh
+  npm ci && npm pack && npm install --global ./n8r-surface-0.0.0-experimental.1.tgz
+  ```
 
-Expect installation to finish and return to the terminal prompt. If it fails,
-stop and share the error. Keep this terminal in the checkout for the next step.
+  Expect successful installation and the terminal prompt. Stay in the checkout.
+  If installation fails, stop and report the error.
 
-## 2. Run
+## 2. Research and save
 
-```sh
-n8r-surface
-n8r-surface discover examples/researcher/sources/lumen-guide.md --model gpt-6-astra
-```
+- Paste:
 
-The first command shows your vault. On first use, accept or choose a location,
-then type **y** to create it. The discovery command shows the selected fictional
-source and explains that inspected text goes to OpenAI through Codex. Type **y**
-to start. Expect `Connected: ChatGPT sign-in; model gpt-6-astra`, a Researcher
-version/digest, and `You>`.
+  ```sh
+  n8r-surface
+  n8r-surface discover examples/researcher/sources/lumen-guide.md --model gpt-6-astra
+  ```
 
-## 3. Check
+  The first command reuses your vault (or asks you to choose/create it once).
+  The second names the fictional source and requests permission to send inspected
+  text to OpenAI. Type **y**; expect the connected model and `You>` prompt.
+- At `You>`, paste this as one line:
 
-At `You>`, paste this as one line:
+  ```text
+  Describe the AI components and connections with stable component IDs and source citations. For this investigation I choose not to use external OIDC: retain that as my decision, not a change to the source. Keep unknowns and useful next steps clear.
+  ```
 
-```text
-Describe the AI-relevant components and connections in the supplied source, citing file lines and distinguishing selected connections from options. Keep it concise.
-```
+  Expect a source read and cited findings. The [source](../../examples/researcher/sources/lumen-guide.md)
+  describes configured inference; OIDC is an option, not proof of selected or
+  exercised authentication. Your decision must stay separate from source claims.
+- Enter `/save`. Expect a numbered destination followed by **Saved and read back**,
+  its full path and SHA-256 digest. While waiting, a spinner shows
+  **Preparing note** and elapsed seconds; answers use **Waiting for Codex**.
+  It should stop when the operation finishes or you cancel. Open that file: it should retain component IDs,
+  your OIDC choice, evidence and next steps. Copy its path, then enter `/exit`.
+  Expect exit 0 and the terminal prompt.
 
-Expect a source-read message and findings citing `lumen-guide.md`. Open
-[the guide](../../examples/researcher/sources/lumen-guide.md): inference is
-configured in the fictional description; OIDC is an option, and callbacks are
-disabled until selected. The answer should preserve those distinctions.
+## 3. Reopen and continue
 
-At the next `You>`, paste:
+- Paste, replacing `NOTE` with the saved path in quotes:
 
-```text
-For this investigation I choose not to use external OIDC. Retain that as my decision, not a change to the guide. Which authentication facts remain unknown?
-```
+  ```sh
+  n8r-surface reopen "NOTE" --source examples/researcher/sources/lumen-guide.md --model gpt-6-astra
+  ```
 
-Expect your choice to be retained separately from the source. Not selecting OIDC
-does not establish anonymous access. Type `/exit` to finish; expect the terminal
-prompt and exit 0. The source stays unchanged and no research file is saved.
-Ctrl-C cancels a running answer and exits 130.
+  Alternatively omit `"NOTE"` to see the latest-edited note for this source,
+  with its edit time; type **y** to select it. Either route asks again before
+  sending the note and source to OpenAI. Type **y** to start fresh.
+- Expect saved evidence comparisons and a continuation retaining the same IDs and
+  your OIDC decision. At `You>`, ask:
 
-Report **Pass**, **Fail** or **Blocked**, with the message or citation that differed.
-Wording can vary; invented source facts, a lost correction, changed source bytes,
-or a claimed save are failures. If Codex reports an unavailable model, stop and
-report it; the command does not silently choose another.
+  ```text
+  Continue the authentication investigation. What remains unknown, and what evidence would resolve it? Retain my earlier decision.
+  ```
 
-The [maintainer evidence](codex-research-verification.md) records architecture,
-automated checks, real execution and limitations. It is optional reading.
+  Enter `/save`, then `/exit`. Expect exit 0, a new numbered file referencing the
+  first, and the original file unchanged. Open both and compare the IDs and decision.
+
+Report **Pass**, **Fail** or **Blocked**, with the unexpected message or note
+excerpt. Wording and filenames may vary; lost decisions/IDs, invented source
+facts, overwritten notes, or a claimed save without a file are failures.
+If a model is unavailable, report that error. Ctrl-C cancels with exit 130.
+Keep the notes or delete only these test notes when finished; do not delete your
+vault or source. [Maintainer evidence and limits](save-reopen-verification.md)
+are separate from these tester steps.

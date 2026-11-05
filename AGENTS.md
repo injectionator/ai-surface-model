@@ -268,7 +268,10 @@ distribution changes; see [contributor commands](CONTRIBUTING.md#researcher-cont
 The experimental `n8r-surface` command implements the read-only overview and
 explicitly confirmed local vault setup/reuse. Bare startup does not start research;
 `discover [source] [--model MODEL]` now runs a bounded Codex 0.166.0 conversation
-using ChatGPT sign-in. Saving/reopening and structured research remain later work.
+using ChatGPT sign-in. `/save` writes numbered Markdown working notes;
+`reopen [NOTE] --source SOURCE` starts fresh, suggesting the latest edited note
+when NOTE is omitted. Structured research remains later work. See the
+[save/reopen evidence](docs/n8r-surface/save-reopen-verification.md).
 See [the installed conversation evidence](docs/n8r-surface/codex-research-verification.md). The package check also runs it under temporary homes and a real POSIX
 terminal; Python 3.9+ is required for that rehearsal. See the
 [startup boundary](docs/n8r-surface/startup.md). Keep the package private until a

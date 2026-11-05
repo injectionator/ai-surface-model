@@ -4,8 +4,8 @@ This is the integration boundary for the future shared Researcher instructions,
 not an implemented runner or Lab adapter. It builds on the
 [artefact contracts](contracts.md) and [shared cases](../../examples/researcher/README.md).
 The existing chat harness was the first skill host. The standalone CLI now has a
-bounded conversation adapter; [its evidence and limits](codex-research-verification.md)
-do not establish the complete artefact workflow. Lab adaptation remains later work. A Lab is optional, and AI runner selection is
+bounded conversation adapter with [Markdown save/reopen support](save-reopen-verification.md).
+That evidence does not establish the complete structured artefact workflow. Lab adaptation remains later work. A Lab is optional, and AI runner selection is
 independent of the destination for results.
 
 ## Version negotiation
@@ -77,6 +77,12 @@ An authorized settings read does not authorize a configuration change or a
 connection test. Document each real host path before claiming it was verified.
 
 ## Continuation and persistence
+
+The current standalone increment uses numbered Markdown working notes and an
+experimental host metadata footer. It requires `/save`, preserves predecessor
+bytes, and reacquires explicit source/transmission permission on `reopen`.
+This is a bounded implementation of working-note continuity, not the structured
+HTML/Surface contract below. See [SAVE-01](command-outcomes.md#save-01-save-reopen-and-continue).
 
 A portable continuation needs the current accepted HTML record, exact referenced
 source identities/revisions, and the intended output or selected definition.

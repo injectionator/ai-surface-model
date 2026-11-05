@@ -66,7 +66,7 @@ Current progress, with evidence defining the verified scope and revision:
 | Discover an AI Surface graph using available sources and applicable prior knowledge. | Instruction guidance in skill 0.1.5; code/docs-only and mixed evidence are valid starting points. | [DISCOVER-01 interaction](researcher-discovery.md#graph-discovery-reconciliation-and-live-evidence); distinguish guidance trials from live acceptance. |
 | Reconcile a supplied Surface against current graph evidence. | Implemented instruction guidance; a controlled LibreChat declaration trial using installed 0.1.4 detected the target change and preserved prior research. Current 0.1.5 corrects ownership terminology. | [RECONCILE-02 procedure](researcher-reconciliation-trial.md) and [bounded evidence](researcher-skill-verification.md#controlled-declaration-trial-014); runtime and validated structured output remain unproved. |
 | Inspect a graph-relevant live connection with user-assisted sign-in. | Specified through optional host tools; real admin inspection remains unverified. | [LIVE-01 interaction](researcher-discovery.md#graph-discovery-reconciliation-and-live-evidence); require actual UI/API readback without credential exposure. |
-| Research a supplied repository through the standalone command with a human, then save and reopen the result. | Specified; real standalone Researcher path not implemented or exercised. | Verify E2E-01 in #17; E2E-02 before claiming standalone LibreChat research. |
+| Research a supplied repository through the standalone command with a human, then save and reopen the result. | Conversation and Markdown saving/reopening implemented; bounded evidence is tracked in SAVE-01. Structured HTML acceptance remains open. | Verify E2E-01 in #17; E2E-02 before claiming standalone LibreChat research. |
 
 ## Governing development loop
 
@@ -120,6 +120,8 @@ be added to this inventory with its own outcome and verification case first.
 | CMD-06 | `n8r-surface --help` | Discover the complete supported command surface and its effects. | Display syntax, purpose, source/destination behavior and links to details; exit without setup, source access, inference or writes. Compare with this inventory. |
 | CMD-07 | `n8r-surface discover --help` | Understand the selected command before invoking it. | Display that command's inputs, outputs, side effects and limitations; no operation or setup begins. |
 | CMD-08 | `n8r-surface --version` | Identify the installed tool being used or verified. | Display the package/build version without inference or mutation; compare with the installed package manifest. |
+| CMD-10 | `n8r-surface reopen [NOTE] --source SOURCE [--model MODEL]` | Continue a named Markdown note, or accept the latest-edited suggestion. | Renew transmission consent; compare source evidence; see SAVE-01. |
+| CMD-11 | `/save` at `You>` | Explicitly save or create a successor Markdown note. | Read back saved bytes and preserve predecessors; see SAVE-01. |
 | CMD-09 | Unknown command, unknown option or invalid arguments | Receive an actionable explanation without unintended work. | Report the invalid input and applicable help, return failure, and leave source/corpus/settings unchanged. Never interpret a typo as permission to research. |
 
 `discover [source]` also accepts an explicit absolute local source path; the
@@ -448,6 +450,42 @@ After connecting, display the model and bundled Researcher version/digest.
 At `You>`, accept one line per turn. Display tool-read paths/digests and completed
 agent messages as they arrive. `/exit` or EOF at the prompt exits 0. Ctrl-C during
 a turn requests interruption and closes the server. A failed or timed-out answer
-is marked incomplete and exits 2. Saving, reopening, structured output, web/live
-access and extra source selection remain unsupported. The CLI creates no research
-artefact; Codex owns its own authentication, cache and diagnostic state.
+is marked incomplete and exits 2. SAVE-01 adds explicit Markdown saving/reopening;
+structured output, web/live access and extra source selection remain unsupported.
+Without `/save`, the CLI creates no research artefact; Codex owns its own authentication, cache and diagnostic state.
+
+## SAVE-01: save, reopen and continue
+
+Implemented bounded Markdown increment for #17; see [evidence and limits](save-reopen-verification.md).
+
+- Given a configured vault and an authorized research conversation, enter `/save`.
+  Expect a numbered `research/<source-slug>/research-NNN.md` destination, a
+  Researcher-authored working note, and a saved path plus byte digest after readback.
+  The note retains stable component IDs, source references/hashes, human decisions,
+  unknowns and recommended next steps. Ordinary conversation does not write;
+  natural-language save requests receive guidance to use `/save`.
+- Exit, then run `n8r-surface reopen NOTE --source SOURCE [--model MODEL]`.
+  Confirm transmission of the note and source. Expect a fresh conversation which
+  compares recorded evidence against that source, retains decisions separately,
+  and reports changed/missing evidence rather than silently revising history.
+- Alternatively run `n8r-surface reopen --source SOURCE [--model MODEL]`.
+  Expect the most recently filesystem-edited numbered note in that source's
+  research folder, with path and edit time, and a yes/no selection prompt.
+  Refusal exits without launching Codex or writing. Explicit NOTE bypasses ranking.
+- Continue and `/save` again. Expect the next unused number in the predecessor's
+  folder, a predecessor filename/digest, unchanged predecessor bytes and retained
+  identities. If the predecessor changes while drafting, stop and require reopening
+  the edited note. No general write tool or validated structured output is added.
+
+The suggested filename is convenience, not evidence of source identity or a
+selection of a deployment. A fresh process requires explicit `--source`; it never
+restores private source paths from a saved note. Help (`reopen --help`) is read-only.
+
+### Pending-operation feedback
+
+While connecting, answering, reopening or preparing a `/save` draft, show an
+interactive-terminal spinner with elapsed seconds and the operation label. Clear
+it before normal output and stop it on completion, failure or cancellation. Do
+not animate at `You>` or in nonterminal output. It means the request is pending,
+not that server-side progress is known. Verify a delayed answer/save and Ctrl-C;
+expect visible activity, clean answer/prompt output, and no continuing timer.

@@ -48,8 +48,8 @@ empty custom paths, control characters, URL forms, non-directory collisions,
 settings symlinks/special files and symlinked required vault children. Invalid
 settings are retained for repair, never replaced with defaults.
 
-Only zero arguments launches startup. Discovery and local help/version now have
-separate paths described in [the command inventory](command-outcomes.md#research-01-first-standalone-conversation).
+Only zero arguments launches startup. Discovery, reopening and local help/version
+have separate paths described in [the command inventory](command-outcomes.md#initial-public-command-inventory).
 Unknown arguments exit 2 without echoing them or inspecting settings. No `setup`,
 `--vault`, `--path` or `status` command is added.
 
