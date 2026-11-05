@@ -2,7 +2,7 @@
 
 Sanitized agent rehearsal on 5 November 2026 using installed candidate code
 `447f440`, Codex 0.166.0 and `gpt-6-astra`. Local paths are replaced with `<run>`;
-model wording is retained. See [evidence and limits](save-reopen-verification.md).
+trailing whitespace is trimmed and model wording is retained. See [evidence and limits](save-reopen-verification.md).
 
 ## Research and first save
 
@@ -46,7 +46,7 @@ I’m using `n8r-surface:research 0.1.8`. I’ll map the supplied guide and reta
 - **Callbacks:** Confirm whether you want this option. If selected, investigate notification validation, retry behavior and protocol; all remain unspecified. Resume at lines 20–22.
 - **Identity without external OIDC:** Determine what access controls, if any, apply to Lumen and its connections. The guide provides no alternative identity design.
 
-**Coverage and identity:** Read all 29 lines of the sole supplied file; no exclusions or truncation. No deployment or runtime observations were supplied. [Lines 24–28](lumen-guide.md#L24-L28)  
+**Coverage and identity:** Read all 29 lines of the sole supplied file; no exclusions or truncation. No deployment or runtime observations were supplied. [Lines 24–28](lumen-guide.md#L24-L28)
 Source SHA-256: `98d3374c79c166b37f0debb4ffb5e457eda1385dd7847b042cbad674cac98693`.
 
 To retain this as a numbered working draft, proposed name `surface-draft-001.md`, use **`/save`**. Nothing has been saved yet.
