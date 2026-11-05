@@ -5,7 +5,8 @@ not an implemented runner or Lab adapter. It builds on the
 [artefact contracts](contracts.md) and [shared cases](../../examples/researcher/README.md).
 The existing chat harness was the first skill host. The standalone CLI now has a
 bounded conversation adapter with [Markdown save/reopen support](save-reopen-verification.md).
-That evidence does not establish the complete structured artefact workflow. Lab adaptation remains later work. A Lab is optional, and AI runner selection is
+The current candidate additionally stages and saves one linked structured research/Surface
+pair; [its evidence](surface-revisions-verification.md) bounds that workflow. Lab adaptation remains later work. A Lab is optional, and AI runner selection is
 independent of the destination for results.
 
 ## Version negotiation
@@ -105,6 +106,23 @@ A host can have a mutable draft and deliberate named baselines in addition to
 artefact snapshots. It must map these explicitly: an artefact snapshot is not
 necessarily a product release or named Surface version. Import identity collisions
 require exact-match reuse or an explicit fork/migration; do not merge by label.
+
+## Candidate structured pair host
+
+The restricted `surface_draft` tool stages content in memory. The host fills
+revision envelopes and exact research references, validates both artefacts and
+shows a deterministic preview. `/save surface` publishes exactly that preview as
+`research.html`, `surface.json` and `manifest.json` in a new numbered directory
+under `surfaces/<source-slug>/`. The manifest is host storage/provenance metadata,
+not a model contract. Its hashes detect byte edits; they do not authenticate authors.
+
+Either saved member reopens the pair after validation and renewed transmission
+consent. The complete context is bounded to 512 KiB independently of individual
+file limits. Original notes and accepted pair revisions remain unchanged. Source
+availability comparisons retain historical evidence. Manual HTML/data edits fail
+closed; this increment does not implement automatic reconciliation or arbitrary
+multi-record imports. Directory topology must remain stable during synchronous
+operations. See [SURFACE-01](command-outcomes.md#surface-01-generate-save-and-revise-a-partial-surface).
 
 ## Lab requirements review
 

@@ -80,3 +80,45 @@ test('reopen accepts 101 saved evidence files without embedding full source text
   assert.ok(!context.includes('x'.repeat(1000)));
   assert.equal(session.evidence.length,101);
 });
+
+test('Surface tool validates, permits repair and promotes only successful completed turns', async()=>{
+  const {ResearchConversation}=await import('../dist/codex.js');const {content}=await import('./surface-fixture.mjs');
+  const session=Object.assign(Object.create(ResearchConversation.prototype),{ready:Promise.resolve(),turnId:'t1',threadId:'thread',active:{resolve(){},reject(){},timer:setTimeout(()=>{},10000)},evidence:[],output:()=>{}});
+  const call=args=>session.serve('item/tool/call',{threadId:'thread',turnId:'t1',tool:'surface_draft',arguments:args});
+  try {
+    const invalid=await call({research:{},surface:{}});assert.equal(invalid.success,false);assert.match(invalid.contentItems[0].text,/required/);
+    const valid=content();session.evidence=[{path:'guide.md',digest:'sha256:'+'a'.repeat(64),inspectedAt:'2026-11-05T12:00:00Z',startLine:1,endLine:2}];
+    const result=await call(valid);assert.equal(result.success,true,JSON.stringify(result));
+    assert.equal(session.surfaceDraft,undefined);
+    session.finish();assert.equal(session.surfaceDraft.surface.nodes[0].id,'urn:node:app');
+  }finally{if(session.active)session.finish(new Error('cleanup'));}
+});
+test('failed or cancelled Surface turns cannot expose staged data', async()=>{
+  const {ResearchConversation}=await import('../dist/codex.js');const {content}=await import('./surface-fixture.mjs');
+  const session=Object.assign(Object.create(ResearchConversation.prototype),{ready:Promise.resolve(),turnId:'t1',threadId:'thread',active:{resolve(){},reject(){},timer:setTimeout(()=>{},10000)},evidence:[],output:()=>{}});
+  session.evidence=[{path:'guide.md',digest:'sha256:'+'a'.repeat(64),inspectedAt:'2026-11-05T12:00:00Z',startLine:1,endLine:2}];
+  const result=await session.serve('item/tool/call',{threadId:'thread',turnId:'t1',tool:'surface_draft',arguments:content()});
+  assert.equal(result.success,true);session.finish(new Error('cancelled'));assert.equal(session.surfaceDraft,undefined);
+});
+test('fresh pair reopen retains historical evidence and bounds complete context',async()=>{
+  const {ResearchConversation}=await import('../dist/codex.js');const {prepareSurfaceDraft}=await import('../dist/surface-draft.js');const {content}=await import('./surface-fixture.mjs');
+  const draft=prepareSurfaceDraft(content());let text='';
+  const old={path:'removed.md',digest:'sha256:'+'a'.repeat(64),inspectedAt:'2026-01-01',startLine:1,endLine:1};
+  const session=Object.assign(Object.create(ResearchConversation.prototype),{evidence:[],source:{read(){throw new Error('missing');}},output(){},runTurn:async t=>{text=t;}});
+  assert.equal(typeof session.reopenSurface,'function');
+  await session.reopenSurface({...draft,manifest:{provenance:{evidence:[old]}}});
+  assert.match(text,/unavailable/);assert.match(text,/urn:node:app/);assert.deepEqual(session.evidence,[old]);
+  const huge=structuredClone(draft);huge.research.notes=[{by:'human',at:'2026-11-05T12:00:00Z',text:'x'.repeat(512*1024)}];
+  await assert.rejects(session.reopenSurface({...huge,manifest:{provenance:{evidence:[old]}}}),/context.*512/i);
+});
+test('a rejected replacement draft cannot leave the earlier candidate eligible for saving',async()=>{
+  const {ResearchConversation}=await import('../dist/codex.js');const {content}=await import('./surface-fixture.mjs');
+  const session=Object.assign(Object.create(ResearchConversation.prototype),{ready:Promise.resolve(),turnId:'t1',threadId:'thread',active:{resolve(){},reject(){},timer:setTimeout(()=>{},10000)},evidence:[{path:'guide.md',digest:'sha256:'+'a'.repeat(64),inspectedAt:'2026-11-05T12:00:00Z',startLine:1,endLine:2}],output(){}});
+  const call=args=>session.serve('item/tool/call',{threadId:'thread',turnId:'t1',tool:'surface_draft',arguments:args});
+  try{assert.equal((await call(content())).success,true);assert.equal((await call({})).success,false);session.finish();assert.equal(session.surfaceDraft,undefined);}finally{if(session.active)session.finish(new Error('cleanup'));}
+});
+test('Markdown save turns cannot stage a Surface that the CLI never previews',async()=>{
+  const {ResearchConversation}=await import('../dist/codex.js');const {content}=await import('./surface-fixture.mjs');
+  const session=Object.assign(Object.create(ResearchConversation.prototype),{saving:true,ready:Promise.resolve(),turnId:'t1',threadId:'thread',active:{resolve(){},reject(){},timer:setTimeout(()=>{},10000)},evidence:[{path:'guide.md',digest:'sha256:'+'a'.repeat(64),inspectedAt:'2026-11-05T12:00:00Z',startLine:1,endLine:2}],output(){}});
+  try{const result=await session.serve('item/tool/call',{threadId:'thread',turnId:'t1',tool:'surface_draft',arguments:content()});assert.equal(result.success,false);session.finish();assert.equal(session.surfaceDraft,undefined);}finally{if(session.active)session.finish(new Error('cleanup'));}
+});

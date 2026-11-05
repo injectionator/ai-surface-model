@@ -1,13 +1,13 @@
-# Save research and continue later
+# Create a Surface from saved research
 
-This candidate lets you research a local source, save Markdown working notes and
-continue in a fresh conversation. The package remains private and unpublished.
+This candidate adds a linked research HTML record and partial Surface JSON to
+the existing Markdown research workflow. Reopen either saved file to revise the pair. The package remains private and unpublished.
 Use Node 22, 24 or 26, Codex CLI **0.166.0**, and an existing ChatGPT sign-in with
 access to `gpt-6-astra`. No API-key billing or model fallback is used.
 
 ## 1. Install
 
-- Open a terminal in this checkout on `feat/17-save-reopen` and paste:
+- Open a terminal in this checkout on `feat/17-surface-revisions` and paste:
 
   ```sh
   npm ci && npm pack && npm install --global ./n8r-surface-0.0.0-experimental.1.tgz
@@ -16,7 +16,65 @@ access to `gpt-6-astra`. No API-key billing or model fallback is used.
   Expect successful installation and the terminal prompt. Stay in the checkout.
   If installation fails, stop and report the error.
 
-## 2. Research and save
+## 2. Create and save a Surface
+
+Use your existing saved note and its original source. Replace `NOTE` and `SOURCE`
+with their paths (keep quotes). If you have no note, use the optional steps below.
+
+- Paste:
+
+  ```sh
+  n8r-surface reopen "NOTE" --source "SOURCE" --model gpt-6-astra
+  ```
+
+  Type **y** at the transmission prompt. Expect evidence comparisons, a fresh
+  conversation and your retained choices. At `You>`, paste:
+
+  ```text
+  Create a Surface from these notes; show me what is selected and still unknown. Preserve the component IDs, source evidence and my decisions. Prepare the linked research and Surface preview.
+  ```
+
+  Expect a **Validated partial Surface preview** listing components, declared
+  connections, human decisions, requirements, coverage, gaps and evidence.
+- Enter `/save surface`. Expect **Saved and read back** for `research.html` and
+  `surface.json`. Open both: they should match the preview. Copy the JSON path,
+  then enter `/exit`; expect exit 0 and the terminal prompt.
+
+## 3. Reopen and revise
+
+- Paste, replacing `SURFACE_JSON` with the saved JSON path and `SOURCE` with the
+  same source path:
+
+  ```sh
+  n8r-surface reopen "SURFACE_JSON" --source "SOURCE" --model gpt-6-astra
+  ```
+
+  Type **y**. Expect the same component identities and decisions. Ask to change
+  one decision, with your reason, and prepare an updated Surface. For the optional
+  Lumen case below, paste:
+
+  ```text
+  Select external OIDC in the desired composition because this investigation now requires centralized sign-in. This is my selection, not proof of a configured provider. Keep the provider and model unknown, preserve existing IDs and evidence, and prepare the updated Surface preview.
+  ```
+
+- Inspect the preview, enter `/save surface`, then `/exit`. Expect a new numbered
+  pair, exit 0 and the original pair unchanged. Open both revisions and compare
+  component IDs, evidence, the decision and parent references. The new
+  `research.html` path can also be used with the same reopen command.
+
+Report **Pass**, **Fail** or **Blocked**, with the changed decision and unexpected
+message or excerpt. Wording and filenames vary. Lost evidence/IDs/decisions,
+overwrites or a claimed save without files are failures. Keep test pairs or delete
+only their numbered directories afterward; keep your vault, source and earlier work.
+
+`/save` still writes Markdown. `/save surface` needs a current validated preview;
+a later question invalidates the old preview, so request an updated one after a
+correction. Edited HTML or mismatched pair bytes are rejected and preserved; make
+changes conversationally in a new revision. Ctrl-C cancels with exit 130. The
+[maintainer evidence](surface-revisions-verification.md) distinguishes agent
+rehearsal from human acceptance and lists remaining limits.
+
+## Optional: create a research note first
 
 - Paste:
 
@@ -43,32 +101,3 @@ access to `gpt-6-astra`. No API-key billing or model fallback is used.
   It should stop when the operation finishes or you cancel. Open that file: it should retain component IDs,
   your OIDC choice, evidence and next steps. Copy its path, then enter `/exit`.
   Expect exit 0 and the terminal prompt.
-
-## 3. Reopen and continue
-
-- Paste, replacing `NOTE` with the saved path in quotes:
-
-  ```sh
-  n8r-surface reopen "NOTE" --source examples/researcher/sources/lumen-guide.md --model gpt-6-astra
-  ```
-
-  Alternatively omit `"NOTE"` to see the latest-edited note for this source,
-  with its edit time; type **y** to select it. Either route asks again before
-  sending the note and source to OpenAI. Type **y** to start fresh.
-- Expect saved evidence comparisons and a continuation retaining the same IDs and
-  your OIDC decision. At `You>`, ask:
-
-  ```text
-  Continue the authentication investigation. What remains unknown, and what evidence would resolve it? Retain my earlier decision.
-  ```
-
-  Enter `/save`, then `/exit`. Expect exit 0, a new numbered file referencing the
-  first, and the original file unchanged. Open both and compare the IDs and decision.
-
-Report **Pass**, **Fail** or **Blocked**, with the unexpected message or note
-excerpt. Wording and filenames may vary; lost decisions/IDs, invented source
-facts, overwritten notes, or a claimed save without a file are failures.
-If a model is unavailable, report that error. Ctrl-C cancels with exit 130.
-Keep the notes or delete only these test notes when finished; do not delete your
-vault or source. [Maintainer evidence and limits](save-reopen-verification.md)
-are separate from these tester steps.

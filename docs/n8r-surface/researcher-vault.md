@@ -117,3 +117,18 @@ that note's folder. Only notes with this command's metadata envelope are support
 in this increment; arbitrary older skill notes need a later import decision.
 The source is always selected explicitly again. See [the short check](getting-started.md)
 and [storage limits](save-reopen-verification.md).
+
+## Candidate structured Surface pairs
+
+Ask the conversation to create a Surface, inspect its validated preview, then use
+`/save surface`. Initial pairs go under
+`surfaces/<source-slug>/surface-NNN/`, containing `research.html`, `surface.json`
+and a host `manifest.json`. These are the experimental library's research and
+Surface contracts; the manifest is separate storage metadata with byte hashes and
+provenance. Keep all three files together when moving a pair.
+
+Reopen either HTML or JSON with `--source SOURCE` to start fresh and revise it.
+Successors stay beside the selected pair, including after relocation, and retain
+previous bytes. Omitted filenames still suggest Markdown notes only. Manual HTML
+or JSON edits conflict with the saved manifest; make revisions through the
+conversation. See [Surface evidence and limits](surface-revisions-verification.md).

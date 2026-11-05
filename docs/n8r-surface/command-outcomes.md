@@ -120,8 +120,9 @@ be added to this inventory with its own outcome and verification case first.
 | CMD-06 | `n8r-surface --help` | Discover the complete supported command surface and its effects. | Display syntax, purpose, source/destination behavior and links to details; exit without setup, source access, inference or writes. Compare with this inventory. |
 | CMD-07 | `n8r-surface discover --help` | Understand the selected command before invoking it. | Display that command's inputs, outputs, side effects and limitations; no operation or setup begins. |
 | CMD-08 | `n8r-surface --version` | Identify the installed tool being used or verified. | Display the package/build version without inference or mutation; compare with the installed package manifest. |
-| CMD-10 | `n8r-surface reopen [NOTE] --source SOURCE [--model MODEL]` | Continue a named Markdown note, or accept the latest-edited suggestion. | Renew transmission consent; compare source evidence; see SAVE-01. |
+| CMD-10 | `n8r-surface reopen [FILE] --source SOURCE [--model MODEL]` | Continue a named Markdown note or saved HTML/JSON pair; omission suggests the latest-edited Markdown note. | Renew transmission consent; compare source evidence; see SAVE-01. |
 | CMD-11 | `/save` at `You>` | Explicitly save or create a successor Markdown note. | Read back saved bytes and preserve predecessors; see SAVE-01. |
+| CMD-12 | `/save surface` at `You>` | Save the exact validated pair previewed in the current conversation. | Immutable paired research HTML and Surface JSON, independent readback; see SURFACE-01. |
 | CMD-09 | Unknown command, unknown option or invalid arguments | Receive an actionable explanation without unintended work. | Report the invalid input and applicable help, return failure, and leave source/corpus/settings unchanged. Never interpret a typo as permission to research. |
 
 `discover [source]` also accepts an explicit absolute local source path; the
@@ -489,3 +490,29 @@ it before normal output and stop it on completion, failure or cancellation. Do
 not animate at `You>` or in nonterminal output. It means the request is pending,
 not that server-side progress is known. Verify a delayed answer/save and Ctrl-C;
 expect visible activity, clean answer/prompt output, and no continuing timer.
+
+## SURFACE-01: generate, save and revise a partial Surface
+
+**Implemented in the candidate; verification is tracked in the
+[Surface evidence record](surface-revisions-verification.md).** The installed baseline
+help checked on 5 November 2026 supported Markdown-only saves. Structured output was
+the authorized known missing capability; no failed live generation trial is claimed.
+
+**Given:** a saved numbered note, permitted source, configured vault and supported
+Codex sign-in. **When:** reopen the note, ask “Create a Surface from these notes;
+show me what is selected and still unknown,” inspect the preview and enter
+`/save surface`. **Then:** save and read back linked research HTML and Surface JSON
+without changing the note or source. `/save` continues saving Markdown notes.
+
+Exit and start `n8r-surface reopen FILE --source SOURCE`, selecting either saved
+member of the pair. After renewed transmission consent, change a named decision,
+request an updated Surface and save it. Expect a new pair with retained identities,
+evidence, human decisions and exact parent references. Earlier bytes remain intact.
+Omitting FILE continues suggesting a Markdown note only. Unknown or unsupported
+files fail clearly; no implicit search for missing research records is authorized.
+
+**Verify:** independently parse/read both pairs, check research logical references,
+parent digests and retained IDs/decisions/evidence, and compare note, predecessor,
+source and settings bytes. Repeat a small second-product case. Real installed Codex
+output is required; scripted protocol tests do not establish research correctness.
+See the [design and short human proof](../superpowers/specs/2026-11-05-surface-revisions-design.md).

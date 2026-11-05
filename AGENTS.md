@@ -270,7 +270,9 @@ explicitly confirmed local vault setup/reuse. Bare startup does not start resear
 `discover [source] [--model MODEL]` now runs a bounded Codex 0.166.0 conversation
 using ChatGPT sign-in. `/save` writes numbered Markdown working notes;
 `reopen [NOTE] --source SOURCE` starts fresh, suggesting the latest edited note
-when NOTE is omitted. Structured research remains later work. See the
+when NOTE is omitted. The candidate also stages validated partial Surfaces;
+`/save surface` saves the previewed HTML/JSON pair, and either file reopens it.
+See the [Surface evidence](docs/n8r-surface/surface-revisions-verification.md). See the
 [save/reopen evidence](docs/n8r-surface/save-reopen-verification.md).
 See [the installed conversation evidence](docs/n8r-surface/codex-research-verification.md). The package check also runs it under temporary homes and a real POSIX
 terminal; Python 3.9+ is required for that rehearsal. See the

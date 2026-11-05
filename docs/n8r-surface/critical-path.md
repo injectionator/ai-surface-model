@@ -1,46 +1,29 @@
 # n8r-surface critical path
 
-The first usable outcome is the [Researcher skill](researcher-skill.md) working
-inside the existing Codex/ChatGPT harness. Prove installation, invocation, removal
-and reinstallation in ChatGPT desktop / Work, then useful evidence-backed research
-and continuation. Next adapt the same core in the separate n8r-labs repository;
-return to the standalone CLI afterwards. The user changed this order on
-4 November 2026 to reach a working example with less runner infrastructure.
+The user updated delivery order on 5 November 2026: standalone Codex research,
+Markdown save/reopen, then partial Surface generation and a complete fresh-session
+revision proof. npm distribution ([#27](https://github.com/injectionator/n8r-surface/issues/27))
+is separate and last. Lab integration stays in the n8r-labs repository.
 
-Working notes in the first skill increment are not validated HTML/Surface
-artefacts. The later structured-output and installed-command criteria below remain
-required for their respective claims. The unfinished #16 source-overview work is
-paused; no status subcommand will be added.
-
-**Current work:** [#15](https://github.com/injectionator/n8r-surface/issues/15)
-has an experimental [contract](contracts.md),
-[synthetic cases](../../examples/researcher/README.md),
-[host boundary and Lab review](host-contract.md), and
-[implementation decisions](implementation-decisions.md) in
-[PR #24](https://github.com/injectionator/n8r-surface/pull/24), with default-branch
-integration tracked by [PR #26](https://github.com/injectionator/n8r-surface/pull/26).
-\#16's first [bare-startup increment](startup.md) is supplied by
-[PR #25](https://github.com/injectionator/n8r-surface/pull/25). Its read-only
-overview is [verified through the installed command](startup-verification.md);
-the rest of #16 remains open. Source-repository
-analysis and the live Researcher workflow remain #17's work.
-
-The [command intent and verification specification](command-outcomes.md) was
-approved on 4 November 2026 and governs subsequent delivery. The independent
-review's array-prototype correction is implemented and verified through the public
-API and installed package. See the [evidence and limits](verification.md).
-The user authorized integration of the planning, contract and startup increments
-on 4 November 2026. The implemented #16 scope remains STARTUP-01 only; subsequent
-capabilities and release remain separate decisions.
+The standalone conversation and Markdown continuation are merged in #33 and #34.
+The current #17 increment adds paired structured research HTML and Surface JSON;
+see the [short human check](getting-started.md) and
+[versioned evidence](surface-revisions-verification.md). Broader host lifecycle,
+live observations and consumer compatibility remain separate acceptance work.
+The unfinished #16 source-overview branch is paused; no status subcommand is planned.
 
 ```mermaid
 flowchart LR
-    Contract[15: Artefact contracts and examples] --> Skill[17: Shared skill in existing harness]
-    Skill --> Trial[Install, invoke, remove, reinstall and research]
-    Trial --> Lab[Application project: adapt the same skill]
-    Lab --> CLI[16 and 17: standalone command and runner]
-    CLI --> Verified[Installed CLI research and structured-output proof]
+    Contract[Artefact contracts] --> CLI[Standalone Codex research]
+    CLI --> Notes[Markdown save and reopen]
+    Notes --> Surface[Partial Surface and fresh-session revision]
+    Surface --> Distribution[Separate npm distribution decision]
 ```
+
+The sections below retain the wider requirements; their numbering is historical,
+not the current delivery order. The
+[command outcome specification](command-outcomes.md) governs implementation and
+requires actual installed-runner proof beyond contract fixtures.
 
 ## 1. Define artefacts with concrete examples
 
@@ -81,9 +64,8 @@ the actual host/version, installed instruction identity, source access, output
 and readback. The first package has no new runner or Lab dependency. A passing
 manifest check or CLI installation does not establish a Work-mode invocation.
 
-After this trial, adapt the skill in n8r-labs and verify its own source/tool/storage
-boundaries. Keep application changes in that repository. Then resume the following
-CLI foundation and complete-research criteria.
+Lab adaptation remains separate work in n8r-labs. The standalone foundation and
+research criteria below now precede it under the current user-selected order.
 
 ## 3. Resume the local CLI foundation
 

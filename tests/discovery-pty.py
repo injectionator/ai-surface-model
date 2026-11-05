@@ -29,9 +29,13 @@ def terminal(root, entry, node, mode, answers, expected):
     bin_dir = home / 'bin'
     bin_dir.mkdir()
     trace = home / 'trace.jsonl'
+    surface_content = json.loads(subprocess.check_output([node, '--input-type=module', '-e', "const {content}=await import(process.argv[1]); console.log(JSON.stringify(content()));", (Path(__file__).resolve().parent/'surface-fixture.mjs').as_uri()]))
+    surface_content['research']['sources'][0]['location'] = 'case.md'
+    import hashlib
+    surface_content['research']['sources'][0]['digest'] = 'sha256:' + hashlib.sha256(source_file.read_bytes()).hexdigest()
     program = r'''#!/usr/bin/env node
 const fs=require('node:fs'), readline=require('node:readline');
-const mode=MODE, trace=TRACE;
+const mode=MODE, trace=TRACE, surfaceContent=SURFACE_CONTENT;
 if(process.env.OPENAI_API_KEY) throw new Error('API key inherited');
 fs.appendFileSync(trace,JSON.stringify({pid:process.pid,args:process.argv.slice(2)})+'\n');
 if(process.argv.includes('--version')) {console.log('codex-cli 0.166.0');process.exit(0);}
@@ -70,6 +74,10 @@ readline.createInterface({input:process.stdin}).on('line',l=>{
   }
   send({id:'tool-'+count,method:'item/tool/call',params:{threadId:thread,turnId:'turn-'+count,tool:'source_read',arguments:{path:mode==='outside'?'../outside.txt':'case.md'}}});
  }
+ if(String(x.id).startsWith('surface-')) {
+  if(x.result.success!==true) throw new Error(JSON.stringify(x.result));
+  send({method:'turn/completed',params:{threadId:thread,turn:{id:'turn-'+count,status:mode==='surface-failed'?'failed':'completed'}}});return;
+ }
  if(String(x.id).startsWith('draft-')) {
   if(mode==='unsolicited' && x.result.success!==false) throw new Error('unsolicited draft accepted');
   if(mode!=='unsolicited' && x.result.success!==true) throw new Error('authorized draft rejected');
@@ -80,12 +88,15 @@ readline.createInterface({input:process.stdin}).on('line',l=>{
   const text=JSON.stringify(x.result);
   if(mode==='outside') {if(x.result.success!==false || text.includes('OUTSIDE_SCOPE_SENTINEL'))throw new Error('scope escaped');}
   else if(!text.includes('ACTUAL_SYNTHETIC_SOURCE_BYTES'))throw new Error('not actual source bytes');
+  if(mode.startsWith('surface') && count===1) {
+   send({id:'surface-'+count,method:'item/tool/call',params:{threadId:thread,turnId:'turn-'+count,tool:'surface_draft',arguments:surfaceContent}});return;
+  }
   send({method:'item/completed',params:{threadId:thread,turnId:'turn-'+count,item:{type:'agentMessage',text:'TEST_RESPONSE_'+count}}});
   send({method:'turn/completed',params:{threadId:thread,turn:{id:'turn-'+count,status:'completed'}}});
  }
  if(x.method==='turn/interrupt') {result({});send({method:'turn/completed',params:{threadId:thread,turn:{id:'turn-'+count,status:'interrupted'}}});}
 });
-'''.replace('MODE', json.dumps(mode)).replace('TRACE', json.dumps(str(trace)))
+'''.replace('SURFACE_CONTENT', json.dumps(surface_content)).replace('MODE', json.dumps(mode)).replace('TRACE', json.dumps(str(trace)))
     fake = bin_dir / 'codex'
     fake.write_text(program)
     fake.chmod(0o755)
@@ -153,6 +164,10 @@ readline.createInterface({input:process.stdin}).on('line',l=>{
             assert b'Saved and read back:' in output
             assert b'Preparing note' in output
             assert b'Waiting for Codex' in output
+        elif mode == 'surface':
+            assert len(list(vault.rglob('surface.json'))) == 1, output.decode()
+            assert len(list(vault.rglob('research.html'))) == 1
+            assert b'Saved and read back:' in output and b'Validated partial Surface preview' in output
         elif mode.startswith('reopen'):
             assert old.read_bytes() == predecessor_bytes
             assert str(old).encode() in output
@@ -194,8 +209,11 @@ entry = os.environ.get('N8R_TEST_ENTRY') or str(Path(os.environ['N8R_TEST_BIN_DI
 confirm = b'Start research with OpenAI using Codex ChatGPT sign-in? [y/N]'
 prompt = b'You>'
 with tempfile.TemporaryDirectory(prefix='n8r-discovery-pty-') as temporary:
-    root = Path(temporary)
+    root = Path(temporary).resolve()
     cases = [
+        ('surface', [(confirm, b'y\n'), (prompt, b'create\n'), (prompt, b'/save surface\n'), (prompt, b'/exit\n')], 0),
+        ('surface-stale', [(confirm, b'y\n'), (prompt, b'create\n'), (prompt, b'correction\n'), (prompt, b'/save surface\n'), (prompt, b'/exit\n')], 0),
+        ('surface-failed', [(confirm, b'y\n'), (prompt, b'create\n')], 2),
         ('save', [(confirm, b'y\n'), (prompt, b'first\n'), (prompt, b'/save\n'), (prompt, b'/exit\n')], 0),
         ('unsolicited', [(confirm, b'y\n'), (prompt, b'first\n'), (prompt, b'/exit\n')], 0),
         ('cancel-draft', [(confirm, b'y\n'), (prompt, b'/save\n'), (b'TEST_DRAFT_STAGED', 'SIGINT')], 130),
