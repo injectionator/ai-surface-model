@@ -1,15 +1,43 @@
 # First public npm release
 
-The maintainer authorized publication of both `@n8r/surface` and `n8r-surface`
-at **0.1.0-experimental.2** on 5 November 2026. This procedure is release
-preparation, not evidence that publication succeeded. Both packages use the
-explicit `experimental` tag. No `latest` promotion is included.
+## Verified scoped release
 
-The `.1` preparation run built and retained both archives but failed remote-tag
-verification before any npm staging. Its permanent tag and draft assets remain
-for diagnosis. The maintainer approved `.2` after the verifier was corrected to
-read the exact Git reference and dereference annotated tag objects. No `.1`
-package or placeholder was staged or published by that run.
+Published on 5 November 2026:
+**[`@n8r/surface@0.1.0-experimental.2`](https://www.npmjs.com/package/@n8r/surface/v/0.1.0-experimental.2)**,
+from commit `f38153645cd12f7ea60f76af251edfbaebb73409` and permanent tag
+`v0.1.0-experimental.2`. The
+[GitHub prerelease](https://github.com/injectionator/n8r-surface/releases/tag/v0.1.0-experimental.2)
+is finalized and read back as `immutable: true`. Its attached
+[verification summary](https://github.com/injectionator/n8r-surface/releases/download/v0.1.0-experimental.2/scoped-registry-verification.json)
+records the exact digest and checks.
+
+The maintainer approved **scoped-only** publication after npm accepted the scoped
+stage but rejected the unscoped submission with E403. `n8r-surface` remains the
+executable name; the unscoped registry package was not published or secured.
+Its archive remains retained solely as evidence of the original dual build.
+
+Independent readback verified registry bytes against the retained archive,
+installed library/assets and CLI identity on Node 22.23.2, 24.22.2 and 26.13.0,
+empty-home startup and a fresh-cache npm-exec invocation. npm audit verified
+registry signatures and the scoped package's provenance. Separate cryptographic
+verification required the exact GitHub workflow/tag certificate identity; the
+attestation subject digest and source commit/repository matched the release.
+These release checks are not new real-model research evidence.
+
+Use the exact version or npm tag `experimental`. `latest` still points to npm's
+`0.0.0-stage` placeholder; it has not been promoted. The `.1` preparation stopped
+before npm staging because of a faulty remote-tag API lookup. Its permanent tag
+and unpublished draft artifacts remain retained.
+
+## Retained preparation procedure
+
+The procedure below records the original dual-package preparation. Its two-name
+acceptance requirement was superseded by the maintainer's scoped-only decision.
+Do not rerun it for the released version. The existing workflow still expects
+both names; a future release requires updated scope and version guards, reviewed
+authentication configuration, and a new permanent version/tag. Trusted publishing
+has not been exercised; this release used stage-only token authentication and
+maintainer 2FA approval.
 
 ## User outcome and starting evidence
 
@@ -22,7 +50,7 @@ The original installed/candidate checks passed, but those archives were private.
 Before this increment, `npm whoami` returned E401 and both names returned E404.
 After interactive login, npm identified the intended account and confirmed its
 `n8r` owner role. Both names still returned E404. These responses do not prove
-name availability or successful first publication. No placeholder was published.
+name availability or successful first publication. At that starting point, no placeholder existed.
 
 ## Maintainer preparation
 

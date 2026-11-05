@@ -7,6 +7,12 @@ commit. The installed command reads its own manifest for `--version`, regardless
 of the working directory. Package versions do not version the AI Surface Model,
 Researcher skill, or individual saved Surface revisions.
 
+The first verified release is scoped-only, by the maintainer's revised decision:
+[`@n8r/surface@0.1.0-experimental.2`](npm-release.md#verified-scoped-release).
+The dual-publication rules below apply if a future release explicitly publishes
+both names; they do not establish publication of the unscoped candidate. The
+existing workflow's dual verification must be adapted before another release.
+
 ## Compatibility and version changes
 
 Follow [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html) for package releases.

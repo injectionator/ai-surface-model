@@ -545,8 +545,8 @@ validation and read-only release mapping verification. Synthetic Git repositorie
 exercise missing/wrong tags, dirty source, altered archives and release metadata;
 they do not establish an authenticated release or registry provenance. The public
 CLI inventory is unchanged; `check:version` and `check:release` are maintainer npm
-scripts. Real release verification remains blocked until an authorized release
-and publishing setup exist.
+scripts. The subsequent [scoped release](npm-release.md#verified-scoped-release)
+adds authenticated release and registry evidence beyond those synthetic checks.
 
 ## RELEASE-01: prepare and publish the first dual release
 
@@ -560,5 +560,17 @@ The manual workflow prepares retained archives before publication and verifies
 existing registry bytes before staging only absent versions for maintainer 2FA approval. Tests cover altered
 bytes, wrong registry identity/integrity, partial-publication recovery and network
 failure. These use synthetic registry boundaries, not authenticated publication.
-Live workflow, registry installation, cryptographic provenance and immutable
-release acceptance remain unverified until the documented release procedure runs.
+Before the release procedure ran, live workflow, registry installation,
+cryptographic provenance and immutable release acceptance were unverified.
+The subsequent scoped-only result is recorded below.
+
+### Verified first-release outcome
+
+The maintainer narrowed RELEASE-01 to scoped-only publication. On 5 November
+2026, `@n8r/surface@0.1.0-experimental.2` passed exact registry byte/integrity,
+installed library/assets/CLI, isolated startup and signed-provenance checks.
+The GitHub prerelease was finalized and read back as immutable. See the
+[release evidence](npm-release.md#verified-scoped-release). The unscoped
+submission failed with E403 and was removed from the release scope; no unscoped
+registry success or name protection is claimed. Future workflow adaptation
+remains separate from this verified scoped release.
